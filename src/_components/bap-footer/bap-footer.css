@@ -1,0 +1,21 @@
+#bapFooter {
+  background-color: var(--footer-bg-color);
+  color: var(--footer-font-color);
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 1rem;
+}
+
+/*
+ Tablet
+*/
+@media only screen and (max-width: 1200px) {
+  
+}
+
+/*
+ Phones
+*/
+@media only screen and (max-width: 932px) {
+  
+}

@@ -1,0 +1,17 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      ".gitignore",
+      "gulp-imports.js",
+      "gulpfile.js",
+      "package.json",
+      "package-lock.json",
+      "README.md",
+      "src"
+    ]
+  }
+}

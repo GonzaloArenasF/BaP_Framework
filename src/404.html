@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <meta name="description" content="{head-meta-description}" />
+    <meta name="keywords" content="{head-meta-keywords}" />
+
+    <meta property="og:title" content="{head-meta-title}" />
+    <meta property="og:description" content="{head-meta-description}" />
+    <meta property="og:image" content="{ENV_URL}/assets/your-image.png" />
+    <meta property="og:url" content="{ENV_URL}" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{head-meta-title}" />
+    <meta name="twitter:description" content="{head-meta-description}" />
+    <meta name="twitter:image" content="{ENV_URL}/assets/your-image.png" />
+
+    <link rel="canonical" href="{ENV_URL}" />
+    <link rel="stylesheet" href="404.css" />
+    <link rel="icon" href="{ENV_URL}/assets/favicon/favicon.ico" type="image/x-icon" />
+
+    <script type="module" src="404.js?v={APP_VERSION}"></script>
+
+    <title>{head-title}</title>
+  </head>
+  <body class="light-mode">
+    <header id="headerPage">
+      <bap-header></bap-header>
+    </header>
+    <main>
+      
+    </main>
+    <footer id="footerPage">
+      <bap-footer></bap-footer>
+    </footer>
+  </body>
+</html>

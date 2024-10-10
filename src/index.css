@@ -1,0 +1,19 @@
+@import url(style/main.css);
+
+main {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 1rem;
+}
+
+/*
+ Tablet
+*/
+@media only screen and (max-width: 1200px) {
+}
+
+/*
+ Phones
+*/
+@media only screen and (max-width: 932px) {
+}

@@ -1,0 +1,19 @@
+.bap-loading-state {
+  background-color: var(--loading-state-bg-color);
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.bap-loading-state > .content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

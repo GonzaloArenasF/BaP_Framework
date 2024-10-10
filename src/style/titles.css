@@ -1,0 +1,39 @@
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  line-height: 1.75rem;
+  height: fit-content;
+}
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1rem;
+}
+
+.big-h {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 3rem;
+}
+
+.display-1 {
+  font-size: 16rem;
+  font-weight: 900;
+  line-height: 2rem;
+}
+
+/*
+ Phones
+*/
+@media only screen and (max-width: 932px) {
+  .display-1 {
+    font-size: 8rem;
+  }
+}

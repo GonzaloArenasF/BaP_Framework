@@ -1,0 +1,1 @@
+User-agent: *  # This applies to all search engine crawlers
