@@ -18,7 +18,7 @@ function copyAssetsFolder() {
 
 // Replace HTML metatags with i18n
 function replacingHeadMetatags() {
-  const { ENV_URL, i18n, CONSTANT, APP_VERSION } = appImports;
+  const { ENV_URL, i18n, CONSTANT } = appImports;
   const pagesToProcess = [
     "index.html",
   ];
