@@ -42,8 +42,8 @@ export function createCustomComponent(element, { cssPath, htmlPath, htmlCode, pr
         .then((html) => {
           const template = document.createElement("template");
           template.innerHTML = preRender ? preRender(html, props) : html;
-          element.innerHTML = "";
-          element.appendChild(template.content.cloneNode(true));
+          element.parentNode.appendChild(template.content.cloneNode(true));
+          element.remove();
         })
         .finally(() => {
           postRender ? postRender(element, props) : null;
