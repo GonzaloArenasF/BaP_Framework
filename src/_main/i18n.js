@@ -43,7 +43,7 @@ export function getI18nContent(group, item) {
  * @param callback: function
  */
 export function applyI18n(callback) {
-  if ([CONSTANT.URL.ENV.QA, CONSTANT.URL.ENV.PROD].contain(ENV_URL)){
+  if ([CONSTANT.ENV.URL.QA, CONSTANT.ENV.URL.PROD].includes(ENV_URL)){
     return;
   } else {
     console.log("BaP Info: i18n applied on rendering.");
