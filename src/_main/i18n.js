@@ -43,6 +43,12 @@ export function getI18nContent(group, item) {
  * @param callback: function
  */
 export function applyI18n(callback) {
+  if ([CONSTANT.URL.ENV.QA, CONSTANT.URL.ENV.PROD].contain(ENV_URL)){
+    return;
+  } else {
+    console.log("BaP Info: i18n applied on rendering.");
+  }
+
   document.querySelector("html").setAttribute("lang", browserLang);
 
   document.head.innerHTML = document.head.innerHTML
