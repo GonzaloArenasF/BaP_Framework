@@ -17,19 +17,19 @@ const sizes = {
   },
   x2: {
     px: 24,
-    scale: 1.5,
+    scale: 1.5, // x2.px / x1.px
   },
   x3: {
     px: 32,
-    scale: 2,
+    scale: 2, // x3.px / x1.px
   },
   x4: {
     px: 48,
-    scale: 3,
+    scale: 3, // x4.px / x1.px
   },
   x5: {
     px: 64,
-    scale: 4,
+    scale: 4, // x5.px / x1.px
   },
 };
 
@@ -51,7 +51,7 @@ export class BapSvgImage extends HTMLElement {
         throw new Error("Requested image does not exist.");
       }
 
-      this.outerHTML = `<figure height="${sizes[size].px}" width="${sizes[size].px}">
+      this.outerHTML = `<figure style="width:${sizes[size].px}px; height:${sizes[size].px}px; display: flex; justify-content: center; align-items: center;">
                           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="transform: scale(${sizes[size].scale})">
                             ${images[name]}
                           </svg>
