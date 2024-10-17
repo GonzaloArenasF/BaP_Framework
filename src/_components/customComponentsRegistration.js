@@ -16,15 +16,24 @@ import { isCSSIncluded } from "../_main/util.js";
  * @param preRender: <callback> Function to be executed before add component to the DOM.
  * @param postRender: <callback> Function to be executed after add component to the DOM.
  * @param props: <object> Properties to be included in callbacks functions.
+ * - props.id: optional | <string> Id to identify the main element to add. You must to include in your custom HTML code and make the replace by preRender.
  */
 export function createCustomComponent(element, { cssPath, htmlPath, htmlCode, preRender, postRender, props }) {
   try {
+    const elementID = `bapCustomId${Math.floor(Math.random() * (9999999999999 - 0 + 1)) + 0}`;
+
     if (!cssPath) {
       throw new Error("cssPath is not provided");
     }
 
-    if (!htmlPath && !htmlCode) {
-      throw new Error("html is not provided");
+    if (!props) {
+      props = {
+        id: elementID,
+      };
+    }
+
+    if (!props.id) {
+      props.id = elementID;
     }
 
     // CSS file
