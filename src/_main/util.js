@@ -2,21 +2,33 @@ import { CONSTANT } from "./constants.js";
 
 /**
  * Transform Timestamp to human reading date
- * 
- * @param timestamp 
- * 
+ *
+ * @param timestamp: <string> Unix timestamp
+ * @param lang: optional | <string > | default: en
+ * @param format: optional | <numeric> | default: 0
+ *
  * @returns string
  */
-export const timestampToHumanDate = (timestamp) => {
-  const date = new Date(parseInt(timestamp));
-  const format = { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" };
+export const timestampToHumanDate = (timestamp, lang, format) => {
+  const date = new Date(parseInt(timestamp * 1000));
 
-  let humanDate = date
-    .toLocaleDateString("en-EN", format)
-    .split("at")
-    .map((item) => item.trimStart().trimEnd());
+  const formats = [
+    { day: "numeric", month: "long", year: "numeric", hour: "2-digit", minute: "2-digit" },
+    { day: "numeric", month: "numeric", year: "numeric", hour: "2-digit", minute: "2-digit" },
+    { month: "short", year: "numeric" },
+  ];
 
-  return humanDate;
+  const langs = {
+    en: "en-US",
+    es: "es-ES"
+  };
+
+  const userConfig = {
+    lang: lang ? langs[lang] : langs[0],
+    format: format ? formats[format] : formats[0],
+  };
+
+  return date.toLocaleDateString(userConfig.lang, userConfig.format);
 };
 
 /**

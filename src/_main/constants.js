@@ -75,7 +75,7 @@ values.RECAPTCHA = {
 };
 
 values.APP_NAME = "BaP Framework";
-values.APP_VERSION = "v1.0.3";
+values.APP_VERSION = "v1.0.4";
 values.FIREBASE_AVAILABLE = false;
 
 export const CONSTANT = values;
