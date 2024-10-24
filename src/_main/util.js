@@ -3,13 +3,17 @@ import { CONSTANT } from "./constants.js";
 /**
  * Transform Timestamp to human reading date
  *
- * @param timestamp: <string> Unix timestamp
+ * @param timestamp: <string> Unix timestamp. If is "today" it will return "Actualidad"
  * @param lang: optional | <string > | default: en
  * @param format: optional | <numeric> | default: 0
  *
  * @returns string
  */
 export const timestampToHumanDate = (timestamp, lang, format) => {
+  if (typeof timestamp == 'string' && timestamp == 'today') {
+    return "Actualidad";
+  }
+  
   const date = new Date(parseInt(timestamp * 1000));
 
   const formats = [
