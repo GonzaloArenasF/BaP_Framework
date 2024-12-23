@@ -1,0 +1,53 @@
+#bapAuthDialog {
+  align-items: center;
+  background-color: var(--dialog-shadow-color);
+  display: none;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+
+#bapAuthDialog.show {
+  display: flex;
+}
+
+#bapAuthDialog > section {
+  background-color: var(--dialog-bg-color);
+  border-radius: 1rem;
+  color: var(--dialog-font-color);
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  padding: 1rem;
+  width: 400px
+}
+
+#bapAuthDialog > section > form {
+  margin-bottom: 2rem;
+}
+
+#bapAuthDialog > section > form > div {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+
+/*
+ Tablet
+*/
+@media only screen and (max-width: 1200px) {
+  
+}
+
+/*
+ Phones
+*/
+@media only screen and (max-width: 932px) {
+  #bapAuthDialog > section {
+    width: 80vw;
+  }
+}

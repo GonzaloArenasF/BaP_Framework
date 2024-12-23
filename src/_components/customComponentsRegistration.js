@@ -4,6 +4,7 @@ import { BapNotification } from "./bap-notification/bap-notification.js";
 import { BapSpinner } from "./bap-spinner/bap-spinner.js";
 import { BapLoadingState } from "./bap-loading-state/bap-loading-state.js";
 import { BapSvgImage } from "./bap-svg-image/bap-svg-image.js";
+import { BapAuthDialog } from "./bap-auth-dialog/bap-auth-dialog.js";
 import { isCSSIncluded } from "../_main/util.js";
 
 /**
@@ -79,6 +80,7 @@ export function setCustomComponents() {
   !customElements.get("bap-spinner") ? customElements.define("bap-spinner", BapSpinner) : null;
   !customElements.get("bap-loading-state") ? customElements.define("bap-loading-state", BapLoadingState) : null;
   !customElements.get("bap-svg-image") ? customElements.define("bap-svg-image", BapSvgImage) : null;
+  !customElements.get("bap-auth-dialog") ? customElements.define("bap-auth-dialog", BapAuthDialog) : null;
 
   // Custom components
 }

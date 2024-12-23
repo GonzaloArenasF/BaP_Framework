@@ -1,13 +1,19 @@
 export const enUS = {
   component: {
-    bapFooter: {
-    },
-    bapHeader: {
+    bapFooter: {},
+    bapHeader: {},
+    bapAuthDialog: {
+      title: "Login",
+      email: "Email",
+      pass: "Password",
+      loginBtn: "Login",
+      cancelBtn: "Cancel",
     },
   },
   page: {
     cross: {
       notification: {
+        success: "Welcome",
         loginFail: "We couldn't log in. Please check if your browser blocks pop-up windows from opening and try again.",
         logoutFail: "We couldn't log out. Please reload this page and try again.",
         notAllowedEnteringPage: "Your are not allowed to enter the page",

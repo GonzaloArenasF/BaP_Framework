@@ -2,10 +2,18 @@ export const esES = {
   component: {
     bapFooter: {},
     bapHeader: {},
+    bapAuthDialog: {
+      title: "Login",
+      email: "Email",
+      pass: "Contraseña",
+      loginBtn: "Login",
+      cancelBtn: "Cancelar",
+    },
   },
   page: {
     cross: {
       notification: {
+        success: "Bienvenido",
         loginFail:
           "No pudimos iniciar sesión. Por favor, comprueba si tu navegador bloquea las ventanas pop-up e intenta nuevamente.",
         logoutFail: "No pudimos terminar tu sesión. Por favor, recarga la página e intenta nuevamente.",

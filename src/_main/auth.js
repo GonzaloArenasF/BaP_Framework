@@ -6,6 +6,7 @@
  */
 import { bapAuth } from "./firebaseInit.js";
 import {
+  signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   GoogleAuthProvider,
@@ -14,24 +15,49 @@ import { bapNotify } from "./util.js";
 import { CONSTANT } from "./constants.js";
 import { getI18nContent } from "./i18n.js";
 
-const authI18n = getI18nContent('page', 'cross');
+const authI18n = getI18nContent("page", "cross");
 
-export const userSession = bapAuth;  
+const authTypes = {
+  SIWP: "signInWithPopup",
+  SIWEP: "signInWithEmailAndPassword",
+};
 
-export function userSignIn({ callbackOnSuccess, callbackOnFail }) {
-  signInWithPopup(bapAuth, new GoogleAuthProvider())
-    .then(() => {
-      callbackOnSuccess ? callbackOnSuccess() : null;
-    })
-    .catch((error) => {
-      bapNotify(
-        CONSTANT.NOTIFICATION.TYPE.TOAST,
-        CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-        authI18n.notification.loginFail
-      );
-      console.error("Login failed", error);
-      callbackOnFail ? callbackOnFail() : null;
-    });
+export const userSession = bapAuth;
+
+export function userSignIn({ type, email, password, callbackOnSuccess, callbackOnFail }) {
+  switch (type) {
+    case authTypes.SIWP:
+      signInWithPopup(bapAuth, new GoogleAuthProvider())
+        .then(() => {
+          callbackOnSuccess ? callbackOnSuccess() : null;
+        })
+        .catch((error) => {
+          bapNotify(
+            CONSTANT.NOTIFICATION.TYPE.TOAST,
+            CONSTANT.NOTIFICATION.SEVERITY.ERROR,
+            authI18n.notification.loginFail
+          );
+          console.error("Login failed", error);
+          callbackOnFail ? callbackOnFail() : null;
+        });
+      break;
+    case authTypes.SIWEP:
+      signInWithEmailAndPassword(bapAuth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          callbackOnSuccess ? callbackOnSuccess() : null;
+        })
+        .catch((error) => {
+          bapNotify(
+            CONSTANT.NOTIFICATION.TYPE.TOAST,
+            CONSTANT.NOTIFICATION.SEVERITY.ERROR,
+            authI18n.notification.loginFail
+          );
+          console.error("Login failed", error);
+          callbackOnFail ? callbackOnFail() : null;
+        });
+      break;
+  }
 }
 
 export function userSignOut({ callbackOnSuccess, callbackOnFail }) {
