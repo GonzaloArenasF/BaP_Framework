@@ -9,7 +9,7 @@ import { bapNotify } from "./util.js";
 import { bapDB } from "./firebaseInit.js";
 import { getI18nContent } from "./i18n.js";
 
-const storageI18n = getI18nContent('page', 'cross');
+const storageI18n = getI18nContent("page", "cross");
 
 /**
  * Encrypt and decrypt data
@@ -69,6 +69,19 @@ export const getFromStorage = ({ storageType, item, callbackOnSuccess, callBackO
               );
         }
       );
+      break;
+    case CONSTANT.STORAGE.SOURCE.FILE:
+      fetch(item)
+        .then((response) => response.json())
+        .then((data) => callbackOnSuccess(data))
+        .catch((error) =>
+          bapNotify(
+            CONSTANT.NOTIFICATION.TYPE.ALERT,
+            CONSTANT.NOTIFICATION.SEVERITY.ERROR,
+            storageI18n.storage.errorGetting,
+            error
+          )
+        );
       break;
   }
 };

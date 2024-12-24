@@ -7,6 +7,7 @@ values.STORAGE = {
     LOCAL: "localStorage", // Browser
     SESSION: "sessionStorage", // Browser
     DB: "realtime", // Firebase
+    FILE: "file", // Local files
   },
 };
 
@@ -66,7 +67,7 @@ values.RECAPTCHA = {
 values.E = ["http://127.0.0.1:8080"];
 
 values.APP_NAME = "BaP Framework";
-values.APP_VERSION = "v1.1.2";
+values.APP_VERSION = "v1.1.3";
 values.FIREBASE_AVAILABLE = false;
 
 //  Modify before deploy
