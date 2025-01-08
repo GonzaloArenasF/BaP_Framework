@@ -4,7 +4,7 @@
  * - SessionStorage
  */
 import { CONSTANT } from "./constants.js";
-import { ref, onValue, set, update, remove } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+import { ref, onValue, set, update, remove, off } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
 import { bapNotify } from "./util.js";
 import { bapDB } from "./firebaseInit.js";
 import { getI18nContent } from "./i18n.js";
@@ -37,6 +37,7 @@ export const dbRoutes = {
  * @param callbackOnSuccess: <callback> function to execute on success. (Just for STORAGE.SOURCE.DB)
  * @param callBackOnFail: <callback> function to execute on fail. (Just for STORAGE.SOURCE.DB)
  * @param secretKey: <string> If it is set, data will be decrypted. (Just for STORAGE.SOURCE.LOCAL and STORAGE.SOURCE.SESSION)
+ * @param detachListener: <boolean> If it is true the listener will be detached and will stop receiving updates.
  *
  * @returns *
  */
@@ -57,7 +58,10 @@ export const getFromStorage = ({ storageType, item, callbackOnSuccess, callBackO
       const dbConnection = ref(bapDB, item);
       onValue(
         dbConnection,
-        (snapshot) => (callbackOnSuccess ? callbackOnSuccess(snapshot.val()) : null),
+        (snapshot) => {
+          callbackOnSuccess ? callbackOnSuccess(snapshot.val()) : null;
+          detachListener ? off(dbRef, item) : null;
+        },
         (error) => {
           callBackOnFail
             ? callBackOnFail()
