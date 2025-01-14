@@ -53,3 +53,21 @@ code {
   background-color: lightblue;
   padding: 1rem;
 }
+
+span.bap-chip {
+  border-radius: .8rem;
+  color: var(--light-grey);
+  padding: .3rem 1rem;
+}
+
+span.bap-chip.info {
+  background-color: var(--bright-blue);
+}
+
+span.bap-chip.warning {
+  background-color: var(--orange);
+}
+
+span.bap-chip.error {
+  background-color: var(--red);
+}
