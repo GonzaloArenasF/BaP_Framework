@@ -20,44 +20,50 @@ const i18n = CONSTANT.I18N.SUPPORTED.includes(browserLang) ? lang[browserLang] :
 const i18nGroups = ["component", "page"];
 
 /**
- * Get content from i18n
- * @param group: <String> i18nGroups => component | page
- * @param item: Item inside any of groups.
+ * Custom string replace to manage i18n.
  *
- * @returns jSon Object
+ * @param textToBeReplaced: <string> Text to be replaced.
+ * @param textForReplacing: <string> Text to replace current one.
+ * @param replaceInProd: <boolean> If is true the text will be replaced in PROD instead of Gulp process.
  */
-export function getI18nContent(group, item) {
+function i18nReplace(textToBeReplaced, textForReplacing, replaceInProd) {
   try {
-    if (!i18nGroups.includes(group)) {
-      throw new Error(`The group "${group}" does not exist.`);
-    }
+    if (textToBeReplaced == null) throw new Error("Text to be replaced is missing");
+    if (textForReplacing == null) throw new Error("Text to replace is missing");
 
-    return i18n[group][item];
+    if (!replaceInProd && CONSTANT.ENV.CURRENT == "PROD") {
+      return this;
+    }
+    
+    return this.replaceAll(textToBeReplaced, textForReplacing);
   } catch (error) {
-    console.error(error);
+    console.error("BaP - String replace", error);
   }
 }
 
 /**
  * Apply i18n
- * @param callback: function
+ *
+ * @param callback: <function>
  */
 export function applyI18n(callback) {
-  if ([[CONSTANT.E[2], CONSTANT.E[3]]].includes(ENV_URL)){
-    return;
-  } else {
-    console.log("BaP Info: i18n applied on rendering.");
+  String.prototype.i18nReplace = i18nReplace;
+
+  if (CONSTANT.ENV.CURRENT != "PROD") {
+    console.log("BaP Info: i18n is fully applied on rendering.");
+
+    document.querySelector("html").setAttribute("lang", browserLang);
+
+    document.head.innerHTML = document.head.innerHTML
+      .i18nReplace("{ENV_URL}", ENV_URL)
+      .i18nReplace("{head-app-name}", CONSTANT.APP_NAME)
+      .i18nReplace("{APP_VERSION}", CONSTANT.APP_VERSION);
+
+    document.body.innerHTML = document.body.innerHTML
+      .i18nReplace("{ENV_URL}", ENV_URL)
+      .i18nReplace("{app-name}", CONSTANT.APP_NAME)
+      .i18nReplace("{APP_VERSION}", CONSTANT.APP_VERSION);
   }
-
-  document.querySelector("html").setAttribute("lang", browserLang);
-
-  document.head.innerHTML = document.head.innerHTML
-    .replaceAll("{ENV_URL}", ENV_URL)
-    .replaceAll("{head-app-name}", CONSTANT.APP_NAME);
-
-  document.body.innerHTML = document.body.innerHTML
-    .replaceAll("{ENV_URL}", ENV_URL)
-    .replaceAll("{app-name}", CONSTANT.APP_NAME);
 
   callback();
 }
