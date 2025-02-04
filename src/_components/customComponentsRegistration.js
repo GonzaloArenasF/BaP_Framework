@@ -59,9 +59,7 @@ export function createCustomComponent(element, { cssPath, htmlPath, htmlCode, pr
           postRender ? postRender(element, props) : null;
         });
     } else {
-      const template = document.createElement("template");
-      template.innerHTML = preRender ? preRender(htmlCode, props) : htmlCode;
-      element.appendChild(template.content.cloneNode(true));
+      element.innerHTML = preRender ? preRender(htmlCode, props) : htmlCode;
       postRender ? postRender(element, props) : null;
     }
   } catch (error) {
