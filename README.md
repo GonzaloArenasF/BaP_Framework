@@ -1,4 +1,4 @@
-# BaP Framework - v1.0.0
+# BaP Framework - v1.1.8
 The idea is not to use any framework (JS, CSS, or whatever), just HTML, CSS, and Vanilla Javascript. The main concept is to test new ideas quickly and easily. It is not intended to be a full-featured framework, but a tool to help you develop your ideas. However, it is a robust and scalable framework that can be used to develop simple applications and perform even in production environments.
 
 ## Support 

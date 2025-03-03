@@ -10,7 +10,7 @@ import appImports from "./gulp-imports.js";
 // Error handling function
 function handleError(err) {
   console.error(err.toString());
-  this.emit('end');
+  this.emit("end");
 }
 
 // Assets folder
@@ -26,9 +26,7 @@ function copyAssetsFolder() {
 // Replace HTML metatags with i18n
 function replacingHeadMetatags() {
   const { ENV_URL, i18n, CONSTANT } = appImports;
-  const pagesToProcess = [
-    "index.html",
-  ];
+  const pagesToProcess = ["index.html"];
 
   return through.obj(function (file, enc, cb) {
     try {
@@ -36,23 +34,26 @@ function replacingHeadMetatags() {
         throw new Error("File not readble");
       }
 
-      if (pagesToProcess.includes(file.relative)) {
-        console.log(`Replacing metas in ${file.relative} for ${ENV_URL}`);
-        let htmlReplaced = file.contents
-          .toString(enc)
-          .replace("{lang}", "es")
-          .replaceAll("{ENV_URL}", ENV_URL)
-          .replaceAll("{head-app-name}", CONSTANT.APP_NAME)
-          .replaceAll("{APP_VERSION}", CONSTANT.APP_VERSION);
+      if (file.relative.split(".")[1] == "html") {
+        console.log(`Replacing common i18n in ${file.relative} for ${ENV_URL}`);
+          let htmlReplaced = file.contents
+            .toString(enc)
+            .replace("{lang}", "es")
+            .replaceAll("{ENV_URL}", ENV_URL)
+            .replaceAll("{head-app-name}", CONSTANT.APP_NAME)
+            .replaceAll("{APP_VERSION}", CONSTANT.APP_VERSION);
 
-        switch (file.relative) {
-          case pagesToProcess[0]:
-            htmlReplaced = htmlReplaced
-              .replaceAll("{head-meta-description}", i18n.page.landing.head.meta.description)
-              .replaceAll("{head-meta-title}", i18n.page.landing.head.meta.title)
-              .replaceAll("{head-meta-keywords}", i18n.page.landing.head.meta.keywords)
-              .replaceAll("{head-title}", i18n.page.landing.head.title);
-            break;
+        if (pagesToProcess.includes(file.relative)) {
+          console.log(`Replacing custom i18n in ${file.relative} for ${ENV_URL}`);
+          switch (file.relative) {
+            case pagesToProcess[0]:
+              htmlReplaced = htmlReplaced
+                .replaceAll("{head-meta-description}", i18n.page.landing.head.meta.description)
+                .replaceAll("{head-meta-title}", i18n.page.landing.head.meta.title)
+                .replaceAll("{head-meta-keywords}", i18n.page.landing.head.meta.keywords)
+                .replaceAll("{head-title}", i18n.page.landing.head.title);
+              break;
+          }
         }
 
         file.contents = Buffer.from(htmlReplaced);
@@ -103,19 +104,21 @@ function minifyJS() {
     .src("src/**/*.js")
     .pipe(sourcemaps.init({ largeFile: true }))
     .pipe(sourcemaps.identityMap())
-    .pipe(obfuscate({
-      compact: true,
-      controlFlowFlattening: true, // Adds control flow flattening
-      controlFlowFlatteningThreshold: 0.75,
-      deadCodeInjection: true, // Adds dead code injection
-      deadCodeInjectionThreshold: 0.4,
-      debugProtection: true, // Adds anti-debugging features
-      debugProtectionInterval: 1000, // Set to a valid number (e.g., 1000 ms)
-      disableConsoleOutput: true, // Disables console output
-      stringArray: true, // Encodes string literals
-      stringArrayEncoding: ['base64'], // Encodes strings using base64
-      stringArrayThreshold: 0.75,
-    }))
+    .pipe(
+      obfuscate({
+        compact: true,
+        controlFlowFlattening: true, // Adds control flow flattening
+        controlFlowFlatteningThreshold: 0.75,
+        deadCodeInjection: true, // Adds dead code injection
+        deadCodeInjectionThreshold: 0.4,
+        debugProtection: true, // Adds anti-debugging features
+        debugProtectionInterval: 1000, // Set to a valid number (e.g., 1000 ms)
+        disableConsoleOutput: true, // Disables console output
+        stringArray: true, // Encodes string literals
+        stringArrayEncoding: ["base64"], // Encodes strings using base64
+        stringArrayThreshold: 0.75,
+      })
+    )
     .on("error", handleError)
     .pipe(sourcemaps.write())
     .pipe(gulp.dest("public"))
@@ -123,9 +126,6 @@ function minifyJS() {
 }
 
 // Define default task that runs all tasks
-const build = gulp.series(
-  gulp.parallel(minifyCSS, minifyAndReplaceHTML, minifyJS),
-  copyAssetsFolder
-);
+const build = gulp.series(gulp.parallel(minifyCSS, minifyAndReplaceHTML, minifyJS), copyAssetsFolder);
 
 export default build;

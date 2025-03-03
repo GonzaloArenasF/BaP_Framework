@@ -67,7 +67,7 @@ values.RECAPTCHA = {
 values.E = ["http://127.0.0.1:8080"];
 
 values.APP_NAME = "BaP Framework";
-values.APP_VERSION = "v1.1.7";
+values.APP_VERSION = "v1.1.8";
 values.FIREBASE_AVAILABLE = false;
 
 //  Modify before deploy
