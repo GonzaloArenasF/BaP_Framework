@@ -4,21 +4,23 @@
  *
  * Footer pages
  */
-import { CONSTANT, ENV_URL } from "../../_main/constants.js";
+import { CONSTANT, ENV_URL, IS_PROD } from "../../_main/constants.js";
 import { getI18nContent } from "../../_main/i18n.js";
 import { createCustomComponent } from "../customComponentsRegistration.js";
 
 const bapFooterI18N = getI18nContent("component", "bapFooter");
+const crossI18n = getI18nContent("page", "cross");
 
 function preRender(html) {
-  return html
-    .replaceAll("{ENV_URL}", ENV_URL)
-    .replaceAll("{APP_VERSION}", CONSTANT.APP_VERSION)
+  return !IS_PROD
+    ? html
+        .replace("{APP_VERSION}", CONSTANT.APP_VERSION)
+        .replace("{tc}", bapFooterI18N.tc)
+        .replaceAll("{socialMedia.email.url}", CONSTANT.SOCIAL_MEDIA.EMAIL.URL)
+    : html;
 }
 
-function postRender(element) {
-  
-}
+function postRender(element) {}
 
 export class BapFooter extends HTMLElement {
   constructor() {

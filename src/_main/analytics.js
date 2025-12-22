@@ -49,50 +49,9 @@ const landingPageEvents = {
   enterLandingPage: () =>
     logAnalyticEvent({
       type: EVENT_TYPE.ENTER_PAGE,
-      name: "enter_page",
+      name: "enter_landing_page",
       func: "landing_page",
       userType: USER_TYPE.USER,
-    }),
-};
-
-const notFoundEvents = {
-  pageNotFound: () =>
-    logAnalyticEvent({
-      type: EVENT_TYPE.ENTER_PAGE,
-      name: "page_not_found",
-      func: "404",
-      userType: USER_TYPE.USER,
-    }),
-};
-
-const loginEvents = {
-  openLoginDialog: () =>
-    logAnalyticEvent({
-      type: EVENT_TYPE.OPEN_DIALOG,
-      name: "open_dialog",
-      func: "login",
-      userType: USER_TYPE.USER,
-    }),
-  doLogin: () =>
-    logAnalyticEvent({
-      type: EVENT_TYPE.LOGIN,
-      name: "login",
-      func: "login",
-      userType: USER_TYPE.USER,
-    }),
-  cancelLogin: () =>
-    logAnalyticEvent({
-      type: EVENT_TYPE.LOGIN,
-      name: "cancel_login",
-      func: "login",
-      userType: USER_TYPE.USER,
-    }),
-  doLogout: () =>
-    logAnalyticEvent({
-      type: EVENT_TYPE.LOGOUT,
-      name: "logout",
-      func: "login",
-      userType: USER_TYPE.ADMIN,
     }),
 };
 
@@ -101,7 +60,5 @@ export const analytic = {
     ...footerEvents,
     ...headerEvents,
     ...landingPageEvents,
-    ...notFoundEvents,
-    ...loginEvents,
   },
 };

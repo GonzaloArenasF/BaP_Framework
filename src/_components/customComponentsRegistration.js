@@ -4,7 +4,7 @@ import { BapNotification } from "./bap-notification/bap-notification.js";
 import { BapSpinner } from "./bap-spinner/bap-spinner.js";
 import { BapLoadingState } from "./bap-loading-state/bap-loading-state.js";
 import { BapSvgImage } from "./bap-svg-image/bap-svg-image.js";
-import { BapAuthDialog } from "./bap-auth-dialog/bap-auth-dialog.js";
+import { BapChip } from "./bap-chip/bap-chip.js";
 import { isCSSIncluded } from "../_main/util.js";
 
 /**
@@ -25,6 +25,10 @@ export function createCustomComponent(element, { cssPath, htmlPath, htmlCode, pr
 
     if (!cssPath) {
       throw new Error("cssPath is not provided");
+    }
+
+    if (!htmlPath && !htmlCode) {
+      throw new Error("html is not provided");
     }
 
     if (!props) {
@@ -52,11 +56,11 @@ export function createCustomComponent(element, { cssPath, htmlPath, htmlCode, pr
         .then((html) => {
           const template = document.createElement("template");
           template.innerHTML = preRender ? preRender(html, props) : html;
-          element.parentNode.appendChild(template.content.cloneNode(true));
+          element.parentNode ? element.parentNode.appendChild(template.content.cloneNode(true)) : null;
           element.remove();
         })
         .finally(() => {
-          postRender ? postRender(element, props) : null;
+          postRender ? postRender(props) : null;
         });
     } else {
       element.innerHTML = preRender ? preRender(htmlCode, props) : htmlCode;
@@ -78,7 +82,7 @@ export function setCustomComponents() {
   !customElements.get("bap-spinner") ? customElements.define("bap-spinner", BapSpinner) : null;
   !customElements.get("bap-loading-state") ? customElements.define("bap-loading-state", BapLoadingState) : null;
   !customElements.get("bap-svg-image") ? customElements.define("bap-svg-image", BapSvgImage) : null;
-  !customElements.get("bap-auth-dialog") ? customElements.define("bap-auth-dialog", BapAuthDialog) : null;
+  !customElements.get("bap-chip") ? customElements.define("bap-chip", BapChip) : null;
 
   // Custom components
 }

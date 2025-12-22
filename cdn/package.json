@@ -1,0 +1,24 @@
+{
+  "name": "cdn-bap-framework",
+  "version": "1.0.0",
+  "description": "CDN BaP Framework",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy-prod": "firebase deploy --only hosting:cdn-gonzaloarenasf --project gonzalo-arenas---web-site"
+  },
+  "keywords": [
+    "CDN",
+    "BaP",
+    "Framework",
+    "Gonzalo A. Arenas Flores",
+    "cdn-gonzaloarenasf"
+  ],
+  "author": "Gonzalo A. Arenas Flores - gonzaloarenasf@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GonzaloArenasF/gonzaloarenas-webpage/issues"
+  },
+  "homepage": "https://github.com/GonzaloArenasF/gonzaloarenas-webpage#readme",
+  "type": "module"
+}

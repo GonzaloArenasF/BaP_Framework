@@ -1,5 +1,22 @@
 @import url(style/main.css);
 
 main {
-  
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  justify-content: center;
+}
+
+main > figure {
+  align-items: center;
+  display: flex;
+  height: 350px;
+  justify-content: center;
+  margin: 0;
+  width: 400px;
+}
+
+main > p {
+  padding: 2rem;
 }

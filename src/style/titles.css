@@ -1,39 +1,84 @@
 h1 {
-  font-size: 2rem;
-  font-weight: 700;
-  line-height: 2rem;
+  font-weight: 800;
+  font-size: 2.5rem;
+  line-height: 3rem;
+  letter-spacing: 0.01rem;
 }
 
 h2 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 1.75rem;
-  height: fit-content;
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 2.2rem;
 }
 
 h3 {
-  font-size: 1.125rem;
-  font-weight: 500;
-  line-height: 1rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.7rem;
 }
 
-.big-h {
-  font-size: 3rem;
-  font-weight: 900;
-  line-height: 3rem;
+h4 {
+  font-weight: 600;
+  font-size: 1.28rem;
+  line-height: 1.6rem;
+  margin: 0;
 }
 
-.display-1 {
-  font-size: 16rem;
+h5 {
+  font-weight: 600;
+  font-size: 1.05rem;
+  line-height: 1.3rem;
+  margin: 0;
+}
+
+.big-title {
   font-weight: 900;
-  line-height: 2rem;
+  font-size: 6.85rem;
+  line-height: 7rem;
+  margin: 0;
 }
 
 /*
- Phones
+ Tablet
 */
-@media only screen and (max-width: 932px) {
-  .display-1 {
-    font-size: 8rem;
+@media only screen and (max-width: 1200px) and (orientation: portrait) {
+  h2 {
+    font-size: 1.7rem;
   }
+
+  h3 {
+    font-size: 1.4rem;
+  }
+}
+
+@media only screen and (max-width: 1200px) and (orientation: landscape) {
+}
+
+/*
+   Phones
+*/
+@media only screen and (max-width: 900px) {
+  .big-title {
+    font-size: 3.5rem;
+    line-height: 3.6rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+    width: fit-content;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+  }
+
+  h4 {
+    font-size: 1.2rem;
+  }
+}
+
+@media only screen and (max-width: 900px) and (orientation: portrait) {
+}
+
+@media only screen and (max-width: 900px) and (orientation: landscape) {
 }

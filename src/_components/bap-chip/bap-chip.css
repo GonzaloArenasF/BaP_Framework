@@ -1,0 +1,8 @@
+.bap-chip {
+  background-color: var(--black);
+  border-radius: 1rem;
+  color: var(--white);
+  font-size: .8rem;
+  padding: .5rem 1rem;
+  text-align: center;
+}

@@ -25,8 +25,7 @@ function copyAssetsFolder() {
 
 // Replace HTML metatags with i18n
 function replacingHeadMetatags() {
-  const { ENV_URL, i18n, CONSTANT } = appImports;
-  const pagesToProcess = ["index.html"];
+  const { applyI18n, i18nPagesToProcess, ENV_URL } = appImports;
 
   return through.obj(function (file, enc, cb) {
     try {
@@ -34,30 +33,36 @@ function replacingHeadMetatags() {
         throw new Error("File not readble");
       }
 
-      if (file.relative.split(".")[1] == "html") {
-        console.log(`Replacing common i18n in ${file.relative} for ${ENV_URL}`);
-          let htmlReplaced = file.contents
-            .toString(enc)
-            .replace("{lang}", "es")
-            .replaceAll("{ENV_URL}", ENV_URL)
-            .replaceAll("{head-app-name}", CONSTANT.APP_NAME)
-            .replaceAll("{APP_VERSION}", CONSTANT.APP_VERSION);
+      console.log(`Replacing common i18n in ${file.relative} for ${ENV_URL}`);
+      let htmlReplaced = applyI18n.common(file.contents.toString(enc));
 
-        if (pagesToProcess.includes(file.relative)) {
+      switch (file.relative) {
+        // Components
+        case i18nPagesToProcess.components.bapFooter:
           console.log(`Replacing custom i18n in ${file.relative} for ${ENV_URL}`);
-          switch (file.relative) {
-            case pagesToProcess[0]:
-              htmlReplaced = htmlReplaced
-                .replaceAll("{head-meta-description}", i18n.page.landing.head.meta.description)
-                .replaceAll("{head-meta-title}", i18n.page.landing.head.meta.title)
-                .replaceAll("{head-meta-keywords}", i18n.page.landing.head.meta.keywords)
-                .replaceAll("{head-title}", i18n.page.landing.head.title);
-              break;
-          }
-        }
+          htmlReplaced = applyI18n.componentBapFooter(htmlReplaced);
+          break;
 
-        file.contents = Buffer.from(htmlReplaced);
+        // Pages
+        case i18nPagesToProcess.pages.index:
+          console.log(`Replacing custom i18n in ${file.relative} for ${ENV_URL}`);
+          htmlReplaced = applyI18n.pageIndex(htmlReplaced);
+          break;
+        case i18nPagesToProcess.pages.notFound:
+          console.log(`Replacing custom i18n in ${file.relative} for ${ENV_URL}`);
+          htmlReplaced = applyI18n.page404(htmlReplaced);
+          break;
+        case i18nPagesToProcess.pages.resume.index:
+          console.log(`Replacing custom i18n in ${file.relative} for ${ENV_URL}`);
+          htmlReplaced = applyI18n.pageResume(htmlReplaced);
+          break;
+        case i18nPagesToProcess.pages.contact.index:
+          console.log(`Replacing custom i18n in ${file.relative} for ${ENV_URL}`);
+          htmlReplaced = applyI18n.pageContact(htmlReplaced);
+          break;
       }
+
+      file.contents = Buffer.from(htmlReplaced);
     } catch (error) {
       cb(error);
     }
@@ -87,7 +92,7 @@ function minifyCSS() {
     .pipe(
       cleanCSS({ compatibility: "ie8", debug: true }, (details) => {
         // console.log(
-        //   `${details.name}: ${details.stats.originalSize / 1000}KB -> ${details.stats.minifiedSize / 1000}KB`
+        //   `${details.name}: ${details.stats.originalSize / 1000}KB -> ${details.stats.minifiedSize / 1000}KB`s
         // );
       })
     )
@@ -107,16 +112,6 @@ function minifyJS() {
     .pipe(
       obfuscate({
         compact: true,
-        controlFlowFlattening: true, // Adds control flow flattening
-        controlFlowFlatteningThreshold: 0.75,
-        deadCodeInjection: true, // Adds dead code injection
-        deadCodeInjectionThreshold: 0.4,
-        debugProtection: true, // Adds anti-debugging features
-        debugProtectionInterval: 1000, // Set to a valid number (e.g., 1000 ms)
-        disableConsoleOutput: true, // Disables console output
-        stringArray: true, // Encodes string literals
-        stringArrayEncoding: ["base64"], // Encodes strings using base64
-        stringArrayThreshold: 0.75,
       })
     )
     .on("error", handleError)
@@ -126,6 +121,6 @@ function minifyJS() {
 }
 
 // Define default task that runs all tasks
-const build = gulp.series(gulp.parallel(minifyCSS, minifyAndReplaceHTML, minifyJS), copyAssetsFolder);
+const build = gulp.series(minifyCSS, minifyAndReplaceHTML, minifyJS, copyAssetsFolder);
 
 export default build;

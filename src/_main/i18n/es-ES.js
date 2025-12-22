@@ -1,50 +1,48 @@
 export const esES = {
   component: {
-    bapFooter: {},
-    bapHeader: {},
-    bapAuthDialog: {
-      title: "Login",
-      email: "Email",
-      pass: "Contraseña",
-      loginBtn: "Login",
-      cancelBtn: "Cancelar",
+    bapFooter: {
+      tc: "© 2026 Carolina Avendaño Beltrán. Todos los derechos reservados a nivel mundial. Queda prohibido el uso o la reproducción no autorizados de cualquier contenido de este sitio web, incluyendo, entre otros, texto, imágenes, gráficos, audio, vídeo y todas las obras derivadas. Para obtener permiso, póngase en contacto por correo electrónico.",
     },
+    bapHeader: {},
   },
   page: {
     cross: {
       notification: {
-        success: "Bienvenido",
-        loginFail:
-          "No pudimos iniciar sesión. Por favor, comprueba si tu navegador bloquea las ventanas pop-up e intenta nuevamente.",
-        logoutFail: "No pudimos terminar tu sesión. Por favor, recarga la página e intenta nuevamente.",
-        notAllowedEnteringPage: "No estás habilitado para entrar a esta página.",
-        errorGettingQueryParams: "No pudimos obtener la información para acceder.",
+        loginFail: "We couldn't log in. Please check if your browser blocks pop-up windows from opening and try again.",
+        logoutFail: "We couldn't log out. Please reload this page and try again.",
+        notAllowedEnteringPage: "Your are not allowed to enter the page",
+        errorGettingQueryParams: "We could not manage your information to access",
         storage: {
-          errorGetting: "No pudimos obtener tu información. Intenta nuevamente",
-          errorSaving: "No pudimos guardar tu información. Intenta nuevamente",
-          errorUpdating: "No pudimos actualizar tu información. Intenta nuevamente",
-          errorRemoving: "No pudimos eliminar tu información. Intenta nuevamente",
+          errorGetting: "We could not get your information. Try again.",
+          errorSaving: "We could not save your information. Try again.",
+          errorUpdating: "We could not update your information. Try again.",
+          errorRemoving: "We could not remove your information. Try again.",
         },
       },
     },
     notFound: {
       head: {
-        title: "your-app-name - Página no encontrada",
+        title: "Page not found - Carolina Avendaño Beltrán",
         meta: {
-          title: "your-app-name - Página no encontrada",
-          description: "Página no encontrada",
-          keywords: "Página no encontrada",
+          title: "Page not found - Carolina Avendaño Beltrán",
+          description: "Page not found",
+          keywords: "Page not found",
         },
       },
-      body: {},
+      body: {
+        message: "mmm... creo que no incluí esto en el plano.",
+        backHome: "Ir al inicio",
+      },
     },
     landing: {
       head: {
-        title: "your-app-name",
+        title:
+          "Carolina Avendaño Beltrán - Arquitectura",
         meta: {
-          title: "your-app-name",
-          description: "your-app-description",
-          keywords: "your-app-keywords",
+          title:
+            "Carolina Avendaño Beltrán - Arquitectura",
+          description: "Personal website",
+          keywords: "Business Analyst, Software engineer, Photographer, Musician, Basketball Player",
         },
       },
       body: {},

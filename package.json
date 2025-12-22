@@ -1,6 +1,6 @@
 {
   "name": "bap-framework",
-  "version": "1.1.8",
+  "version": "1.2.0",
   "description": "BaP Framework",
   "main": "index.js",
   "scripts": {
@@ -12,18 +12,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/your-username/your-repo.git"
+    "url": "git+https://github.com/GonzaloArenasF/BaP_Framework.git"
   },
   "keywords": [
     "BaP",
     "Framework"
   ],
-  "author": "your-name",
+  "author": "Gonzalo A. Arenas Flores - gonzaloarenasf@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/your-username/your-repo/issues"
+    "url": "https://github.com/GonzaloArenasF/BaP_Framework/issues"
   },
-  "homepage": "https://github.com/your-username/your-repo#readme",
+  "homepage": "https://github.com/GonzaloArenasF/BaP_Framework#readme",
   "dependencies": {
     "firebase": "^10.11.0",
     "firebase-tools": "^13.13.2"

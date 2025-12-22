@@ -1,37 +1,86 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 @import url(colors.css);
 @import url(titles.css);
 @import url(forms.css);
 
 * {
-  font-family: "Roboto", sans-serif;
+  font-family: "Open Sans", sans-serif;
+  font-optical-sizing: auto;
+  scroll-behavior: smooth;
+}
+
+*::-webkit-scrollbar {
+  height: 5px;
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbars-color);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbars-color-hover);
 }
 
 a {
+  align-items: center;
   color: var(--link-color);
+  cursor: pointer;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: start;
   text-decoration: none;
+  width: fit-content;
+}
+
+a svg path {
+  fill: var(--link-color);
+}
+
+a:hover {
+  color: var(--link-active-color) !important;
+}
+
+a:hover svg path {
+  fill: var(--link-active-color) !important;
 }
 
 a:active {
-  color: var(--link-active-color);
+  color: var(--link-active-color) !important;
 }
 
-a:visited {
-  color: var(--link-visited-color);
+a:active svg path {
+  fill: var(--link-active-color) !important;
 }
 
 body {
   background-color: var(--bg-color);
   color: var(--font-color);
   font-weight: 300;
-  font-size: 16px;
-  font-style: normal;
-  line-height: 1.25rem;
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.02rem;
+  line-height: 20px;
   margin: 0;
+  min-height: 100vh;
 }
 
 figure {
+  height: max-content;
   margin: 0;
+  width: max-content;
+}
+
+figure > figcaption {
+  font-size: .8rem;
+  font-style: italic;
+  text-align: right;
+  width: 100%;
 }
 
 img {
@@ -39,7 +88,8 @@ img {
 }
 
 p {
-  margin: 0;
+  line-height: 1.35rem;
+  margin: 0 0 1rem 0;
 }
 
 small {
@@ -48,26 +98,106 @@ small {
   line-height: 12px;
 }
 
+cite,
+i,
+strong {
+  display: contents;
+}
+
+ul,
+ol {
+  width: 100%;
+}
+
+ul li,
+ol li {
+  margin-bottom: .5rem;
+  width: 90%;
+}
+
 code {
-  font-family: 'Courier New', Courier, monospace;
   background-color: lightblue;
+  display: block;
+  font-family: "Courier New", Courier, monospace;
   padding: 1rem;
 }
 
-span.bap-chip {
-  border-radius: .8rem;
-  color: var(--light-grey);
-  padding: .3rem 1rem;
+main > header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
-span.bap-chip.info {
-  background-color: var(--bright-blue);
+main > header.open-menu {
+  position: fixed;
+  width: 100vw;
+  width: 100dvw;
 }
 
-span.bap-chip.warning {
-  background-color: var(--orange);
+nav.breadcrumbs {
+  display: flex;
 }
 
-span.bap-chip.error {
-  background-color: var(--red);
+nav.breadcrumbs a::after {
+  content: "/";
+  margin-right: .5rem;
+}
+
+nav.breadcrumbs a:last-child::after {
+  content: "";
+}
+
+/*
+ Tablet and phones
+*/
+@media only screen and (max-width: 1200px) {
+  body {
+    background-attachment: scroll;
+  }
+
+  body::before {
+    background-image: inherit;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    content: "";
+    height: 100vh;
+    height: 100dvh;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    width: 100dvw;
+    z-index: -1;
+  }
+}
+
+/*
+ Tablet
+*/
+@media only screen and (max-width: 1200px) and (orientation: portrait) {
+  body::before {
+    /* background-image: url(https://cdn-gonzaloarenasf.web.app/commons/gonzaloarenasf-background-tablet-vertical.jpg); */
+  }
+}
+
+@media only screen and (max-width: 1200px) and (orientation: landscape) {
+  body::before {
+    /* background-image: url(https://cdn-gonzaloarenasf.web.app/commons/gonzaloarenasf-background-tablet-horizontal.jpg); */
+  }
+}
+
+/*
+ Phones
+*/
+@media only screen and (max-width: 900px) and (orientation: portrait) {
+  body::before {
+    /* background-image: url(https://cdn-gonzaloarenasf.web.app/commons/gonzaloarenasf-background-mobile-vertical.jpg); */
+  }
+}
+
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+  body::before {
+    /* background-image: url(https://cdn-gonzaloarenasf.web.app/commons/gonzaloarenasf-background-mobile-horizontal.jpg); */
+  }
 }

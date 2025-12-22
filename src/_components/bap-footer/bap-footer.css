@@ -1,21 +1,57 @@
-#bapFooter {
-  background-color: var(--footer-bg-color);
-  color: var(--footer-font-color);
+.bap-footer {
+  align-items: center;
+  background-attachment: fixed;
+  background-image: url(https://cdn-gonzaloarenasf.web.app/commons/gonzaloarenasf-welcome-background.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: var(--landing-welcome-font-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
   margin: 0 auto;
-  max-width: 1200px;
-  padding: 1rem;
+  min-height: 100dvh;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.bap-footer > p {
+  max-width: 330px;
+  text-align: center;
 }
 
 /*
  Tablet
 */
-@media only screen and (max-width: 1200px) {
-  
+@media only screen and (max-width: 1200px) and (orientation: portrait) {
+  .bap-footer {
+    background-attachment: scroll;
+  }
+}
+
+@media only screen and (max-width: 1200px) and (orientation: landscape) {
+  .bap-footer {
+    background-attachment: scroll;
+  }
 }
 
 /*
- Phones
+  Phones
 */
-@media only screen and (max-width: 932px) {
-  
+@media only screen and (max-width: 900px) and (orientation: portrait) {
+  .bap-footer {
+    background-attachment: scroll;
+  }
+}
+
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+  .bap-footer {
+    background-attachment: scroll;
+    padding: 5rem 0;
+  }
+
+  .bap-footer > p{
+    max-width: 90%;
+  }
 }

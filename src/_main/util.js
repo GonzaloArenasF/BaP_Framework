@@ -13,7 +13,7 @@ export const timestampToHumanDate = (timestamp, lang, format) => {
   if (typeof timestamp == 'string' && timestamp == 'today') {
     return "Actualidad";
   }
-  
+
   const date = new Date(parseInt(timestamp * 1000));
 
   const formats = [
@@ -37,12 +37,12 @@ export const timestampToHumanDate = (timestamp, lang, format) => {
 
 /**
  * Show an instance of bapNotify in the browser
- * 
+ *
  * @param type: <string> CONSTANT.NOTIFICATION.TYPE
  * @param severity: <string> CONSTANT.NOTIFICATION.SEVERITY
  * @param msg: <string> Message to include in the notification.
  * @param errorObj <Object> Javascript Error.
- * 
+ *
  * @returns void
  */
 export const bapNotify = (type, severity, msg, errorObj) => {
@@ -62,7 +62,7 @@ export const bapNotify = (type, severity, msg, errorObj) => {
 
 /**
  * Custon UUID generator
- * 
+ *
  * @returns <string> UUID
  */
 export function generateUUID() {
@@ -75,9 +75,9 @@ export function generateUUID() {
 
 /**
  * It takaes a string boolean and transform in to a real boolean
- * 
+ *
  * @param string: true | false
- * 
+ *
  * @returns boolean
  */
 export function setStringIntoBoolean(string) {
@@ -86,9 +86,9 @@ export function setStringIntoBoolean(string) {
 
 /**
  * Validate if a CSS files is already in the code loaded to not set again.
- * 
+ *
  * @param href: CSS reference
- * 
+ *
  * @returns boolean
  */
 export const isCSSIncluded = (href) => {
@@ -98,7 +98,7 @@ export const isCSSIncluded = (href) => {
 
 /**
  * Detect if user device is mobile
- * 
+ *
  * @returns boolean
  */
 export function isMobile() {

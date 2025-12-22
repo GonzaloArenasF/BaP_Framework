@@ -1,39 +1,14 @@
 import { userSession, userSignIn } from "./auth.js";
 import { CONSTANT } from "./constants.js";
 import { getI18nContent } from "./i18n.js";
+import { NAVIGATION_TYPES, routes } from "./routerPaths.js";
 import { bapNotify } from "./util.js";
-
-const NAVIGATION_TYPES = {
-  REDIRECT: "redirect",
-  LOAD_COMPONENT: "loadComponent",
-};
 
 const routerI18n = getI18nContent('page', 'cross');
 
-/**
- * Controled routes
- */
-export const routes = [
-  {
-    pathname: "/",
-    component: null,
-    navigation: NAVIGATION_TYPES.REDIRECT,
-    validate: {
-      signIn: false,
-    },
-  },
-  {
-    pathname: "/404.html",
-    component: null,
-    navigation: NAVIGATION_TYPES.REDIRECT,
-    validate: {
-      signIn: false,
-    },
-  },
-];
-
 const isAValidRoute = (pathname) => {
-  for (const route of routes) {
+  const arrRoutes = Object.values(routes).map((route) => route);
+  for (const route of arrRoutes) {
     if (route.pathname == pathname) {
       return true;
     }
@@ -100,10 +75,9 @@ export async function goTo(pathname, params) {
     return;
   }
 
-  const routeToNavigate = routes.find((route) => route.pathname == pathname);
-  if (await isAccessAllowed(routeToNavigate)) {
-    navigateTo(routeToNavigate, params);
-    loadContent(routeToNavigate);
+  if (await isAccessAllowed(routes[pathname])) {
+    navigateTo(routes[pathname], params);
+    loadContent(routes[pathname]);
   } else {
     bapNotify(
       CONSTANT.NOTIFICATION.TYPE.TOAST,
@@ -139,15 +113,14 @@ export function getQueryParams() {
 
 /**
  * In case of access to a session started validated page, this will redirect to landing one
- * @param {string} pathname
+ * @param {object} route
  */
-export function sessionStartedControl(pathname, initSession, redirectionCallbackOnNoSession) {
-  const routeToNavigate = routes.find((route) => route.pathname == pathname);
-  if (routeToNavigate.validate.signIn) {
+export function sessionStartedControl(route, initSession, redirectionCallbackOnNoSession) {
+  if (route.validate.signIn) {
     userSession.onAuthStateChanged(() => {
       if (!userSession.currentUser) {
         const redirect = !redirectionCallbackOnNoSession
-          ? () => goTo(routes[0].pathname)
+          ? () => goTo(routes.landing.pathname)
           : redirectionCallbackOnNoSession;
         !initSession ? redirect() : userSignIn();
       }
