@@ -19,7 +19,10 @@
 
     <link rel="canonical" href="{ENV_URL}" />
     <link rel="stylesheet" href="404.css" />
-    <link rel="icon" href="{CDN_URL}/commons/favicon/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+    <link rel="manifest" href="/assets/site.webmanifest" />
 
     <script type="module" src="404.js?v={APP_VERSION}"></script>
 
@@ -28,7 +31,7 @@
   <body class="light-mode">
     <main>
       <figure>
-        <gaf-logo type="isologoVertical" size="x3" color-mode="light"></gaf-logo>
+        <bap-logo type="isologoVertical" size="x3" color-mode="light"></bap-logo>
       </figure>
       <p>{body.message}</p>
       <a href="/">{body.backHome}</a>

@@ -17,14 +17,18 @@ const sizes = {
 };
 
 /**
- * Attributes:
- * name: SVG name in images object.
- * size: value in sizes object.
+ * COMPONENTE PERSONALIZADO
+ * Nombre: bap-svg-image
+ *
+ * Clase para renderizar imágenes SVG estandarizadas y responsivas
+ * en base a su nombre, tamaño y tipo.
  */
 export class BapSvgImage extends HTMLElement {
-  constructor() {
-    super();
-
+  /**
+   * Método de ciclo de vida invocado cuando el elemento se añade al DOM.
+   * Lee los atributos y realiza la inyección del marcado SVG de forma limpia en el innerHTML.
+   */
+  connectedCallback() {
     try {
       const name = this.getAttribute("name");
       const mobileSize = this.getAttribute("mobile-size");
@@ -32,28 +36,31 @@ export class BapSvgImage extends HTMLElement {
       const type = this.hasAttribute("type") ? this.getAttribute("type") : "icon";
 
       if (!name || !size) {
-        const missedParameter = !name ? "name" : "size";
-        throw new Error(`${missedParameter} propertie is missed.`);
+        const parametroFaltante = !name ? "name" : "size";
+        throw new Error(`La propiedad ${parametroFaltante} es requerida.`);
       }
 
       if (!Object.keys(images[type]).includes(name)) {
-        throw new Error(`Requested image does not exist: [${type}] ${name}`);
+        throw new Error(`La imagen solicitada no existe: [${type}] ${name}`);
       }
 
-      this.outerHTML = `<figure style="width:${sizes[type][size].px}px; height:${sizes[type][size].px}px; display: flex; justify-content: center; align-items: center;">
-                          <svg 
-                            width="${sizes[type][size].px}" 
-                            height="${sizes[type][size].px}" 
-                            viewBox="${sizes[type][size].viewBox}" 
-                            fill="none" 
-                            xmlns="http://www.w3.org/2000/svg" 
-                            style="transform: scale(${sizes[type][size].scale});"
-                          >
-                            ${images[type][name]}
-                          </svg>
-                        </figure>`;
+      // Inyección limpia en el innerHTML en lugar de outerHTML
+      this.innerHTML = `
+        <figure style="width:${sizes[type][size].px}px; height:${sizes[type][size].px}px; display: flex; justify-content: center; align-items: center;">
+          <svg 
+            width="${sizes[type][size].px}" 
+            height="${sizes[type][size].px}" 
+            viewBox="${sizes[type][size].viewBox}" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg" 
+            style="transform: scale(${sizes[type][size].scale});"
+          >
+            ${images[type][name]}
+          </svg>
+        </figure>
+      `;
     } catch (error) {
-      console.error("SVG image import:", error);
+      console.error("Error al importar la imagen SVG:", error);
     }
   }
 }

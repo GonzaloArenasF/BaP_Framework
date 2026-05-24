@@ -1,0 +1,10 @@
+.bap-logo {
+  align-items: center;
+  display: flex;
+  width: max-content;
+}
+
+.bap-logo img {
+  height: auto;
+  width: 100px;
+}

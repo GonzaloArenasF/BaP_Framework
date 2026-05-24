@@ -5,19 +5,22 @@ import { BapSpinner } from "./bap-spinner/bap-spinner.js";
 import { BapLoadingState } from "./bap-loading-state/bap-loading-state.js";
 import { BapSvgImage } from "./bap-svg-image/bap-svg-image.js";
 import { BapChip } from "./bap-chip/bap-chip.js";
+import { BapLogo } from "./bap-logo/bap-logo.js";
+import { BapDialog } from "./bap-dialog/bap-dialog.js";
 import { isCSSIncluded } from "../_main/util.js";
 
 /**
- * Constructor for custom components
+ * Constructor para componentes personalizados
  *
- * @param element: <HTMLElement> Instance
- * @param cssPath: <string> css file URL path.
- * @param htmlPath: <string> html file URL path. If props.htmlCode this will omitted.
- * @param htmlCode: <string> html code. If props.htmlPath this will omitted.
- * @param preRender: <callback> Function to be executed before add component to the DOM.
- * @param postRender: <callback> Function to be executed after add component to the DOM.
- * @param props: <object> Properties to be included in callbacks functions.
- * - props.id: optional | <string> Id to identify the main element to add. You must to include in your custom HTML code and make the replace by preRender.
+ * @param {HTMLElement} element - Instancia del elemento.
+ * @param {Object} configuracion - Configuración de inicialización del componente.
+ * @param {string} configuracion.cssPath - Ruta URL del archivo CSS.
+ * @param {string} [configuracion.htmlPath] - Ruta URL del archivo HTML. Se omite si se provee htmlCode.
+ * @param {string} [configuracion.htmlCode] - Código HTML directo. Se omite si se provee htmlPath.
+ * @param {Function} [configuracion.preRender] - Función a ejecutar antes de añadir el componente al DOM.
+ * @param {Function} [configuracion.postRender] - Función a ejecutar después de añadir el componente al DOM.
+ * @param {Object} [configuracion.props] - Propiedades personalizadas a pasar a los callbacks.
+ * @param {string} [configuracion.props.id] - Identificador opcional para el elemento principal.
  */
 export function createCustomComponent(element, { cssPath, htmlPath, htmlCode, preRender, postRender, props }) {
   try {
@@ -72,10 +75,10 @@ export function createCustomComponent(element, { cssPath, htmlPath, htmlCode, pr
 }
 
 /**
- * Add all custom components to the DOM
+ * Agrega todos los componentes personalizados al DOM
  */
 export function setCustomComponents() {
-  // BAP components
+  // Componentes de BaP
   !customElements.get("bap-header") ? customElements.define("bap-header", BapHeader) : null;
   !customElements.get("bap-footer") ? customElements.define("bap-footer", BapFooter) : null;
   !customElements.get("bap-notification") ? customElements.define("bap-notification", BapNotification) : null;
@@ -83,6 +86,8 @@ export function setCustomComponents() {
   !customElements.get("bap-loading-state") ? customElements.define("bap-loading-state", BapLoadingState) : null;
   !customElements.get("bap-svg-image") ? customElements.define("bap-svg-image", BapSvgImage) : null;
   !customElements.get("bap-chip") ? customElements.define("bap-chip", BapChip) : null;
+  !customElements.get("bap-logo") ? customElements.define("bap-logo", BapLogo) : null;
+  !customElements.get("bap-dialog") ? customElements.define("bap-dialog", BapDialog) : null;
 
-  // Custom components
+  // Componentes adicionales personalizados
 }

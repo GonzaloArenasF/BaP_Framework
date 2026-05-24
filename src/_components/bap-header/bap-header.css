@@ -7,77 +7,11 @@
   padding: 35px 2rem 0 2rem;
 }
 
-.bap-header > a > figure {
+.bap-header>a>figure {
   align-items: center;
   display: flex;
   height: 60px;
   justify-content: center;
-  width: 210px;
-}
-
-.bap-header > .desktop-options {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0 2rem;
-  width: 100%;
-}
-
-.bap-header > .desktop-options > nav {
-  display: flex;
-  gap: 1.5rem;
-}
-
-.bap-header > .desktop-options > nav a {
-  color: var(--black);
-  font-weight: bold;
-}
-
-.bap-header > .desktop-options > .search-bar {
-  align-items: center;
-  border: 1px solid var(--black);
-  border-radius: 1rem;
-  display: flex;
-  gap: 1rem;
-  margin: 0 1rem;
-  padding: 0 0.5rem;
-  visibility: hidden; /* Waiting for development */
-  width: 400px;
-}
-
-.bap-header > .desktop-options > .search-bar > input {
-  background: none;
-  border: none;
-  width: 100%;
-}
-
-.bap-header > .desktop-options > .search-bar > input:focus {
-  outline: none;
-}
-
-.bap-header > .desktop-options > .search-bar > figure {
-  cursor: pointer;
-}
-
-.bap-header > .desktop-options > .lang-adjust-switcher {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.bap-header > .desktop-options > .lang-adjust-switcher > div {
-  align-items: center;
-  display: flex;
-  gap: 0.5rem;
-}
-
-.bap-header > .desktop-options > .lang-adjust-switcher > :nth-child(2) {
-  display: none; /* Waiting for development */
-}
-
-.bap-header > .movile-menu-open-btn,
-.bap-header > .movile-menu-close-btn {
-  display: none;
 }
 
 .bap-header.light-mode figure svg path {
@@ -88,46 +22,12 @@
   fill: var(--white);
 }
 
-.bap-header #google_translate_element .goog-te-gadget {
-  overflow: auto;
-  overflow-x: hidden;
-  width: 80px;
-}
-
-.bap-header #google_translate_element .goog-te-gadget > * {
-  display: none;
-}
-
-.bap-header #google_translate_element .goog-te-gadget > div {
-  display: inline;
-}
-
-.bap-header #google_translate_element .goog-te-gadget .goog-te-combo {
-  background-color: transparent;
-  border: none;
-  font-family: "Open Sans", sans-serif;
-  font-size: .9rem;
-  outline: none;
-}
-
-body {
-  top: 0 !important;
-}
-
-body > .skiptranslate {
-  display: none !important;
-}
-
 /*
   tablet
 */
 @media only screen and (max-width: 1200px) {
   .bap-header {
     padding-top: 50px;
-  }
-
-  .bap-header > .desktop-options > .search-bar {
-    width: 200px;
   }
 }
 
@@ -137,23 +37,5 @@ body > .skiptranslate {
 @media only screen and (max-width: 900px) {
   .bap-header {
     padding-top: 25px;
-  }
-
-  .bap-header > .desktop-options {
-    display: none;
-  }
-
-  .bap-header > .movile-menu-open-btn {
-    display: block;
-  }
-
-  .bap-header.open-menu > .movile-menu-open-btn {
-    /* Movile menu open button */
-    display: none;
-  }
-
-  .bap-header.open-menu > .movile-menu-close-btn {
-    /* Movile menu close button */
-    display: block;
   }
 }

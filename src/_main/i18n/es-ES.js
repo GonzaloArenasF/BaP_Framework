@@ -1,48 +1,46 @@
 export const esES = {
   component: {
     bapFooter: {
-      tc: "© 2026 Carolina Avendaño Beltrán. Todos los derechos reservados a nivel mundial. Queda prohibido el uso o la reproducción no autorizados de cualquier contenido de este sitio web, incluyendo, entre otros, texto, imágenes, gráficos, audio, vídeo y todas las obras derivadas. Para obtener permiso, póngase en contacto por correo electrónico.",
+      tc: "© 2026 <a href=\"http://gonzaloarenasf.cl\" target=\"_blank\" rel=\"noopener noreferrer\">Gonzalo A. Arenas Flores</a>. Licenciado bajo MIT. Libre de utilizar y distribuir. El software se proporciona 'tal cual', sin garantías y bajo responsabilidad exclusiva del usuario.",
     },
     bapHeader: {},
   },
   page: {
     cross: {
       notification: {
-        loginFail: "We couldn't log in. Please check if your browser blocks pop-up windows from opening and try again.",
-        logoutFail: "We couldn't log out. Please reload this page and try again.",
-        notAllowedEnteringPage: "Your are not allowed to enter the page",
-        errorGettingQueryParams: "We could not manage your information to access",
+        loginFail: "No se pudo iniciar sesión. Por favor, comprueba si tu navegador bloquea las ventanas emergentes e inténtalo de nuevo.",
+        logoutFail: "No se pudo cerrar sesión. Por favor, recarga la página e inténtalo de nuevo.",
+        notAllowedEnteringPage: "No tienes permisos para acceder a esta página.",
+        errorGettingQueryParams: "No se pudo procesar la información de acceso.",
         storage: {
-          errorGetting: "We could not get your information. Try again.",
-          errorSaving: "We could not save your information. Try again.",
-          errorUpdating: "We could not update your information. Try again.",
-          errorRemoving: "We could not remove your information. Try again.",
+          errorGetting: "No se pudo obtener la información. Inténtalo de nuevo.",
+          errorSaving: "No se pudo guardar la información. Inténtalo de nuevo.",
+          errorUpdating: "No se pudo actualizar la información. Inténtalo de nuevo.",
+          errorRemoving: "No se pudo eliminar la información. Inténtalo de nuevo.",
         },
       },
     },
     notFound: {
       head: {
-        title: "Page not found - Carolina Avendaño Beltrán",
+        title: "Página no encontrada - BaP Framework",
         meta: {
-          title: "Page not found - Carolina Avendaño Beltrán",
-          description: "Page not found",
-          keywords: "Page not found",
+          title: "Página no encontrada - BaP Framework",
+          description: "Página no encontrada",
+          keywords: "Página no encontrada, error, 404",
         },
       },
       body: {
-        message: "mmm... creo que no incluí esto en el plano.",
+        message: "Mmm... creo que no incluí esto en el plano.",
         backHome: "Ir al inicio",
       },
     },
     landing: {
       head: {
-        title:
-          "Carolina Avendaño Beltrán - Arquitectura",
+        title: "BaP Framework — Desarrollo Guiado por Especificaciones",
         meta: {
-          title:
-            "Carolina Avendaño Beltrán - Arquitectura",
-          description: "Personal website",
-          keywords: "Business Analyst, Software engineer, Photographer, Musician, Basketball Player",
+          title: "BaP Framework — Desarrollo Guiado por Especificaciones",
+          description: "Estándar premium para desarrollo web ultra-ligero, modular y de alto rendimiento.",
+          keywords: "BaP, Framework, Web Components, Vanilla JS, CSS, Firebase, Modular",
         },
       },
       body: {},

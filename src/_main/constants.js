@@ -1,15 +1,21 @@
+/**
+ * CONSTANTES GLOBALES DEL SISTEMA
+ * 
+ * Contiene todas las configuraciones globales, claves de almacenamiento,
+ * tipos de notificaciones, credenciales de Firebase y configuración de entornos.
+ */
 export const CONSTANT = {
   APP_NAME: "BaP Framework",
-  APP_VERSION: "v1.2.0",
-  FIREBASE_AVAILABLE: false,
+  APP_VERSION: "v2.0.0",
+  FIREBASE_AVAILABLE: false, // Regla de Oro: Controla si Firebase está disponible o no.
   STORAGE: {
     KEYS: {
       DIALOG_DATA: "dd",
     },
     SOURCE: {
-      LOCAL: "localStorage", // Browser
-      SESSION: "sessionStorage", // Browser
-      DB: "realtime", // Firebase
+      LOCAL: "localStorage", // Persistencia en el Navegador (Local)
+      SESSION: "sessionStorage", // Persistencia en el Navegador (Sesión)
+      DB: "realtime", // Persistencia en Base de Datos (Firebase Realtime Database)
     },
   },
   NOTIFICATION: {
@@ -52,26 +58,22 @@ export const CONSTANT = {
   },
   SOCIAL_MEDIA: {
     EMAIL: {
-      TITLE: "Email",
-      URL: "gonzaloarenasf+bap.page@gmail.com",
-    },
-    LINKEDIN: {
-      TITLE: "LinkedIn",
-      URL: "https://cl.linkedin.com/in/",
-    },
+      TITLE: "Correo electrónico",
+      URL: "gonzaloarenasf+bap-framework@gmail.com",
+    }
   },
 };
 
-// Environment
+// Entornos de despliegue
 const E = {
   PROD: "https://bap-framework.cl",
   DEV1: "http://192.168.1.107:8080",
   DEV2: "http://172.20.10.3:8080",
-  LOCAL: "http://localhost",
+  LOCAL: "http://localhost:8080",
   CDN: "https://cdn-bap-framework.web.app",
 };
 
-//  Modify before deploy
-export const ENV_URL = E.DEV1;
-export const IS_PROD = ENV_URL == E.PROD;
+// Modificar antes de desplegar
+export const ENV_URL = typeof window !== "undefined" ? window.location.origin : E.LOCAL;
+export const IS_PROD = typeof window !== "undefined" ? (window.location.origin === E.PROD) : (E.LOCAL === E.PROD);
 export const CDN_URL = E.CDN;
