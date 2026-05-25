@@ -6,7 +6,7 @@
  */
 export const CONSTANT = {
   APP_NAME: "BaP Framework",
-  APP_VERSION: "v2.0.0",
+  APP_VERSION: "v2.0.1",
   FIREBASE_AVAILABLE: false, // Regla de Oro: Controla si Firebase está disponible o no.
   STORAGE: {
     KEYS: {
@@ -74,6 +74,6 @@ const E = {
 };
 
 // Modificar antes de desplegar
-export const ENV_URL = typeof window !== "undefined" ? window.location.origin : E.LOCAL;
-export const IS_PROD = typeof window !== "undefined" ? (window.location.origin === E.PROD) : (E.LOCAL === E.PROD);
+export const ENV_URL = E.LOCAL;
+export const IS_PROD = ENV_URL === E.PROD;
 export const CDN_URL = E.CDN;

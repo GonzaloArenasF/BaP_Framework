@@ -122,23 +122,6 @@ main {
   flex-wrap: wrap;
 }
 
-/* Code Previews */
-pre {
-  background: #1e293b !important;
-  border-radius: 8px;
-  padding: 1rem;
-  overflow-x: auto;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-code {
-  background-color: transparent !important;
-  color: #e2e8f0 !important;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 0.85rem;
-  padding: 0 !important;
-}
-
 /* Terminal Simulator */
 .terminal-sim {
   background: #0f172a;
@@ -162,9 +145,17 @@ code {
   border-radius: 50%;
 }
 
-.dot.red { background-color: #ef4444; }
-.dot.yellow { background-color: #f59e0b; }
-.dot.green { background-color: #10b981; }
+.dot.red {
+  background-color: #ef4444;
+}
+
+.dot.yellow {
+  background-color: #f59e0b;
+}
+
+.dot.green {
+  background-color: #10b981;
+}
 
 .terminal-body {
   font-family: 'Courier New', Courier, monospace;
@@ -187,7 +178,7 @@ code {
   .bap-hero h2 {
     font-size: 2rem;
   }
-  
+
   .bap-playground {
     padding: 2rem 1rem;
   }

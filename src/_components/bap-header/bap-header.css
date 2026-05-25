@@ -39,3 +39,28 @@
     padding-top: 25px;
   }
 }
+
+/* Theme Toggle */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--grey-1);
+}
+
+.theme-toggle [data-mode] {
+  cursor: pointer;
+  opacity: 0.45;
+  transition: opacity 0.25s ease, color 0.25s ease, font-weight 0.25s ease;
+}
+
+.theme-toggle [data-mode]:hover {
+  opacity: 0.75;
+}
+
+.theme-toggle [data-mode].active {
+  opacity: 1;
+  font-weight: 700;
+  color: var(--link-color);
+}

@@ -9,7 +9,16 @@
   scroll-behavior: smooth;
 }
 
-h1, h2, h3, h4, h5, h6, .logo-text, .title-top, .title-main, .title-sub {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.logo-text,
+.title-top,
+.title-main,
+.title-sub {
   font-family: "Space Grotesk", sans-serif !important;
 }
 
@@ -80,7 +89,7 @@ figure {
   width: max-content;
 }
 
-figure > figcaption {
+figure>figcaption {
   font-size: .8rem;
   font-style: italic;
   text-align: right;
@@ -119,20 +128,38 @@ ol li {
   width: 90%;
 }
 
+/* Code Previews */
 code {
-  background-color: lightblue;
-  display: block;
-  font-family: "Courier New", Courier, monospace;
-  padding: 1rem;
+  background-color: var(--grey-2);
+  color: var(--grey-1);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  padding: 0;
 }
 
-main > header {
+pre {
+  background: #1e293b;
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+pre code {
+  background-color: transparent;
+  color: var(--white);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  padding: 0;
+}
+
+main>header {
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-main > header.open-menu {
+main>header.open-menu {
   position: fixed;
   width: 100vw;
   width: 100dvw;

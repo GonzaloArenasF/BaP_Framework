@@ -66,5 +66,25 @@ export function applyI18n(callback) {
     .replaceAll("{APP_VERSION}", CONSTANT.APP_VERSION)
     .replaceAll("{APP_NAME}", CONSTANT.APP_NAME);
 
+  // Reemplaza tokens {landing.body.*} desde el diccionario page.landing
+  _applyPageTokens("landing", i18n.page.landing);
+
   callback();
+}
+
+/**
+ * Aplana de forma recursiva un objeto i18n y reemplaza los tokens {prefix.clave}
+ * en el body del documento.
+ * @param {string} prefix - Prefijo acumulado (ej: "landing.body.hero")
+ * @param {Object} obj    - Objeto o valor del diccionario i18n
+ */
+function _applyPageTokens(prefix, obj) {
+  if (typeof obj === "string") {
+    document.body.innerHTML = document.body.innerHTML
+      .replaceAll(`{${prefix}}`, obj);
+  } else if (typeof obj === "object" && obj !== null) {
+    Object.entries(obj).forEach(([key, value]) => {
+      _applyPageTokens(`${prefix}.${key}`, value);
+    });
+  }
 }

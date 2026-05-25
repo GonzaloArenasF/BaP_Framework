@@ -38,15 +38,11 @@
   <main>
     <!-- Hero Section -->
     <section class="bap-hero">
-      <h2>Desarrollo Web Ultra-Limpio y Modular</h2>
-      <p class="tagline">
-        La filosofía de BaP es simple: <strong>cero frameworks de cliente pesados, cero dependencias
-          innecesarias</strong>. Construido exclusivamente sobre HTML5, CSS3 y JavaScript Vanilla puro para probar ideas
-        rápidamente con máxima escalabilidad y rendimiento excepcional.
-      </p>
+      <h2>{landing.body.hero.title}</h2>
+      <p class="tagline">{landing.body.hero.tagline}</p>
       <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
         <a href="#playground" class="as-btn btn-2x"
-          style="display: inline-flex; align-items: center; justify-content: center;">Explorar Componentes</a>
+          style="display: inline-flex; align-items: center; justify-content: center;">{landing.body.hero.btnExplore}</a>
         <a href="https://github.com/GonzaloArenasF/BaP_Framework" target="_blank" class="as-btn btn-2x btn-secondary"
           style="display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
           <svg style="fill: currentColor; width: 20px; height: 20px;" viewBox="0 0 24 24"
@@ -54,56 +50,48 @@
             <path
               d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.08-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.18 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
           </svg>
-          Ver en GitHub
+          {landing.body.hero.btnGithub}
         </a>
       </div>
     </section>
 
     <!-- Pilares del Core -->
     <section style="margin-bottom: 4rem;">
-      <h2 style="text-align: center; margin-bottom: 2.5rem; font-size: 2rem;">🧠 La Columna Vertebral del Framework</h2>
+      <h2 style="text-align: center; margin-bottom: 2.5rem; font-size: 2rem;">{landing.body.core.sectionTitle}</h2>
       <div class="bap-grid">
         <div class="bap-card">
-          <h3>🔌 Módulo del Sistema (_main/)</h3>
-          <p>
-            Toda la inteligencia lógica está centralizada en módulos aislados en <code>src/_main/</code>:
-          </p>
+          <h3>{landing.body.core.modules.title}</h3>
+          <p>{landing.body.core.modules.description}</p>
           <ul style="padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6;">
-            <li><strong>constants.js:</strong> Credenciales del entorno y URLs dinámicas de red.</li>
-            <li><strong>router.js:</strong> Motor de ruteo dinámico sin recarga física.</li>
-            <li><strong>auth.js:</strong> Gestión de sesión y doble factor por Whitelist.</li>
-            <li><strong>storage.js:</strong> Persistencia local y remota en Realtime Database.</li>
-            <li><strong>i18n.js:</strong> Soporte de traducción y localización dinámica.</li>
-            <li><strong>analytics.js:</strong> Telemetría y taxonomía unificada de eventos.</li>
-            <li><strong>util.js:</strong> Caja de herramientas estructurales y viewport móvil.</li>
+            <li><strong>constants.js:</strong> {landing.body.core.modules.constants}</li>
+            <li><strong>router.js:</strong> {landing.body.core.modules.router}</li>
+            <li><strong>auth.js:</strong> {landing.body.core.modules.auth}</li>
+            <li><strong>storage.js:</strong> {landing.body.core.modules.storage}</li>
+            <li><strong>i18n.js:</strong> {landing.body.core.modules.i18n}</li>
+            <li><strong>analytics.js:</strong> {landing.body.core.modules.analytics}</li>
+            <li><strong>util.js:</strong> {landing.body.core.modules.util}</li>
           </ul>
         </div>
 
         <div class="bap-card">
-          <h3>🛡️ Firebase Integrado</h3>
-          <p>
-            Integración nativa directa con los servicios en la nube de Google Firebase para dar soporte robusto a
-            proyectos listos para producción:
-          </p>
+          <h3>{landing.body.core.firebase.title}</h3>
+          <p>{landing.body.core.firebase.description}</p>
           <ul style="padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6;">
-            <li><strong>Hosting:</strong> Alojamiento estático ultrarrápido y seguro.</li>
-            <li><strong>Auth:</strong> Autenticación nativa utilizando el proveedor Google Identity.</li>
-            <li><strong>Realtime DB:</strong> Control de Whitelist de accesos y persistencia.</li>
-            <li><strong>Analytics:</strong> Diccionario taxonómico unificado de telemetría.</li>
+            <li><strong>Hosting:</strong> {landing.body.core.firebase.hosting}</li>
+            <li><strong>Auth:</strong> {landing.body.core.firebase.auth}</li>
+            <li><strong>Realtime DB:</strong> {landing.body.core.firebase.realtimeDb}</li>
+            <li><strong>Analytics:</strong> {landing.body.core.firebase.analytics}</li>
           </ul>
         </div>
 
         <div class="bap-card">
-          <h3>⚙️ Pipeline con Gulp</h3>
-          <p>
-            Un potente compilador automatizado mediante scripts de consola. Asegura tu código de cliente y optimiza la
-            velocidad antes de desplegar:
-          </p>
+          <h3>{landing.body.core.gulp.title}</h3>
+          <p>{landing.body.core.gulp.description}</p>
           <ul style="padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6;">
-            <li><strong>Minificación:</strong> Compresión al extremo de HTML, CSS y JS.</li>
-            <li><strong>Ofuscación:</strong> Protección intelectual de la lógica del cliente.</li>
-            <li><strong>Inyección:</strong> Reemplazo automático de variables de versión en HTML.</li>
-            <li><strong>Distribución:</strong> Copiado y estructuración automática de assets y manifiestos.</li>
+            <li><strong>Minificación:</strong> {landing.body.core.gulp.minify}</li>
+            <li><strong>Ofuscación:</strong> {landing.body.core.gulp.obfuscation}</li>
+            <li><strong>Inyección:</strong> {landing.body.core.gulp.injection}</li>
+            <li><strong>Distribución:</strong> {landing.body.core.gulp.distribution}</li>
           </ul>
         </div>
       </div>
@@ -111,15 +99,14 @@
 
     <!-- Patio de Pruebas (Interactive Playground) -->
     <section id="playground" class="bap-playground">
-      <h2>🎮 Componentes Interactivos</h2>
+      <h2>{landing.body.playground.sectionTitle}</h2>
 
       <div class="playground-grid">
         <!-- 1. bap-logo -->
         <div class="demo-box">
           <div>
-            <h4>1. Componente &lt;bap-logo&gt;</h4>
-            <p style="font-size: 0.85rem; color: #64748b;">Muestra la identidad visual corporativa. Carga
-              adaptativamente la constante de logo o utiliza un SVG premium vectorial.</p>
+            <h4>{landing.body.playground.logo.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.logo.description}</p>
           </div>
           <div class="demo-preview">
             <bap-logo></bap-logo>
@@ -130,9 +117,8 @@
         <!-- 2. bap-svg-image -->
         <div class="demo-box">
           <div>
-            <h4>2. Componente &lt;bap-svg-image&gt;</h4>
-            <p style="font-size: 0.85rem; color: #64748b;">Gestor estandarizado de vectores SVG para iconos responsivos
-              sin llamadas HTTP individuales.</p>
+            <h4>{landing.body.playground.svgImage.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.svgImage.description}</p>
           </div>
           <div class="demo-preview">
             <bap-svg-image name="chevronLeft" size="x3"></bap-svg-image>
@@ -143,13 +129,12 @@
         <!-- 3. bap-notification -->
         <div class="demo-box">
           <div>
-            <h4>3. Componente &lt;bap-notification&gt;</h4>
-            <p style="font-size: 0.85rem; color: #64748b;">Notificaciones Toast y Snackbar con estilos inyectados
-              directamente al Shadow Root para evitar fugas visuales.</p>
+            <h4>{landing.body.playground.notification.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.notification.description}</p>
           </div>
           <div class="demo-preview" style="gap: 10px;">
-            <button id="btn_toast_info" class="btn-secondary">Disparar Toast</button>
-            <button id="btn_alert_error">Disparar Alerta</button>
+            <button id="btn_toast_info" class="btn-secondary">{landing.body.playground.notification.btnToast}</button>
+            <button id="btn_alert_error">{landing.body.playground.notification.btnAlert}</button>
           </div>
           <pre><code>import { bapNotify } from "./_main/util.js";
 bapNotify(type, severity, message);</code></pre>
@@ -158,9 +143,8 @@ bapNotify(type, severity, message);</code></pre>
         <!-- 4. bap-spinner -->
         <div class="demo-box">
           <div>
-            <h4>4. Componente &lt;bap-spinner&gt;</h4>
-            <p style="font-size: 0.85rem; color: #64748b;">Indicador de carga animado, modular y estilizado con la
-              paleta de colores del framework.</p>
+            <h4>{landing.body.playground.spinner.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.spinner.description}</p>
           </div>
           <div class="demo-preview">
             <bap-spinner></bap-spinner>
@@ -171,12 +155,11 @@ bapNotify(type, severity, message);</code></pre>
         <!-- 5. bap-dialog [NUEVO] -->
         <div class="demo-box">
           <div>
-            <h4>5. Componente &lt;bap-dialog&gt;</h4>
-            <p style="font-size: 0.85rem; color: #64748b;">Modal premium flotante con glassmorphism, difuminado de fondo
-              y enlaces asíncronos Base64.</p>
+            <h4>{landing.body.playground.dialog.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.dialog.description}</p>
           </div>
           <div class="demo-preview">
-            <button id="btn_trigger_dialog" class="btn-secondary">Abrir Modal Diálogo</button>
+            <button id="btn_trigger_dialog" class="btn-secondary">{landing.body.playground.dialog.btnOpen}</button>
           </div>
           <pre><code>&lt;bap-dialog id="demo" title-main="..."&gt;
   Cuerpo del Diálogo
@@ -186,12 +169,11 @@ bapNotify(type, severity, message);</code></pre>
         <!-- 6. bap-loading-state -->
         <div class="demo-box">
           <div>
-            <h4>6. Componente &lt;bap-loading-state&gt;</h4>
-            <p style="font-size: 0.85rem; color: #64748b;">Bloqueador de pantalla completa para simular operaciones
-              asíncronas largas y llamadas de red.</p>
+            <h4>{landing.body.playground.loadingState.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.loadingState.description}</p>
           </div>
           <div class="demo-preview">
-            <button id="btn_trigger_loading" class="btn-secondary">Bloquear Pantalla (3s)</button>
+            <button id="btn_trigger_loading" class="btn-secondary">{landing.body.playground.loadingState.btnBlock}</button>
           </div>
           <pre><code>&lt;bap-loading-state sub-message="..."&gt;
   Procesando...
@@ -201,9 +183,8 @@ bapNotify(type, severity, message);</code></pre>
         <!-- 7. bap-chip -->
         <div class="demo-box">
           <div>
-            <h4>7. Componente &lt;bap-chip&gt;</h4>
-            <p style="font-size: 0.85rem; color: #64748b;">Etiquetas visuales de metadatos o tags estilizadas con bordes
-              circulares y color de énfasis.</p>
+            <h4>{landing.body.playground.chip.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.chip.description}</p>
           </div>
           <div class="demo-preview" style="gap: 8px;">
             <bap-chip>Vanilla JS</bap-chip>
@@ -216,14 +197,13 @@ bapNotify(type, severity, message);</code></pre>
         <!-- 8. bap-header -->
         <div class="demo-box">
           <div>
-            <h4>8. Componente &lt;bap-header&gt;</h4>
-            <p style="font-size: 0.85rem; color: #64748b;">Cabecera modular integrada y responsiva. Administra
-              automáticamente el menú hamburguesa móvil y control de sesión.</p>
+            <h4>{landing.body.playground.header.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.header.description}</p>
           </div>
           <div class="demo-preview">
             <div
               style="font-size: 0.8rem; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 6px; width: 100%; border: 1px dashed var(--accent-color);">
-              💡 Visualízalo fijo en la parte superior de esta página.
+              {landing.body.playground.header.hint}
             </div>
           </div>
           <pre><code>&lt;bap-header&gt;&lt;/bap-header&gt;</code></pre>
@@ -232,14 +212,13 @@ bapNotify(type, severity, message);</code></pre>
         <!-- 9. bap-footer -->
         <div class="demo-box">
           <div>
-            <h4>9. Componente &lt;bap-footer&gt;</h4>
-            <p style="font-size: 0.85rem; color: #64748b;">Pie de página unificado y responsivo. Se alinea de forma
-              fluida adaptándose al viewport móvil y de escritorio.</p>
+            <h4>{landing.body.playground.footer.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.footer.description}</p>
           </div>
           <div class="demo-preview">
             <div
               style="font-size: 0.8rem; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 6px; width: 100%; border: 1px dashed var(--accent-color);">
-              💡 Visualízalo al pie de esta página.
+              {landing.body.playground.footer.hint}
             </div>
           </div>
           <pre><code>&lt;bap-footer&gt;&lt;/bap-footer&gt;</code></pre>
@@ -249,7 +228,7 @@ bapNotify(type, severity, message);</code></pre>
 
     <!-- Instrucciones de Terminal -->
     <section id="terminal" style="margin-bottom: 2rem;">
-      <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem;">💻 Ciclo de Desarrollo en la Terminal</h2>
+      <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem;">{landing.body.terminal.sectionTitle}</h2>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
         <div>
@@ -263,9 +242,8 @@ bapNotify(type, severity, message);</code></pre>
               <span class="terminal-prompt">$</span> npm run server
             </div>
           </div>
-          <h4 style="margin: 0 0 0.5rem 0;">Servidor de Desarrollo</h4>
-          <p style="font-size: 0.9rem; color: #64748b;">Levanta el servidor HTTP local con Hot-Reload y recarga en
-            tiempo real sobre el navegador.</p>
+          <h4 style="margin: 0 0 0.5rem 0;">{landing.body.terminal.server.title}</h4>
+          <p style="font-size: 0.9rem; color: #64748b;">{landing.body.terminal.server.description}</p>
         </div>
 
         <div>
@@ -279,9 +257,8 @@ bapNotify(type, severity, message);</code></pre>
               <span class="terminal-prompt">$</span> npm run optimize
             </div>
           </div>
-          <h4 style="margin: 0 0 0.5rem 0;">Optimizar para Producción</h4>
-          <p style="font-size: 0.9rem; color: #64748b;">Compila, comprime, aplica I18N y ofusca el código fuente
-            moviéndolo a la carpeta <code>/public</code>.</p>
+          <h4 style="margin: 0 0 0.5rem 0;">{landing.body.terminal.optimize.title}</h4>
+          <p style="font-size: 0.9rem; color: #64748b;">{landing.body.terminal.optimize.description}</p>
         </div>
 
         <div>
@@ -295,9 +272,8 @@ bapNotify(type, severity, message);</code></pre>
               <span class="terminal-prompt">$</span> npm run deploy-prod
             </div>
           </div>
-          <h4 style="margin: 0 0 0.5rem 0;">Desplegar a Firebase</h4>
-          <p style="font-size: 0.9rem; color: #64748b;">Sube y aloja instantáneamente tu aplicación optimizada en la
-            infraestructura productiva de Firebase.</p>
+          <h4 style="margin: 0 0 0.5rem 0;">{landing.body.terminal.deploy.title}</h4>
+          <p style="font-size: 0.9rem; color: #64748b;">{landing.body.terminal.deploy.description}</p>
         </div>
       </div>
     </section>
