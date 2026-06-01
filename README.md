@@ -1,4 +1,4 @@
-# BaP Framework - v2.0.1
+# BaP Framework - v2.1.0
 
 Un framework minimalista y de alto rendimiento basado en **HTML, CSS y JavaScript Vanilla (puro)**. Diseñado bajo la filosofía de "cero frameworks externos y cero dependencias pesadas en el cliente", BaP permite prototipar ideas de manera extremadamente rápida y sencilla, proporcionando a su vez una arquitectura robusta, modular y altamente escalable para aplicaciones en producción.
 
@@ -15,7 +15,9 @@ BaP Framework está optimizado para integrarse de forma nativa con los servicios
 *   **Recaptcha**: Firebase AppCheck / Google Cloud reCAPTCHA (protección contra bots).
 
 > [!IMPORTANT]
-> Para activar la integración, crea un proyecto en Firebase, configura tus credenciales dentro de `src/_main/constants.js` y establece la constante `CONSTANT.FIREBASE_AVAILABLE` en `true`.
+> Para activar la integración, crea un proyecto en Firebase. Luego, copia el archivo `.env.example` como `.env` en la raíz del proyecto, completa las credenciales con los valores de tu proyecto Firebase, y establece la constante `CONSTANT.FIREBASE_AVAILABLE` en `true` en `src/_main/constants.js`.
+> 
+> ⚠️ El archivo `.env` está en `.gitignore` y **nunca debe subirse al repositorio**. El archivo `.env.example` sirve como plantilla de referencia.
 
 ---
 
@@ -74,7 +76,7 @@ A continuación, se detalla el rol de cada pieza lógica y cómo interactúan en
 
 | Módulo | Responsabilidad Principal | Sinergia con el Ecosistema |
 | :--- | :--- | :--- |
-| **`constants.js`** | Única fuente de verdad para la configuración global del framework (variables de versión, disponibilidad de Firebase, recargado local y URLs dinámicas en base a `window.location.origin`). | **Alimenta a todos los módulos:** Cualquier cambio en el estado del entorno o credenciales es consumido instantáneamente por el motor de autenticación, almacenamiento, enrutamiento y registro de componentes. |
+| **`constants.js`** | Única fuente de verdad para la configuración global del framework (variables de versión, disponibilidad de Firebase y URLs dinámicas en base a `window.location.origin`). Las credenciales de Firebase se definen como tokens `%%NOMBRE%%` que son inyectados en tiempo de build desde el archivo `.env` local (ver `gulp-imports.js` y `gulpfile.js`). | **Alimenta a todos los módulos:** Cualquier cambio en el estado del entorno es consumido instantáneamente por el motor de autenticación, almacenamiento, enrutamiento y registro de componentes. |
 | **`firebaseInit.js`** | Gateway de integración del ecosistema Google Firebase. Inicializa dinámicamente las instancias de App, Auth, Database y Analytics de forma centralizada. | **Provee los recursos base:** Evita la múltiple instanciación y expone las instancias unificadas (`bapAuth`, `bapDB`, `bapAnalytics`) requeridas por el módulo de seguridad (`auth.js`) y telemetría (`analytics.js`). |
 | **`auth.js`** | Gestiona el estado de sesión activo de los usuarios y realiza el control lógico de acceso mediante validación asíncrona contra la lista blanca (`/allowed_users/`) de Realtime Database. | **Asegura la navegación:** Proporciona los estados de sesión (`userSession`) y los resultados de autorización que el motor de enrutamiento (`router.js`) requiere para permitir o bloquear el acceso a rutas protegidas. |
 | **`routerPaths.js`** | Diccionario estricto donde se declaran las rutas disponibles de la aplicación, asociando cada path de URL a un componente de página y a sus reglas de validación (p. ej., si requiere inicio de sesión). | **Mapa de navegación:** Estructura los destinos que el motor de enrutamiento (`router.js`) procesará en base al tipo de transición (`REDIRECT` o `LOAD_COMPONENT`). |
@@ -226,10 +228,15 @@ npm run deploy-prod
 ```
 
 ### Proceso de Gulp (`npm run optimize`)
+
+> [!IMPORTANT]
+> Antes de compilar para producción, asegúrate de que el archivo `.env` existe en la raíz del proyecto con las credenciales de Firebase completas. Cópialo desde `.env.example` si es la primera vez.
+
 El script de optimización automatiza las siguientes tareas:
 1.  **Minificación HTML**: Limpia y reduce el tamaño de los archivos `.html` reemplazando dinámicamente marcas de variables (como `{APP_VERSION}` y entornos de producción).
 2.  **Procesamiento CSS**: Consolida y minifica las hojas de estilos de componentes y generales.
-3.  **Ofuscación JavaScript**: Ejecuta `gulp-javascript-obfuscator` sobre toda la lógica interna y de componentes en `/public`, garantizando la protección de la propiedad intelectual antes del despliegue.
+3.  **Inyección de credenciales**: Lee el archivo `.env` e inyecta las credenciales de Firebase en los archivos `.js` reemplazando los tokens `%%NOMBRE%%` definidos en `constants.js`.
+4.  **Ofuscación JavaScript**: Ejecuta `gulp-javascript-obfuscator` sobre toda la lógica interna y de componentes en `/public`, garantizando la protección de la propiedad intelectual antes del despliegue.
 
 ---
 

@@ -13,6 +13,38 @@ function handleError(err) {
   this.emit("end");
 }
 
+/**
+ * Reemplaza los tokens %%NOMBRE%% en los archivos JS con los valores
+ * leídos desde el archivo .env local. Se ejecuta antes de la ofuscación
+ * para que las credenciales nunca queden expuestas en el código fuente.
+ */
+function replaceEnvTokens() {
+  const { firebaseEnv } = appImports;
+  // Mapeo: token en constants.js → clave en .env (nombres estándar de Firebase)
+  const tokens = {
+    "%%FIREBASE_AP%%":   firebaseEnv.apiKey             || "",
+    "%%FIREBASE_AD%%":   firebaseEnv.authDomain         || "",
+    "%%FIREBASE_DURL%%": firebaseEnv.databaseURL        || "",
+    "%%FIREBASE_PID%%":  firebaseEnv.projectId          || "",
+    "%%FIREBASE_SB%%":   firebaseEnv.storageBucket      || "",
+    "%%FIREBASE_MSID%%": firebaseEnv.messagingSenderId  || "",
+    "%%FIREBASE_AID%%":  firebaseEnv.appId              || "",
+    "%%FIREBASE_MID%%":  firebaseEnv.measurementId      || "",
+    "%%RECAPTCHA_ID%%":  firebaseEnv.RECAPTCHA_ID       || "",
+  };
+
+  return through.obj(function (file, enc, cb) {
+    if (file.isBuffer()) {
+      let content = file.contents.toString(enc);
+      Object.entries(tokens).forEach(([token, value]) => {
+        content = content.replaceAll(token, value);
+      });
+      file.contents = Buffer.from(content);
+    }
+    cb(null, file);
+  });
+}
+
 // Assets folder
 function copyAssetsFolder() {
   console.log(">>> Copiying ASSETS...");
@@ -109,6 +141,7 @@ function minifyJS() {
     .src("src/**/*.js")
     .pipe(sourcemaps.init({ largeFile: true }))
     .pipe(sourcemaps.identityMap())
+    .pipe(replaceEnvTokens())  // ← Inyecta credenciales desde .env antes de ofuscar
     .pipe(
       obfuscate({
         compact: true,

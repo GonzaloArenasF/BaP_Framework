@@ -1,6 +1,41 @@
 import { esES } from "./src/_main/i18n/es-ES.js";
 import { ENV_URL, CONSTANT, CDN_URL } from "./src/_main/constants.js";
 import { routes } from "./src/_main/routerPaths.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+/**
+ * Lee y parsea el archivo .env local para inyección de credenciales en build-time.
+ * Usa solo módulos nativos de Node.js, sin dependencias externas.
+ * Si el archivo no existe, retorna un objeto vacío y emite una advertencia.
+ */
+function loadEnv() {
+  try {
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+    const envContent = fs.readFileSync(path.join(__dirname, ".env"), "utf-8");
+    const env = {};
+    envContent.split("\n").forEach((line) => {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith("#")) {
+        const eqIndex = trimmed.indexOf("=");
+        if (eqIndex !== -1) {
+          const key = trimmed.substring(0, eqIndex).trim();
+          const value = trimmed.substring(eqIndex + 1).trim().replace(/^["']|["']$/g, "");
+          env[key] = value;
+        }
+      }
+    });
+    console.log("✅ .env cargado correctamente. Credenciales Firebase listas para inyección.");
+    return env;
+  } catch (e) {
+    console.warn("⚠️  No se encontró el archivo .env. Los tokens %%FIREBASE_*%% no serán reemplazados en el build.");
+    console.warn("   Crea el archivo .env basado en .env.example antes de hacer deploy.");
+    return {};
+  }
+}
+
+export const firebaseEnv = loadEnv();
 
 const i18n = esES;
 
@@ -68,4 +103,4 @@ const applyI18n = {
   },
 };
 
-export default { i18n, applyI18n, i18nPagesToProcess, ENV_URL, CONSTANT };
+export default { i18n, applyI18n, i18nPagesToProcess, ENV_URL, CONSTANT, firebaseEnv };

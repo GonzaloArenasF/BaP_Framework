@@ -1,12 +1,17 @@
 /**
  * CONSTANTES GLOBALES DEL SISTEMA
- * 
+ *
  * Contiene todas las configuraciones globales, claves de almacenamiento,
- * tipos de notificaciones, credenciales de Firebase y configuración de entornos.
+ * tipos de notificaciones y configuración de entornos.
+ *
+ * ⚠️  SEGURIDAD: Las credenciales de Firebase y reCAPTCHA NO están hardcodeadas aquí.
+ *     Los tokens %%NOMBRE%% son reemplazados en tiempo de build por el pipeline de Gulp,
+ *     leyendo los valores desde el archivo .env local (ignorado por Git).
+ *     Ver: gulp-imports.js → loadEnv() y gulpfile.js → replaceEnvTokens()
  */
 export const CONSTANT = {
   APP_NAME: "BaP Framework",
-  APP_VERSION: "v2.0.1",
+  APP_VERSION: "v2.1.0",
   FIREBASE_AVAILABLE: false, // Regla de Oro: Controla si Firebase está disponible o no.
   STORAGE: {
     KEYS: {
@@ -40,17 +45,18 @@ export const CONSTANT = {
     LOGIN_ATTEMPTS: 10,
   },
   FBC: {
-    AP: "",
-    AD: "",
-    DURL: "",
-    PID: "",
-    SB: "",
-    MSID: "",
-    AID: "",
+    AP: "%%FIREBASE_AP%%",   // Inyectado desde .env en el build de Gulp
+    AD: "%%FIREBASE_AD%%",   // Inyectado desde .env en el build de Gulp
+    DURL: "%%FIREBASE_DURL%%", // Inyectado desde .env en el build de Gulp
+    PID: "%%FIREBASE_PID%%", // Inyectado desde .env en el build de Gulp
+    SB: "%%FIREBASE_SB%%",   // Inyectado desde .env en el build de Gulp
+    MSID: "%%FIREBASE_MSID%%", // Inyectado desde .env en el build de Gulp
+    AID: "%%FIREBASE_AID%%", // Inyectado desde .env en el build de Gulp
+    MID: "%%FIREBASE_MID%%"  // Inyectado desde .env en el build de Gulp
   },
   RECAPTCHA: {
-    ID: "",
-    NAME: "",
+    ID: "%%RECAPTCHA_ID%%", // Inyectado desde .env en el build de Gulp
+    NAME: "bap-framework web site",
   },
   I18N: {
     DEFAULT: "es",
@@ -66,7 +72,7 @@ export const CONSTANT = {
 
 // Entornos de despliegue
 const E = {
-  PROD: "https://bap-framework.cl",
+  PROD: "https://bap-framework.gonzaloarenasf.cl",
   DEV1: "http://192.168.1.107:8080",
   DEV2: "http://172.20.10.3:8080",
   LOCAL: "http://localhost:8080",
