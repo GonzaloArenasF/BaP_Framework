@@ -11,8 +11,8 @@
 | ID | Severidad | Descripción breve | Estado |
 |----|-----------|-------------------|--------|
 | VUL-01 | 🔴 Crítica | Credenciales Firebase hardcodeadas | ✅ Corregida en v2.1.0 |
-| VUL-02 | 🔴 Crítica | XSS via innerHTML masivo en i18n | ⏳ Pendiente |
-| VUL-03 | 🔴 Crítica | XSS en bap-dialog via innerHTML + Base64 URL | ⏳ Pendiente |
+| VUL-02 | 🔴 Crítica | XSS via innerHTML masivo en i18n | ✅ Corregida en v2.1.2 |
+| VUL-03 | 🔴 Crítica | XSS en bap-dialog via innerHTML + Base64 URL | ✅ Corregida en v2.1.3 |
 | VUL-04 | 🟠 Alta | Bypass de seguridad con FIREBASE_AVAILABLE | ⏳ Pendiente |
 | VUL-05 | 🟠 Alta | Script de Google Translate sin SRI ni async | ⏳ Pendiente |
 | VUL-06 | 🟠 Alta | Pseudo-cifrado con Base64 en storage.js | ⏳ Pendiente |
@@ -126,7 +126,7 @@ Se extendió el sistema de inyección de tokens para cubrir dos constantes adici
 
 ---
 
-### 🔴 CRÍTICA — VUL-02: Inyección XSS potencial en sistema de plantillas i18n (innerHTML masivo)
+### ✅ VUL-02: Inyección XSS potencial en sistema de plantillas i18n (innerHTML masivo)
  
 **Versión:** `v2.1.1` → `v2.1.2`
  
@@ -149,7 +149,7 @@ La función `applyI18n()` y la actualización de cabeceras en `index.js` realiza
  
 ---
  
-### 🔴 CRÍTICA — VUL-03: XSS en componente `bap-dialog` mediante inyección de HTML arbitrario y Base64 URLs
+### ✅ VUL-03: XSS en componente `bap-dialog` mediante inyección de HTML arbitrario y Base64 URLs
  
 **Versión:** `v2.1.2` → `v2.1.3`
  
