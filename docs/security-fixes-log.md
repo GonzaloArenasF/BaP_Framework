@@ -102,4 +102,26 @@ Adicionalmente, las credenciales fueron actualizadas a un nuevo proyecto Firebas
 | `.env.example` | Claves renombradas a convención Firebase |
 | `gulpfile.js` | Mapeo `firebaseEnv.*` actualizado a nuevos nombres de clave |
 
+#### Enmienda 2 — Extensión de tokens a `FIREBASE_AVAILABLE` y `RECAPTCHA.NAME`
+
+**Versión:** `v2.1.0` → `v2.1.1`
+
+Se extendió el sistema de inyección de tokens para cubrir dos constantes adicionales que tenían valores hardcodeados:
+
+| Constante | Token en `constants.js` | Clave en `.env` | Tipo | Valor por defecto |
+|-----------|------------------------|-----------------|------|-------------------|
+| `FIREBASE_AVAILABLE` | `%%FIREBASE_AVAILABLE%%` (sin comillas) | `FIREBASE_AVAILABLE` | booleano | `false` |
+| `RECAPTCHA.NAME` | `"%%RECAPTCHA_NAME%%"` (con comillas) | `RECAPTCHA_NAME` | string | — |
+
+> ⚠️ `FIREBASE_AVAILABLE` usa el token **sin comillas** en `constants.js` para que el valor `true`/`false` del `.env` sea inyectado como booleano JS nativo, no como string.
+
+| Archivo | Cambio |
+|---------|--------|
+| `src/_main/constants.js` | `false` → `%%FIREBASE_AVAILABLE%%` y `"bap-framework web site"` → `"%%RECAPTCHA_NAME%%"` + `v2.1.1` |
+| `.env` | + `FIREBASE_AVAILABLE=false` y `RECAPTCHA_NAME=bap-framework web site` |
+| `.env.example` | + `FIREBASE_AVAILABLE=` y `RECAPTCHA_NAME=` |
+| `gulpfile.js` | + 2 entradas en `replaceEnvTokens()` |
+| `package.json` | `v2.1.0` → `v2.1.1` |
+| `README.md` | `v2.1.0` → `v2.1.1` |
+
 ---

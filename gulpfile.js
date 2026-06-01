@@ -22,15 +22,17 @@ function replaceEnvTokens() {
   const { firebaseEnv } = appImports;
   // Mapeo: token en constants.js → clave en .env (nombres estándar de Firebase)
   const tokens = {
-    "%%FIREBASE_AP%%":   firebaseEnv.apiKey             || "",
-    "%%FIREBASE_AD%%":   firebaseEnv.authDomain         || "",
-    "%%FIREBASE_DURL%%": firebaseEnv.databaseURL        || "",
-    "%%FIREBASE_PID%%":  firebaseEnv.projectId          || "",
-    "%%FIREBASE_SB%%":   firebaseEnv.storageBucket      || "",
-    "%%FIREBASE_MSID%%": firebaseEnv.messagingSenderId  || "",
-    "%%FIREBASE_AID%%":  firebaseEnv.appId              || "",
-    "%%FIREBASE_MID%%":  firebaseEnv.measurementId      || "",
-    "%%RECAPTCHA_ID%%":  firebaseEnv.RECAPTCHA_ID       || "",
+    "%%FIREBASE_AVAILABLE%%": firebaseEnv.FIREBASE_AVAILABLE  || "false",
+    "%%FIREBASE_AP%%":        firebaseEnv.apiKey              || "",
+    "%%FIREBASE_AD%%":        firebaseEnv.authDomain          || "",
+    "%%FIREBASE_DURL%%":      firebaseEnv.databaseURL         || "",
+    "%%FIREBASE_PID%%":       firebaseEnv.projectId           || "",
+    "%%FIREBASE_SB%%":        firebaseEnv.storageBucket       || "",
+    "%%FIREBASE_MSID%%":      firebaseEnv.messagingSenderId   || "",
+    "%%FIREBASE_AID%%":       firebaseEnv.appId               || "",
+    "%%FIREBASE_MID%%":       firebaseEnv.measurementId       || "",
+    "%%RECAPTCHA_ID%%":       firebaseEnv.RECAPTCHA_ID        || "",
+    "%%RECAPTCHA_NAME%%":     firebaseEnv.RECAPTCHA_NAME      || "",
   };
 
   return through.obj(function (file, enc, cb) {

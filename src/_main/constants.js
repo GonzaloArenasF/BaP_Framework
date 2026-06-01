@@ -11,8 +11,8 @@
  */
 export const CONSTANT = {
   APP_NAME: "BaP Framework",
-  APP_VERSION: "v2.1.0",
-  FIREBASE_AVAILABLE: false, // Regla de Oro: Controla si Firebase está disponible o no.
+  APP_VERSION: "v2.1.1",
+  FIREBASE_AVAILABLE: %%FIREBASE_AVAILABLE%%, // Inyectado desde .env en el build de Gulp (true en producción, false en desarrollo)
   STORAGE: {
     KEYS: {
       DIALOG_DATA: "dd",
@@ -55,8 +55,8 @@ export const CONSTANT = {
     MID: "%%FIREBASE_MID%%"  // Inyectado desde .env en el build de Gulp
   },
   RECAPTCHA: {
-    ID: "%%RECAPTCHA_ID%%", // Inyectado desde .env en el build de Gulp
-    NAME: "bap-framework web site",
+    ID: "%%RECAPTCHA_ID%%",     // Inyectado desde .env en el build de Gulp
+    NAME: "%%RECAPTCHA_NAME%%", // Inyectado desde .env en el build de Gulp
   },
   I18N: {
     DEFAULT: "es",

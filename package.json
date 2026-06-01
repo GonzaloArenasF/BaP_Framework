@@ -1,11 +1,11 @@
 {
   "name": "bap-framework",
-  "version": "v2.1.0",
+  "version": "v2.1.1",
   "description": "BaP Framework",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "http-server ./src -o --cors",
+    "server": "http-server ./public -o --cors",
     "optimize": "gulp",
     "deploy-qa": "firebase hosting:channel:deploy qa",
     "deploy-prod": "firebase deploy"
