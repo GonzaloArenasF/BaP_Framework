@@ -7,6 +7,7 @@
  */
 import { ENV_URL } from "../../_main/constants.js";
 import { createCustomComponent } from "../customComponentsRegistration.js";
+import { sanitizeHTML } from "../../_main/i18n.js";
 
 /**
  * Pre-renderiza la plantilla del diálogo inyectando los títulos, imágenes y contenido dinámico.
@@ -26,10 +27,14 @@ function preRender(html, props) {
   const rightImg = props.imageHeaderRight ? `<img src="${props.imageHeaderRight}" alt="Encabezado Derecho" />` : "";
   const detailImg = props.imageDetail ? `<img class="bap-dialog-detail-img" src="${props.imageDetail}" alt="Detalle" />` : "";
   
-  // Formatear títulos
-  const titleTop = props.titleTop ? `<h5 class="title-top">${props.titleTop}</h5>` : "";
-  const titleMain = props.titleMain ? `<h2 class="title-main">${props.titleMain}</h2>` : "";
-  const titleSub = props.titleSub ? `<h3 class="title-sub">${props.titleSub}</h3>` : "";
+  // Formatear títulos sanitizados
+  const titleTopText = props.titleTop ? sanitizeHTML(props.titleTop) : "";
+  const titleMainText = props.titleMain ? sanitizeHTML(props.titleMain) : "";
+  const titleSubText = props.titleSub ? sanitizeHTML(props.titleSub) : "";
+
+  const titleTop = titleTopText ? `<h5 class="title-top">${titleTopText}</h5>` : "";
+  const titleMain = titleMainText ? `<h2 class="title-main">${titleMainText}</h2>` : "";
+  const titleSub = titleSubText ? `<h3 class="title-sub">${titleSubText}</h3>` : "";
   
   // Inyectar marcas
   result = result.replace("{image-header-left-markup}", leftImg);
@@ -39,16 +44,30 @@ function preRender(html, props) {
   result = result.replace("{title-main-markup}", titleMain);
   result = result.replace("{title-sub-markup}", titleSub);
   
-  // Inyectar el cuerpo
-  result = result.replace("{dialog-body-content}", props.bodyContent || "");
+  // Inyectar el cuerpo sanitizado
+  const sanitizedBody = props.bodyContent ? sanitizeHTML(props.bodyContent) : "";
+  result = result.replace("{dialog-body-content}", sanitizedBody);
   
   // Decodificar enlaces Base64
   let linksMarkup = "";
   if (props.linkUrlBase64 && props.linkTextBase64) {
     try {
-      const decodedUrl = atob(props.linkUrlBase64);
+      const decodedUrl = atob(props.linkUrlBase64).trim();
       const decodedText = atob(props.linkTextBase64);
-      linksMarkup += `<a href="${decodedUrl}" target="_blank" class="primary">${decodedText}</a>`;
+      
+      // Validar esquema de URL para prevenir inyección de javascript: o esquemas no válidos
+      const lowerUrl = decodedUrl.toLowerCase();
+      const isSafeProtocol = lowerUrl.startsWith("https://") || 
+                             lowerUrl.startsWith("http://") || 
+                             lowerUrl.startsWith("mailto:") || 
+                             (!lowerUrl.includes(":") && !lowerUrl.startsWith("//")); // Enlaces relativos o anclas
+
+      if (isSafeProtocol) {
+        const cleanText = sanitizeHTML(decodedText);
+        linksMarkup += `<a href="${decodedUrl}" target="_blank" class="primary">${cleanText}</a>`;
+      } else {
+        console.warn("bap-dialog: Bloqueada URL Base64 con protocolo potencialmente peligroso:", decodedUrl);
+      }
     } catch (error) {
       console.error("Error al decodificar enlace Base64 en bap-dialog:", error);
     }

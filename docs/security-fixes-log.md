@@ -148,3 +148,25 @@ La función `applyI18n()` y la actualización de cabeceras en `index.js` realiza
 | `README.md` | `v2.1.1` → `v2.1.2` |
  
 ---
+ 
+### 🔴 CRÍTICA — VUL-03: XSS en componente `bap-dialog` mediante inyección de HTML arbitrario y Base64 URLs
+ 
+**Versión:** `v2.1.2` → `v2.1.3`
+ 
+**Descripción:**
+El Web Component `<bap-dialog>` leía `this.innerHTML` crudo del host en su cuerpo (`bodyContent`) e interpolaba textos y metadatos sin sanitización en la plantilla HTML, la cual posteriormente se asignaba a `template.innerHTML` permitiendo ejecución de scripts. Adicionalmente, decodificaba y renderizaba enlaces de Base64 (`link-url-base64`) en tags `<a>` sin validación de protocolo, permitiendo la inyección de esquemas peligrosos como `javascript:`.
+ 
+**Corrección implementada:**
+1. **Sanitización del Cuerpo y Textos**: Se importó la función de sanitización robusta y nativa `sanitizeHTML()` desde `i18n.js` y se aplicó de forma mandatoria sobre `props.bodyContent`, `props.titleTop`, `props.titleMain` y `props.titleSub`. Esto neutraliza cualquier inyección HTML maliciosa (eliminando tags `<script>`, `<iframe>` y cualquier atributo de tipo de evento `on*` o esquemas `javascript:`).
+2. **Validación de Protocolo de Enlace**: Se decodifica la URL de `link-url-base64` y se valida de forma estricta su esquema. Solo se permite el paso de enlaces que utilicen esquemas seguros (`https://`, `http://`, `mailto:`, enlaces relativos, anclas) y se bloquean por completo esquemas peligrosos como `javascript:`.
+3. **Escapado de Enlace**: Se aplica sanitización adicional sobre el texto visible decodificado del enlace.
+ 
+| Archivo | Cambio |
+|---------|--------|
+| `src/_components/bap-dialog/bap-dialog.js` | Importa `sanitizeHTML()`. Aplica sanitización a metadatos, títulos, y `bodyContent`. Añade validación de protocolo estricta sobre enlaces Base64 |
+| `src/_main/constants.js` | `v2.1.2` → `v2.1.3` |
+| `package.json` | `v2.1.2` → `v2.1.3` |
+| `README.md` | `v2.1.2` → `v2.1.3` |
+ 
+---
+

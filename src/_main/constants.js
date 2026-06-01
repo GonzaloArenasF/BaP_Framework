@@ -11,7 +11,7 @@
  */
 export const CONSTANT = {
   APP_NAME: "BaP Framework",
-  APP_VERSION: "v2.1.2",
+  APP_VERSION: "v2.1.3",
   FIREBASE_AVAILABLE: "%%FIREBASE_AVAILABLE%%", // Inyectado desde .env en el build de Gulp (true en producción, false en desarrollo)
   STORAGE: {
     KEYS: {
