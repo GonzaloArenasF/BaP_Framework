@@ -125,3 +125,26 @@ Se extendió el sistema de inyección de tokens para cubrir dos constantes adici
 | `README.md` | `v2.1.0` → `v2.1.1` |
 
 ---
+
+### 🔴 CRÍTICA — VUL-02: Inyección XSS potencial en sistema de plantillas i18n (innerHTML masivo)
+ 
+**Versión:** `v2.1.1` → `v2.1.2`
+ 
+**Descripción:**
+La función `applyI18n()` y la actualización de cabeceras en `index.js` realizaban reemplazos de tokens mediante la reasignación de strings a `document.body.innerHTML` y `document.head.innerHTML`. Esto destruía todo el DOM y re-instanciaba elementos de forma insegura, eliminando event listeners activos y abriendo superficies de XSS.
+ 
+**Corrección implementada:**
+1. **Recorrido Seguro del DOM (Traversal)**: Se implementó la función `replaceTokensInDOM(rootNode, tokenMap)` que utiliza la API nativa de alta eficiencia `document.createTreeWalker` para inspeccionar únicamente los nodos de texto (`Node.TEXT_NODE`) y los atributos de los elementos (`Node.ELEMENT_NODE`). Esto elimina por completo la necesidad de mutar e invalidar el HTML del DOM completo.
+2. **Inyección Segura de HTML i18n**: Para las traducciones que legítimamente contienen etiquetas HTML de énfasis y código (como `<strong>` y `<code>`), se parsea el string usando un elemento `<template>` y se inyecta su contenido en el DOM de forma segura.
+3. **Defensa en Profundidad (Sanitizador)**: Se añadió una función de sanitización ultraligera (`sanitizeHTML()`) que utiliza `DOMParser` para eliminar cualquier etiqueta `<script>`, `iframe`, `style`, `object` o `embed`, y remueve atributos de eventos interactivos (e.g. `onclick`, `onerror`) y esquemas `javascript:`, garantizando inmunidad a ataques XSS.
+4. **Actualización Automática**: Se modificó `applyI18n()` para autoconstruir el mapa plano de tokens usando una función recursiva (`flattenObject()`) sobre el diccionario de páginas, aplicándolo de una sola pasada sobre el head y el body.
+ 
+| Archivo | Cambio |
+|---------|--------|
+| `src/_main/i18n.js` | Remueve `document.head.innerHTML = ...` y `document.body.innerHTML = ...`. Añade `replaceTokensInDOM`, `flattenObject`, `sanitizeHTML`, y actualiza `applyI18n()` |
+| `src/index.js` | Remueve la mutación manual de head/body innerHTML en el callback, reemplazándola por `replaceTokensInDOM` |
+| `src/_main/constants.js` | `v2.1.1` → `v2.1.2` |
+| `package.json` | `v2.1.1` → `v2.1.2` |
+| `README.md` | `v2.1.1` → `v2.1.2` |
+ 
+---

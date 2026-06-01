@@ -22,7 +22,7 @@ function replaceEnvTokens() {
   const { firebaseEnv } = appImports;
   // Mapeo: token en constants.js → clave en .env (nombres estándar de Firebase)
   const tokens = {
-    "%%FIREBASE_AVAILABLE%%": firebaseEnv.FIREBASE_AVAILABLE  || "false",
+    "\"%%FIREBASE_AVAILABLE%%\"": firebaseEnv.FIREBASE_AVAILABLE  || "false",
     "%%FIREBASE_AP%%":        firebaseEnv.apiKey              || "",
     "%%FIREBASE_AD%%":        firebaseEnv.authDomain          || "",
     "%%FIREBASE_DURL%%":      firebaseEnv.databaseURL         || "",
