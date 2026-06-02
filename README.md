@@ -1,4 +1,4 @@
-# BaP Framework - v2.2.1
+# BaP Framework - v2.2.2
 
 Un framework minimalista y de alto rendimiento basado en **HTML, CSS y JavaScript Vanilla (puro)**. Diseñado bajo la filosofía de "cero frameworks externos y cero dependencias pesadas en el cliente", BaP permite prototipar ideas de manera extremadamente rápida y sencilla, proporcionando a su vez una arquitectura robusta, modular y altamente escalable para aplicaciones en producción.
 
@@ -161,6 +161,20 @@ Cuando Firebase está habilitado, BaP Framework implementa un robusto control de
 >   }
 > }
 > ```
+
+---
+
+## 📦 Persistencia Criptográfica y Segura (Módulo `storage.js`)
+
+El framework cuenta con una capa unificada y robusta para gestionar la persistencia en el cliente y en la nube de forma segura:
+
+1. **Métodos Asíncronos Seguros (Recomendados - Criptografía AES-GCM)**:
+   Las funciones asíncronas `getFromStorageAsync`, `setToStorageAsync` y `updateStorageAsync` implementan encriptación de nivel bancario utilizando la **Web Crypto API** nativa del navegador:
+   * **Derivación de Clave (PBKDF2)**: Deriva una clave fuerte AES de 256 bits a partir de una contraseña suministrada (con 100,000 iteraciones, salt aleatorio y HMAC-SHA256).
+   * **Cifrado Simétrico (AES-GCM)**: Cifra el payload localmente generando un vector de inicialización (IV) único por cada escritura.
+   * **🔑 Enlace de Sesión Dinámico (Opción A)**: El framework está diseñado para usar el **`uid` del usuario autenticado en Firebase (`auth.currentUser.uid`)** combinado con un salt interno estable. De este modo, los datos locales del usuario en el navegador quedan cifrados de forma completamente aislada por cuenta y no se guarda ningún secreto estático en los archivos de la aplicación.
+2. **Métodos Síncrono-Retrocompatibles (Obsoletos)**:
+   Las funciones síncronas `getFromStorage`, `setToStorage` y `updateStorage` continúan disponibles para evitar breaking changes en aplicaciones existentes. Sin embargo, su capacidad de "cifrado" actúa únicamente como una **ofuscación de Base64** Unicode-safe. Estas funciones muestran advertencias en la consola indicando que no deben utilizarse para datos sensibles.
 
 ---
 

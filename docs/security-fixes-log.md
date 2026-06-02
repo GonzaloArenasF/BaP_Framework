@@ -15,7 +15,7 @@
 | VUL-03 | 🔴 Crítica | XSS en bap-dialog via innerHTML + Base64 URL | ✅ Corregida en v2.1.3 |
 | VUL-04 | 🟠 Alta | Bypass de seguridad con FIREBASE_AVAILABLE | ✅ Corregida en v2.2.0 |
 | VUL-05 | 🟠 Alta | Script de Google Translate sin SRI ni async | ✅ Corregida en v2.2.1 |
-| VUL-06 | 🟠 Alta | Pseudo-cifrado con Base64 en storage.js | ⏳ Pendiente |
+| VUL-06 | 🟠 Alta | Pseudo-cifrado con Base64 en storage.js | ✅ Corregida en v2.2.2 |
 | VUL-07 | 🟠 Alta | Firebase SDK desactualizado (v10.4.0) | ⏳ Pendiente |
 | VUL-08 | 🟡 Media | Ausencia de cabeceras de seguridad HTTP (CSP) | ⏳ Pendiente |
 | VUL-09 | 🟡 Media | Query params parseados manualmente con split() | ⏳ Pendiente |
@@ -219,4 +219,41 @@ El componente `<bap-header>` inyectaba dinámicamente el script de Google Transl
 | `README.md` | `v2.2.0` → `v2.2.1` |
 
 ---
+
+### ✅ VUL-06 — Pseudo-cifrado en storage.js con Base64
+
+**Severidad:** 🟠 Alta
+**Versión:** `v2.2.1` → `v2.2.2`
+**Fecha:** Junio 2026
+
+#### Problema
+Las funciones síncronas `encryptData` y `decryptData` utilizaban codificación Base64 (`btoa` / `atob`) en bruto y concatenaban la clave secreta `secretKey` en texto plano al final del string (`btoa(data) + "/@/" + secretKey`), lo cual no proporciona seguridad criptográfica real. Además, `btoa()` fallaba con caracteres Unicode (no ASCII), limitando la robustez de almacenamiento del framework.
+
+#### Solución aplicada
+Implementamos un diseño criptográfico híbrido no destructivo que soluciona la vulnerabilidad de manera definitiva y mantiene 100% de retrocompatibilidad:
+
+1. **Aislamiento y Advertencia en Métodos Síncronos (Obsoletos)**:
+   * Marcamos `encryptData` y `decryptData` como `@deprecated` en la documentación JSDoc.
+   * Añadimos un `console.warn` automático que se dispara cuando son llamadas, alertando al desarrollador.
+   * Refactorizaremos su codificación interna para hacerlas Unicode-safe (`btoa(unescape(encodeURIComponent(data)))`), previniendo caídas al guardar textos con tildes, eñes o emojis.
+2. **Capa Criptográfica Segura Asíncrona (Web Crypto API)**:
+   * Implementamos `secureEncryptData(data, password)` y `secureDecryptData(encryptedData, password)` usando **AES-GCM (256 bits)** nativo y derivación de clave por **PBKDF2** (con 100,000 iteraciones, HMAC-SHA256 y salting seguro de 16 bytes).
+   * **Enlace Dinámico de Sesión (Opción A)**: El framework promueve el uso del **`uid` de Firebase Auth (`auth.currentUser.uid`)** como clave dinámica de derivación para encriptar localmente. De este modo, los datos de cada usuario quedan protegidos de forma única y aislada.
+   * Empaquetamos todo en una firma estándar Base64 libre de límites de pila: `Salt (16B) + IV (12B) + Ciphertext`.
+3. **Nuevos Envolventes Asíncronos**:
+   * Creamos y exportamos `getFromStorageAsync`, `setToStorageAsync`, y `updateStorageAsync`.
+   * Para `LOCAL` y `SESSION`, realizan cifrado/descifrado transparente AES-GCM si se provee `secretKey` (por ejemplo, el UID del usuario).
+   * Para `DB` (Firebase Realtime Database), se implementó un sistema basado en `Promise` en lugar de callbacks tradicionales, modernizando su consumo.
+
+#### Archivos modificados
+| Archivo | Cambio |
+|---------|--------|
+| `src/_main/storage.js` | Métodos síncronos deprecados + Unicode-safe. Añade `secureEncryptData`, `secureDecryptData` y métodos `*Async` con PBKDF2/AES-GCM |
+| `src/_main/constants.js` | `v2.2.1` → `v2.2.2` |
+| `package.json` | `v2.2.1` → `v2.2.2` |
+| `README.md` | `v2.2.1` → `v2.2.2` + documentación de persistencia criptográfica |
+| `docs/security-fixes-log.md` | Registro de corrección de VUL-06 y tabla de estado general actualizada |
+
+---
+
 
