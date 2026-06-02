@@ -17,7 +17,7 @@
 | VUL-05 | 🟠 Alta | Script de Google Translate sin SRI ni async | ✅ Corregida en v2.2.1 |
 | VUL-06 | 🟠 Alta | Pseudo-cifrado con Base64 en storage.js | ✅ Corregida en v2.2.2 |
 | VUL-07 | 🟠 Alta | Firebase SDK desactualizado (v10.4.0) | ✅ Corregida en v2.2.3 |
-| VUL-08 | 🟡 Media | Ausencia de cabeceras de seguridad HTTP (CSP) | ⏳ Pendiente |
+| VUL-08 | 🟡 Media | Ausencia de cabeceras de seguridad HTTP (CSP) | ✅ Corregida en v2.2.4 |
 | VUL-09 | 🟡 Media | Query params parseados manualmente con split() | ⏳ Pendiente |
 | VUL-10 | 🟡 Media | Servidor de desarrollo con CORS abierto y sin HTTPS | ⏳ Pendiente |
 | VUL-11 | 🟡 Media | UUID generado con Math.random() | ⏳ Pendiente |
@@ -313,6 +313,44 @@ Dado que `!type` siempre retorna un valor booleano (`true` o `false`), que nunca
 | `package.json` | `v2.2.2` → `v2.2.3` |
 | `README.md` | `v2.2.2` → `v2.2.3` |
 | `docs/security-fixes-log.md` | Registro de correcciones y tabla de estados generales actualizada |
+
+---
+
+### ✅ VUL-08 — Ausencia total de Content Security Policy (CSP)
+
+**Severidad:** 🟡 Media
+**Versión:** `v2.2.3` → `v2.2.4`
+**Fecha:** Junio 2026
+
+#### Problema
+La configuración de despliegue de Firebase Hosting carecía por completo de cabeceras HTTP de seguridad. Esto dejaba a la aplicación expuesta a ataques de clickjacking, inyecciones de MIME-sniffing, y no limitaba de ninguna forma la carga de scripts o la conectividad externa (ausencia de Content Security Policy).
+
+#### Solución aplicada
+1. **Configuración de Cabeceras HTTP de Seguridad en `firebase.json`**:
+   * Agregamos la clave `"headers"` con directivas globales (`"source": "**"`) para inyectar cabeceras en todas las respuestas del servidor:
+     * `X-Frame-Options: SAMEORIGIN`: Protege contra **Clickjacking** impidiendo que el sitio sea embebido en iframes externos no controlados.
+     * `X-Content-Type-Options: nosniff`: Mitiga inyecciones de XSS previniendo que el navegador interprete tipos de recursos incorrectos.
+     * `Referrer-Policy: strict-origin-when-cross-origin`: Resguarda la privacidad restringiendo la información del referrer al navegar externamente.
+     * `Permissions-Policy`: Restringe el acceso a APIs de hardware del cliente (`camera=(), microphone=(), geolocation=()`).
+2. **Diseño de un Content Security Policy (CSP) ultra-estricto**:
+   * Declaramos una directiva CSP sumamente restrictiva y segura, adaptada de forma nativa a los recursos necesarios del framework:
+     * `default-src 'self'`: Bloqueo por defecto de cualquier origen externo.
+     * `script-src 'self' https://www.gstatic.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/`: Permite la ejecución de scripts únicamente del origen local, el CDN de Firebase de Google y el widget interactivo de reCAPTCHA.
+     * `connect-src 'self' https://*.firebase.io https://*.firebaseio.com wss://*.firebaseio.com https://*.google-analytics.com https://*.analytics.google.com https://recaptchaenterprise.googleapis.com`: Permite y aísla de forma segura las conexiones hacia la base de datos de Firebase RTDB, Google Analytics y la API de reCAPTCHA Enterprise.
+     * `style-src 'self' 'unsafe-inline' https://fonts.googleapis.com`: Permite las hojas de estilos del framework, estilos dinámicos embebidos necesarios e importación de fuentes de Google.
+     * `font-src 'self' https://fonts.gstatic.com`: Permite la descarga vectorial de tipografías premium desde Google Fonts.
+     * `img-src 'self' data: https:`: Habilita logotipos locales, SVGs inline, e imágenes remotas sobre HTTPS.
+     * `frame-src 'self' https://www.google.com/recaptcha/ https://recaptcha.google.com/`: Habilita la inyección segura del iframe de validación humana de reCAPTCHA.
+     * `frame-ancestors 'self'`: Directiva CSP que anula la posibilidad de embeber el sitio en dominios ajenos.
+
+#### Archivos modificados
+| Archivo | Cambio |
+|---------|--------|
+| `firebase.json` | Incorpora la sección `"headers"` completa inyectando CSP, X-Frame-Options, y más |
+| `src/_main/constants.js` | `v2.2.3` → `v2.2.4` |
+| `package.json` | `v2.2.3` → `v2.2.4` |
+| `README.md` | `v2.2.3` → `v2.2.4` |
+| `docs/security-fixes-log.md` | Registro de corrección de VUL-08 y tabla de estados generales actualizada |
 
 ---
 
