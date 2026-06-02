@@ -19,8 +19,8 @@
 | VUL-07 | 🟠 Alta | Firebase SDK desactualizado (v10.4.0) | ✅ Corregida en v2.2.3 |
 | VUL-08 | 🟡 Media | Ausencia de cabeceras de seguridad HTTP (CSP) | ✅ Corregida en v2.2.4 |
 | VUL-09 | 🟡 Media | Query params parseados manualmente con split() | ✅ Corregida en v2.2.5 |
-| VUL-10 | 🟡 Media | Servidor de desarrollo con CORS abierto y sin HTTPS | ⏳ Pendiente |
-| VUL-11 | 🟡 Media | UUID generado con Math.random() | ⏳ Pendiente |
+| VUL-10 | 🟡 Media | Servidor de desarrollo con CORS abierto y sin HTTPS | ✅ Corregida en v2.2.6 |
+| VUL-11 | 🟡 Media | UUID generado con Math.random() | ✅ Corregida en v2.2.7 |
 | VUL-12 | 🔵 Baja | Source maps expuestos en bundle de producción | ⏳ Pendiente |
 | VUL-13 | 🔵 Baja | Operador lógico incorrecto en logAnalyticEvent() | ✅ Corregida en v2.2.3 |
 | VUL-14 | 🔵 Baja | Carpeta public/ versionada en Git | ⏳ Pendiente |
@@ -389,6 +389,61 @@ Esta asignación abría una superficie crítica de ataque de **XSS Reflejado**, 
 | `package.json` | `v2.2.4` → `v2.2.5` |
 | `README.md` | `v2.2.4` → `v2.2.5` |
 | `docs/security-fixes-log.md` | Registro de corrección de VUL-09 y tabla de estados generales actualizada |
+
+---
+
+### ✅ VUL-10 — Servidor de desarrollo con CORS abierto y sin HTTPS
+
+**Severidad:** 🟡 Media
+**Versión:** `v2.2.5` → `v2.2.6`
+**Fecha:** Junio 2026
+
+#### Problema
+El script de desarrollo local en `package.json` ejecutaba `http-server ./public -o --cors`. Esto abría CORS de forma irrestricta (`Access-Control-Allow-Origin: *`) para todos los orígenes en el entorno local de desarrollo. Como resultado, cualquier sitio web cargado en otra pestaña del navegador del desarrollador podía hacer fetch requests a `http://localhost:8080` y extraer información sensible, archivos fuentes, variables y el archivo `.env` cargado en memoria (intranet port scanning).
+
+#### Solución aplicada
+De acuerdo con un enfoque pragmático y libre de fricciones de desarrollo:
+1. **Desactivación de CORS Abierto (Same-Origin Policy por defecto)**:
+   * Eliminamos por completo el flag `--cors` del script `"server"` en `package.json`. Al no declararlo, `http-server` desactiva el CORS abierto y aplica la política de seguridad restrictiva nativa del navegador (Same-Origin Policy). Como todos los recursos se cargan desde el mismo origen local, esto no genera ningún impacto ni error en el desarrollo de la aplicación y bloquea cualquier lectura externa maliciosa.
+2. **Mantenimiento de Servidor HTTP Plano por Defecto**:
+   * Mantuvimos el servidor sobre HTTP plano para un inicio inmediato y sin configuraciones complejas (evitando forzar la generación local de certificados TLS y las consiguientes caídas ante certificados inexistentes).
+   * Añadimos advertencias de seguridad y notas en el `README.md` sobre el uso seguro del servidor local únicamente en redes locales de confianza.
+
+#### Archivos modificados
+| Archivo | Cambio |
+|---------|--------|
+| `package.json` | Remueve `--cors` de la tarea `"server"` y realiza bump de versión |
+| `src/_main/constants.js` | `v2.2.5` → `v2.2.6` |
+| `README.md` | `v2.2.5` → `v2.2.6` + advertencia de seguridad local y notas de CORS |
+| `docs/security-fixes-log.md` | Registro de corrección de VUL-10 y tabla de estados generales actualizada |
+
+---
+
+### ✅ VUL-11 — UUID generado con Math.random() (no criptográficamente seguro)
+
+**Severidad:** 🟡 Media
+**Versión:** `v2.2.6` → `v2.2.7`
+**Fecha:** Junio 2026
+
+#### Problema
+La función `generateUUID()` en `src/_main/util.js` utilizaba el generador pseudo-aleatorio `Math.random()`, el cual es criptográficamente débil y predecible. Si estos identificadores fuesen escalados o empleados para sesiones o tokens sensibles en la base de datos de Firebase, representarían un riesgo real de predicción de IDs de recursos.
+
+#### Solución aplicada
+Refactorizamos la función `generateUUID()` para implementar un diseño híbrido altamente robusto y compatible basado en la API nativa de criptografía del navegador (**Web Crypto API**):
+
+1. **`crypto.randomUUID()` (Prioridad 1)**: Si está disponible (navegadores modernos y Node.js en contextos seguros/localhost), genera UUIDs v4 criptográficamente fuertes instantáneamente.
+2. **`crypto.getRandomValues()` (Prioridad 2)**: Fallback criptográfico seguro para navegadores antiguos que carecen del método `.randomUUID()`, derivando entropía fuerte a partir de arreglos tipados (`Uint8Array`).
+3. **Fallback Inseguro `Math.random()` con Alerta (Prioridad 3)**: Solo si la Web Crypto API está completamente ausente en el entorno del cliente, se utiliza el algoritmo pseudo-aleatorio legacy pero imprimiendo un aviso de advertencia explícito (`console.warn`) en consola para alertar al desarrollador.
+
+#### Archivos modificados
+| Archivo | Cambio |
+|---------|--------|
+| `src/_main/util.js` | Refactoriza `generateUUID()` para usar Web Crypto API con fallbacks seguros |
+| `src/_main/constants.js` | `v2.2.6` → `v2.2.7` |
+| `package.json` | `v2.2.6` → `v2.2.7` |
+| `README.md` | `v2.2.6` → `v2.2.7` |
+| `docs/security-fixes-log.md` | Registro de la corrección e incremento de versión general |
+
 
 ---
 

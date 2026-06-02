@@ -1,4 +1,4 @@
-# BaP Framework - v2.2.5
+# BaP Framework - v2.2.7
 
 Un framework minimalista y de alto rendimiento basado en **HTML, CSS y JavaScript Vanilla (puro)**. Diseñado bajo la filosofía de "cero frameworks externos y cero dependencias pesadas en el cliente", BaP permite prototipar ideas de manera extremadamente rápida y sencilla, proporcionando a su vez una arquitectura robusta, modular y altamente escalable para aplicaciones en producción.
 
@@ -228,7 +228,8 @@ BaP Framework utiliza un robusto pipeline de automatización con **Gulp** para c
 ### Comandos de Consola
 
 ```bash
-# 1. Iniciar el servidor local de desarrollo con hot-reload
+# 1. Iniciar el servidor local de desarrollo
+# Nota: Por seguridad, el CORS abierto está deshabilitado por defecto para prevenir lectura de datos desde pestañas externas.
 npm run server
 
 # 2. Compilar, minificar y ofuscar el código para producción
