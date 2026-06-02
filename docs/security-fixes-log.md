@@ -18,7 +18,7 @@
 | VUL-06 | 🟠 Alta | Pseudo-cifrado con Base64 en storage.js | ✅ Corregida en v2.2.2 |
 | VUL-07 | 🟠 Alta | Firebase SDK desactualizado (v10.4.0) | ✅ Corregida en v2.2.3 |
 | VUL-08 | 🟡 Media | Ausencia de cabeceras de seguridad HTTP (CSP) | ✅ Corregida en v2.2.4 |
-| VUL-09 | 🟡 Media | Query params parseados manualmente con split() | ⏳ Pendiente |
+| VUL-09 | 🟡 Media | Query params parseados manualmente con split() | ✅ Corregida en v2.2.5 |
 | VUL-10 | 🟡 Media | Servidor de desarrollo con CORS abierto y sin HTTPS | ⏳ Pendiente |
 | VUL-11 | 🟡 Media | UUID generado con Math.random() | ⏳ Pendiente |
 | VUL-12 | 🔵 Baja | Source maps expuestos en bundle de producción | ⏳ Pendiente |
@@ -351,6 +351,44 @@ La configuración de despliegue de Firebase Hosting carecía por completo de cab
 | `package.json` | `v2.2.3` → `v2.2.4` |
 | `README.md` | `v2.2.3` → `v2.2.4` |
 | `docs/security-fixes-log.md` | Registro de corrección de VUL-08 y tabla de estados generales actualizada |
+
+---
+
+### ✅ VUL-09 — Parseado manual inseguro de Query Parameters e XSS Reflejado en router.js
+
+**Severidad:** 🟡 Media
+**Versión:** `v2.2.4` → `v2.2.5`
+**Fecha:** Junio 2026
+
+#### Problema
+El motor de enrutamiento del framework (`src/_main/router.js`) parseaba manualmente los parámetros de consulta de `window.location.href` mediante operaciones frágiles de `.split()`. Posteriormente, los concatenaba en formato de strings HTML e inyectaba el componente dinámico resultante asignándolo de manera directa a la propiedad `innerHTML` de la etiqueta `<main>`:
+```javascript
+document.getElementsByTagName("main")[0].innerHTML = `<${route.component} ${params.join(" ")} />`;
+```
+Esta asignación abría una superficie crítica de ataque de **XSS Reflejado**, ya que cualquier query parameter malicioso provisto en la URL (ej: `?name="><script>alert(1)</script>`) escapaba del tag del componente y era interpretado directamente por el navegador. Adicionalmente, el split manual fallaba ante valores codificados en URL o con múltiples signos `=`.
+
+#### Solución aplicada
+1. **Instanciación y Asignación Segura del DOM (`loadContent`)**:
+   * Eliminamos por completo la concatenación de strings HTML y la asignación a `innerHTML` (el vector XSS).
+   * Migramos a la API nativa de creación del DOM. Instanciamos el Web Component usando `document.createElement(route.component)`. Dado que `route.component` es una propiedad declarada y controlada en `routerPaths.js`, es un origen de datos estático y seguro.
+   * Iteramos sobre los parámetros URL e inyectamos sus valores utilizando **`element.setAttribute(key, value)`**. El navegador trata la entrada en `setAttribute` estrictamente como una cadena de texto y **nunca como HTML ejecutable**, neutralizando el 100% de la superficie XSS.
+   * Limpiamos el DOM anterior usando `main.textContent = ""` y realizamos el anclaje seguro mediante `main.appendChild(element)`.
+2. **Migración a la API Estándar `URLSearchParams` (`getQueryParams` y `loadContent`)**:
+   * Reemplazamos todos los splits manuales de URLs por la API nativa **`URLSearchParams`**:
+     ```javascript
+     const searchParams = new URLSearchParams(window.location.search);
+     ```
+   * Esto automatiza perfectamente la decodificación de URLs (`decodeURIComponent`), la traducción de caracteres espaciadores, la gestión de múltiples signos `=` y eñes/tildes de forma nativa e inmune a errores.
+   * Incorporamos validaciones por Expresión Regular (`/^[a-zA-Z_:][-a-zA-Z0-9_:.]*$/`) sobre las claves del query string para asegurar que solo nombres de atributos HTML válidos e inofensivos sean inyectados como atributos del Web Component.
+
+#### Archivos modificados
+| Archivo | Cambio |
+|---------|--------|
+| `src/_main/router.js` | Refactoriza `loadContent()` para instanciación DOM limpia y `setAttribute` seguros. Migra `getQueryParams()` a `URLSearchParams` |
+| `src/_main/constants.js` | `v2.2.4` → `v2.2.5` |
+| `package.json` | `v2.2.4` → `v2.2.5` |
+| `README.md` | `v2.2.4` → `v2.2.5` |
+| `docs/security-fixes-log.md` | Registro de corrección de VUL-09 y tabla de estados generales actualizada |
 
 ---
 

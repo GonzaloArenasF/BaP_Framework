@@ -84,20 +84,37 @@ const navigateTo = (route, params) => {
 
 /**
  * Carga dinámicamente un componente dentro de la etiqueta <main> del DOM.
+ * Evita XSS reflejado instanciando elementos y seteando atributos de forma segura con la API del DOM.
  * 
  * @param {Object} route - Objeto de configuración de la ruta.
  */
 const loadContent = (route) => {
-  let params = [];
+  const main = document.getElementsByTagName("main")[0];
+  if (!main) return;
+
+  // Limpiar el DOM anterior de forma segura
+  main.textContent = "";
+
+  // Crear el elemento de componente de forma segura (route.component es estático e inmutable)
+  const element = document.createElement(route.component);
+
+  // Inyectar los query parameters de forma segura como atributos en el elemento
   try {
-    if (window.location.href.includes("?")) {
-      const queryParams = window.location.href.split("?")[1].split("&");
-      params = [...queryParams.map((param) => `${param.split("=")[0]}=${param.split("=")[1]}`)];
+    const searchParams = new URLSearchParams(window.location.search);
+    for (const [key, value] of searchParams.entries()) {
+      // Validar que el nombre del atributo sea un identificador HTML válido
+      if (/^[a-zA-Z_:][-a-zA-Z0-9_:.]*$/.test(key)) {
+        element.setAttribute(key, value);
+      } else {
+        console.warn(`Nombre de parámetro URL omitido por caracteres inválidos de atributo: ${key}`);
+      }
     }
   } catch (e) {
     console.warn("No se pudieron parsear parámetros de URL para carga de componentes:", e);
   }
-  document.getElementsByTagName("main")[0].innerHTML = `<${route.component} ${params.join(" ")} />`;
+
+  // Insertar el elemento instanciado de forma segura en el DOM
+  main.appendChild(element);
 };
 
 /**
@@ -129,18 +146,16 @@ export async function goTo(route, params) {
 
 /**
  * Transforma los parámetros de la URL actual en un objeto JavaScript.
+ * Utiliza la API nativa URLSearchParams para decodificación y parseado seguro.
  * 
  * @returns {Object} Objeto con las claves y valores de la URL.
  */
 export function getQueryParams() {
   let params = {};
   try {
-    if (window.location.href.includes("?")) {
-      const queryParams = window.location.href.split("?")[1].split("&");
-      queryParams.forEach((param) => {
-        let paramValue = param.split("=");
-        params[paramValue[0]] = paramValue[1];
-      });
+    const searchParams = new URLSearchParams(window.location.search);
+    for (const [key, value] of searchParams.entries()) {
+      params[key] = value;
     }
   } catch (error) {
     bapNotify(
