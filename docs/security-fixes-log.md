@@ -14,7 +14,7 @@
 | VUL-02 | 🔴 Crítica | XSS via innerHTML masivo en i18n | ✅ Corregida en v2.1.2 |
 | VUL-03 | 🔴 Crítica | XSS en bap-dialog via innerHTML + Base64 URL | ✅ Corregida en v2.1.3 |
 | VUL-04 | 🟠 Alta | Bypass de seguridad con FIREBASE_AVAILABLE | ✅ Corregida en v2.2.0 |
-| VUL-05 | 🟠 Alta | Script de Google Translate sin SRI ni async | ⏳ Pendiente |
+| VUL-05 | 🟠 Alta | Script de Google Translate sin SRI ni async | ✅ Corregida en v2.2.1 |
 | VUL-06 | 🟠 Alta | Pseudo-cifrado con Base64 en storage.js | ⏳ Pendiente |
 | VUL-07 | 🟠 Alta | Firebase SDK desactualizado (v10.4.0) | ⏳ Pendiente |
 | VUL-08 | 🟡 Media | Ausencia de cabeceras de seguridad HTTP (CSP) | ⏳ Pendiente |
@@ -193,6 +193,30 @@ El flag `FIREBASE_AVAILABLE = false` actuaba como interruptor maestro de segurid
 | `gulpfile.js` | Añade validación de producción crítica en `replaceEnvTokens()` para abortar ante bypass activo |
 | `package.json` | `v2.1.3` → `v2.2.0` |
 | `README.md` | `v2.1.3` → `v2.2.0` |
+
+---
+
+### ✅ VUL-05: Carga dinámica de script de tercero sin integridad verificada (SRI)
+
+**Severidad:** 🟠 Alta
+**Versión:** `v2.2.0` → `v2.2.1`
+**Fecha:** Junio 2026
+
+**Descripción:**
+El componente `<bap-header>` inyectaba dinámicamente el script de Google Translate desde un origen de tercero no verificado sin SRI (Subresource Integrity) y usando un protocolo relativo. Esto introducía riesgos de seguridad Supply Chain y sobrecargas de rendimiento. Adicionalmente, el framework forzaba la inicialización del traductor en `404.js` de la página 404.html, la cual al no tener el header causaba que el script del traductor nunca se cargase, gatillando excepciones críticas de tipo `ReferenceError: google is not defined` que rompían la ejecución local del cliente en 404.
+
+**Corrección implementada (Opción A - Recomendada):**
+1. **Remoción Completa del Código Inoperativo**: Dado que ninguna plantilla HTML (ni `index.html` ni `bap-header.html`) contenía el div receptor `<div id="google_translate_element">`, el traductor era inoperante en la práctica. Removimos por completo la inyección dinámica de la etiqueta de script externo en `src/_components/bap-header/bap-header.js`.
+2. **Eliminación de la Inicialización en 404**: Se eliminó la función `googleTranslateElementInit()` y su importación/llamada rota en `src/404.js`, resolviendo definitivamente el bug de crash de JavaScript en la página 404.
+3. **Refactorización de Plantilla de 404 (Soporte VUL-02)**: Aprovechamos la refactorización para migrar las sustituciones inseguras de `innerHTML` en `src/404.js` a nuestro motor seguro `replaceTokensInDOM()`, eliminando por completo las mutaciones destructivas en la página de error.
+
+| Archivo | Cambio |
+|---------|--------|
+| `src/_components/bap-header/bap-header.js` | Remueve inyección dinámica del script y función `googleTranslateElementInit()` |
+| `src/404.js` | Remueve importación y llamada a `googleTranslateElementInit()`. Refactoriza reemplazos usando `replaceTokensInDOM` seguro |
+| `src/_main/constants.js` | `v2.2.0` → `v2.2.1` |
+| `package.json` | `v2.2.0` → `v2.2.1` |
+| `README.md` | `v2.2.0` → `v2.2.1` |
 
 ---
 

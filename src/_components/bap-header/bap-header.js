@@ -61,12 +61,6 @@ function postRender(props) {
     bapHeaderElement.querySelectorAll("[data-mode]").forEach((btn) => {
       btn.addEventListener("click", () => applyColorMode(btn.dataset.mode));
     });
-
-    // Google translator attachment
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = "//translate.google.com/translate_a/element.js";
-    document.body.appendChild(script);
   }
 }
 
@@ -89,17 +83,4 @@ export class BapHeader extends HTMLElement {
       props,
     });
   }
-}
-
-export function googleTranslateElementInit() {
-  new google.translate.TranslateElement(
-    {
-      pageLanguage: "es",
-      includedLanguages: "es,en",
-      layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL,
-      autoDisplay: false,
-      gaTrack: true,
-    },
-    "google_translate_element"
-  );
 }
