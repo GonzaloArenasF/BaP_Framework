@@ -24,6 +24,7 @@
 | VUL-12 | 🔵 Baja | Source maps expuestos en bundle de producción | ✅ Corregida en v2.2.8 |
 | VUL-13 | 🔵 Baja | Operador lógico incorrecto en logAnalyticEvent() | ✅ Corregida en v2.2.3 |
 | VUL-14 | 🔵 Baja | Carpeta public/ versionada en Git | ✅ Corregida en v2.2.9 |
+| VUL-15 | 🔵 Baja | Exposición de entornos en constants.js | ✅ Corregida en v2.3.0 |
 
 ---
 
@@ -515,6 +516,41 @@ La carpeta autogenerada `/public` (que contiene los entregables minificados y of
 | `package.json` | `v2.2.8` → `v2.2.9` |
 | `README.md` | `v2.2.8` → `v2.2.9` |
 | `docs/security-fixes-log.md` | Registro de la corrección y tabla de estado general actualizada |
+
+---
+
+### ✅ VUL-15 — Refactorización y Endurecimiento de la Configuración de Entornos (constants.js)
+
+**Severidad:** 🔵 Baja
+**Versión:** `v2.2.9` → `v2.3.0`
+**Fecha:** Junio 2026
+
+#### Problema
+El objeto de entornos `E` estaba hardcodeado directamente en `src/_main/constants.js` conteniendo las direcciones IP locales obsoletas (`DEV1` y `DEV2`), la URL de CDN y la dirección de producción. Al viajar el objeto entero compilado al cliente, se exponían de manera innecesaria metadatos de despliegue e infraestructura en el navegador.
+
+#### Solución aplicada
+Refactorizamos por completo el sistema de entornos para desacoplar las URLs del código estático y delegarlas en su totalidad al archivo de variables de entorno `.env` seguro:
+
+1. **Eliminación del Objeto `E`**: Removimos por completo el objeto `E` de `src/_main/constants.js`.
+2. **Inyección de Tokens Dinámica**: Rediseñamos las constantes globales del framework utilizando tokens que se inyectan en tiempo de build desde `.env`:
+   ```javascript
+   export const ENV_URL = "%%CURRENT_ENV%%";
+   export const IS_PROD = ENV_URL === "%%ENV_PROD%%";
+   export const CDN_URL = "%%ENV_CDN%%";
+   ```
+3. **Mapeo de Variables en Gulp**: Agregamos las claves `ENV_PROD`, `ENV_CDN` y `CURRENT_ENV` en `.env` (y su plantilla `.env.example`). Configuramos `replaceEnvTokens()` en `gulpfile.js` para realizar las sustituciones correspondientes.
+4. **Validación Dinámica VUL-04**: Actualizamos el validador de pre-compilación de producción en Gulp para comparar de forma directa variables de entorno (`firebaseEnv.CURRENT_ENV === firebaseEnv.ENV_PROD`) en lugar de hacer inspección estática del string de JavaScript, lo cual es mucho más seguro y robusto.
+
+#### Archivos modificados
+| Archivo | Cambio |
+|---------|--------|
+| `src/_main/constants.js` | Remueve objeto `E` y simplifica `ENV_URL`, `IS_PROD` y `CDN_URL` a tokens |
+| `gulpfile.js` | Añade los 3 nuevos tokens a `replaceEnvTokens()` y refactorea validación `isBuildingProd` |
+| `.env` | Agrega `ENV_PROD`, `ENV_CDN` y `CURRENT_ENV` |
+| `.env.example` | Agrega las variables correspondientes como plantilla de referencia |
+| `package.json` | `v2.2.9` → `v2.3.0` |
+| `README.md` | `v2.2.9` → `v2.3.0` |
+| `docs/security-fixes-log.md` | Registro de corrección e incremento de versión general |
 
 
 

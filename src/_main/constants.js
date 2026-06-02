@@ -11,7 +11,7 @@
  */
 export const CONSTANT = {
   APP_NAME: "BaP Framework",
-  APP_VERSION: "v2.2.9",
+  APP_VERSION: "v2.3.0",
   FIREBASE_AVAILABLE: (() => {
     // VUL-04: Autodetectar entorno de red local para mayor seguridad.
     // Evitar errores de referencia en Node.js (Gulp build time).
@@ -86,16 +86,7 @@ export const CONSTANT = {
   },
 };
 
-// Entornos de despliegue
-const E = {
-  PROD: "https://bap-framework.gonzaloarenasf.cl",
-  DEV1: "http://192.168.1.107:8080",
-  DEV2: "http://172.20.10.3:8080",
-  LOCAL: "http://localhost:8080",
-  CDN: "https://cdn-bap-framework.web.app",
-};
-
-// Modificar antes de desplegar
-export const ENV_URL = E.LOCAL;
-export const IS_PROD = ENV_URL === E.PROD;
-export const CDN_URL = E.CDN;
+// Modificar antes de desplegar en tu archivo .env
+export const ENV_URL = "%%CURRENT_ENV%%";
+export const IS_PROD = ENV_URL === "%%ENV_PROD%%";
+export const CDN_URL = "%%ENV_CDN%%";

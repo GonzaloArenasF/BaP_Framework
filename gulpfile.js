@@ -36,6 +36,9 @@ function replaceEnvTokens() {
     "%%FIREBASE_MID%%":       firebaseEnv.measurementId       || "",
     "%%RECAPTCHA_ID%%":       firebaseEnv.RECAPTCHA_ID        || "",
     "%%RECAPTCHA_NAME%%":     firebaseEnv.RECAPTCHA_NAME      || "",
+    "%%ENV_PROD%%":           firebaseEnv.ENV_PROD            || "",
+    "%%ENV_CDN%%":            firebaseEnv.ENV_CDN             || "",
+    "%%CURRENT_ENV%%":        firebaseEnv.CURRENT_ENV         || "",
   };
 
   return through.obj(function (file, enc, cb) {
@@ -44,13 +47,13 @@ function replaceEnvTokens() {
 
       // VUL-04: Validar en tiempo de build si se compila para producción con Firebase inactivo
       if (file.path.endsWith("constants.js")) {
-        const isBuildingProd = content.includes("export const ENV_URL = E.PROD");
+        const isBuildingProd = (firebaseEnv.CURRENT_ENV === firebaseEnv.ENV_PROD);
         const firebaseEnabled = (firebaseEnv.FIREBASE_AVAILABLE === "true");
         const hasFirebaseConfig = !!(firebaseEnv.apiKey); // Solo validar si tiene credenciales en el .env
 
         if (isBuildingProd && hasFirebaseConfig && !firebaseEnabled) {
           const errMsg = "\n\x1b[31m🔥 ERROR DE COMPILACIÓN (VUL-04):\x1b[0m\n" +
-            "   Se está compilando para el entorno de PRODUCCIÓN (E.PROD) en constants.js con Firebase configurado,\n" +
+            "   Se está compilando para el entorno de PRODUCCIÓN (CURRENT_ENV === ENV_PROD) en tu archivo .env con Firebase configurado,\n" +
             "   pero la variable FIREBASE_AVAILABLE está desactivada o configurada como 'false' en tu .env local.\n" +
             "   Esto dejaría expuesta la aplicación desplegada con un bypass de seguridad crítico.\n" +
             "   \n" +

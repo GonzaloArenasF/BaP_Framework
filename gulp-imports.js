@@ -1,5 +1,5 @@
 import { esES } from "./src/_main/i18n/es-ES.js";
-import { ENV_URL, CONSTANT, CDN_URL, IS_PROD } from "./src/_main/constants.js";
+import { CONSTANT } from "./src/_main/constants.js";
 import { routes } from "./src/_main/routerPaths.js";
 import fs from "fs";
 import path from "path";
@@ -36,6 +36,11 @@ function loadEnv() {
 }
 
 export const firebaseEnv = loadEnv();
+
+// Resolución dinámica de entorno para el proceso de compilación (evita tokens de constants.js)
+export const ENV_URL = firebaseEnv.CURRENT_ENV || "http://localhost:8080";
+export const CDN_URL = firebaseEnv.ENV_CDN || "https://cdn-bap-framework.web.app";
+export const IS_PROD = ENV_URL === (firebaseEnv.ENV_PROD || "https://bap-framework.gonzaloarenasf.cl");
 
 const i18n = esES;
 
