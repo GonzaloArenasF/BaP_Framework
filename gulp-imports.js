@@ -1,5 +1,5 @@
 import { esES } from "./src/_main/i18n/es-ES.js";
-import { ENV_URL, CONSTANT, CDN_URL } from "./src/_main/constants.js";
+import { ENV_URL, CONSTANT, CDN_URL, IS_PROD } from "./src/_main/constants.js";
 import { routes } from "./src/_main/routerPaths.js";
 import fs from "fs";
 import path from "path";
@@ -103,4 +103,4 @@ const applyI18n = {
   },
 };
 
-export default { i18n, applyI18n, i18nPagesToProcess, ENV_URL, CONSTANT, firebaseEnv };
+export default { i18n, applyI18n, i18nPagesToProcess, ENV_URL, CONSTANT, firebaseEnv, IS_PROD };

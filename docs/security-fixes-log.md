@@ -21,7 +21,7 @@
 | VUL-09 | 🟡 Media | Query params parseados manualmente con split() | ✅ Corregida en v2.2.5 |
 | VUL-10 | 🟡 Media | Servidor de desarrollo con CORS abierto y sin HTTPS | ✅ Corregida en v2.2.6 |
 | VUL-11 | 🟡 Media | UUID generado con Math.random() | ✅ Corregida en v2.2.7 |
-| VUL-12 | 🔵 Baja | Source maps expuestos en bundle de producción | ⏳ Pendiente |
+| VUL-12 | 🔵 Baja | Source maps expuestos en bundle de producción | ✅ Corregida en v2.2.8 |
 | VUL-13 | 🔵 Baja | Operador lógico incorrecto en logAnalyticEvent() | ✅ Corregida en v2.2.3 |
 | VUL-14 | 🔵 Baja | Carpeta public/ versionada en Git | ⏳ Pendiente |
 
@@ -443,6 +443,46 @@ Refactorizamos la función `generateUUID()` para implementar un diseño híbrido
 | `package.json` | `v2.2.6` → `v2.2.7` |
 | `README.md` | `v2.2.6` → `v2.2.7` |
 | `docs/security-fixes-log.md` | Registro de la corrección e incremento de versión general |
+
+---
+
+### ✅ VUL-12 — Source maps expuestos en el bundle de producción
+
+**Severidad:** 🔵 Baja
+**Versión:** `v2.2.7` → `v2.2.8`
+**Fecha:** Junio 2026
+
+#### Problema
+El script de optimización de Gulp (`gulpfile.js`) generaba y guardaba mapas de fuentes (`.map`) inline codificados en Base64 al final de cada archivo CSS y JavaScript en el bundle desplegable `/public`. Esto permitía a cualquier usuario o atacante con acceso a las herramientas de desarrollo del navegador (DevTools) reconstruir el código original no-obfuscado, anulando por completo el propósito de la obfuscación y duplicando innecesariamente el peso de transferencia de los archivos en producción.
+
+#### Solución aplicada
+Implementamos una **desactivación condicional automática** de source maps basada en el entorno de build activo, sin dependencias de terceros:
+
+1. **Helper nativo No-op (`noop()`)**: Declaramos un flujo pasante neutro utilizando `through2` (ya instalado en el proyecto):
+   ```javascript
+   const noop = () => through.obj((file, enc, cb) => cb(null, file));
+   ```
+2. **Entorno de Red `IS_PROD`**: Exportamos la constante `IS_PROD` desde `src/_main/constants.js` hacia `gulp-imports.js` para que esté disponible en el pipeline.
+3. **Piping Condicional**: Modificamos las tareas `minifyCSS` y `minifyJS` en `gulpfile.js` para inicializar y escribir source maps **únicamente** si `IS_PROD` es `false`:
+   ```javascript
+   .pipe(!IS_PROD ? sourcemaps.init({ largeFile: true }) : noop())
+   .pipe(!IS_PROD ? sourcemaps.identityMap() : noop())
+   ...
+   .pipe(!IS_PROD ? sourcemaps.write() : noop())
+   ```
+
+Esto garantiza que durante el desarrollo local se mantengan los source maps para debugging rápido, pero se eliminen por completo del bundle optimizado en producción.
+
+#### Archivos modificados
+| Archivo | Cambio |
+|---------|--------|
+| `gulp-imports.js` | Exporta `IS_PROD` desde constants.js |
+| `gulpfile.js` | Añade helper `noop()` y aplica piping condicional de sourcemaps en `minifyCSS` y `minifyJS` |
+| `src/_main/constants.js` | `v2.2.7` → `v2.2.8` |
+| `package.json` | `v2.2.7` → `v2.2.8` |
+| `README.md` | `v2.2.7` → `v2.2.8` |
+| `docs/security-fixes-log.md` | Registro de corrección e incremento de versión general |
+
 
 
 ---

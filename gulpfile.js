@@ -13,6 +13,9 @@ function handleError(err) {
   this.emit("end");
 }
 
+// A simple no-op stream for conditional piping
+const noop = () => through.obj((file, enc, cb) => cb(null, file));
+
 /**
  * Reemplaza los tokens %%NOMBRE%% en los archivos JS con los valores
  * leídos desde el archivo .env local. Se ejecuta antes de la ofuscación
@@ -138,11 +141,12 @@ function minifyAndReplaceHTML() {
 
 // Minify CSS
 function minifyCSS() {
+  const { IS_PROD } = appImports;
   console.log(">>> Minifying CSS files...");
   return gulp
     .src("src/**/*.css")
-    .pipe(sourcemaps.init({ largeFile: true }))
-    .pipe(sourcemaps.identityMap())
+    .pipe(!IS_PROD ? sourcemaps.init({ largeFile: true }) : noop())
+    .pipe(!IS_PROD ? sourcemaps.identityMap() : noop())
     .pipe(
       cleanCSS({ compatibility: "ie8", debug: true }, (details) => {
         // console.log(
@@ -151,18 +155,19 @@ function minifyCSS() {
       })
     )
     .on("error", handleError)
-    .pipe(sourcemaps.write())
+    .pipe(!IS_PROD ? sourcemaps.write() : noop())
     .pipe(gulp.dest("public"))
     .on("end", () => console.log(">>> CSS minification complete."));
 }
 
 // Minify and Obfuscate JavaScript
 function minifyJS() {
+  const { IS_PROD } = appImports;
   console.log(">>> Minifying and obfuscating JavaScript files...");
   return gulp
     .src("src/**/*.js")
-    .pipe(sourcemaps.init({ largeFile: true }))
-    .pipe(sourcemaps.identityMap())
+    .pipe(!IS_PROD ? sourcemaps.init({ largeFile: true }) : noop())
+    .pipe(!IS_PROD ? sourcemaps.identityMap() : noop())
     .pipe(replaceEnvTokens())  // ← Inyecta credenciales desde .env antes de ofuscar
     .pipe(
       obfuscate({
@@ -170,7 +175,7 @@ function minifyJS() {
       })
     )
     .on("error", handleError)
-    .pipe(sourcemaps.write())
+    .pipe(!IS_PROD ? sourcemaps.write() : noop())
     .pipe(gulp.dest("public"))
     .on("end", () => console.log(">>> JavaScript minification and obfuscation complete."));
 }
