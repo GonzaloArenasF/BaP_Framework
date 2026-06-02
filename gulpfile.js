@@ -38,6 +38,26 @@ function replaceEnvTokens() {
   return through.obj(function (file, enc, cb) {
     if (file.isBuffer()) {
       let content = file.contents.toString(enc);
+
+      // VUL-04: Validar en tiempo de build si se compila para producción con Firebase inactivo
+      if (file.path.endsWith("constants.js")) {
+        const isBuildingProd = content.includes("export const ENV_URL = E.PROD");
+        const firebaseEnabled = (firebaseEnv.FIREBASE_AVAILABLE === "true");
+        const hasFirebaseConfig = !!(firebaseEnv.apiKey); // Solo validar si tiene credenciales en el .env
+
+        if (isBuildingProd && hasFirebaseConfig && !firebaseEnabled) {
+          const errMsg = "\n\x1b[31m🔥 ERROR DE COMPILACIÓN (VUL-04):\x1b[0m\n" +
+            "   Se está compilando para el entorno de PRODUCCIÓN (E.PROD) en constants.js con Firebase configurado,\n" +
+            "   pero la variable FIREBASE_AVAILABLE está desactivada o configurada como 'false' en tu .env local.\n" +
+            "   Esto dejaría expuesta la aplicación desplegada con un bypass de seguridad crítico.\n" +
+            "   \n" +
+            "   👉 Solución: Cambia FIREBASE_AVAILABLE=true en tu archivo .env antes de optimizar para producción,\n" +
+            "                o remueve la apiKey de tu .env si deseas un sitio 100% estático sin Firebase.\n";
+          console.error(errMsg);
+          return cb(new Error(errMsg));
+        }
+      }
+
       Object.entries(tokens).forEach(([token, value]) => {
         content = content.replaceAll(token, value);
       });

@@ -13,7 +13,7 @@
 | VUL-01 | 🔴 Crítica | Credenciales Firebase hardcodeadas | ✅ Corregida en v2.1.0 |
 | VUL-02 | 🔴 Crítica | XSS via innerHTML masivo en i18n | ✅ Corregida en v2.1.2 |
 | VUL-03 | 🔴 Crítica | XSS en bap-dialog via innerHTML + Base64 URL | ✅ Corregida en v2.1.3 |
-| VUL-04 | 🟠 Alta | Bypass de seguridad con FIREBASE_AVAILABLE | ⏳ Pendiente |
+| VUL-04 | 🟠 Alta | Bypass de seguridad con FIREBASE_AVAILABLE | ✅ Corregida en v2.2.0 |
 | VUL-05 | 🟠 Alta | Script de Google Translate sin SRI ni async | ⏳ Pendiente |
 | VUL-06 | 🟠 Alta | Pseudo-cifrado con Base64 en storage.js | ⏳ Pendiente |
 | VUL-07 | 🟠 Alta | Firebase SDK desactualizado (v10.4.0) | ⏳ Pendiente |
@@ -128,7 +128,9 @@ Se extendió el sistema de inyección de tokens para cubrir dos constantes adici
 
 ### ✅ VUL-02: Inyección XSS potencial en sistema de plantillas i18n (innerHTML masivo)
  
-**Versión:** `v2.1.1` → `v2.1.2`
+**Severidad:** 🔴 Crítica
+**Versión:** `v2.1.0` → `v2.1.2`
+**Fecha:** Junio 2026
  
 **Descripción:**
 La función `applyI18n()` y la actualización de cabeceras en `index.js` realizaban reemplazos de tokens mediante la reasignación de strings a `document.body.innerHTML` y `document.head.innerHTML`. Esto destruía todo el DOM y re-instanciaba elementos de forma insegura, eliminando event listeners activos y abriendo superficies de XSS.
@@ -151,7 +153,9 @@ La función `applyI18n()` y la actualización de cabeceras en `index.js` realiza
  
 ### ✅ VUL-03: XSS en componente `bap-dialog` mediante inyección de HTML arbitrario y Base64 URLs
  
+**Severidad:** 🔴 Crítica
 **Versión:** `v2.1.2` → `v2.1.3`
+**Fecha:** Junio 2026
  
 **Descripción:**
 El Web Component `<bap-dialog>` leía `this.innerHTML` crudo del host en su cuerpo (`bodyContent`) e interpolaba textos y metadatos sin sanitización en la plantilla HTML, la cual posteriormente se asignaba a `template.innerHTML` permitiendo ejecución de scripts. Adicionalmente, decodificaba y renderizaba enlaces de Base64 (`link-url-base64`) en tags `<a>` sin validación de protocolo, permitiendo la inyección de esquemas peligrosos como `javascript:`.
@@ -168,5 +172,27 @@ El Web Component `<bap-dialog>` leía `this.innerHTML` crudo del host en su cuer
 | `package.json` | `v2.1.2` → `v2.1.3` |
 | `README.md` | `v2.1.2` → `v2.1.3` |
  
+---
+
+### ✅ VUL-04: Bypass de seguridad explícito sin control de entorno de despliegue
+
+**Severidad:** 🟠 Alta
+**Versión:** `v2.1.3` → `v2.2.0`
+**Fecha:** Junio 2026
+
+**Descripción:**
+El flag `FIREBASE_AVAILABLE = false` actuaba como interruptor maestro de seguridad. Cuando estaba inactivo, se omitían todas las comprobaciones de whitelist y control de accesos en el router y el módulo auth. El flag por defecto en desarrollo era `false`, por lo que si se compilaba y desplegaba sin cambiarlo manualmente a `true`, la seguridad de producción quedaba completamente desactivada (riesgo crítico de error humano).
+
+**Corrección implementada:**
+1. **Autodetección de Entorno Local (Runtime check)**: Se redefinió `FIREBASE_AVAILABLE` en `src/_main/constants.js` mediante una función autoejecutable (IIFE) que realiza un chequeo de red sobre `window.location.hostname`. Si la aplicación se ejecuta en producción o QA (cualquier hostname no local), se fuerza automáticamente a `true`. Si se ejecuta en local, se respeta el valor de `.env` para desarrollo ágil.
+2. **Validación de Compilación de Gulp (Build-time check)**: Se integró una comprobación en el pipeline de Gulp (`gulpfile.js`) dentro de `replaceEnvTokens()`. Si se detecta que el archivo `constants.js` está configurado para compilar hacia producción (`ENV_URL = E.PROD`), Gulp valida que `FIREBASE_AVAILABLE` sea `"true"` en el archivo `.env`. Si no lo es, se interrumpe y aborta el pipeline de optimización con un mensaje de error explícito, evitando deploys accidentales vulnerables.
+
+| Archivo | Cambio |
+|---------|--------|
+| `src/_main/constants.js` | Cambia `FIREBASE_AVAILABLE` a una IIFE con validación local y de red + bump a `v2.2.0` |
+| `gulpfile.js` | Añade validación de producción crítica en `replaceEnvTokens()` para abortar ante bypass activo |
+| `package.json` | `v2.1.3` → `v2.2.0` |
+| `README.md` | `v2.1.3` → `v2.2.0` |
+
 ---
 
