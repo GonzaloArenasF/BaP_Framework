@@ -2,7 +2,7 @@
 node_modules/
 
 # Build / distribución (descomentar si no se quiere versionar el bundle)
-# public/
+public/
 
 # Logs
 *.log

@@ -23,7 +23,7 @@
 | VUL-11 | 🟡 Media | UUID generado con Math.random() | ✅ Corregida en v2.2.7 |
 | VUL-12 | 🔵 Baja | Source maps expuestos en bundle de producción | ✅ Corregida en v2.2.8 |
 | VUL-13 | 🔵 Baja | Operador lógico incorrecto en logAnalyticEvent() | ✅ Corregida en v2.2.3 |
-| VUL-14 | 🔵 Baja | Carpeta public/ versionada en Git | ⏳ Pendiente |
+| VUL-14 | 🔵 Baja | Carpeta public/ versionada en Git | ✅ Corregida en v2.2.9 |
 
 ---
 
@@ -482,6 +482,40 @@ Esto garantiza que durante el desarrollo local se mantengan los source maps para
 | `package.json` | `v2.2.7` → `v2.2.8` |
 | `README.md` | `v2.2.7` → `v2.2.8` |
 | `docs/security-fixes-log.md` | Registro de corrección e incremento de versión general |
+
+---
+
+### ✅ VUL-14 — Carpeta public/ versionada en Git
+
+**Severidad:** 🔵 Baja
+**Versión:** `v2.2.8` → `v2.2.9`
+**Fecha:** Junio 2026
+
+#### Problema
+La carpeta autogenerada `/public` (que contiene los entregables minificados y ofuscados de producción) estaba siendo rastreada activamente por el control de versiones de Git debido a que la regla de exclusión en `.gitignore` estaba comentada (`# public/`). Esto provocaba que cada compilación generara diferencias (diffs) de código minificado/ofuscado sumamente pesados, inflando drásticamente la base histórica del repositorio e incrementando el riesgo de registrar credenciales históricas por accidente.
+
+#### Solución aplicada
+1. **Desactivación de Rastreo Futuro (`.gitignore`)**:
+   * Descomentamos la línea en `.gitignore` para ignorar de forma permanente la carpeta `/public` en futuros commits:
+     ```gitignore
+     public/
+     ```
+2. **Remoción del Índice Activo de Git (Desvinculación sin Borrado Físico)**:
+   * Para hacer efectiva la exclusión sin alterar el sistema de archivos local del desarrollador (permitiéndole continuar usando `npm run server` y `npm run optimize`), ejecutamos:
+     ```bash
+     git rm -r --cached public
+     ```
+   * Esto retira de manera limpia todos los archivos y subcarpetas dentro de `/public` del seguimiento activo en el índice de Git, pero **los conserva físicamente intactos** en el disco duro local de trabajo.
+
+#### Archivos modificados
+| Archivo | Cambio |
+|---------|--------|
+| `.gitignore` | Descomenta `public/` para evitar su seguimiento en Git |
+| `src/_main/constants.js` | `v2.2.8` → `v2.2.9` |
+| `package.json` | `v2.2.8` → `v2.2.9` |
+| `README.md` | `v2.2.8` → `v2.2.9` |
+| `docs/security-fixes-log.md` | Registro de la corrección y tabla de estado general actualizada |
+
 
 
 
