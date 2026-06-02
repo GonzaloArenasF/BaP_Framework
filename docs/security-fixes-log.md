@@ -16,13 +16,13 @@
 | VUL-04 | 🟠 Alta | Bypass de seguridad con FIREBASE_AVAILABLE | ✅ Corregida en v2.2.0 |
 | VUL-05 | 🟠 Alta | Script de Google Translate sin SRI ni async | ✅ Corregida en v2.2.1 |
 | VUL-06 | 🟠 Alta | Pseudo-cifrado con Base64 en storage.js | ✅ Corregida en v2.2.2 |
-| VUL-07 | 🟠 Alta | Firebase SDK desactualizado (v10.4.0) | ⏳ Pendiente |
+| VUL-07 | 🟠 Alta | Firebase SDK desactualizado (v10.4.0) | ✅ Corregida en v2.2.3 |
 | VUL-08 | 🟡 Media | Ausencia de cabeceras de seguridad HTTP (CSP) | ⏳ Pendiente |
 | VUL-09 | 🟡 Media | Query params parseados manualmente con split() | ⏳ Pendiente |
 | VUL-10 | 🟡 Media | Servidor de desarrollo con CORS abierto y sin HTTPS | ⏳ Pendiente |
 | VUL-11 | 🟡 Media | UUID generado con Math.random() | ⏳ Pendiente |
 | VUL-12 | 🔵 Baja | Source maps expuestos en bundle de producción | ⏳ Pendiente |
-| VUL-13 | 🔵 Baja | Operador lógico incorrecto en logAnalyticEvent() | ⏳ Pendiente |
+| VUL-13 | 🔵 Baja | Operador lógico incorrecto en logAnalyticEvent() | ✅ Corregida en v2.2.3 |
 | VUL-14 | 🔵 Baja | Carpeta public/ versionada en Git | ⏳ Pendiente |
 
 ---
@@ -253,6 +253,66 @@ Implementamos un diseño criptográfico híbrido no destructivo que soluciona la
 | `package.json` | `v2.2.1` → `v2.2.2` |
 | `README.md` | `v2.2.1` → `v2.2.2` + documentación de persistencia criptográfica |
 | `docs/security-fixes-log.md` | Registro de corrección de VUL-06 y tabla de estado general actualizada |
+
+---
+
+### ✅ VUL-07 — Firebase SDK versionado y desactualizado (pin a versión antigua)
+
+**Severidad:** 🟠 Alta
+**Versión:** `v2.2.2` → `v2.2.3`
+**Fecha:** Junio 2026
+
+#### Problema
+Todos los módulos del SDK de Firebase (`app`, `analytics`, `auth`, `database`, `app-check`) se importaban apuntando a la versión inestable y antigua `10.4.0` (publicada en octubre de 2023) desde el CDN de Google. Esto mantenía al framework expuesto a problemas de seguridad conocidos y sin parchar, y generaba una inconsistencia con el paquete de Firebase del lado de desarrollo definido en `package.json` (`"firebase": "^10.11.0"`).
+
+#### Solución aplicada
+1. **Actualización Coordinada del SDK**:
+   * Actualizamos todas las rutas de importación de CDN en `src/_main/firebaseInit.js`, `src/_main/auth.js` y `src/_main/storage.js` para apuntar a la versión **`10.11.0`**.
+   * Esta versión está en **100% consonancia** con la dependencia local instalada en el framework (`^10.11.0`), garantizando homogeneidad absoluta entre el desarrollo local y el cliente final desplegado.
+   * Se mantuvieron intactas las llamadas modulares a las APIs de Firebase, asegurando compatibilidad hacia atrás sin breaking changes de sintaxis.
+
+#### Archivos modificados
+| Archivo | Cambio |
+|---------|--------|
+| `src/_main/firebaseInit.js` | Importaciones de Firebase actualizadas a `10.11.0` |
+| `src/_main/auth.js` | Importaciones de Firebase actualizadas a `10.11.0` |
+| `src/_main/storage.js` | Importación de Firebase Database actualizada a `10.11.0` |
+
+---
+
+### ✅ VUL-13 — Lógica de validación invertida en logAnalyticEvent()
+
+**Severidad:** 🔵 Baja
+**Versión:** `v2.2.2` → `v2.2.3`
+**Fecha:** Junio 2026
+
+#### Problema
+El validador de campos requeridos dentro de la utilidad `logAnalyticEvent()` en `src/_main/firebaseInit.js` empleaba el operador de coalescencia nula invertido (`??`) incorrectamente:
+```javascript
+!type ?? (errorMsg = "Event type name not included");
+```
+Dado que `!type` siempre retorna un valor booleano (`true` o `false`), que nunca es `null` ni `undefined`, la rama derecha que asignaba el mensaje de error jamás se ejecutaba, provocando que validaciones inválidas pasaran silenciosamente y contaminaran la base de analíticas.
+
+#### Solución aplicada
+1. **Refactorización de Condicionales**:
+   * Eliminamos el uso incorrecto de `??` y lo reemplazamos por estructuras condicionales `if` explícitas e incondicionales:
+     ```javascript
+     let errorMsg = "";
+     if (!type) errorMsg = "Event type name not included";
+     if (!name) errorMsg = "Event name not included";
+     if (!func) errorMsg = "Functionality name not included";
+     if (!userType) errorMsg = "User type not included";
+     ```
+   * Esto garantiza la correcta interrupción mediante excepciones ante parámetros mal estructurados en producción, manteniendo la consistencia de los datos en Google Analytics.
+
+#### Archivos modificados
+| Archivo | Cambio |
+|---------|--------|
+| `src/_main/firebaseInit.js` | Corrección de validaciones de coalescencia nula por condicionales `if` estándar en `logAnalyticEvent` |
+| `src/_main/constants.js` | `v2.2.2` → `v2.2.3` |
+| `package.json` | `v2.2.2` → `v2.2.3` |
+| `README.md` | `v2.2.2` → `v2.2.3` |
+| `docs/security-fixes-log.md` | Registro de correcciones y tabla de estados generales actualizada |
 
 ---
 

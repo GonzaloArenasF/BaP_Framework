@@ -4,7 +4,7 @@
  * - SessionStorage
  */
 import { CONSTANT } from "./constants.js";
-import { ref, onValue, set, update, remove } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+import { ref, onValue, set, update, remove } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 import { bapNotify } from "./util.js";
 import { bapDB } from "./firebaseInit.js";
 import { getI18nContent } from "./i18n.js";

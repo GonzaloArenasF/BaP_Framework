@@ -10,11 +10,11 @@ import {
   signInWithPopup,
   signOut,
   GoogleAuthProvider,
-} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
 import {
   ref,
   onValue,
-} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 import { bapNotify } from "./util.js";
 import { CONSTANT } from "./constants.js";
 import { getI18nContent } from "./i18n.js";
