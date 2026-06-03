@@ -102,6 +102,10 @@ function replacingHeadMetatags() {
           console.log(`Replacing custom i18n in ${file.relative} for ${ENV_URL}`);
           htmlReplaced = applyI18n.componentBapFooter(htmlReplaced);
           break;
+        case i18nPagesToProcess.components.bapHeader:
+          console.log(`Replacing custom i18n in ${file.relative} for ${ENV_URL}`);
+          htmlReplaced = applyI18n.componentBapHeader(htmlReplaced);
+          break;
 
         // Pages
         case i18nPagesToProcess.pages.index:

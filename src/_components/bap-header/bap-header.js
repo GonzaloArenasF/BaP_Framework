@@ -11,7 +11,10 @@ import { createCustomComponent } from "../customComponentsRegistration.js";
 const bapHeaderI18N = getI18nContent("component", "bapHeader");
 
 function preRender(html, props) {
-  return html.replaceAll("{color-mode}", props.colorMode);
+  return html
+    .replaceAll("{color-mode}", props.colorMode)
+    .replaceAll("{lightMode}", bapHeaderI18N.lightMode || "Light")
+    .replaceAll("{darkMode}", bapHeaderI18N.darkMode || "Dark");
 }
 
 function postRender(props) {

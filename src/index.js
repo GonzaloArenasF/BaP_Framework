@@ -49,13 +49,13 @@ function showNotification(type, customMessage = "¡Notificación del BaP Framewo
 function triggerDemoDialog() {
   const dialogId = `demoDialog-${Date.now()}`;
   const dialogEl = document.createElement("bap-dialog");
-  
+
   dialogEl.setAttribute("id", dialogId);
   dialogEl.setAttribute("title-top", "DEMOSTRACIÓN EN VIVO");
   dialogEl.setAttribute("title-main", "¡Diálogo Premium Activado!");
   dialogEl.setAttribute("title-sub", "Web Component puro con Glassmorphism");
   dialogEl.setAttribute("image-header-left", "/assets/favicon.svg");
-  
+
   // Enlaces de demostración codificados en Base64
   // URL: https://github.com/GonzaloArenasF/BaP_Framework (Base64)
   dialogEl.setAttribute("link-url-base64", "aHR0cHM6Ly9naXRodWIuY29tL0dvbnphbG9BcmVuYXNGL0JhUF9GcmFtZXdvcms=");
@@ -77,7 +77,7 @@ function triggerDemoDialog() {
   `;
 
   document.body.appendChild(dialogEl);
-  
+
   // Registrar evento analítico
   analytic.logEvent.logEventCustomDialog ? analytic.logEvent.logEventCustomDialog() : null;
 }
@@ -89,9 +89,9 @@ function triggerLoadingStateDemo() {
   const loadingEl = document.createElement("bap-loading-state");
   loadingEl.setAttribute("sub-message", "Simulando carga de componentes en segundo plano...");
   loadingEl.textContent = "Procesando información de telemetría...";
-  
+
   document.body.appendChild(loadingEl);
-  
+
   setTimeout(() => {
     loadingEl.remove();
     showNotification(1, "¡Simulación de carga completada con éxito!");

@@ -57,6 +57,7 @@ const i18nPagesToProcess = {
   },
   components: {
     bapFooter: "_components/bap-footer/bap-footer.html",
+    bapHeader: "_components/bap-header/bap-header.html",
   },
 };
 
@@ -71,7 +72,18 @@ const applyI18n = {
       .replaceAll("{APP_VERSION}", CONSTANT.APP_VERSION);
   },
   componentBapFooter: (content) => {
-    return content.replaceAll("{tc}", i18n.component.bapFooter.tc);
+    return content
+      .replaceAll("{tc}", i18n.component.bapFooter.tc)
+      .replaceAll("{brandDesc}", i18n.component.bapFooter.brandDesc)
+      .replaceAll("{versionLabel}", i18n.component.bapFooter.versionLabel)
+      .replaceAll("{resourcesLabel}", i18n.component.bapFooter.resourcesLabel)
+      .replaceAll("{btnExplore}", i18n.component.bapFooter.btnExplore)
+      .replaceAll("{contactLabel}", i18n.component.bapFooter.contactLabel);
+  },
+  componentBapHeader: (content) => {
+    return content
+      .replaceAll("{lightMode}", i18n.component.bapHeader.lightMode)
+      .replaceAll("{darkMode}", i18n.component.bapHeader.darkMode);
   },
   pageIndex: (content) => {
     return content

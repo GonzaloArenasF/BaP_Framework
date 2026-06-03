@@ -27,6 +27,7 @@
 */
 @media only screen and (max-width: 1200px) {
   .bap-header {
+    flex-direction: column;
     padding-top: 50px;
   }
 }

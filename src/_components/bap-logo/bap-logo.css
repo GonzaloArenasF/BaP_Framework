@@ -7,5 +7,9 @@
 
 .bap-logo img {
   height: auto;
-  width: 80px;
+  width: 50px;
+}
+
+.bap-logo h1 {
+  font-size: 2rem;
 }

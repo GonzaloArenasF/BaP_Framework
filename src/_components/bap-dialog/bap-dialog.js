@@ -52,8 +52,20 @@ function preRender(html, props) {
   let linksMarkup = "";
   if (props.linkUrlBase64 && props.linkTextBase64) {
     try {
-      const decodedUrl = atob(props.linkUrlBase64).trim();
-      const decodedText = atob(props.linkTextBase64);
+      let decodedUrl = "";
+      let decodedText = "";
+      
+      try {
+        decodedUrl = decodeURIComponent(escape(atob(props.linkUrlBase64))).trim();
+      } catch (e) {
+        decodedUrl = atob(props.linkUrlBase64).trim();
+      }
+
+      try {
+        decodedText = decodeURIComponent(escape(atob(props.linkTextBase64)));
+      } catch (e) {
+        decodedText = atob(props.linkTextBase64);
+      }
       
       // Validar esquema de URL para prevenir inyección de javascript: o esquemas no válidos
       const lowerUrl = decodedUrl.toLowerCase();

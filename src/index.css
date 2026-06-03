@@ -35,9 +35,15 @@ main {
 /* Grids & Cards */
 .bap-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
   gap: 2rem;
   margin-bottom: 4rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .bap-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .bap-card {

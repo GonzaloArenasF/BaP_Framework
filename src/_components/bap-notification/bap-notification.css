@@ -1,27 +1,51 @@
 .bap-notification {
   align-items: center;
-  border-radius: .5rem;
+  border-radius: 12px;
   color: var(--notification-text-color);
   display: none;
   justify-content: space-between;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 1.5rem;
+  padding: 1rem 1.25rem;
   position: fixed;
-  z-index: 1000;
+  z-index: 99999;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 500;
+  font-size: 0.95rem;
+
+  /* Glassmorphism */
+  background: var(--dialog-bg-color, rgba(255, 255, 255, 0.8));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--dialog-border-color, rgba(255, 255, 255, 0.2));
+  box-shadow: 0 8px 32px 0 var(--shadow-color, rgba(31, 38, 135, 0.15));
 }
 
 .bap-notification b {
-  border: 2px solid var(--notification-text-color);
-  border-radius: 50%;
+  border: none;
   color: var(--notification-text-color);
+  opacity: 0.6;
   cursor: pointer;
-  padding: 0.2rem .5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+  background: rgba(0, 0, 0, 0.05);
 }
 
+.bap-notification b:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.1);
+  transform: scale(1.1);
+}
+
+/* Scopes and types transition */
 .bap-notification.type-alert {
   max-width: 1200px;
-  top: -2rem;
-  transition: 1s ease top;
+  top: -4rem;
+  transition: top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
   min-width: 300px;
 }
 
@@ -33,8 +57,8 @@
 }
 
 .bap-notification.type-toast {
-  left: -2rem;
-  transition: 1s ease left;
+  left: -20rem;
+  transition: left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s;
 }
 
 .bap-notification.type-toast.show {
@@ -44,16 +68,17 @@
   width: 30vw;
 }
 
+/* Colores y bordes izquierdos basados en severidad para estilo premium */
 .bap-notification.severity-info {
-  background-color: var(--notification-severity-info-bg-color);
+  border-left: 6px solid var(--notification-severity-info-bg-color);
 }
 
 .bap-notification.severity-warning {
-  background-color: var(--notification-severity-warning-bg-color);
+  border-left: 6px solid var(--notification-severity-warning-bg-color);
 }
 
 .bap-notification.severity-error {
-  background-color: var(--notification-severity-error-bg-color);
+  border-left: 6px solid var(--notification-severity-error-bg-color);
 }
 
 @media (max-width: 1200px) {
@@ -62,8 +87,11 @@
   }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 768px) {
   .bap-notification.type-toast.show {
-    width: 70vw;
+    width: 80vw;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 1.5rem;
   }
 }

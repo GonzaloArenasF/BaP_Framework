@@ -17,6 +17,11 @@ function preRender(html) {
         .replace("{APP_VERSION}", CONSTANT.APP_VERSION)
         .replace("{tc}", bapFooterI18N.tc)
         .replaceAll("{socialMedia.email.url}", CONSTANT.SOCIAL_MEDIA.EMAIL.URL)
+        .replace("{brandDesc}", bapFooterI18N.brandDesc)
+        .replace("{versionLabel}", bapFooterI18N.versionLabel)
+        .replace("{resourcesLabel}", bapFooterI18N.resourcesLabel)
+        .replace("{btnExplore}", bapFooterI18N.btnExplore)
+        .replace("{contactLabel}", bapFooterI18N.contactLabel)
     : html;
 }
 

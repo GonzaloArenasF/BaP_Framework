@@ -2,8 +2,16 @@ export const esES = {
   component: {
     bapFooter: {
       tc: "© 2026 <a href=\"http://gonzaloarenasf.cl\" target=\"_blank\" rel=\"noopener noreferrer\">Gonzalo A. Arenas Flores</a>. Licenciado bajo MIT. Libre de utilizar y distribuir. El software se proporciona 'tal cual', sin garantías y bajo responsabilidad exclusiva del usuario.",
+      brandDesc: "Estándar premium para desarrollo web ultra-ligero, modular y de alto rendimiento.",
+      versionLabel: "Versión",
+      resourcesLabel: "Recursos",
+      btnExplore: "Explorar Componentes",
+      contactLabel: "Contacto",
     },
-    bapHeader: {},
+    bapHeader: {
+      lightMode: "Claro",
+      darkMode: "Oscuro",
+    },
   },
   page: {
     cross: {
@@ -57,13 +65,15 @@ export const esES = {
           modules: {
             title: "🔌 Módulo del Sistema (_main/)",
             description: "Toda la inteligencia lógica está centralizada en módulos aislados en <code>src/_main/</code>:",
-            constants: "Credenciales del entorno y URLs dinámicas de red.",
-            router: "Motor de ruteo dinámico sin recarga física.",
-            auth: "Gestión de sesión y doble factor por Whitelist.",
-            storage: "Persistencia local y remota en Realtime Database.",
-            i18n: "Soporte de traducción y localización dinámica.",
-            analytics: "Telemetría y taxonomía unificada de eventos.",
-            util: "Caja de herramientas estructurales y viewport móvil.",
+            constants: "Inyección segura de variables de entorno y URLs dinámicas.",
+            firebaseInit: "Gateway de inicialización de los servicios Firebase.",
+            routerPaths: "Diccionario estricto de rutas y guardias de seguridad.",
+            router: "Motor de ruteo dinámico programático e inmune a XSS.",
+            auth: "Control de sesión con doble factor lógico por Whitelist.",
+            storage: "Persistencia cifrada (AES-GCM de 256 bits y PBKDF2) y base de datos.",
+            i18n: "Traducción segura con TreeWalker y sanitización contra XSS.",
+            analytics: "Telemetría centralizada y taxonomía unificada de eventos.",
+            util: "Herramientas estructurales y UUIDs criptográficamente fuertes.",
           },
           firebase: {
             title: "🛡️ Firebase Integrado",
@@ -72,6 +82,7 @@ export const esES = {
             auth: "Autenticación nativa utilizando el proveedor Google Identity.",
             realtimeDb: "Control de Whitelist de accesos y persistencia.",
             analytics: "Diccionario taxonómico unificado de telemetría.",
+            appCheck: "Protección contra bots y abusos mediante App Check y reCAPTCHA.",
           },
           gulp: {
             title: "⚙️ Pipeline con Gulp",
@@ -81,49 +92,57 @@ export const esES = {
             injection: "Reemplazo automático de variables de versión en HTML.",
             distribution: "Copiado y estructuración automática de assets y manifiestos.",
           },
+          security: {
+            title: "🔐 Seguridad y Criptografía",
+            description: "Medidas avanzadas integradas nativamente en el core para protección de datos y defensa en profundidad de grado de producción:",
+            xss: "Inmunidad a inyecciones XSS mediante creación programática del DOM y sanitización de HTML.",
+            crypto: "Cifrado asíncrono AES-GCM de 256 bits y derivación de claves PBKDF2 en almacenamiento local.",
+            uuids: "Generador de UUIDs no predecibles utilizando la Web Crypto API del navegador.",
+            headers: "Cabeceras de servidor rígidas (CSP, X-Frame-Options, nosniff) configuradas en Firebase.",
+          },
         },
         // ── Playground ────────────────────────────────────────────────────
         playground: {
           sectionTitle: "🎮 Componentes Interactivos",
           logo: {
-            title: "1. Componente &lt;bap-logo&gt;",
+            title: "1. Componente ‹bap-logo›",
             description: "Muestra la identidad visual corporativa. Carga adaptativamente la constante de logo o utiliza un SVG premium vectorial.",
           },
           svgImage: {
-            title: "2. Componente &lt;bap-svg-image&gt;",
+            title: "2. Componente ‹bap-svg-image›",
             description: "Gestor estandarizado de vectores SVG para iconos responsivos sin llamadas HTTP individuales.",
           },
           notification: {
-            title: "3. Componente &lt;bap-notification&gt;",
+            title: "3. Componente ‹bap-notification›",
             description: "Notificaciones Toast y Snackbar con estilos inyectados directamente al Shadow Root para evitar fugas visuales.",
             btnToast: "Disparar Toast",
             btnAlert: "Disparar Alerta",
           },
           spinner: {
-            title: "4. Componente &lt;bap-spinner&gt;",
+            title: "4. Componente ‹bap-spinner›",
             description: "Indicador de carga animado, modular y estilizado con la paleta de colores del framework.",
           },
           dialog: {
-            title: "5. Componente &lt;bap-dialog&gt;",
-            description: "Modal premium flotante con glassmorphism, difuminado de fondo y enlaces asíncronos Base64.",
+            title: "5. Componente ‹bap-dialog›",
+            description: "Modal premium flotante con glassmorphism, difuminado de fondo, sanitización de HTML y enlaces seguros decodificados en Base64.",
             btnOpen: "Abrir Modal Diálogo",
           },
           loadingState: {
-            title: "6. Componente &lt;bap-loading-state&gt;",
+            title: "6. Componente ‹bap-loading-state›",
             description: "Bloqueador de pantalla completa para simular operaciones asíncronas largas y llamadas de red.",
             btnBlock: "Bloquear Pantalla (3s)",
           },
           chip: {
-            title: "7. Componente &lt;bap-chip&gt;",
+            title: "7. Componente ‹bap-chip›",
             description: "Etiquetas visuales de metadatos o tags estilizadas con bordes circulares y color de énfasis.",
           },
           header: {
-            title: "8. Componente &lt;bap-header&gt;",
+            title: "8. Componente ‹bap-header›",
             description: "Cabecera modular integrada y responsiva. Administra automáticamente el menú hamburguesa móvil y control de sesión.",
             hint: "💡 Visualízalo fijo en la parte superior de esta página.",
           },
           footer: {
-            title: "9. Componente &lt;bap-footer&gt;",
+            title: "9. Componente ‹bap-footer›",
             description: "Pie de página unificado y responsivo. Se alinea de forma fluida adaptándose al viewport móvil y de escritorio.",
             hint: "💡 Visualízalo al pie de esta página.",
           },

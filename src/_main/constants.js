@@ -87,6 +87,6 @@ export const CONSTANT = {
 };
 
 // Modificar antes de desplegar en tu archivo .env
-export const ENV_URL = "%%CURRENT_ENV%%";
+export const ENV_URL = typeof window !== "undefined" ? window.location.origin : "%%CURRENT_ENV%%";
 export const IS_PROD = ENV_URL === "%%ENV_PROD%%";
 export const CDN_URL = "%%ENV_CDN%%";

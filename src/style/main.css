@@ -202,33 +202,3 @@ nav.breadcrumbs a:last-child::after {
     z-index: -1;
   }
 }
-
-/*
- Tablet
-*/
-@media only screen and (max-width: 1200px) and (orientation: portrait) {
-  body::before {
-    /* background-image: url(https://cdn-gonzaloarenasf.web.app/commons/gonzaloarenasf-background-tablet-vertical.jpg); */
-  }
-}
-
-@media only screen and (max-width: 1200px) and (orientation: landscape) {
-  body::before {
-    /* background-image: url(https://cdn-gonzaloarenasf.web.app/commons/gonzaloarenasf-background-tablet-horizontal.jpg); */
-  }
-}
-
-/*
- Phones
-*/
-@media only screen and (max-width: 900px) and (orientation: portrait) {
-  body::before {
-    /* background-image: url(https://cdn-gonzaloarenasf.web.app/commons/gonzaloarenasf-background-mobile-vertical.jpg); */
-  }
-}
-
-@media only screen and (max-width: 900px) and (orientation: landscape) {
-  body::before {
-    /* background-image: url(https://cdn-gonzaloarenasf.web.app/commons/gonzaloarenasf-background-mobile-horizontal.jpg); */
-  }
-}

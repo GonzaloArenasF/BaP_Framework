@@ -64,6 +64,8 @@
           <p>{landing.body.core.modules.description}</p>
           <ul style="padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6;">
             <li><strong>constants.js:</strong> {landing.body.core.modules.constants}</li>
+            <li><strong>firebaseInit.js:</strong> {landing.body.core.modules.firebaseInit}</li>
+            <li><strong>routerPaths.js:</strong> {landing.body.core.modules.routerPaths}</li>
             <li><strong>router.js:</strong> {landing.body.core.modules.router}</li>
             <li><strong>auth.js:</strong> {landing.body.core.modules.auth}</li>
             <li><strong>storage.js:</strong> {landing.body.core.modules.storage}</li>
@@ -81,6 +83,7 @@
             <li><strong>Auth:</strong> {landing.body.core.firebase.auth}</li>
             <li><strong>Realtime DB:</strong> {landing.body.core.firebase.realtimeDb}</li>
             <li><strong>Analytics:</strong> {landing.body.core.firebase.analytics}</li>
+            <li><strong>App Check:</strong> {landing.body.core.firebase.appCheck}</li>
           </ul>
         </div>
 
@@ -92,6 +95,17 @@
             <li><strong>Ofuscación:</strong> {landing.body.core.gulp.obfuscation}</li>
             <li><strong>Inyección:</strong> {landing.body.core.gulp.injection}</li>
             <li><strong>Distribución:</strong> {landing.body.core.gulp.distribution}</li>
+          </ul>
+        </div>
+
+        <div class="bap-card">
+          <h3>{landing.body.core.security.title}</h3>
+          <p>{landing.body.core.security.description}</p>
+          <ul style="padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6;">
+            <li><strong>Inmunidad XSS:</strong> {landing.body.core.security.xss}</li>
+            <li><strong>Cifrado AES-GCM:</strong> {landing.body.core.security.crypto}</li>
+            <li><strong>UUIDs Fuertes:</strong> {landing.body.core.security.uuids}</li>
+            <li><strong>Cabeceras de Red:</strong> {landing.body.core.security.headers}</li>
           </ul>
         </div>
       </div>
@@ -152,7 +166,7 @@ bapNotify(type, severity, message);</code></pre>
           <pre><code>&lt;bap-spinner&gt;&lt;/bap-spinner&gt;</code></pre>
         </div>
 
-        <!-- 5. bap-dialog [NUEVO] -->
+        <!-- 5. bap-dialog -->
         <div class="demo-box">
           <div>
             <h4>{landing.body.playground.dialog.title}</h4>
