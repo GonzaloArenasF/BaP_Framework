@@ -1,29 +1,28 @@
-import { googleTranslateElementInit } from "./_components/bap-header/bap-header.js";
 import { setCustomComponents } from "./_components/customComponentsRegistration.js";
 import { analytic } from "./_main/analytics.js";
 import { CDN_URL, ENV_URL } from "./_main/constants.js";
-import { getI18nContent, applyI18n } from "./_main/i18n.js";
+import { getI18nContent, applyI18n, replaceTokensInDOM } from "./_main/i18n.js";
 
 setCustomComponents();
 
 applyI18n(() => {
   const i18n = getI18nContent("page", "notFound");
 
-  document.head.innerHTML = document.head.innerHTML
-    .replaceAll("{ENV_URL}", ENV_URL)
-    .replaceAll("{CDN_URL}", CDN_URL)
-    .replaceAll("{head.meta.description}", i18n.head.meta.description)
-    .replaceAll("{head.meta.title}", i18n.head.meta.title)
-    .replaceAll("{head.meta.keywords}", i18n.head.meta.keywords)
-    .replaceAll("{head.title}", i18n.head.title);
+  const tokens = {
+    "ENV_URL": ENV_URL,
+    "CDN_URL": CDN_URL,
+    "head.meta.description": i18n.head.meta.description,
+    "head.meta.title": i18n.head.meta.title,
+    "head.meta.keywords": i18n.head.meta.keywords,
+    "head.title": i18n.head.title,
+    "body.message": i18n.body.message,
+    "body.backHome": i18n.body.backHome,
+  };
 
-  document.body.innerHTML = document.body.innerHTML
-    .replaceAll("{CDN_URL}", CDN_URL)
-    .replace("{body.message}", i18n.body.message)
-    .replace("{body.backHome}", i18n.body.backHome);
+  replaceTokensInDOM(document.head, tokens);
+  replaceTokensInDOM(document.body, tokens);
 });
 
 window.addEventListener("load", () => {
   analytic.logEvent.pageNotFound();
-  googleTranslateElementInit();
 });

@@ -1,51 +1,169 @@
 export const esES = {
   component: {
     bapFooter: {
-      tc: "© 2026 Carolina Avendaño Beltrán. Todos los derechos reservados a nivel mundial. Queda prohibido el uso o la reproducción no autorizados de cualquier contenido de este sitio web, incluyendo, entre otros, texto, imágenes, gráficos, audio, vídeo y todas las obras derivadas. Para obtener permiso, póngase en contacto por correo electrónico.",
+      tc: "© 2026 <a href=\"http://gonzaloarenasf.cl\" target=\"_blank\" rel=\"noopener noreferrer\">Gonzalo A. Arenas Flores</a>. Licenciado bajo MIT. Libre de utilizar y distribuir. El software se proporciona 'tal cual', sin garantías y bajo responsabilidad exclusiva del usuario.",
+      brandDesc: "Estándar premium para desarrollo web ultra-ligero, modular y de alto rendimiento.",
+      versionLabel: "Versión",
+      resourcesLabel: "Recursos",
+      btnExplore: "Explorar Componentes",
+      contactLabel: "Contacto",
     },
-    bapHeader: {},
+    bapHeader: {
+      lightMode: "Claro",
+      darkMode: "Oscuro",
+    },
   },
   page: {
     cross: {
       notification: {
-        loginFail: "We couldn't log in. Please check if your browser blocks pop-up windows from opening and try again.",
-        logoutFail: "We couldn't log out. Please reload this page and try again.",
-        notAllowedEnteringPage: "Your are not allowed to enter the page",
-        errorGettingQueryParams: "We could not manage your information to access",
+        loginFail: "No se pudo iniciar sesión. Por favor, comprueba si tu navegador bloquea las ventanas emergentes e inténtalo de nuevo.",
+        logoutFail: "No se pudo cerrar sesión. Por favor, recarga la página e inténtalo de nuevo.",
+        notAllowedEnteringPage: "No tienes permisos para acceder a esta página.",
+        errorGettingQueryParams: "No se pudo procesar la información de acceso.",
         storage: {
-          errorGetting: "We could not get your information. Try again.",
-          errorSaving: "We could not save your information. Try again.",
-          errorUpdating: "We could not update your information. Try again.",
-          errorRemoving: "We could not remove your information. Try again.",
+          errorGetting: "No se pudo obtener la información. Inténtalo de nuevo.",
+          errorSaving: "No se pudo guardar la información. Inténtalo de nuevo.",
+          errorUpdating: "No se pudo actualizar la información. Inténtalo de nuevo.",
+          errorRemoving: "No se pudo eliminar la información. Inténtalo de nuevo.",
         },
       },
     },
     notFound: {
       head: {
-        title: "Page not found - Carolina Avendaño Beltrán",
+        title: "Página no encontrada - BaP Framework",
         meta: {
-          title: "Page not found - Carolina Avendaño Beltrán",
-          description: "Page not found",
-          keywords: "Page not found",
+          title: "Página no encontrada - BaP Framework",
+          description: "Página no encontrada",
+          keywords: "Página no encontrada, error, 404",
         },
       },
       body: {
-        message: "mmm... creo que no incluí esto en el plano.",
+        message: "Mmm... creo que no incluí esto en el plano.",
         backHome: "Ir al inicio",
       },
     },
     landing: {
       head: {
-        title:
-          "Carolina Avendaño Beltrán - Arquitectura",
+        title: "BaP Framework — Desarrollo Guiado por Especificaciones",
         meta: {
-          title:
-            "Carolina Avendaño Beltrán - Arquitectura",
-          description: "Personal website",
-          keywords: "Business Analyst, Software engineer, Photographer, Musician, Basketball Player",
+          title: "BaP Framework — Desarrollo Guiado por Especificaciones",
+          description: "Estándar premium para desarrollo web ultra-ligero, modular y de alto rendimiento.",
+          keywords: "BaP, Framework, Web Components, Vanilla JS, CSS, Firebase, Modular",
         },
       },
-      body: {},
+      body: {
+        // ── Hero ──────────────────────────────────────────────────────────
+        hero: {
+          title: "Desarrollo Web Ultra-Limpio y Modular",
+          tagline: "La filosofía de BaP es simple: <strong>cero frameworks de cliente pesados, cero dependencias innecesarias</strong>. Construido exclusivamente sobre HTML5, CSS3 y JavaScript Vanilla puro para probar ideas rápidamente con máxima escalabilidad y rendimiento excepcional.",
+          btnExplore: "Explorar Componentes",
+          btnGithub: "Ver en GitHub",
+        },
+        // ── Core (Columna Vertebral) ───────────────────────────────────────
+        core: {
+          sectionTitle: "🧠 La Columna Vertebral del Framework",
+          modules: {
+            title: "🔌 Módulo del Sistema (_main/)",
+            description: "Toda la inteligencia lógica está centralizada en módulos aislados en <code>src/_main/</code>:",
+            constants: "Inyección segura de variables de entorno y URLs dinámicas.",
+            firebaseInit: "Gateway de inicialización de los servicios Firebase.",
+            routerPaths: "Diccionario estricto de rutas y guardias de seguridad.",
+            router: "Motor de ruteo dinámico programático e inmune a XSS.",
+            auth: "Control de sesión con doble factor lógico por Whitelist.",
+            storage: "Persistencia cifrada (AES-GCM de 256 bits y PBKDF2) y base de datos.",
+            i18n: "Traducción segura con TreeWalker y sanitización contra XSS.",
+            analytics: "Telemetría centralizada y taxonomía unificada de eventos.",
+            util: "Herramientas estructurales y UUIDs criptográficamente fuertes.",
+          },
+          firebase: {
+            title: "🛡️ Firebase Integrado",
+            description: "Integración nativa directa con los servicios en la nube de Google Firebase para dar soporte robusto a proyectos listos para producción:",
+            hosting: "Alojamiento estático ultrarrápido y seguro.",
+            auth: "Autenticación nativa utilizando el proveedor Google Identity.",
+            realtimeDb: "Control de Whitelist de accesos y persistencia.",
+            analytics: "Diccionario taxonómico unificado de telemetría.",
+            appCheck: "Protección contra bots y abusos mediante App Check y reCAPTCHA.",
+          },
+          gulp: {
+            title: "⚙️ Pipeline con Gulp",
+            description: "Un potente compilador automatizado mediante scripts de consola. Asegura tu código de cliente y optimiza la velocidad antes de desplegar:",
+            minify: "Compresión al extremo de HTML, CSS y JS.",
+            obfuscation: "Protección intelectual de la lógica del cliente.",
+            injection: "Reemplazo automático de variables de versión en HTML.",
+            distribution: "Copiado y estructuración automática de assets y manifiestos.",
+          },
+          security: {
+            title: "🔐 Seguridad y Criptografía",
+            description: "Medidas avanzadas integradas nativamente en el core para protección de datos y defensa en profundidad de grado de producción:",
+            xss: "Inmunidad a inyecciones XSS mediante creación programática del DOM y sanitización de HTML.",
+            crypto: "Cifrado asíncrono AES-GCM de 256 bits y derivación de claves PBKDF2 en almacenamiento local.",
+            uuids: "Generador de UUIDs no predecibles utilizando la Web Crypto API del navegador.",
+            headers: "Cabeceras de servidor rígidas (CSP, X-Frame-Options, nosniff) configuradas en Firebase.",
+          },
+        },
+        // ── Playground ────────────────────────────────────────────────────
+        playground: {
+          sectionTitle: "🎮 Componentes Interactivos",
+          logo: {
+            title: "1. Componente ‹bap-logo›",
+            description: "Muestra la identidad visual corporativa. Carga adaptativamente la constante de logo o utiliza un SVG premium vectorial.",
+          },
+          svgImage: {
+            title: "2. Componente ‹bap-svg-image›",
+            description: "Gestor estandarizado de vectores SVG para iconos responsivos sin llamadas HTTP individuales.",
+          },
+          notification: {
+            title: "3. Componente ‹bap-notification›",
+            description: "Notificaciones Toast y Snackbar con estilos inyectados directamente al Shadow Root para evitar fugas visuales.",
+            btnToast: "Disparar Toast",
+            btnAlert: "Disparar Alerta",
+          },
+          spinner: {
+            title: "4. Componente ‹bap-spinner›",
+            description: "Indicador de carga animado, modular y estilizado con la paleta de colores del framework.",
+          },
+          dialog: {
+            title: "5. Componente ‹bap-dialog›",
+            description: "Modal premium flotante con glassmorphism, difuminado de fondo, sanitización de HTML y enlaces seguros decodificados en Base64.",
+            btnOpen: "Abrir Modal Diálogo",
+          },
+          loadingState: {
+            title: "6. Componente ‹bap-loading-state›",
+            description: "Bloqueador de pantalla completa para simular operaciones asíncronas largas y llamadas de red.",
+            btnBlock: "Bloquear Pantalla (3s)",
+          },
+          chip: {
+            title: "7. Componente ‹bap-chip›",
+            description: "Etiquetas visuales de metadatos o tags estilizadas con bordes circulares y color de énfasis.",
+          },
+          header: {
+            title: "8. Componente ‹bap-header›",
+            description: "Cabecera modular integrada y responsiva. Administra automáticamente el menú hamburguesa móvil y control de sesión.",
+            hint: "💡 Visualízalo fijo en la parte superior de esta página.",
+          },
+          footer: {
+            title: "9. Componente ‹bap-footer›",
+            description: "Pie de página unificado y responsivo. Se alinea de forma fluida adaptándose al viewport móvil y de escritorio.",
+            hint: "💡 Visualízalo al pie de esta página.",
+          },
+        },
+        // ── Terminal ──────────────────────────────────────────────────────
+        terminal: {
+          sectionTitle: "💻 Ciclo de Desarrollo en la Terminal",
+          server: {
+            title: "Servidor de Desarrollo",
+            description: "Levanta el servidor HTTP local con Hot-Reload y recarga en tiempo real sobre el navegador.",
+          },
+          optimize: {
+            title: "Optimizar para Producción",
+            description: "Compila, comprime, aplica I18N y ofusca el código fuente moviéndolo a la carpeta <code>/public</code>.",
+          },
+          deploy: {
+            title: "Desplegar a Firebase",
+            description: "Sube y aloja instantáneamente tu aplicación optimizada en la infraestructura productiva de Firebase.",
+          },
+        },
+      },
     },
   },
 };

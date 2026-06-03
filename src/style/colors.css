@@ -1,90 +1,172 @@
 :root {
-  --dark-black: #000000;
-  --transparent-dark-black: rgba(0, 0, 0, 0.5);
-  --black: #333333;
+  --dark-black: #111825;
+  /* Color base oscuro: Azul medianoche profundo extraído del logotipo */
+  --transparent-dark-black: rgba(17, 24, 37, 0.5);
+  /* Variante translúcida del azul medianoche */
+  --black: #111825;
+  /* Negro elegante / Azul oscuro para tipografía de alto contraste */
   --grey-1: #616566;
-  --grey-2: #cacbcb;
-  --white: #ffffff;
-  --orange: #e87909;
-  --warm-orange: #d35400;
-  --bold-orange: #e67e22;
-  --yellow: #e8d509;
-  --bright-yellow: #f1c40f;
-  --red: #e83609;
-  --crimson-red: #dc143c;
-  --vibrant-blue: #3498db;
+  /* Gris neutro medio para botones secundarios y bordes secundarios */
+  --grey-2: #eaece9;
+  /* Gris platino ultra claro extraído del logotipo para bordes y fondos sutiles */
+  --white: #eaece9;
+  /* Blanco puro para fondos claros y texto en modo oscuro */
+  --orange: #62aec4;
+  /* Color principal de marca: Turquesa eléctrico extraído del logotipo (anteriormente naranja) */
+  --warm-orange: #4a93a8;
+  /* Variante más oscura de turquesa para estados activos/hover en modo claro */
+  --bold-orange: #79c5db;
+  /* Variante más clara de turquesa para estados activos/hover en modo oscuro */
+  --yellow: #f1c40f;
+  /* Amarillo vibrante para severidad de advertencias */
+  --bright-yellow: #f39c12;
+  /* Amarillo oscuro para contrastes de advertencia */
+  --red: #dc143c;
+  /* Carmesí/Rojo brillante para severidad de errores */
+  --crimson-red: #c0392b;
+  /* Rojo oscuro para contrastes de error */
+  --vibrant-blue: #62aec4;
+  /* Color azul de soporte para información, alineado al turquesa principal */
   --lively-green: #2ecc71;
-  --transparent-dark-indigo: rgba(17, 1, 37, .9);
+  /* Verde esmeralda para estados de éxito */
+  --transparent-dark-indigo: rgba(17, 24, 37, 0.9);
+  /* Índigo oscuro translúcido para fondos de diálogos y capas */
 }
 
 .light-mode {
   --bg-color: var(--white);
+  /* Color de fondo principal para el viewport en modo claro */
   --font-color: var(--black);
+  /* Color principal del texto en azul medianoche profundo para legibilidad premium */
   --link-color: var(--orange);
-  --link-hover-color: var(--orange);
-  --link-active-color: var(--orange);
+  /* Color para los enlaces y anclas interactivos en turquesa eléctrico */
+  --link-hover-color: var(--warm-orange);
+  /* Color de realce al posar el cursor sobre enlaces (turquesa oscuro) */
+  --link-active-color: var(--warm-orange);
+  /* Color del enlace activo al hacer clic */
   --button-initial-bg-color: transparent;
+  /* Fondo transparente por defecto para botones normales */
   --button-initial-border-color: var(--orange);
+  /* Color del borde del botón en turquesa eléctrico */
   --button-initial-font-color: var(--orange);
+  /* Color de la fuente del botón en turquesa eléctrico */
   --button-hover-bg-color: var(--orange);
+  /* Color de fondo del botón al pasar el cursor (turquesa) */
   --button-hover-font-color: var(--white);
+  /* Color del texto del botón al pasar el cursor (blanco) */
   --button-active-bg-color: var(--warm-orange);
+  /* Fondo del botón activo al ser presionado (turquesa oscuro) */
   --button-active-font-color: var(--white);
+  /* Color del texto del botón activo al ser presionado */
   --button-disabled-bg-color: transparent;
+  /* Fondo para botones inhabilitados */
   --button-disabled-border-color: var(--grey-1);
+  /* Borde para botones inhabilitados */
   --button-disabled-font-color: var(--grey-1);
+  /* Color del texto para botones inhabilitados */
   --button-secondary-bg-color: var(--grey-1);
+  /* Fondo para botones de importancia secundaria */
   --button-secondary-font-color: var(--white);
+  /* Color del texto para botones secundarios */
   --notification-text-color: var(--black);
-  --notification-severity-info-bg-color: var( --vibrant-blue);
+  /* Color del texto interior de las notificaciones */
+  --notification-severity-info-bg-color: var(--vibrant-blue);
+  /* Fondo turquesa para notificaciones informativas */
   --notification-severity-warning-bg-color: var(--yellow);
+  /* Fondo amarillo para notificaciones de advertencia */
   --notification-severity-error-bg-color: var(--red);
+  /* Fondo carmesí para notificaciones de error */
   --spinner-color: var(--orange);
+  /* Color turquesa para el spinner de carga */
   --loading-state-bg-color: var(--white);
+  /* Color de fondo blanco para estados de carga */
   --logo-font-color: var(--black);
+  /* Color azul medianoche para textos de logotipos */
   --landing-welcome-font-color: var(--white);
-  --scrollbars-color: var(--black);
+  /* Color de fuente blanco para mensajes de bienvenida */
+  --scrollbars-color: var(--grey-1);
+  /* Color gris medio para las barras de desplazamiento */
   --scrollbars-color-hover: var(--orange);
-  --shadow-color: var(--grey-1);
+  /* Color turquesa al interactuar con las barras de desplazamiento */
+  --shadow-color: rgba(17, 24, 37, 0.15);
+  /* Sombra suave azul medianoche para contenedores */
   --content-box-open-figure-background: var(--white);
+  /* Fondo blanco para visualización de imágenes */
   --main-menu-option-font-color: var(--black);
-  --dialog-bg-color: rgba(#ffffff 0.5);
+  /* Color azul medianoche en menús principales */
+  --dialog-bg-color: rgba(255, 255, 255, 0.7);
+  /* Fondo translúcido blanco para diálogos */
   --dialog-border-color: var(--grey-2);
-  --content-box-bg-color: rgba(#ffffff 0.6);
+  /* Borde gris platino claro para diálogos */
+  --content-box-bg-color: rgba(255, 255, 255, 0.8);
+  /* Fondo translúcido blanco para cajas contenedoras */
 }
 
 .dark-mode {
-  --bg-color: var(--white);
+  --bg-color: var(--black);
+  /* Color de fondo principal: Azul medianoche profundo premium */
   --font-color: var(--white);
+  /* Color de fuente blanco puro para el viewport oscuro */
   --link-color: var(--orange);
-  --link-hover-color: var(--orange);
-  --link-active-color: var(--orange);
+  /* Color para los enlaces interactivos en turquesa eléctrico */
+  --link-hover-color: var(--bold-orange);
+  /* Color de realce al posar el cursor sobre enlaces (turquesa claro) */
+  --link-active-color: var(--bold-orange);
+  /* Color del enlace activo al hacer clic */
   --button-initial-bg-color: transparent;
+  /* Fondo transparente por defecto para botones normales */
   --button-initial-border-color: var(--orange);
+  /* Color de borde de botón turquesa */
   --button-initial-font-color: var(--orange);
+  /* Color de fuente de botón turquesa */
   --button-hover-bg-color: var(--orange);
-  --button-hover-font-color: var(--white);
-  --button-active-bg-color: var(--warm-orange);
-  --button-active-font-color: var(--white);
+  /* Fondo de botón turquesa en hover */
+  --button-hover-font-color: var(--black);
+  /* Texto de botón en azul medianoche en hover */
+  --button-active-bg-color: var(--bold-orange);
+  /* Fondo de botón activo (turquesa claro) */
+  --button-active-font-color: var(--black);
+  /* Texto de botón activo */
   --button-disabled-bg-color: transparent;
+  /* Fondo para botones inhabilitados */
   --button-disabled-border-color: var(--grey-1);
+  /* Borde para botones inhabilitados */
   --button-disabled-font-color: var(--grey-1);
+  /* Color de texto para botones inhabilitados */
   --button-secondary-bg-color: var(--grey-1);
+  /* Fondo para botones secundarios */
   --button-secondary-font-color: var(--white);
-  --notification-text-color: var(--black);
-  --notification-severity-info-bg-color: var( --vibrant-blue);
+  /* Color de texto para botones secundarios */
+  --notification-text-color: var(--white);
+  /* Color de texto blanco para notificaciones oscuras */
+  --notification-severity-info-bg-color: var(--vibrant-blue);
+  /* Fondo turquesa para información */
   --notification-severity-warning-bg-color: var(--yellow);
+  /* Fondo amarillo para advertencias */
   --notification-severity-error-bg-color: var(--red);
+  /* Fondo carmesí para errores */
   --spinner-color: var(--orange);
-  --loading-state-bg-color: var(--white);
+  /* Spinner de carga turquesa */
+  --loading-state-bg-color: var(--black);
+  /* Fondo azul medianoche para estados de carga */
   --logo-font-color: var(--white);
+  /* Texto del logotipo blanco */
   --landing-welcome-font-color: var(--white);
-  --scrollbars-color: var(--black);
+  /* Texto de bienvenida blanco */
+  --scrollbars-color: var(--grey-1);
+  /* Barras de desplazamiento gris medio */
   --scrollbars-color-hover: var(--orange);
-  --shadow-color: var(--grey-1);
-  --content-box-open-figure-background: var(--white);
-  --main-menu-option-font-color: var(--black);
-  --dialog-bg-color: rgba(#ffffff 0.5);
-  --dialog-border-color: var(--grey-2);
-  --content-box-bg-color: rgba(#ffffff 0.6);
+  /* Barras de desplazamiento turquesa en hover */
+  --shadow-color: rgba(0, 0, 0, 0.4);
+  /* Sombra oscura intensa para contenedores */
+  --content-box-open-figure-background: var(--black);
+  /* Fondo azul medianoche para imágenes */
+  --main-menu-option-font-color: var(--white);
+  /* Texto de opciones en blanco */
+  --dialog-bg-color: rgba(17, 24, 37, 0.7);
+  /* Fondo translúcido azul medianoche para diálogos */
+  --dialog-border-color: rgba(255, 255, 255, 0.1);
+  /* Borde translúcido blanco para diálogos */
+  --content-box-bg-color: rgba(17, 24, 37, 0.8);
+  /* Fondo translúcido de cajas contenedoras */
 }

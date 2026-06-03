@@ -1,0 +1,27 @@
+# Dependencias
+node_modules/
+
+# Build / distribución (descomentar si no se quiere versionar el bundle)
+public/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Variables de entorno
+.env
+.env.local
+.env.*.local
+
+# Sistemas operativos
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
