@@ -1,27 +1,8 @@
 /**
- * Analytics events
+ * EVENTOS DE ANALÍTICA
  *
- * Use Firebase Analytics.
- *
- * For standar integration, use the function logAnalyticEvent()
- *
- * Every event has to be integrated in its particular set of events like this:
- * const groupOfEvents = {
- *  eventName: () => logAnalyticEvent({
- *      type: EVENT_TYPE.ENTER_PAGE,
- *      name: "page_not_found",
- *      func: "404",
- *      userType: USER_TYPE.USER,
- *    }),
- * }
- *
- * Finally, add the group of events to the analytic object at the end of the file, like this:
- * export const analytic = {
- *  logEvent: {
- *      ...groupOfEvents,
- *    },
- * }
- *
+ * Registra y gestiona los eventos de telemetría de la aplicación en Firebase Analytics.
+ * Provee un diccionario unificado para evitar llamadas a métodos huérfanos.
  */
 import { logAnalyticEvent } from "./firebaseInit.js";
 
@@ -41,11 +22,8 @@ const EVENT_TYPE = {
   PROCESS: "process",
 };
 
-const footerEvents = {};
-
-const headerEvents = {};
-
-const landingPageEvents = {
+// Eventos de páginas generales y navegación principal
+const generalPageEvents = {
   enterLandingPage: () =>
     logAnalyticEvent({
       type: EVENT_TYPE.ENTER_PAGE,
@@ -53,12 +31,19 @@ const landingPageEvents = {
       func: "landing_page",
       userType: USER_TYPE.USER,
     }),
+    
+  pageNotFound: () =>
+    logAnalyticEvent({
+      type: EVENT_TYPE.ENTER_PAGE,
+      name: "page_not_found",
+      func: "404",
+      userType: USER_TYPE.USER,
+    }),
 };
 
+// Diccionario unificado exportado para consumo de la aplicación
 export const analytic = {
   logEvent: {
-    ...footerEvents,
-    ...headerEvents,
-    ...landingPageEvents,
+    ...generalPageEvents,
   },
 };

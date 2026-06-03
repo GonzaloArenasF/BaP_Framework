@@ -12,14 +12,14 @@
  * -> https://cloud.google.com/recaptcha-enterprise/docs/create-key-website?hl=es&authuser=0#create-recaptcha-key-console
  */
 import { CONSTANT, ENV_URL, IS_PROD } from "./constants.js";
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app.js";
-import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-analytics.js";
-import { getAuth } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-auth.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/10.4.0/firebase-database.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-analytics.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 import {
   initializeAppCheck,
   ReCaptchaEnterpriseProvider,
-} from "https://www.gstatic.com/firebasejs/10.4.0/firebase-app-check.js";
+} from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app-check.js";
 
 const config = {
   apiKey: CONSTANT.FBC.AP,
@@ -54,10 +54,10 @@ export const logAnalyticEvent = CONSTANT.FIREBASE_AVAILABLE
       try {
         if (IS_PROD) {
           let errorMsg = "";
-          !type ?? (errorMsg = "Event type name not included");
-          !name ?? (errorMsg = "Event name not included");
-          !func ?? (errorMsg = "Functionality name not included");
-          !userType ?? (errorMsg = "User type not included");
+          if (!type) errorMsg = "Event type name not included";
+          if (!name) errorMsg = "Event name not included";
+          if (!func) errorMsg = "Functionality name not included";
+          if (!userType) errorMsg = "User type not included";
 
           if (errorMsg != "") {
             throw new Error(errorMsg);

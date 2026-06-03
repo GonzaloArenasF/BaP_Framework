@@ -1,14 +1,16 @@
 .bap-loading-state {
-  background-color: var(--loading-state-bg-color);
   align-items: center;
+  background-color: var(--loading-state-bg-color);
+  bottom: 0;
   display: flex;
-  height: 100vh;
   justify-content: center;
   left: 0;
-  position: absolute;
+  position: fixed;
+  right: 0;
   top: 0;
-  width: 100%;
-  z-index: 1000;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
 }
 
 .bap-loading-state > .content {

@@ -1,133 +1,301 @@
 <!DOCTYPE html>
 <html lang="{lang}">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta name="description" content="{head.meta.description}" />
-    <meta name="keywords" content="{head.meta.keywords}" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <meta property="og:title" content="{head.meta.title}" />
-    <meta property="og:description" content="{head.meta.description}" />
-    <meta property="og:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
-    <meta property="og:url" content="{ENV_URL}" />
+  <meta name="description" content="{head.meta.description}" />
+  <meta name="keywords" content="{head.meta.keywords}" />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="{head.meta.title}" />
-    <meta name="twitter:description" content="{head.meta.description}" />
-    <meta name="twitter:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
+  <meta property="og:title" content="{head.meta.title}" />
+  <meta property="og:description" content="{head.meta.description}" />
+  <meta property="og:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
+  <meta property="og:url" content="{ENV_URL}" />
 
-    <link rel="canonical" href="{ENV_URL}" />
-    <link rel="stylesheet" href="index.css" />
-    <link rel="icon" href="{CDN_URL}/commons/favicon/favicon.ico" type="image/x-icon" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{head.meta.title}" />
+  <meta name="twitter:description" content="{head.meta.description}" />
+  <meta name="twitter:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
 
-    <script type="module" src="index.js?v={APP_VERSION}"></script>
+  <link rel="canonical" href="{ENV_URL}" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/site.webmanifest" />
 
-    <title>{head.title}</title>
-  </head>
-  <body class="light-mode">
-    <header id="headerPage">
-      <bap-header></bap-header>
-    </header>
-    <main>
-      <h1>BaP Framework</h1>
-      <p>
-        The idea is not to use any framework (JS, CSS, or whatever), just HTML, CSS, and Vanilla Javascript. The main
-        concept is to test new ideas quickly and easily.
-      </p>
-      <p>
-        It is not intended to be a full-featured framework, but a simple tool to help you develop your ideas. However,
-        it is a robust and scalable framework that can be used to develop simple applications and perform even in
-        production environments.
-      </p>
-      <br />
-      <p>It is important to read the README file before make any change.</p>
-      <h2>Support</h2>
-      <div>
-        This framework is developed to be supported by Google Firebase.
-        <ul>
-          <li>Hosting: Firebase Hosting</li>
-          <li>Database: Firebase Realtime Database</li>
-          <li>Analytics: Firebase Analytics</li>
-          <li>Auth: Firebase Auth</li>
-          <li>Recaptcha: Firebase AppCheck / Google cloud reCAPTCHA</li>
-        </ul>
+  <script type="module" src="index.js?v={APP_VERSION}"></script>
 
-        You must to create a Firebase project and configure these values in the `src/_main/constants.js` file, and set
-        de CONSTANT.FIREBASE_AVAILABLE with 'true' value.
+  <title>{head.title}</title>
+</head>
+
+<body class="light-mode">
+  <header id="headerPage">
+    <bap-header></bap-header>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="bap-hero">
+      <h2>{landing.body.hero.title}</h2>
+      <p class="tagline">{landing.body.hero.tagline}</p>
+      <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+        <a href="#playground" class="as-btn btn-2x"
+          style="display: inline-flex; align-items: center; justify-content: center;">{landing.body.hero.btnExplore}</a>
+        <a href="https://github.com/GonzaloArenasF/BaP_Framework" target="_blank" class="as-btn btn-2x btn-secondary"
+          style="display: inline-flex; align-items: center; justify-content: center; gap: 8px;">
+          <svg style="fill: currentColor; width: 20px; height: 20px;" viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.9-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.08-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.18 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
+          </svg>
+          {landing.body.hero.btnGithub}
+        </a>
       </div>
-      <h2>Highlights</h2>
-      <ul>
-        <li>I18N support</li>
-        <li>Storage control</li>
-        <li>URL path router control</li>
-      </ul>
-      <h2>Custom component</h2>
-      <h3>bap-header</h3>
-      <p>
-        Standard header to use in every page
-      </p>
-      <pre><code>&lt;bap-header&gt;&lt;/bap-header&gt;</code></pre>
-      <br />
-      <h3>bap-footer</h3>
-      <p>
-        Standard footer to use in every page
-      </p>
-      <pre><code>&lt;bap-footer&gt;&lt;/bap-footer&gt;</code></pre>
-      <br />
-      <h3>bap-loading-state</h3>
-      <p>
-        A full screen message intended to notify user the web is processing. You can add it at the beggining of the HTML
-        file to show it before content is loaded, and finally remove the component from the DOM.
-      </p>
-      <pre><code>&lt;bap-loading-state sub-message="Sub message"&gt;Main message&lt;/bap-loading-state&gt;</code></pre>
-      <br />
-      <h3>bap-spinner</h3>
-      <p>
-        A simple spinner animated to use it as you want.
-      </p>
-      <bap-spinner></bap-spinner>
-      <pre><code>&lt;bap-spinner&gt;&lt;/bap-spinner&gt;</code></pre>
-      <br />
-      <h3>bap-svg-image</h3>
-      <p>
-        Wrapper to standarize the SVG image import
-      </p>
-      <bap-svg-image name="chevronLeft" size="x3"></bap-svg-image>
-      <pre><code>&lt;bap-svg-image name="chevronLeft" size="x3"&gt;&lt;/bap-svg-imager&gt;</code></pre>
-      <br />
-      <h3>bap-notification</h3>
-      <p>
-        Custom tool to show user messages using Toasts or Snackbars.
-        This component works by request using javascript, so you have to import the main function to make it works:
-      </p>
-      <pre><code>import { bapNotify } from "./_main/util.js";</code></pre>
-      <p>You can see an example in the JS file asociated to this HTML.</p>
-      <button id="btn_toast_info">Toast/Info</button>
-      <button id="btn_alert_error">Alert/Error</button>
-      <h2>Develop and Deploy</h2>
-      <h3>Optimizing the code</h3>
-      <p>In order to ensure your code, it was implemented a GULP file to:</p>
-      <ol>
-        <li>Apply I18N to HTML files including in the gulpfile: function replacingHeadMetatags() -> const pagesToProcess</li>
-        <li>Minify HTML files</li>
-        <li>Minify CSS files</li>
-        <li>Minify and obfuscate JS files</li>
-        <li>Move files to /public folder</li>
-      </ol>
-      <p>To execute correctly, before any deploy you must execute this instruction in your code folder terminal</p>
-      <pre><code>npm run optimize</code></pre>
-      <br>
-      <h3>Deploying pre production environment</h3>
-      <pre><code>npm run deploy-qa</code></pre>
-      <p>Firebase modify the URL each couple of day, so you have to keep updated CONSTANT.ENV.URL.QA before deploy</p>
-      <br>
-      <h3>Deploying production environment</h3>
-      <pre><code>npm run deploy-prod</code></pre>
-      <p>You have to set CONSTANT.ENV.URL.PROD before deploy</p>
-    </main>
-    <footer id="footerPage">
-      <bap-footer></bap-footer>
-    </footer>
-  </body>
+    </section>
+
+    <!-- Pilares del Core -->
+    <section style="margin-bottom: 4rem;">
+      <h2 style="text-align: center; margin-bottom: 2.5rem; font-size: 2rem;">{landing.body.core.sectionTitle}</h2>
+      <div class="bap-grid">
+        <div class="bap-card">
+          <h3>{landing.body.core.modules.title}</h3>
+          <p>{landing.body.core.modules.description}</p>
+          <ul style="padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6;">
+            <li><strong>constants.js:</strong> {landing.body.core.modules.constants}</li>
+            <li><strong>firebaseInit.js:</strong> {landing.body.core.modules.firebaseInit}</li>
+            <li><strong>routerPaths.js:</strong> {landing.body.core.modules.routerPaths}</li>
+            <li><strong>router.js:</strong> {landing.body.core.modules.router}</li>
+            <li><strong>auth.js:</strong> {landing.body.core.modules.auth}</li>
+            <li><strong>storage.js:</strong> {landing.body.core.modules.storage}</li>
+            <li><strong>i18n.js:</strong> {landing.body.core.modules.i18n}</li>
+            <li><strong>analytics.js:</strong> {landing.body.core.modules.analytics}</li>
+            <li><strong>util.js:</strong> {landing.body.core.modules.util}</li>
+          </ul>
+        </div>
+
+        <div class="bap-card">
+          <h3>{landing.body.core.firebase.title}</h3>
+          <p>{landing.body.core.firebase.description}</p>
+          <ul style="padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6;">
+            <li><strong>Hosting:</strong> {landing.body.core.firebase.hosting}</li>
+            <li><strong>Auth:</strong> {landing.body.core.firebase.auth}</li>
+            <li><strong>Realtime DB:</strong> {landing.body.core.firebase.realtimeDb}</li>
+            <li><strong>Analytics:</strong> {landing.body.core.firebase.analytics}</li>
+            <li><strong>App Check:</strong> {landing.body.core.firebase.appCheck}</li>
+          </ul>
+        </div>
+
+        <div class="bap-card">
+          <h3>{landing.body.core.gulp.title}</h3>
+          <p>{landing.body.core.gulp.description}</p>
+          <ul style="padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6;">
+            <li><strong>Minificación:</strong> {landing.body.core.gulp.minify}</li>
+            <li><strong>Ofuscación:</strong> {landing.body.core.gulp.obfuscation}</li>
+            <li><strong>Inyección:</strong> {landing.body.core.gulp.injection}</li>
+            <li><strong>Distribución:</strong> {landing.body.core.gulp.distribution}</li>
+          </ul>
+        </div>
+
+        <div class="bap-card">
+          <h3>{landing.body.core.security.title}</h3>
+          <p>{landing.body.core.security.description}</p>
+          <ul style="padding-left: 1.2rem; font-size: 0.9rem; line-height: 1.6;">
+            <li><strong>Inmunidad XSS:</strong> {landing.body.core.security.xss}</li>
+            <li><strong>Cifrado AES-GCM:</strong> {landing.body.core.security.crypto}</li>
+            <li><strong>UUIDs Fuertes:</strong> {landing.body.core.security.uuids}</li>
+            <li><strong>Cabeceras de Red:</strong> {landing.body.core.security.headers}</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Patio de Pruebas (Interactive Playground) -->
+    <section id="playground" class="bap-playground">
+      <h2>{landing.body.playground.sectionTitle}</h2>
+
+      <div class="playground-grid">
+        <!-- 1. bap-logo -->
+        <div class="demo-box">
+          <div>
+            <h4>{landing.body.playground.logo.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.logo.description}</p>
+          </div>
+          <div class="demo-preview">
+            <bap-logo></bap-logo>
+          </div>
+          <pre><code>&lt;bap-logo&gt;&lt;/bap-logo&gt;</code></pre>
+        </div>
+
+        <!-- 2. bap-svg-image -->
+        <div class="demo-box">
+          <div>
+            <h4>{landing.body.playground.svgImage.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.svgImage.description}</p>
+          </div>
+          <div class="demo-preview">
+            <bap-svg-image name="chevronLeft" size="x3"></bap-svg-image>
+          </div>
+          <pre><code>&lt;bap-svg-image name="chevronLeft" size="x3"&gt;&lt;/bap-svg-image&gt;</code></pre>
+        </div>
+
+        <!-- 3. bap-notification -->
+        <div class="demo-box">
+          <div>
+            <h4>{landing.body.playground.notification.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.notification.description}</p>
+          </div>
+          <div class="demo-preview" style="gap: 10px;">
+            <button id="btn_toast_info" class="btn-secondary">{landing.body.playground.notification.btnToast}</button>
+            <button id="btn_alert_error">{landing.body.playground.notification.btnAlert}</button>
+          </div>
+          <pre><code>import { bapNotify } from "./_main/util.js";
+bapNotify(type, severity, message);</code></pre>
+        </div>
+
+        <!-- 4. bap-spinner -->
+        <div class="demo-box">
+          <div>
+            <h4>{landing.body.playground.spinner.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.spinner.description}</p>
+          </div>
+          <div class="demo-preview">
+            <bap-spinner></bap-spinner>
+          </div>
+          <pre><code>&lt;bap-spinner&gt;&lt;/bap-spinner&gt;</code></pre>
+        </div>
+
+        <!-- 5. bap-dialog -->
+        <div class="demo-box">
+          <div>
+            <h4>{landing.body.playground.dialog.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.dialog.description}</p>
+          </div>
+          <div class="demo-preview">
+            <button id="btn_trigger_dialog" class="btn-secondary">{landing.body.playground.dialog.btnOpen}</button>
+          </div>
+          <pre><code>&lt;bap-dialog id="demo" title-main="..."&gt;
+  Cuerpo del Diálogo
+&lt;/bap-dialog&gt;</code></pre>
+        </div>
+
+        <!-- 6. bap-loading-state -->
+        <div class="demo-box">
+          <div>
+            <h4>{landing.body.playground.loadingState.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.loadingState.description}</p>
+          </div>
+          <div class="demo-preview">
+            <button id="btn_trigger_loading" class="btn-secondary">{landing.body.playground.loadingState.btnBlock}</button>
+          </div>
+          <pre><code>&lt;bap-loading-state sub-message="..."&gt;
+  Procesando...
+&lt;/bap-loading-state&gt;</code></pre>
+        </div>
+
+        <!-- 7. bap-chip -->
+        <div class="demo-box">
+          <div>
+            <h4>{landing.body.playground.chip.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.chip.description}</p>
+          </div>
+          <div class="demo-preview" style="gap: 8px;">
+            <bap-chip>Vanilla JS</bap-chip>
+            <bap-chip>CSS3</bap-chip>
+            <bap-chip>HTML5</bap-chip>
+          </div>
+          <pre><code>&lt;bap-chip&gt;Vanilla JS&lt;/bap-chip&gt;</code></pre>
+        </div>
+
+        <!-- 8. bap-header -->
+        <div class="demo-box">
+          <div>
+            <h4>{landing.body.playground.header.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.header.description}</p>
+          </div>
+          <div class="demo-preview">
+            <div
+              style="font-size: 0.8rem; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 6px; width: 100%; border: 1px dashed var(--accent-color);">
+              {landing.body.playground.header.hint}
+            </div>
+          </div>
+          <pre><code>&lt;bap-header&gt;&lt;/bap-header&gt;</code></pre>
+        </div>
+
+        <!-- 9. bap-footer -->
+        <div class="demo-box">
+          <div>
+            <h4>{landing.body.playground.footer.title}</h4>
+            <p style="font-size: 0.85rem; color: #64748b;">{landing.body.playground.footer.description}</p>
+          </div>
+          <div class="demo-preview">
+            <div
+              style="font-size: 0.8rem; background: rgba(255,255,255,0.05); padding: 8px 12px; border-radius: 6px; width: 100%; border: 1px dashed var(--accent-color);">
+              {landing.body.playground.footer.hint}
+            </div>
+          </div>
+          <pre><code>&lt;bap-footer&gt;&lt;/bap-footer&gt;</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Instrucciones de Terminal -->
+    <section id="terminal" style="margin-bottom: 2rem;">
+      <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem;">{landing.body.terminal.sectionTitle}</h2>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+        <div>
+          <div class="terminal-sim">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="terminal-body">
+              <span class="terminal-prompt">$</span> npm run server
+            </div>
+          </div>
+          <h4 style="margin: 0 0 0.5rem 0;">{landing.body.terminal.server.title}</h4>
+          <p style="font-size: 0.9rem; color: #64748b;">{landing.body.terminal.server.description}</p>
+        </div>
+
+        <div>
+          <div class="terminal-sim">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="terminal-body">
+              <span class="terminal-prompt">$</span> npm run optimize
+            </div>
+          </div>
+          <h4 style="margin: 0 0 0.5rem 0;">{landing.body.terminal.optimize.title}</h4>
+          <p style="font-size: 0.9rem; color: #64748b;">{landing.body.terminal.optimize.description}</p>
+        </div>
+
+        <div>
+          <div class="terminal-sim">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="terminal-body">
+              <span class="terminal-prompt">$</span> npm run deploy-prod
+            </div>
+          </div>
+          <h4 style="margin: 0 0 0.5rem 0;">{landing.body.terminal.deploy.title}</h4>
+          <p style="font-size: 0.9rem; color: #64748b;">{landing.body.terminal.deploy.description}</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footerPage">
+    <bap-footer></bap-footer>
+  </footer>
+</body>
+
 </html>

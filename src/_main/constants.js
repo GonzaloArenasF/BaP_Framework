@@ -1,15 +1,42 @@
+/**
+ * CONSTANTES GLOBALES DEL SISTEMA
+ *
+ * Contiene todas las configuraciones globales, claves de almacenamiento,
+ * tipos de notificaciones y configuración de entornos.
+ *
+ * ⚠️  SEGURIDAD: Las credenciales de Firebase y reCAPTCHA NO están hardcodeadas aquí.
+ *     Los tokens %%NOMBRE%% son reemplazados en tiempo de build por el pipeline de Gulp,
+ *     leyendo los valores desde el archivo .env local (ignorado por Git).
+ *     Ver: gulp-imports.js → loadEnv() y gulpfile.js → replaceEnvTokens()
+ */
 export const CONSTANT = {
   APP_NAME: "BaP Framework",
-  APP_VERSION: "v1.2.0",
-  FIREBASE_AVAILABLE: false,
+  APP_VERSION: "v2.3.0",
+  FIREBASE_AVAILABLE: (() => {
+    // VUL-04: Autodetectar entorno de red local para mayor seguridad.
+    // Evitar errores de referencia en Node.js (Gulp build time).
+    if (typeof window === "undefined") {
+      return "%%FIREBASE_AVAILABLE%%";
+    }
+    const isLocal = ["localhost", "127.0.0.1", ""].includes(window.location.hostname) || 
+                    window.location.hostname.startsWith("192.168.") || 
+                    window.location.hostname.startsWith("10.") || 
+                    window.location.hostname.startsWith("172.");
+    
+    // Si estamos en un entorno público, pero NO hay credenciales de Firebase configuradas en el .env,
+    // permitimos que el bypass local continúe (sitio 100% estático).
+    // Si hay credenciales de Firebase configuradas, forzamos true por seguridad para evitar bypass accidental.
+    const hasFirebaseCredentials = !!"%%FIREBASE_AP%%"; 
+    return !isLocal && hasFirebaseCredentials ? true : "%%FIREBASE_AVAILABLE%%";
+  })(), // Inyectado desde .env en el build de Gulp (true en producción, false en desarrollo)
   STORAGE: {
     KEYS: {
       DIALOG_DATA: "dd",
     },
     SOURCE: {
-      LOCAL: "localStorage", // Browser
-      SESSION: "sessionStorage", // Browser
-      DB: "realtime", // Firebase
+      LOCAL: "localStorage", // Persistencia en el Navegador (Local)
+      SESSION: "sessionStorage", // Persistencia en el Navegador (Sesión)
+      DB: "realtime", // Persistencia en Base de Datos (Firebase Realtime Database)
     },
   },
   NOTIFICATION: {
@@ -34,17 +61,18 @@ export const CONSTANT = {
     LOGIN_ATTEMPTS: 10,
   },
   FBC: {
-    AP: "",
-    AD: "",
-    DURL: "",
-    PID: "",
-    SB: "",
-    MSID: "",
-    AID: "",
+    AP: "%%FIREBASE_AP%%",   // Inyectado desde .env en el build de Gulp
+    AD: "%%FIREBASE_AD%%",   // Inyectado desde .env en el build de Gulp
+    DURL: "%%FIREBASE_DURL%%", // Inyectado desde .env en el build de Gulp
+    PID: "%%FIREBASE_PID%%", // Inyectado desde .env en el build de Gulp
+    SB: "%%FIREBASE_SB%%",   // Inyectado desde .env en el build de Gulp
+    MSID: "%%FIREBASE_MSID%%", // Inyectado desde .env en el build de Gulp
+    AID: "%%FIREBASE_AID%%", // Inyectado desde .env en el build de Gulp
+    MID: "%%FIREBASE_MID%%"  // Inyectado desde .env en el build de Gulp
   },
   RECAPTCHA: {
-    ID: "",
-    NAME: "",
+    ID: "%%RECAPTCHA_ID%%",     // Inyectado desde .env en el build de Gulp
+    NAME: "%%RECAPTCHA_NAME%%", // Inyectado desde .env en el build de Gulp
   },
   I18N: {
     DEFAULT: "es",
@@ -52,26 +80,13 @@ export const CONSTANT = {
   },
   SOCIAL_MEDIA: {
     EMAIL: {
-      TITLE: "Email",
-      URL: "gonzaloarenasf+bap.page@gmail.com",
-    },
-    LINKEDIN: {
-      TITLE: "LinkedIn",
-      URL: "https://cl.linkedin.com/in/",
-    },
+      TITLE: "Correo electrónico",
+      URL: "gonzaloarenasf+bap-framework@gmail.com",
+    }
   },
 };
 
-// Environment
-const E = {
-  PROD: "https://bap-framework.cl",
-  DEV1: "http://192.168.1.107:8080",
-  DEV2: "http://172.20.10.3:8080",
-  LOCAL: "http://localhost",
-  CDN: "https://cdn-bap-framework.web.app",
-};
-
-//  Modify before deploy
-export const ENV_URL = E.DEV1;
-export const IS_PROD = ENV_URL == E.PROD;
-export const CDN_URL = E.CDN;
+// Modificar antes de desplegar en tu archivo .env
+export const ENV_URL = typeof window !== "undefined" ? window.location.origin : "%%CURRENT_ENV%%";
+export const IS_PROD = ENV_URL === "%%ENV_PROD%%";
+export const CDN_URL = "%%ENV_CDN%%";

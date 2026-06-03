@@ -1,57 +1,145 @@
-.bap-footer {
-  align-items: center;
-  background-attachment: fixed;
-  background-image: url(https://cdn-gonzaloarenasf.web.app/commons/gonzaloarenasf-welcome-background.jpg);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: var(--landing-welcome-font-color);
+.bap-footer-wrapper {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 4rem 2rem 2rem 2rem;
+  border-top: 1px solid var(--dialog-border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.bap-footer-main {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.bap-footer-brand {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  justify-content: center;
-  margin: 0 auto;
-  min-height: 100dvh;
-  min-height: 100vh;
-  width: 100%;
 }
 
-.bap-footer > p {
-  max-width: 330px;
-  text-align: center;
+.bap-footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--link-color);
 }
 
-/*
- Tablet
-*/
-@media only screen and (max-width: 1200px) and (orientation: portrait) {
-  .bap-footer {
-    background-attachment: scroll;
+.bap-footer-logo-svg {
+  width: 24px;
+  height: 24px;
+  color: var(--link-color);
+}
+
+.bap-footer-brand-desc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--grey-1);
+  margin: 0;
+  max-width: 360px;
+}
+
+.bap-footer-links,
+.bap-footer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.bap-footer-links h5,
+.bap-footer-contact h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: var(--font-color);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.bap-footer-links a,
+.bap-footer-contact a {
+  font-size: 0.9rem;
+  color: var(--grey-1);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease;
+  width: fit-content;
+}
+
+.bap-footer-links a:hover,
+.bap-footer-contact a:hover {
+  color: var(--link-hover-color) !important;
+}
+
+.bap-footer-version-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  background: transparent;
+  padding: 4px 10px;
+  border-radius: 20px;
+  border: 1px solid var(--link-color);
+  width: fit-content;
+  color: var(--link-color);
+  margin-top: 0.5rem;
+}
+
+.bap-footer-version-tag span {
+  font-weight: 300;
+  opacity: 0.8;
+}
+
+.bap-footer-version-tag strong {
+  font-weight: 700;
+}
+
+.bap-footer-bottom {
+  border-top: 1px solid var(--dialog-border-color);
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.bap-footer-copy {
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--grey-1);
+  margin: 0;
+}
+
+.bap-footer-copy a {
+  display: inline;
+  color: var(--link-color);
+  transition: color 0.3s ease;
+}
+
+.bap-footer-copy a:hover {
+  color: var(--link-hover-color);
+}
+
+/* responsive media queries */
+@media only screen and (max-width: 900px) {
+  .bap-footer-main {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
   }
-}
 
-@media only screen and (max-width: 1200px) and (orientation: landscape) {
-  .bap-footer {
-    background-attachment: scroll;
-  }
-}
-
-/*
-  Phones
-*/
-@media only screen and (max-width: 900px) and (orientation: portrait) {
-  .bap-footer {
-    background-attachment: scroll;
-  }
-}
-
-@media only screen and (max-width: 900px) and (orientation: landscape) {
-  .bap-footer {
-    background-attachment: scroll;
-    padding: 5rem 0;
+  .bap-footer-wrapper {
+    padding: 3rem 1.5rem 1.5rem 1.5rem;
+    gap: 2rem;
   }
 
-  .bap-footer > p{
-    max-width: 90%;
+  .bap-footer-bottom {
+    padding-top: 1.5rem;
   }
 }

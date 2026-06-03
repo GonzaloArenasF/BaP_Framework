@@ -1,6 +1,46 @@
 import { esES } from "./src/_main/i18n/es-ES.js";
-import { ENV_URL, CONSTANT, CDN_URL } from "./src/_main/constants.js";
+import { CONSTANT } from "./src/_main/constants.js";
 import { routes } from "./src/_main/routerPaths.js";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+/**
+ * Lee y parsea el archivo .env local para inyección de credenciales en build-time.
+ * Usa solo módulos nativos de Node.js, sin dependencias externas.
+ * Si el archivo no existe, retorna un objeto vacío y emite una advertencia.
+ */
+function loadEnv() {
+  try {
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+    const envContent = fs.readFileSync(path.join(__dirname, ".env"), "utf-8");
+    const env = {};
+    envContent.split("\n").forEach((line) => {
+      const trimmed = line.trim();
+      if (trimmed && !trimmed.startsWith("#")) {
+        const eqIndex = trimmed.indexOf("=");
+        if (eqIndex !== -1) {
+          const key = trimmed.substring(0, eqIndex).trim();
+          const value = trimmed.substring(eqIndex + 1).trim().replace(/^["']|["']$/g, "");
+          env[key] = value;
+        }
+      }
+    });
+    console.log("✅ .env cargado correctamente. Credenciales Firebase listas para inyección.");
+    return env;
+  } catch (e) {
+    console.warn("⚠️  No se encontró el archivo .env. Los tokens %%FIREBASE_*%% no serán reemplazados en el build.");
+    console.warn("   Crea el archivo .env basado en .env.example antes de hacer deploy.");
+    return {};
+  }
+}
+
+export const firebaseEnv = loadEnv();
+
+// Resolución dinámica de entorno para el proceso de compilación (evita tokens de constants.js)
+export const ENV_URL = firebaseEnv.CURRENT_ENV || "http://localhost:8080";
+export const CDN_URL = firebaseEnv.ENV_CDN || "https://cdn-bap-framework.web.app";
+export const IS_PROD = ENV_URL === (firebaseEnv.ENV_PROD || "https://bap-framework.gonzaloarenasf.cl");
 
 const i18n = esES;
 
@@ -17,6 +57,7 @@ const i18nPagesToProcess = {
   },
   components: {
     bapFooter: "_components/bap-footer/bap-footer.html",
+    bapHeader: "_components/bap-header/bap-header.html",
   },
 };
 
@@ -31,7 +72,18 @@ const applyI18n = {
       .replaceAll("{APP_VERSION}", CONSTANT.APP_VERSION);
   },
   componentBapFooter: (content) => {
-    return content.replaceAll("{tc}", i18n.component.bapFooter.tc);
+    return content
+      .replaceAll("{tc}", i18n.component.bapFooter.tc)
+      .replaceAll("{brandDesc}", i18n.component.bapFooter.brandDesc)
+      .replaceAll("{versionLabel}", i18n.component.bapFooter.versionLabel)
+      .replaceAll("{resourcesLabel}", i18n.component.bapFooter.resourcesLabel)
+      .replaceAll("{btnExplore}", i18n.component.bapFooter.btnExplore)
+      .replaceAll("{contactLabel}", i18n.component.bapFooter.contactLabel);
+  },
+  componentBapHeader: (content) => {
+    return content
+      .replaceAll("{lightMode}", i18n.component.bapHeader.lightMode)
+      .replaceAll("{darkMode}", i18n.component.bapHeader.darkMode);
   },
   pageIndex: (content) => {
     return content
@@ -68,4 +120,4 @@ const applyI18n = {
   },
 };
 
-export default { i18n, applyI18n, i18nPagesToProcess, ENV_URL, CONSTANT };
+export default { i18n, applyI18n, i18nPagesToProcess, ENV_URL, CONSTANT, firebaseEnv, IS_PROD };
