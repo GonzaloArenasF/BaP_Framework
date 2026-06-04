@@ -68,9 +68,7 @@ function postRender(props) {
 }
 
 export class BapHeader extends HTMLElement {
-  constructor() {
-    super();
-
+  connectedCallback() {
     const props = {
       hideActions: typeof this.getAttribute("hide-actions") == "string",
       showAdminActions: typeof this.getAttribute("show-admin-actions") == "string",
