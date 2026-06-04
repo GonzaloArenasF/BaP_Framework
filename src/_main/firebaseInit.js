@@ -24,18 +24,20 @@ import {
 const config = {
   apiKey: CONSTANT.FBC.AP,
   authDomain: CONSTANT.FBC.AD,
-  databaseURL: CONSTANT.FBC.DURL,
   projectId: CONSTANT.FBC.PID,
   storageBucket: CONSTANT.FBC.SB,
   messagingSenderId: CONSTANT.FBC.MSID,
   appId: CONSTANT.FBC.AID,
 };
+if (CONSTANT.FBC.DURL) {
+  config.databaseURL = CONSTANT.FBC.DURL;
+}
 
 // Initialize Firebase
 export const bapFirebaseApp = CONSTANT.FIREBASE_AVAILABLE ? initializeApp(config) : null;
 export const bapAuth = CONSTANT.FIREBASE_AVAILABLE ? getAuth(bapFirebaseApp) : null;
 export const bapAnalytics = CONSTANT.FIREBASE_AVAILABLE ? getAnalytics(bapFirebaseApp) : null;
-export const bapDB = CONSTANT.FIREBASE_AVAILABLE ? getDatabase(bapFirebaseApp) : null;
+export const bapDB = CONSTANT.FIREBASE_AVAILABLE && CONSTANT.FBC.DURL ? getDatabase(bapFirebaseApp) : null;
 
 /**
  * Analytics settings

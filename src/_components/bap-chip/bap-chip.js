@@ -14,9 +14,7 @@ function preRender(html, props) {
 function postRender(element) {}
 
 export class BapChip extends HTMLElement {
-  constructor() {
-    super();
-
+  connectedCallback() {
     const props = {
       id: this.hasAttribute("id") ? this.getAttribute("id") : null,
       label: this.innerHTML.trim(),

@@ -1,4 +1,4 @@
-# BaP Framework - v2.3.0
+# BaP Framework - v2.3.2
 
 Un framework minimalista y de alto rendimiento basado en **HTML, CSS y JavaScript Vanilla (puro)**. Diseñado bajo la filosofía de "cero frameworks externos y cero dependencias pesadas en el cliente", BaP permite prototipar ideas de manera extremadamente rápida y sencilla, proporcionando a su vez una arquitectura robusta, modular y altamente escalable para aplicaciones en producción.
 
@@ -15,9 +15,9 @@ BaP Framework está optimizado para integrarse de forma nativa con los servicios
 *   **Recaptcha**: Firebase AppCheck / Google Cloud reCAPTCHA (protección contra bots).
 
 > [!IMPORTANT]
-> Para activar la integración, crea un proyecto en Firebase. Luego, copia el archivo `.env.example` como `.env` en la raíz del proyecto, completa las credenciales con los valores de tu proyecto Firebase y establece la variable `FIREBASE_AVAILABLE` en `true` en tu archivo `.env`.
+> Para activar la integración, crea un proyecto en Firebase. Luego, copia el archivo `.env.example` como `.env.development` y `.env.production` en la raíz del proyecto, completa las credenciales con los valores de tu proyecto Firebase y establece la variable `FIREBASE_AVAILABLE` en `true` o `false` según el entorno.
 > 
-> ⚠️ El archivo `.env` está en `.gitignore` y **nunca debe subirse al repositorio**. El archivo `.env.example` sirve como plantilla de referencia.
+> ⚠️ Los archivos `.env.*` (incluyendo `.env.development` y `.env.production`) están en `.gitignore` y **nunca deben subirse al repositorio**. El archivo `.env.example` sirve como plantilla de referencia.
 >
 > 🔒 **Autodetección de Seguridad**: En entornos públicos y de producción, el framework realiza una autodetección automática del entorno evaluando `window.location.hostname`. Si detecta un hostname no local y existen credenciales en el bundle, habilitará Firebase automáticamente para prevenir omisiones accidentales del bypass local.
 
@@ -221,8 +221,8 @@ A raíz de una revisión y auditoría exhaustiva, BaP Framework incorpora un est
 *   **Instanciación Limpia de Componentes**: El enrutador elimina la concatenación directa de strings HTML en `<main>`. En su lugar, utiliza `document.createElement` y `element.setAttribute`, tratando el payload de la URL estrictamente como cadenas de texto no ejecutables.
 
 ### 2. Endurecimiento de la Configuración y Secretos
-*   **Inyección a través de variables de entorno**: Las credenciales sensibles de Firebase y de reCAPTCHA ya no están hardcodeadas en `src/_main/constants.js`. Se manejan como tokens de reemplazo (`%%NOMBRE_VAR%%`) y se inyectan en tiempo de build con Gulp leyendo un archivo `.env` local (protegido por `.gitignore`).
-*   **Validación de Construcción de Gulp**: El script `gulpfile.js` aborta el pipeline si se intenta compilar para producción (`ENV_URL` coincide con `ENV_PROD`) y el bypass `FIREBASE_AVAILABLE` está establecido en `false` en el archivo `.env`.
+*   **Inyección a través de variables de entorno**: Las credenciales sensibles de Firebase y de reCAPTCHA ya no están hardcodeadas en `src/_main/constants.js`. Se manejan como tokens de reemplazo (`%%NOMBRE_VAR%%`) y se inyectan en tiempo de build con Gulp leyendo los archivos `.env.development` o `.env.production` locales (protegidos por `.gitignore`).
+*   **Validación de Construcción de Gulp**: El script `gulpfile.js` aborta el pipeline si se intenta compilar para producción (`ENV_URL` coincide con `ENV_PROD`) y el bypass `FIREBASE_AVAILABLE` está establecido en `false` en el archivo de entorno de producción.
 
 ### 3. Criptografía Avanzada en Persistencia (`storage.js`)
 *   Se depreca el uso de codificación simple Base64 en los métodos síncronos, emitiendo alertas de advertencia en consola.
@@ -258,6 +258,18 @@ El módulo `analytics.js` centraliza la telemetría del framework mediante un di
 
 ---
 
+## 🧪 Pruebas Unitarias y Cobertura (Testing)
+
+El framework incorpora una infraestructura moderna, rápida y robusta para garantizar la calidad del código, utilizando herramientas de vanguardia integradas directamente en el flujo de desarrollo:
+
+*   **Vitest**: Como motor principal para la ejecución ultrarrápida de pruebas unitarias y de integración.
+*   **JSDOM**: Permite emular un entorno de navegador completo en Node.js, lo que es vital para instanciar, probar y asertar el comportamiento de los Web Components (Custom Elements) de forma totalmente aislada.
+*   **Mocks de Firebase**: El directorio `test/mocks/` provee simulaciones avanzadas y limpias de los servicios de Firebase (`bapAuth`, `bapDB`, `bapAnalytics`) evitando que las pruebas hagan llamadas reales a la red o modifiquen datos vivos.
+*   **Cobertura de Código (Coverage)**: Utilizando `@vitest/coverage-v8`, se pueden generar reportes de cobertura exhaustivos ejecutando `npm run test:coverage`.
+*   **Estructura Espejo**: Las pruebas en la carpeta `test/` siguen la misma estructura exacta que `src/` (p. ej. `test/_components/`, `test/_main/`), haciendo el mantenimiento intuitivo.
+
+---
+
 ## 🎨 Diseño y Estética Premium
 
 El framework cuenta con un diseño visual moderno, premium y minimalista:
@@ -290,30 +302,39 @@ BaP Framework utiliza un robusto pipeline de automatización con **Gulp** para c
 ### Comandos de Consola
 
 ```bash
-# 1. Iniciar el servidor local de desarrollo
+# 1. Ejecutar la suite completa de pruebas unitarias
+npm run test
+
+# 2. Ejecutar las pruebas en modo interactivo (Watch Mode)
+npm run test:watch
+
+# 3. Generar el reporte de cobertura de código
+npm run test:coverage
+
+# 4. Iniciar el servidor local de desarrollo
 # Nota: Por seguridad, el CORS abierto está deshabilitado por defecto para prevenir lectura de datos desde pestañas externas.
 npm run server
 
-# 2. Compilar, minificar y ofuscar el código para producción
+# 5. Compilar, minificar y ofuscar el código usando el entorno de desarrollo (.env.development)
 npm run optimize
 
-# 3. Desplegar en el canal de pruebas (QA) de Firebase
-npm run deploy-qa
+# 6. Compilar, minificar y ofuscar el código usando el entorno de producción (.env.production)
+npm run optimize:prod
 
-# 4. Desplegar en el entorno productivo de Firebase
+# 7. Desplegar en el entorno productivo de Firebase (ejecuta optimize:prod internamente)
 npm run deploy-prod
 ```
 
-### Proceso de Gulp (`npm run optimize`)
+### Proceso de Gulp (`npm run optimize` / `npm run optimize:prod`)
 
 > [!IMPORTANT]
-> Antes de compilar para producción, asegúrate de que el archivo `.env` existe en la raíz del proyecto con las credenciales de Firebase completas. Cópialo desde `.env.example` si es la primera vez.
+> Antes de compilar para producción, asegúrate de que el archivo `.env.production` existe en la raíz del proyecto con las credenciales de Firebase completas. Cópialo desde `.env.example` si es la primera vez.
 
 El script de optimización automatiza las siguientes tareas:
 1.  **Minificación HTML**: Limpia y reduce el tamaño de los archivos `.html` reemplazando dinámicamente marcas de variables (como `{APP_VERSION}` y entornos de producción).
 2.  **Procesamiento CSS**: Consolida y minifica las hojas de estilos de componentes y generales.
     *   *Source Maps Condicionales*: Gulp detecta si el build es para producción (`IS_PROD: true`) y, si es así, deshabilita la generación de mapas de origen (`.map`) para evitar la exposición de código original en producción y reducir el peso del bundle.
-3.  **Inyección de credenciales**: Lee el archivo `.env` e inyecta las credenciales de Firebase y entornos en los archivos `.js` reemplazando los tokens `%%NOMBRE%%` definidos en `constants.js`.
+3.  **Inyección de credenciales**: Lee el archivo `.env` correspondiente al script (`.env.development` o `.env.production`) e inyecta las credenciales de Firebase y entornos en los archivos `.js` reemplazando los tokens `%%NOMBRE%%` definidos en `constants.js`.
     *   *Validación Crítica*: Si se compila con el entorno productivo activo, verifica que `FIREBASE_AVAILABLE` sea `"true"`. En caso contrario, aborta la compilación para evitar brechas de seguridad accidentales.
 4.  **Ofuscación JavaScript**: Ejecuta `gulp-javascript-obfuscator` sobre toda la lógica interna y de componentes en `/public`, garantizando la protección de la propiedad intelectual antes del despliegue.
 

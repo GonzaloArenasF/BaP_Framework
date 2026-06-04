@@ -25,20 +25,20 @@ function replaceEnvTokens() {
   const { firebaseEnv } = appImports;
   // Mapeo: token en constants.js → clave en .env (nombres estándar de Firebase)
   const tokens = {
-    "\"%%FIREBASE_AVAILABLE%%\"": firebaseEnv.FIREBASE_AVAILABLE  || "false",
-    "%%FIREBASE_AP%%":        firebaseEnv.apiKey              || "",
-    "%%FIREBASE_AD%%":        firebaseEnv.authDomain          || "",
-    "%%FIREBASE_DURL%%":      firebaseEnv.databaseURL         || "",
-    "%%FIREBASE_PID%%":       firebaseEnv.projectId           || "",
-    "%%FIREBASE_SB%%":        firebaseEnv.storageBucket       || "",
-    "%%FIREBASE_MSID%%":      firebaseEnv.messagingSenderId   || "",
-    "%%FIREBASE_AID%%":       firebaseEnv.appId               || "",
-    "%%FIREBASE_MID%%":       firebaseEnv.measurementId       || "",
-    "%%RECAPTCHA_ID%%":       firebaseEnv.RECAPTCHA_ID        || "",
-    "%%RECAPTCHA_NAME%%":     firebaseEnv.RECAPTCHA_NAME      || "",
-    "%%ENV_PROD%%":           firebaseEnv.ENV_PROD            || "",
-    "%%ENV_CDN%%":            firebaseEnv.ENV_CDN             || "",
-    "%%CURRENT_ENV%%":        firebaseEnv.CURRENT_ENV         || "",
+    "\"%%FIREBASE_AVAILABLE%%\"": firebaseEnv.FIREBASE_AVAILABLE || "false",
+    "%%FIREBASE_AP%%": firebaseEnv.apiKey || "",
+    "%%FIREBASE_AD%%": firebaseEnv.authDomain || "",
+    "%%FIREBASE_DURL%%": firebaseEnv.databaseURL || "",
+    "%%FIREBASE_PID%%": firebaseEnv.projectId || "",
+    "%%FIREBASE_SB%%": firebaseEnv.storageBucket || "",
+    "%%FIREBASE_MSID%%": firebaseEnv.messagingSenderId || "",
+    "%%FIREBASE_AID%%": firebaseEnv.appId || "",
+    "%%FIREBASE_MID%%": firebaseEnv.measurementId || "",
+    "%%RECAPTCHA_ID%%": firebaseEnv.RECAPTCHA_ID || "",
+    "%%RECAPTCHA_NAME%%": firebaseEnv.RECAPTCHA_NAME || "",
+    "%%ENV_PROD%%": firebaseEnv.ENV_PROD || "",
+    "%%ENV_CDN%%": firebaseEnv.ENV_CDN || "",
+    "%%CURRENT_ENV%%": firebaseEnv.CURRENT_ENV || "",
   };
 
   return through.obj(function (file, enc, cb) {
@@ -116,14 +116,6 @@ function replacingHeadMetatags() {
           console.log(`Replacing custom i18n in ${file.relative} for ${ENV_URL}`);
           htmlReplaced = applyI18n.page404(htmlReplaced);
           break;
-        case i18nPagesToProcess.pages.resume.index:
-          console.log(`Replacing custom i18n in ${file.relative} for ${ENV_URL}`);
-          htmlReplaced = applyI18n.pageResume(htmlReplaced);
-          break;
-        case i18nPagesToProcess.pages.contact.index:
-          console.log(`Replacing custom i18n in ${file.relative} for ${ENV_URL}`);
-          htmlReplaced = applyI18n.pageContact(htmlReplaced);
-          break;
       }
 
       file.contents = Buffer.from(htmlReplaced);
@@ -190,4 +182,5 @@ function minifyJS() {
 // Define default task that runs all tasks
 const build = gulp.series(minifyCSS, minifyAndReplaceHTML, minifyJS, copyAssetsFolder);
 
+export const _test_replaceEnvTokens = replaceEnvTokens;
 export default build;

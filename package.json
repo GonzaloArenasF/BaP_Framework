@@ -1,14 +1,16 @@
 {
   "name": "bap-framework",
-  "version": "v2.3.0",
+  "version": "v2.3.2",
   "description": "BaP Framework",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
     "server": "http-server ./public -o",
-    "optimize": "gulp",
-    "deploy-qa": "firebase hosting:channel:deploy qa",
-    "deploy-prod": "firebase deploy"
+    "optimize": "ENV_FILE=.env.development gulp",
+    "optimize:prod": "ENV_FILE=.env.production gulp",
+    "deploy-prod": "npm run test && npm run optimize:prod && rm -rf .firebase && firebase deploy"
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,7 @@
   "devDependencies": {
     "@babel/core": "^7.24.7",
     "@babel/preset-env": "^7.24.7",
+    "@vitest/coverage-v8": "^4.1.8",
     "gulp": "^5.0.0",
     "gulp-babel": "^8.0.0",
     "gulp-clean-css": "^4.3.0",
@@ -40,7 +43,9 @@
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
     "http-server": "^14.1.1",
-    "through2": "^4.0.2"
+    "jsdom": "^29.1.1",
+    "through2": "^4.0.2",
+    "vitest": "^4.1.8"
   },
   "type": "module"
 }
