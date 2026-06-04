@@ -12,7 +12,7 @@ const bapFooterI18N = getI18nContent("component", "bapFooter");
 const crossI18n = getI18nContent("page", "cross");
 
 function preRender(html) {
-  return !IS_PROD
+  return !CONSTANT.IS_PROD
     ? html
         .replace("{APP_VERSION}", CONSTANT.APP_VERSION)
         .replace("{tc}", bapFooterI18N.tc)
@@ -28,8 +28,7 @@ function preRender(html) {
 function postRender(element) {}
 
 export class BapFooter extends HTMLElement {
-  constructor() {
-    super();
+  connectedCallback() {
     createCustomComponent(this, {
       cssPath: ENV_URL + "/_components/bap-footer/bap-footer.css",
       htmlPath: ENV_URL + "/_components/bap-footer/bap-footer.html",

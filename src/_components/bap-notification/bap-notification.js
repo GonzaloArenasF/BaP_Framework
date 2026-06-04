@@ -23,7 +23,7 @@ const componentPaths = {
  */
 function setConfiguration(type, severity, message, elementHTML) {
   let elementWithValues = elementHTML;
-  elementWithValues = elementWithValues.replaceAll("{bap-notification-message}", message ?? "Sin mensaje");
+  elementWithValues = elementWithValues.replaceAll("{bap-notification-message}", message || "Sin mensaje");
   elementWithValues = elementWithValues.replaceAll(
     "{bap-notification-severity}",
     severity ? `severity-${severity}` : "severity-error"

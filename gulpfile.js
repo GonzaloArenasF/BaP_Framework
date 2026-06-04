@@ -190,4 +190,5 @@ function minifyJS() {
 // Define default task that runs all tasks
 const build = gulp.series(minifyCSS, minifyAndReplaceHTML, minifyJS, copyAssetsFolder);
 
+export const _test_replaceEnvTokens = replaceEnvTokens;
 export default build;
