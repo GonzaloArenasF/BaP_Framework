@@ -40,9 +40,13 @@ function loadEnv() {
 export const firebaseEnv = loadEnv();
 
 // Resolución dinámica de entorno para el proceso de compilación (evita tokens de constants.js)
-export const ENV_URL = firebaseEnv.CURRENT_ENV || "http://localhost:8080";
-export const CDN_URL = firebaseEnv.ENV_CDN || "https://cdn-bap-framework.web.app";
-export const IS_PROD = ENV_URL === (firebaseEnv.ENV_PROD || "https://bap-framework.gonzaloarenasf.cl");
+if (!firebaseEnv.CURRENT_ENV || !firebaseEnv.ENV_CDN || !firebaseEnv.ENV_PROD) {
+  throw new Error(`❌ ERROR FATAL: Faltan variables críticas (CURRENT_ENV, ENV_CDN o ENV_PROD) en tu archivo ${process.env.ENV_FILE || ".env"}. Deteniendo compilación.`);
+}
+
+export const ENV_URL = firebaseEnv.CURRENT_ENV;
+export const CDN_URL = firebaseEnv.ENV_CDN;
+export const IS_PROD = ENV_URL === firebaseEnv.ENV_PROD;
 
 const i18n = esES;
 
@@ -50,17 +54,34 @@ const i18nPagesToProcess = {
   pages: {
     index: "index.html",
     notFound: "404.html",
-    resume: {
-      index: "pages/resume/index.html"
-    },
-    contact: {
-      index: "pages/contact/index.html",
-    },
   },
   components: {
     bapFooter: "_components/bap-footer/bap-footer.html",
     bapHeader: "_components/bap-header/bap-header.html",
   },
+};
+
+const flattenObject = (obj, prefix = "", res = {}) => {
+  for (const [key, value] of Object.entries(obj)) {
+    const propName = prefix ? `${prefix}.${key}` : key;
+    if (typeof value === "object" && value !== null) {
+      flattenObject(value, propName, res);
+    } else {
+      res[propName] = value;
+    }
+  }
+  return res;
+};
+
+const replaceDynamic = (content, i18nSlice, prefix = "") => {
+  let replaced = content;
+  const tokens = flattenObject(i18nSlice, prefix);
+  for (const [key, value] of Object.entries(tokens)) {
+    if (typeof value === "string") {
+      replaced = replaced.replaceAll(`{${key}}`, value);
+    }
+  }
+  return replaced;
 };
 
 const applyI18n = {
@@ -73,52 +94,15 @@ const applyI18n = {
       .replaceAll("{APP_NAME}", CONSTANT.APP_NAME)
       .replaceAll("{APP_VERSION}", CONSTANT.APP_VERSION);
   },
-  componentBapFooter: (content) => {
-    return content
-      .replaceAll("{tc}", i18n.component.bapFooter.tc)
-      .replaceAll("{brandDesc}", i18n.component.bapFooter.brandDesc)
-      .replaceAll("{versionLabel}", i18n.component.bapFooter.versionLabel)
-      .replaceAll("{resourcesLabel}", i18n.component.bapFooter.resourcesLabel)
-      .replaceAll("{btnExplore}", i18n.component.bapFooter.btnExplore)
-      .replaceAll("{contactLabel}", i18n.component.bapFooter.contactLabel);
-  },
-  componentBapHeader: (content) => {
-    return content
-      .replaceAll("{lightMode}", i18n.component.bapHeader.lightMode)
-      .replaceAll("{darkMode}", i18n.component.bapHeader.darkMode);
-  },
+  componentBapFooter: (content) => replaceDynamic(content, i18n.component.bapFooter, ""),
+  componentBapHeader: (content) => replaceDynamic(content, i18n.component.bapHeader, ""),
   pageIndex: (content) => {
-    return content
-      .replaceAll("{head.meta.description}", i18n.page.landing.head.meta.description)
-      .replaceAll("{head.meta.title}", i18n.page.landing.head.meta.title)
-      .replaceAll("{head.meta.keywords}", i18n.page.landing.head.meta.keywords)
-      .replaceAll("{head.title}", i18n.page.landing.head.title);
+    let replaced = replaceDynamic(content, i18n.page.landing.head, "head");
+    return replaceDynamic(replaced, i18n.page.landing.body, "landing.body");
   },
   page404: (content) => {
-    return content
-      .replaceAll("{head.meta.description}", i18n.page.notFound.head.meta.description)
-      .replaceAll("{head.meta.title}", i18n.page.notFound.head.meta.title)
-      .replaceAll("{head.meta.keywords}", i18n.page.notFound.head.meta.keywords)
-      .replaceAll("{head.title}", i18n.page.notFound.head.title)
-      .replace("{body.message}", i18n.page.notFound.body.message)
-      .replace("{body.backHome}", i18n.page.notFound.body.backHome);
-  },
-  pageResume: (content) => {
-    return content
-      .replaceAll("{head.meta.description}", i18n.page.resume.head.meta.description)
-      .replaceAll("{head.meta.title}", i18n.page.resume.head.meta.title)
-      .replaceAll("{head.meta.keywords}", i18n.page.resume.head.meta.keywords)
-      .replaceAll("{head.title}", i18n.page.resume.head.title)
-      .replace("{title}", i18n.page.resume.body.title)
-      .replace("{description}", i18n.page.resume.body.description);
-  },
-  pageContact: (content) => {
-    return content
-      .replaceAll("{head.meta.description}", i18n.page.contact.head.meta.description)
-      .replaceAll("{head.meta.title}", i18n.page.contact.head.meta.title)
-      .replaceAll("{head.meta.keywords}", i18n.page.contact.head.meta.keywords)
-      .replaceAll("{head.title}", i18n.page.contact.head.title)
-      .replace("{intro}", i18n.page.contact.body.intro);
+    let replaced = replaceDynamic(content, i18n.page.notFound.head, "head");
+    return replaceDynamic(replaced, i18n.page.notFound.body, "body");
   },
 };
 

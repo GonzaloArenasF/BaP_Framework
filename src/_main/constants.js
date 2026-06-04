@@ -11,8 +11,8 @@
  */
 export const CONSTANT = {
   APP_NAME: "BaP Framework",
-  APP_VERSION: "v2.3.1",
-  BAP_FRAMEWORK_VERSION: "v2.3.1",
+  APP_VERSION: "v2.3.2",
+  BAP_FRAMEWORK_VERSION: "v2.3.2",
   FIREBASE_AVAILABLE: (() => {
     // VUL-04: Autodetectar entorno de red local para mayor seguridad.
     // Evitar errores de referencia en Node.js (Gulp build time).

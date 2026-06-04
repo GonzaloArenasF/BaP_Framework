@@ -24,7 +24,7 @@ describe('gulp-imports.js', () => {
   // Pruebas para loadEnv() a través de firebaseEnv
   describe('loadEnv()', () => {
     it('GLP-01: loadEnv con .env válido', async () => {
-      readFileSyncSpy.mockReturnValue('KEY1=VALUE1\nKEY2=VALUE2');
+      readFileSyncSpy.mockReturnValue('CURRENT_ENV=test\nENV_CDN=cdn\nENV_PROD=prod\nKEY1=VALUE1\nKEY2=VALUE2');
       const { firebaseEnv } = await import('../../gulp-imports.js');
       
       expect(firebaseEnv).toHaveProperty('KEY1', 'VALUE1');
@@ -32,16 +32,15 @@ describe('gulp-imports.js', () => {
       expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('✅ .env cargado correctamente'));
     });
 
-    it('GLP-02: loadEnv sin archivo .env', async () => {
+    it('GLP-02: loadEnv sin archivo .env lanza error', async () => {
       readFileSyncSpy.mockImplementation(() => { throw new Error('File not found'); });
-      const { firebaseEnv } = await import('../../gulp-imports.js');
       
-      expect(firebaseEnv).toEqual({});
-      expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('⚠️  No se encontró el archivo .env'));
+      await expect(import('../../gulp-imports.js')).rejects.toThrow(/ERROR FATAL/);
+      expect(consoleWarnSpy).toHaveBeenCalledWith(expect.stringContaining('⚠️  No se encontró el archivo'));
     });
 
     it('GLP-03: loadEnv ignora comentarios', async () => {
-      readFileSyncSpy.mockReturnValue('KEY1=VALUE1\n# Comentario\nKEY2=VALUE2');
+      readFileSyncSpy.mockReturnValue('CURRENT_ENV=test\nENV_CDN=cdn\nENV_PROD=prod\nKEY1=VALUE1\n# Comentario\nKEY2=VALUE2');
       const { firebaseEnv } = await import('../../gulp-imports.js');
       
       expect(firebaseEnv).toHaveProperty('KEY1', 'VALUE1');
@@ -50,16 +49,16 @@ describe('gulp-imports.js', () => {
     });
 
     it('GLP-04: loadEnv ignora líneas vacías', async () => {
-      readFileSyncSpy.mockReturnValue('KEY1=VALUE1\n\n\nKEY2=VALUE2\n');
+      readFileSyncSpy.mockReturnValue('CURRENT_ENV=test\nENV_CDN=cdn\nENV_PROD=prod\nKEY1=VALUE1\n\n\nKEY2=VALUE2\n');
       const { firebaseEnv } = await import('../../gulp-imports.js');
       
-      expect(Object.keys(firebaseEnv).length).toBe(2);
+      expect(Object.keys(firebaseEnv).length).toBe(5);
       expect(firebaseEnv).toHaveProperty('KEY1', 'VALUE1');
       expect(firebaseEnv).toHaveProperty('KEY2', 'VALUE2');
     });
 
     it('GLP-05: loadEnv maneja valores con comillas', async () => {
-      readFileSyncSpy.mockReturnValue('KEY1="VALUE1"\nKEY2=\'VALUE2\'\nKEY3=VALUE3');
+      readFileSyncSpy.mockReturnValue('CURRENT_ENV=test\nENV_CDN=cdn\nENV_PROD=prod\nKEY1="VALUE1"\nKEY2=\'VALUE2\'\nKEY3=VALUE3');
       const { firebaseEnv } = await import('../../gulp-imports.js');
       
       expect(firebaseEnv.KEY1).toBe('VALUE1');
@@ -72,7 +71,7 @@ describe('gulp-imports.js', () => {
   describe('applyI18n', () => {
     beforeEach(() => {
       // Setup para estas pruebas
-      readFileSyncSpy.mockReturnValue('');
+      readFileSyncSpy.mockReturnValue('CURRENT_ENV=test\nENV_CDN=cdn\nENV_PROD=prod');
     });
 
     it('GLP-06: applyI18n.common reemplaza tokens', async () => {

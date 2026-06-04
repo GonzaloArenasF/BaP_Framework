@@ -232,7 +232,55 @@
 <a name='L167'></a><a href='#L167'>167</a>
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
-<a name='L170'></a><a href='#L170'>170</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
+<a name='L170'></a><a href='#L170'>170</a>
+<a name='L171'></a><a href='#L171'>171</a>
+<a name='L172'></a><a href='#L172'>172</a>
+<a name='L173'></a><a href='#L173'>173</a>
+<a name='L174'></a><a href='#L174'>174</a>
+<a name='L175'></a><a href='#L175'>175</a>
+<a name='L176'></a><a href='#L176'>176</a>
+<a name='L177'></a><a href='#L177'>177</a>
+<a name='L178'></a><a href='#L178'>178</a>
+<a name='L179'></a><a href='#L179'>179</a>
+<a name='L180'></a><a href='#L180'>180</a>
+<a name='L181'></a><a href='#L181'>181</a>
+<a name='L182'></a><a href='#L182'>182</a>
+<a name='L183'></a><a href='#L183'>183</a>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a>
+<a name='L191'></a><a href='#L191'>191</a>
+<a name='L192'></a><a href='#L192'>192</a>
+<a name='L193'></a><a href='#L193'>193</a>
+<a name='L194'></a><a href='#L194'>194</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -503,6 +551,14 @@
             uuids: "Generador de UUIDs no predecibles utilizando la Web Crypto API del navegador.",
             headers: "Cabeceras de servidor rígidas (CSP, X-Frame-Options, nosniff) configuradas en Firebase.",
           },
+          testing: {
+            title: "🧪 Pruebas Unitarias (Testing)",
+            description: "Infraestructura de testing moderna y de alta velocidad incorporada en el ciclo de desarrollo:",
+            vitest: "Ejecución ultrarrápida usando Vitest.",
+            jsdom: "Emulación completa del DOM (JSDOM) para probar Custom Elements aislados.",
+            mocks: "Mocks integrados para simular servicios de Firebase (Auth, RTDB, Analytics).",
+            coverage: "Generación automática de reportes de cobertura (V8).",
+          },
         },
         // ── Playground ────────────────────────────────────────────────────
         playground: {
@@ -553,17 +609,33 @@
         // ── Terminal ──────────────────────────────────────────────────────
         terminal: {
           sectionTitle: "💻 Ciclo de Desarrollo en la Terminal",
+          test: {
+            title: "Pruebas Unitarias",
+            description: "Ejecuta la suite completa de pruebas usando Vitest.",
+          },
+          testWatch: {
+            title: "Pruebas (Watch Mode)",
+            description: "Mantiene Vitest corriendo y reejecuta las pruebas al modificar archivos.",
+          },
+          testCoverage: {
+            title: "Reporte de Cobertura",
+            description: "Genera el reporte de cobertura de código (coverage) con Vitest.",
+          },
           server: {
             title: "Servidor de Desarrollo",
             description: "Levanta el servidor HTTP local con Hot-Reload y recarga en tiempo real sobre el navegador.",
           },
           optimize: {
-            title: "Optimizar para Producción",
-            description: "Compila, comprime, aplica I18N y ofusca el código fuente moviéndolo a la carpeta &lt;code&gt;/public&lt;/code&gt;.",
+            title: "Optimizar (Desarrollo)",
+            description: "Compila, comprime y ofusca el código usando &lt;code&gt;.env.development&lt;/code&gt; para pruebas locales.",
           },
-          deploy: {
-            title: "Desplegar a Firebase",
-            description: "Sube y aloja instantáneamente tu aplicación optimizada en la infraestructura productiva de Firebase.",
+          optimizeProd: {
+            title: "Optimizar (Producción)",
+            description: "Compila, comprime y ofusca el código usando &lt;code&gt;.env.production&lt;/code&gt; preparando para el despliegue.",
+          },
+          deployProd: {
+            title: "Desplegar a Producción",
+            description: "Corre los tests, compila con el entorno de producción y sube los estáticos a Firebase Hosting.",
           },
         },
       },
@@ -577,7 +649,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-04T02:24:24.873Z
+                at 2026-06-04T03:16:03.379Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
