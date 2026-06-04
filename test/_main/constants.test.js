@@ -33,7 +33,7 @@ describe('constants.js', () => {
   it('CONST-02: Valores de APP_NAME y APP_VERSION', async () => {
     const { CONSTANT } = await import('../../src/_main/constants.js');
     expect(CONSTANT.APP_NAME).toBe('BaP Framework');
-    expect(CONSTANT.APP_VERSION).toBe('v2.3.0');
+    expect(CONSTANT.APP_VERSION).toBe('v2.3.1');
   });
 
   it('CONST-03: Claves de STORAGE', async () => {
