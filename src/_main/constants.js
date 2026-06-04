@@ -11,22 +11,23 @@
  */
 export const CONSTANT = {
   APP_NAME: "BaP Framework",
-  APP_VERSION: "v2.3.0",
+  APP_VERSION: "v2.3.1",
+  BAP_FRAMEWORK_VERSION: "v2.3.1",
   FIREBASE_AVAILABLE: (() => {
     // VUL-04: Autodetectar entorno de red local para mayor seguridad.
     // Evitar errores de referencia en Node.js (Gulp build time).
     if (typeof window === "undefined") {
       return "%%FIREBASE_AVAILABLE%%";
     }
-    const isLocal = ["localhost", "127.0.0.1", ""].includes(window.location.hostname) || 
-                    window.location.hostname.startsWith("192.168.") || 
-                    window.location.hostname.startsWith("10.") || 
-                    window.location.hostname.startsWith("172.");
-    
+    const isLocal = ["localhost", "127.0.0.1", ""].includes(window.location.hostname) ||
+      window.location.hostname.startsWith("192.168.") ||
+      window.location.hostname.startsWith("10.") ||
+      window.location.hostname.startsWith("172.");
+
     // Si estamos en un entorno público, pero NO hay credenciales de Firebase configuradas en el .env,
     // permitimos que el bypass local continúe (sitio 100% estático).
     // Si hay credenciales de Firebase configuradas, forzamos true por seguridad para evitar bypass accidental.
-    const hasFirebaseCredentials = !!"%%FIREBASE_AP%%"; 
+    const hasFirebaseCredentials = !!"%%FIREBASE_AP%%";
     return !isLocal && hasFirebaseCredentials ? true : "%%FIREBASE_AVAILABLE%%";
   })(), // Inyectado desde .env en el build de Gulp (true en producción, false en desarrollo)
   STORAGE: {

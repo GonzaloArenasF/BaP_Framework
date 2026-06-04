@@ -1,6 +1,6 @@
 {
   "name": "bap-framework",
-  "version": "v2.3.0",
+  "version": "v2.3.1",
   "description": "BaP Framework",
   "main": "index.js",
   "scripts": {
@@ -8,8 +8,9 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "server": "http-server ./public -o",
-    "optimize": "gulp",
-    "deploy-prod": "npm run test && npm run optimize && firebase deploy"
+    "optimize": "ENV_FILE=.env.development gulp",
+    "optimize:prod": "ENV_FILE=.env.production gulp",
+    "deploy-prod": "npm run test && npm run optimize:prod && firebase deploy"
   },
   "repository": {
     "type": "git",

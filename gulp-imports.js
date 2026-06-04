@@ -13,7 +13,8 @@ import { fileURLToPath } from "url";
 function loadEnv() {
   try {
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
-    const envContent = fs.readFileSync(path.join(__dirname, ".env"), "utf-8");
+    const envFileName = process.env.ENV_FILE || ".env";
+    const envContent = fs.readFileSync(path.join(__dirname, envFileName), "utf-8");
     const env = {};
     envContent.split("\n").forEach((line) => {
       const trimmed = line.trim();
@@ -26,11 +27,12 @@ function loadEnv() {
         }
       }
     });
-    console.log("✅ .env cargado correctamente. Credenciales Firebase listas para inyección.");
+    console.log(`✅ ${envFileName} cargado correctamente. Credenciales Firebase listas para inyección.`);
     return env;
   } catch (e) {
-    console.warn("⚠️  No se encontró el archivo .env. Los tokens %%FIREBASE_*%% no serán reemplazados en el build.");
-    console.warn("   Crea el archivo .env basado en .env.example antes de hacer deploy.");
+    const envFileName = process.env.ENV_FILE || ".env";
+    console.warn(`⚠️  No se encontró el archivo ${envFileName}. Los tokens %%FIREBASE_*%% no serán reemplazados en el build.`);
+    console.warn("   Crea el archivo correspondiente basado en .env.example antes de compilar.");
     return {};
   }
 }
