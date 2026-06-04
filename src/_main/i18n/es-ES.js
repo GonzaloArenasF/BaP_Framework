@@ -100,6 +100,14 @@ export const esES = {
             uuids: "Generador de UUIDs no predecibles utilizando la Web Crypto API del navegador.",
             headers: "Cabeceras de servidor rígidas (CSP, X-Frame-Options, nosniff) configuradas en Firebase.",
           },
+          testing: {
+            title: "🧪 Pruebas Unitarias (Testing)",
+            description: "Infraestructura de testing moderna y de alta velocidad incorporada en el ciclo de desarrollo:",
+            vitest: "Ejecución ultrarrápida usando Vitest.",
+            jsdom: "Emulación completa del DOM (JSDOM) para probar Custom Elements aislados.",
+            mocks: "Mocks integrados para simular servicios de Firebase (Auth, RTDB, Analytics).",
+            coverage: "Generación automática de reportes de cobertura (V8).",
+          },
         },
         // ── Playground ────────────────────────────────────────────────────
         playground: {

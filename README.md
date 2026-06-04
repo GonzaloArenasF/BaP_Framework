@@ -258,6 +258,18 @@ El módulo `analytics.js` centraliza la telemetría del framework mediante un di
 
 ---
 
+## 🧪 Pruebas Unitarias y Cobertura (Testing)
+
+El framework incorpora una infraestructura moderna, rápida y robusta para garantizar la calidad del código, utilizando herramientas de vanguardia integradas directamente en el flujo de desarrollo:
+
+*   **Vitest**: Como motor principal para la ejecución ultrarrápida de pruebas unitarias y de integración.
+*   **JSDOM**: Permite emular un entorno de navegador completo en Node.js, lo que es vital para instanciar, probar y asertar el comportamiento de los Web Components (Custom Elements) de forma totalmente aislada.
+*   **Mocks de Firebase**: El directorio `test/mocks/` provee simulaciones avanzadas y limpias de los servicios de Firebase (`bapAuth`, `bapDB`, `bapAnalytics`) evitando que las pruebas hagan llamadas reales a la red o modifiquen datos vivos.
+*   **Cobertura de Código (Coverage)**: Utilizando `@vitest/coverage-v8`, se pueden generar reportes de cobertura exhaustivos ejecutando `npm run test:coverage`.
+*   **Estructura Espejo**: Las pruebas en la carpeta `test/` siguen la misma estructura exacta que `src/` (p. ej. `test/_components/`, `test/_main/`), haciendo el mantenimiento intuitivo.
+
+---
+
 ## 🎨 Diseño y Estética Premium
 
 El framework cuenta con un diseño visual moderno, premium y minimalista:
