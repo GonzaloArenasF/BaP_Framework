@@ -245,6 +245,52 @@ bapNotify(type, severity, message);</code></pre>
       <h2 style="font-size: 1.8rem; margin-bottom: 1.5rem;">{landing.body.terminal.sectionTitle}</h2>
 
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;">
+        
+        <div>
+          <div class="terminal-sim">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="terminal-body">
+              <span class="terminal-prompt">$</span> npm run test
+            </div>
+          </div>
+          <h4 style="margin: 0 0 0.5rem 0;">{landing.body.terminal.test.title}</h4>
+          <p style="font-size: 0.9rem; color: #64748b;">{landing.body.terminal.test.description}</p>
+        </div>
+
+        <div>
+          <div class="terminal-sim">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="terminal-body">
+              <span class="terminal-prompt">$</span> npm run test:watch
+            </div>
+          </div>
+          <h4 style="margin: 0 0 0.5rem 0;">{landing.body.terminal.testWatch.title}</h4>
+          <p style="font-size: 0.9rem; color: #64748b;">{landing.body.terminal.testWatch.description}</p>
+        </div>
+
+        <div>
+          <div class="terminal-sim">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="terminal-body">
+              <span class="terminal-prompt">$</span> npm run test:coverage
+            </div>
+          </div>
+          <h4 style="margin: 0 0 0.5rem 0;">{landing.body.terminal.testCoverage.title}</h4>
+          <p style="font-size: 0.9rem; color: #64748b;">{landing.body.terminal.testCoverage.description}</p>
+        </div>
+
         <div>
           <div class="terminal-sim">
             <div class="terminal-header">
@@ -283,11 +329,26 @@ bapNotify(type, severity, message);</code></pre>
               <span class="dot green"></span>
             </div>
             <div class="terminal-body">
+              <span class="terminal-prompt">$</span> npm run optimize:prod
+            </div>
+          </div>
+          <h4 style="margin: 0 0 0.5rem 0;">{landing.body.terminal.optimizeProd.title}</h4>
+          <p style="font-size: 0.9rem; color: #64748b;">{landing.body.terminal.optimizeProd.description}</p>
+        </div>
+
+        <div>
+          <div class="terminal-sim">
+            <div class="terminal-header">
+              <span class="dot red"></span>
+              <span class="dot yellow"></span>
+              <span class="dot green"></span>
+            </div>
+            <div class="terminal-body">
               <span class="terminal-prompt">$</span> npm run deploy-prod
             </div>
           </div>
-          <h4 style="margin: 0 0 0.5rem 0;">{landing.body.terminal.deploy.title}</h4>
-          <p style="font-size: 0.9rem; color: #64748b;">{landing.body.terminal.deploy.description}</p>
+          <h4 style="margin: 0 0 0.5rem 0;">{landing.body.terminal.deployProd.title}</h4>
+          <p style="font-size: 0.9rem; color: #64748b;">{landing.body.terminal.deployProd.description}</p>
         </div>
       </div>
     </section>

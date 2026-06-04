@@ -150,17 +150,33 @@ export const esES = {
         // ── Terminal ──────────────────────────────────────────────────────
         terminal: {
           sectionTitle: "💻 Ciclo de Desarrollo en la Terminal",
+          test: {
+            title: "Pruebas Unitarias",
+            description: "Ejecuta la suite completa de pruebas usando Vitest.",
+          },
+          testWatch: {
+            title: "Pruebas (Watch Mode)",
+            description: "Mantiene Vitest corriendo y reejecuta las pruebas al modificar archivos.",
+          },
+          testCoverage: {
+            title: "Reporte de Cobertura",
+            description: "Genera el reporte de cobertura de código (coverage) con Vitest.",
+          },
           server: {
             title: "Servidor de Desarrollo",
             description: "Levanta el servidor HTTP local con Hot-Reload y recarga en tiempo real sobre el navegador.",
           },
           optimize: {
-            title: "Optimizar para Producción",
-            description: "Compila, comprime, aplica I18N y ofusca el código fuente moviéndolo a la carpeta <code>/public</code>.",
+            title: "Optimizar (Desarrollo)",
+            description: "Compila, comprime y ofusca el código usando <code>.env.development</code> para pruebas locales.",
           },
-          deploy: {
-            title: "Desplegar a Firebase",
-            description: "Sube y aloja instantáneamente tu aplicación optimizada en la infraestructura productiva de Firebase.",
+          optimizeProd: {
+            title: "Optimizar (Producción)",
+            description: "Compila, comprime y ofusca el código usando <code>.env.production</code> preparando para el despliegue.",
+          },
+          deployProd: {
+            title: "Desplegar a Producción",
+            description: "Corre los tests, compila con el entorno de producción y sube los estáticos a Firebase Hosting.",
           },
         },
       },

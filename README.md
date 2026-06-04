@@ -290,17 +290,26 @@ BaP Framework utiliza un robusto pipeline de automatización con **Gulp** para c
 ### Comandos de Consola
 
 ```bash
-# 1. Iniciar el servidor local de desarrollo
+# 1. Ejecutar la suite completa de pruebas unitarias
+npm run test
+
+# 2. Ejecutar las pruebas en modo interactivo (Watch Mode)
+npm run test:watch
+
+# 3. Generar el reporte de cobertura de código
+npm run test:coverage
+
+# 4. Iniciar el servidor local de desarrollo
 # Nota: Por seguridad, el CORS abierto está deshabilitado por defecto para prevenir lectura de datos desde pestañas externas.
 npm run server
 
-# 2. Compilar, minificar y ofuscar el código usando el entorno de desarrollo (.env.development)
+# 5. Compilar, minificar y ofuscar el código usando el entorno de desarrollo (.env.development)
 npm run optimize
 
-# 3. Compilar, minificar y ofuscar el código usando el entorno de producción (.env.production)
+# 6. Compilar, minificar y ofuscar el código usando el entorno de producción (.env.production)
 npm run optimize:prod
 
-# 4. Desplegar en el entorno productivo de Firebase (ejecuta optimize:prod internamente)
+# 7. Desplegar en el entorno productivo de Firebase (ejecuta optimize:prod internamente)
 npm run deploy-prod
 ```
 
