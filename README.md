@@ -1,4 +1,4 @@
-# BaP Framework - v2.3.2
+# BaP Framework - v2.3.3
 
 Un framework minimalista y de alto rendimiento basado en **HTML, CSS y JavaScript Vanilla (puro)**. Diseñado bajo la filosofía de "cero frameworks externos y cero dependencias pesadas en el cliente", BaP permite prototipar ideas de manera extremadamente rápida y sencilla, proporcionando a su vez una arquitectura robusta, modular y altamente escalable para aplicaciones en producción.
 
@@ -27,7 +27,7 @@ BaP Framework está optimizado para integrarse de forma nativa con los servicios
 
 La arquitectura del framework se organiza de manera clara y altamente modular:
 
-```
+```text
 ├── cdn/                                  # Hosting paralelo para recursos estáticos pesados
 ├── docs/                                 # Documentación y guías técnicas del sistema
 │   ├── security-audits/                  # Auditorías de seguridad y logs de correcciones
@@ -66,11 +66,36 @@ La arquitectura del framework se organiza de manera clara y altamente modular:
 │   │   ├── forms.css                     # Estilos estándar para elementos de formularios
 │   │   ├── main.css                      # Estilos generales y tipografías
 │   │   └── titles.css                    # Jerarquía y estética de encabezados
-│   └── wip-page/                         # Página plantilla de construcción (Work in Progress)
+│   ├── wip-page/                         # Página plantilla de construcción (Work in Progress)
+│   └── robots.txt                        # Configuración de rastreo para motores de búsqueda (SEO)
+├── test/                                 # Pruebas unitarias e integración (espejo de src/)
+│   └── mocks/                            # Simulaciones seguras de Firebase (Auth, DB, Analytics)
+├── .env.example                          # Plantilla de variables de entorno y credenciales
+├── bap.config.json                       # Configuración centralizada de rutas, analíticas y componentes
+├── firebase.json                         # Configuración de Firebase Hosting y cabeceras de red
 ├── gulpfile.js                           # Pipeline de automatización Gulp
+├── gulp-imports.js                       # Orquestador dinámico de dependencias para el build
 ├── package.json                          # Manifiesto de dependencias y scripts de desarrollo
+├── vitest.config.js                      # Configuración del motor de pruebas Vitest
 └── README.md                             # Documentación del framework
 ```
+
+---
+
+## ⚙️ Configuración Centralizada (`bap.config.json`)
+
+BaP Framework aísla completamente la lógica del negocio de la configuración del proyecto a través del archivo maestro `bap.config.json`. Al ubicar esta configuración fuera del directorio `src/`, aseguramos que los desarrolladores puedan personalizar y escalar la aplicación sin riesgo de alterar el código fuente del núcleo.
+
+### Características Claves de la Configuración:
+1. **JSON Unificado**: Funciona como la única fuente de verdad. Gulp se encarga de leer el archivo en tiempo de construcción (build time) y de inyectar los valores como tokens (`%%BAP_*%%`) directamente en memoria, logrando una carga ultrarrápida en el cliente sin requerir llamadas AJAX adicionales.
+2. **Rutas Dinámicas (`routes`)**: 
+   * `appRoutes`: Permite declarar el mapa de URLs públicas e internas de la vista.
+   * `realtimeDatabaseRoutes`: Define las ramas de conexión para la Firebase Realtime Database.
+3. **Telemetría Extendida (`analytics.customEvents`)**: Añade o sobrescribe de forma declarativa los eventos customizados que reportarás a Firebase Analytics. El módulo `analytics.js` mapeará automáticamente estas entradas para crear funciones ejecutables.
+4. **Convención de Nomenclatura para Web Components**:
+   * Todos los componentes habitan dentro de la carpeta `src/_components/`.
+   * **Componentes Nativos (Core)**: Están estandarizados e integrados bajo el prefijo `bap-` (ej. `bap-dialog`, `bap-header`).
+   * **Componentes Personalizados**: Como desarrollador, puedes crear e incluir tus propios Custom Elements utilizando prefijos diferentes al core. Define el registro de tus componentes en el archivo `bap.config.json` para que el compilador Gulp genere automáticamente las inyecciones de HTML y CSS en la ruta adecuada de la carpeta pública.
 
 ---
 

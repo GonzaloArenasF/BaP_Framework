@@ -3,24 +3,16 @@ export const NAVIGATION_TYPES = {
   LOAD_COMPONENT: "loadComponent",
 };
 
+let appRoutes = {};
+try {
+  appRoutes = JSON.parse('%%BAP_APP_ROUTES%%');
+} catch (e) {
+  // Ignorado durante el build
+}
+
 /**
  * Controled routes
  */
 export const routes = {
-  landing: {
-    pathname: "/",
-    component: null,
-    navigation: NAVIGATION_TYPES.REDIRECT,
-    validate: {
-      signIn: false,
-    },
-  },
-  error404: {
-    pathname: "/404.html",
-    component: null,
-    navigation: NAVIGATION_TYPES.REDIRECT,
-    validate: {
-      signIn: false,
-    },
-  },
+  ...appRoutes,
 };

@@ -77,9 +77,6 @@ function triggerDemoDialog() {
   `;
 
   document.body.appendChild(dialogEl);
-
-  // Registrar evento analítico
-  analytic.logEvent.logEventCustomDialog ? analytic.logEvent.logEventCustomDialog() : null;
 }
 
 /**

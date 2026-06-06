@@ -1,0 +1,74 @@
+{
+  "app": {
+    "name": "BaP Framework",
+    "version": "v2.3.3",
+    "currentBapVersion": "v2.3.3",
+    "socialMedia": {
+      "email": "gonzaloarenasf+bap-framework@gmail.com"
+    }
+  },
+  "build": {
+    "srcDir": "src",
+    "outDir": "public",
+    "i18nItemsToProcess": {
+      "pages": {
+        "index": "index.html",
+        "notFound": "404.html"
+      },
+      "components": {
+        "bapFooter": "bap-footer/bap-footer.html",
+        "bapHeader": "bap-header/bap-header.html"
+      }
+    }
+  },
+  "features": {
+    "useFirebase": true,
+    "useRecaptcha": true
+  },
+  "routes": {
+    "appRoutes": {
+      "landing": {
+        "pathname": "/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "error404": {
+        "pathname": "/404.html",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      }
+    },
+    "realtimeDatabaseRoutes": {
+      "usersWhitelist": "/allowed_users"
+    }
+  },
+  "analytics": {
+    "trackPageViews": true,
+    "customEvents": {
+      "enterLandingPage": {
+        "type": "enter_page",
+        "name": "enter_landing_page",
+        "func": "landing_page",
+        "userType": "User"
+      },
+      "pageNotFound": {
+        "type": "enter_page",
+        "name": "page_not_found",
+        "func": "404",
+        "userType": "User"
+      }
+    }
+  },
+  "security": {
+    "loginAttempts": 10
+  },
+  "ui": {
+    "notificationTimeout": 4000
+  }
+}

@@ -10,9 +10,8 @@
  *     Ver: gulp-imports.js → loadEnv() y gulpfile.js → replaceEnvTokens()
  */
 export const CONSTANT = {
-  APP_NAME: "BaP Framework",
-  APP_VERSION: "v2.3.2",
-  BAP_FRAMEWORK_VERSION: "v2.3.2",
+  APP_NAME: "%%BAP_APP_NAME%%",
+  APP_VERSION: "%%BAP_APP_VERSION%%",
   FIREBASE_AVAILABLE: (() => {
     // VUL-04: Autodetectar entorno de red local para mayor seguridad.
     // Evitar errores de referencia en Node.js (Gulp build time).
@@ -51,7 +50,7 @@ export const CONSTANT = {
       ERROR: "error",
     },
     AUTO_REMOVE_AFTER: {
-      INFO: 4000,
+      INFO: parseInt("%%BAP_NOTIFICATION_TIMEOUT%%", 10),
     },
   },
   AUTH: {
@@ -59,7 +58,7 @@ export const CONSTANT = {
     SIGNED_OUT: "AUTH_SIGNED_OUT",
     SIGNED_UP: "AUTH_SIGNED_UP",
     SIGNED_DOWN: "AUTH_SIGNED_DOWN",
-    LOGIN_ATTEMPTS: 10,
+    LOGIN_ATTEMPTS: parseInt("%%BAP_LOGIN_ATTEMPTS%%", 10),
   },
   FBC: {
     AP: "%%FIREBASE_AP%%",   // Inyectado desde .env en el build de Gulp
@@ -82,7 +81,7 @@ export const CONSTANT = {
   SOCIAL_MEDIA: {
     EMAIL: {
       TITLE: "Correo electrónico",
-      URL: "gonzaloarenasf+bap-framework@gmail.com",
+      URL: "%%BAP_EMAIL%%",
     }
   },
 };

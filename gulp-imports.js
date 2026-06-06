@@ -39,6 +39,21 @@ function loadEnv() {
 
 export const firebaseEnv = loadEnv();
 
+function loadBapConfig() {
+  try {
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
+    const configContent = fs.readFileSync(path.join(__dirname, "bap.config.json"), "utf-8");
+    const config = JSON.parse(configContent);
+    console.log(`✅ bap.config.json cargado correctamente.`);
+    return config;
+  } catch (e) {
+    console.error(`❌ ERROR FATAL: No se pudo leer bap.config.json.`, e);
+    process.exit(1);
+  }
+}
+
+export const bapConfig = loadBapConfig();
+
 // Resolución dinámica de entorno para el proceso de compilación (evita tokens de constants.js)
 if (!firebaseEnv.CURRENT_ENV || !firebaseEnv.ENV_CDN || !firebaseEnv.ENV_PROD) {
   throw new Error(`❌ ERROR FATAL: Faltan variables críticas (CURRENT_ENV, ENV_CDN o ENV_PROD) en tu archivo ${process.env.ENV_FILE || ".env"}. Deteniendo compilación.`);
@@ -51,15 +66,15 @@ export const IS_PROD = ENV_URL === firebaseEnv.ENV_PROD;
 const i18n = esES;
 
 const i18nPagesToProcess = {
-  pages: {
-    index: "index.html",
-    notFound: "404.html",
-  },
-  components: {
-    bapFooter: "_components/bap-footer/bap-footer.html",
-    bapHeader: "_components/bap-header/bap-header.html",
-  },
+  pages: bapConfig.build?.i18nItemsToProcess?.pages || {},
+  components: {},
 };
+
+if (bapConfig.build?.i18nItemsToProcess?.components) {
+  for (const [key, value] of Object.entries(bapConfig.build.i18nItemsToProcess.components)) {
+    i18nPagesToProcess.components[key] = `_components/${value}`;
+  }
+}
 
 const flattenObject = (obj, prefix = "", res = {}) => {
   for (const [key, value] of Object.entries(obj)) {
@@ -90,9 +105,9 @@ const applyI18n = {
       .replace("{lang}", "es")
       .replaceAll("{ENV_URL}", ENV_URL)
       .replaceAll("{CDN_URL}", CDN_URL)
-      .replaceAll("{head-app-name}", CONSTANT.APP_NAME)
-      .replaceAll("{APP_NAME}", CONSTANT.APP_NAME)
-      .replaceAll("{APP_VERSION}", CONSTANT.APP_VERSION);
+      .replaceAll("{head-app-name}", bapConfig.app.name)
+      .replaceAll("{APP_NAME}", bapConfig.app.name)
+      .replaceAll("{APP_VERSION}", bapConfig.app.version);
   },
   componentBapFooter: (content) => replaceDynamic(content, i18n.component.bapFooter, ""),
   componentBapHeader: (content) => replaceDynamic(content, i18n.component.bapHeader, ""),
@@ -106,4 +121,4 @@ const applyI18n = {
   },
 };
 
-export default { i18n, applyI18n, i18nPagesToProcess, ENV_URL, CONSTANT, firebaseEnv, IS_PROD };
+export default { i18n, applyI18n, i18nPagesToProcess, ENV_URL, CONSTANT, firebaseEnv, IS_PROD, bapConfig };
