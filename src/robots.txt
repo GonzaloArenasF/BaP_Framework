@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Bloquear la indexación de páginas de error y recursos de compilación
+Disallow: /404.html
+Disallow: /404.js
+Disallow: /404.css
+
+# Bloquear páginas o rutas que estén en desarrollo (Work in Progress)
+Disallow: /wip-page/
+
+# (Opcional) Mapa de sitio:
+# Sitemap: https://tudominio.com/sitemap.xml

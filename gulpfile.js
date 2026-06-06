@@ -22,7 +22,7 @@ const noop = () => through.obj((file, enc, cb) => cb(null, file));
  * para que las credenciales nunca queden expuestas en el código fuente.
  */
 function replaceEnvTokens() {
-  const { firebaseEnv } = appImports;
+  const { firebaseEnv, bapConfig } = appImports;
   // Mapeo: token en constants.js → clave en .env (nombres estándar de Firebase)
   const tokens = {
     "\"%%FIREBASE_AVAILABLE%%\"": firebaseEnv.FIREBASE_AVAILABLE || "false",
@@ -39,6 +39,14 @@ function replaceEnvTokens() {
     "%%ENV_PROD%%": firebaseEnv.ENV_PROD || "",
     "%%ENV_CDN%%": firebaseEnv.ENV_CDN || "",
     "%%CURRENT_ENV%%": firebaseEnv.CURRENT_ENV || "",
+    "%%BAP_APP_NAME%%": bapConfig.app?.name || "",
+    "%%BAP_APP_VERSION%%": bapConfig.app?.version || "",
+    "%%BAP_EMAIL%%": bapConfig.app?.socialMedia?.email || "",
+    "%%BAP_LOGIN_ATTEMPTS%%": bapConfig.security?.loginAttempts?.toString() || "10",
+    "%%BAP_NOTIFICATION_TIMEOUT%%": bapConfig.ui?.notificationTimeout?.toString() || "4000",
+    "%%BAP_CUSTOM_EVENTS%%": JSON.stringify(bapConfig.analytics?.customEvents || {}),
+    "%%BAP_APP_ROUTES%%": JSON.stringify(bapConfig.routes?.appRoutes || {}),
+    "%%BAP_DB_ROUTES%%": JSON.stringify(bapConfig.routes?.realtimeDatabaseRoutes || {}),
   };
 
   return through.obj(function (file, enc, cb) {
@@ -73,14 +81,18 @@ function replaceEnvTokens() {
   });
 }
 
-// Assets folder
-function copyAssetsFolder() {
-  console.log(">>> Copiying ASSETS...");
+// Assets and root static files
+function copyStaticFiles() {
+  const { bapConfig } = appImports;
+  const srcDir = bapConfig.build?.srcDir || "src";
+  const outDir = bapConfig.build?.outDir || "public";
+
+  console.log(">>> Copiying ASSETS and static root files...");
   return gulp
-    .src("src/assets/**") // Matches all JavaScript files in src and subfolders
-    .pipe(gulpCopy("public", { prefix: 1 }))
+    .src([`${srcDir}/assets/**`, `${srcDir}/*.txt`, `${srcDir}/*.xml`], { allowEmpty: true })
+    .pipe(gulpCopy(outDir, { prefix: 1 }))
     .on("error", handleError)
-    .on("end", () => console.log(">>> ASSETS copy complete..."));
+    .on("end", () => console.log(">>> ASSETS and static root files copy complete..."));
 }
 
 // Replace HTML metatags with i18n
@@ -179,8 +191,7 @@ function minifyJS() {
     .on("end", () => console.log(">>> JavaScript minification and obfuscation complete."));
 }
 
-// Define default task that runs all tasks
-const build = gulp.series(minifyCSS, minifyAndReplaceHTML, minifyJS, copyAssetsFolder);
+const build = gulp.series(minifyCSS, minifyAndReplaceHTML, minifyJS, copyStaticFiles);
 
 export const _test_replaceEnvTokens = replaceEnvTokens;
 export default build;

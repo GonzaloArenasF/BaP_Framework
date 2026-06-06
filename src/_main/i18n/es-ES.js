@@ -75,6 +75,14 @@ export const esES = {
             analytics: "Telemetría centralizada y taxonomía unificada de eventos.",
             util: "Herramientas estructurales y UUIDs criptográficamente fuertes.",
           },
+          config: {
+            title: "⚙️ Configuración Centralizada",
+            description: "Personaliza y escala tu aplicación a través del archivo <code>bap.config.json</code> sin alterar el código fuente del núcleo:",
+            json: "Única fuente de verdad inyectada en memoria durante la compilación.",
+            routes: "Definición dinámica de rutas seguras para la vista y la base de datos.",
+            telemetry: "Extensión declarativa de la taxonomía de Firebase Analytics.",
+            components: "Autodescubrimiento y prefijado seguro de componentes (el core está reservado bajo el prefijo <code>bap-</code>).",
+          },
           firebase: {
             title: "🛡️ Firebase Integrado",
             description: "Integración nativa directa con los servicios en la nube de Google Firebase para dar soporte robusto a proyectos listos para producción:",

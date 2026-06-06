@@ -12,6 +12,21 @@ import { getI18nContent } from "./i18n.js";
 const storageI18n = getI18nContent("page", "cross");
 
 /**
+ * DB routes
+ */
+let rawDbRoutes = {};
+try {
+  rawDbRoutes = JSON.parse('%%BAP_DB_ROUTES%%');
+} catch (e) {
+  // Ignorado durante el build
+}
+
+export const dbRoutes = Object.keys(rawDbRoutes).reduce((acc, key) => {
+  acc[key] = () => rawDbRoutes[key];
+  return acc;
+}, {});
+
+/**
  * @deprecated [OBSOLETO] Este método realiza únicamente ofuscación visual mediante Base64.
  * NO es seguro para cifrar información sensible. Utiliza las versiones asíncronas
  * `secureEncryptData` o `setToStorageAsync` / `updateStorageAsync` para cifrado AES-GCM seguro.
@@ -119,7 +134,7 @@ export async function secureEncryptData(data, password) {
     const encodedData = encoder.encode(data);
     const salt = crypto.getRandomValues(new Uint8Array(16));
     const iv = crypto.getRandomValues(new Uint8Array(12));
-    
+
     const key = await deriveKey(password, salt);
     const ciphertext = await crypto.subtle.encrypt(
       { name: "AES-GCM", iv: iv },
@@ -195,14 +210,14 @@ export const getFromStorageAsync = async ({ storageType, item, secretKey }) => {
         value = await secureDecryptData(value, secretKey);
       }
       return value ? JSON.parse(value) : null;
-      
+
     case CONSTANT.STORAGE.SOURCE.SESSION:
       value = sessionStorage.getItem(item);
       if (value && secretKey) {
         value = await secureDecryptData(value, secretKey);
       }
       return value ? JSON.parse(value) : null;
-      
+
     case CONSTANT.STORAGE.SOURCE.DB:
       return new Promise((resolve, reject) => {
         const dbConnection = ref(bapDB, item);
@@ -243,7 +258,7 @@ export const setToStorageAsync = async ({ storageType, item, value, secretKey })
         secretKey ? await secureEncryptData(localData, secretKey) : localData
       );
       break;
-      
+
     case CONSTANT.STORAGE.SOURCE.SESSION:
       const sessionData = JSON.stringify(value);
       sessionStorage.setItem(
@@ -251,7 +266,7 @@ export const setToStorageAsync = async ({ storageType, item, value, secretKey })
         secretKey ? await secureEncryptData(sessionData, secretKey) : sessionData
       );
       break;
-      
+
     case CONSTANT.STORAGE.SOURCE.DB:
       return set(ref(bapDB, item), value)
         .catch((error) => {
@@ -286,7 +301,7 @@ export const updateStorageAsync = async ({ storageType, item, value, secretKey }
         secretKey ? await secureEncryptData(localData, secretKey) : localData
       );
       break;
-      
+
     case CONSTANT.STORAGE.SOURCE.SESSION:
       const sessionData = JSON.stringify(value);
       sessionStorage.setItem(
@@ -294,7 +309,7 @@ export const updateStorageAsync = async ({ storageType, item, value, secretKey }
         secretKey ? await secureEncryptData(sessionData, secretKey) : sessionData
       );
       break;
-      
+
     case CONSTANT.STORAGE.SOURCE.DB:
       return update(ref(bapDB, item), value)
         .catch((error) => {
@@ -307,17 +322,6 @@ export const updateStorageAsync = async ({ storageType, item, value, secretKey }
           throw error;
         });
   }
-};
-
-/**
- * DB routes
- */
-export const dbRoutes = {
-  skills: () => `/skills`,
-  jobs: () => `/jobs`,
-  studies: () => `/studies`,
-  ideasAndProjects: () => `/ideasAndProjects`,
-  photoPortfolio: () => `/photographer/portfolio`,
 };
 
 /**
@@ -353,11 +357,11 @@ export const getFromStorage = ({ storageType, item, callbackOnSuccess, callBackO
           callBackOnFail
             ? callBackOnFail()
             : bapNotify(
-                CONSTANT.NOTIFICATION.TYPE.ALERT,
-                CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-                storageI18n.storage.errorGetting,
-                error
-              );
+              CONSTANT.NOTIFICATION.TYPE.ALERT,
+              CONSTANT.NOTIFICATION.SEVERITY.ERROR,
+              storageI18n.storage.errorGetting,
+              error
+            );
         }
       );
       break;
@@ -397,11 +401,11 @@ export const setToStorage = ({ storageType, item, value, callbackOnSuccess, call
           callBackOnFail
             ? callBackOnFail()
             : bapNotify(
-                CONSTANT.NOTIFICATION.TYPE.ALERT,
-                CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-                storageI18n.storage.errorSaving,
-                error
-              );
+              CONSTANT.NOTIFICATION.TYPE.ALERT,
+              CONSTANT.NOTIFICATION.SEVERITY.ERROR,
+              storageI18n.storage.errorSaving,
+              error
+            );
         });
       break;
   }
@@ -442,11 +446,11 @@ export const updateStorage = ({ storageType, item, value, callbackOnSuccess, cal
           callBackOnFail
             ? callBackOnFail()
             : bapNotify(
-                CONSTANT.NOTIFICATION.TYPE.ALERT,
-                CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-                storageI18n.storage.errorUpdating,
-                error
-              );
+              CONSTANT.NOTIFICATION.TYPE.ALERT,
+              CONSTANT.NOTIFICATION.SEVERITY.ERROR,
+              storageI18n.storage.errorUpdating,
+              error
+            );
         });
       break;
   }
@@ -483,11 +487,11 @@ export const removeFromStorage = ({ storageType, item, callbackOnSuccess, callBa
           callBackOnFail
             ? callBackOnFail()
             : bapNotify(
-                CONSTANT.NOTIFICATION.TYPE.ALERT,
-                CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-                storageI18n.storage.errorRemoving,
-                error
-              );
+              CONSTANT.NOTIFICATION.TYPE.ALERT,
+              CONSTANT.NOTIFICATION.SEVERITY.ERROR,
+              storageI18n.storage.errorRemoving,
+              error
+            );
         });
       break;
   }

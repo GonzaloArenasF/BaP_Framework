@@ -15,6 +15,24 @@
     ],
     "headers": [
       {
+        "source": "/_components/**",
+        "headers": [
+          { "key": "X-Robots-Tag", "value": "noindex" }
+        ]
+      },
+      {
+        "source": "/_main/**",
+        "headers": [
+          { "key": "X-Robots-Tag", "value": "noindex" }
+        ]
+      },
+      {
+        "source": "/pages/**",
+        "headers": [
+          { "key": "X-Robots-Tag", "value": "noindex" }
+        ]
+      },
+      {
         "source": "**",
         "headers": [
           { "key": "X-Frame-Options", "value": "SAMEORIGIN" },

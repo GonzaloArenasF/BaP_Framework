@@ -18,6 +18,7 @@ import {
 import { bapNotify } from "./util.js";
 import { CONSTANT } from "./constants.js";
 import { getI18nContent } from "./i18n.js";
+import { dbRoutes } from "./storage.js";
 
 const authI18n = getI18nContent('page', 'cross');
 
@@ -49,12 +50,12 @@ export async function isUserAuthorized(user) {
   if (!CONSTANT.FIREBASE_AVAILABLE) {
     return true;
   }
-  
+
   if (!user || !user.email) return false;
-  
+
   const emailSanitized = sanitizeUserKey(user.email);
-  const dbRef = ref(bapDB, `/allowed_users/${emailSanitized}`);
-  
+  const dbRef = ref(bapDB, `${dbRoutes.usersWhitelist()}/${emailSanitized}`);
+
   return new Promise((resolve) => {
     onValue(
       dbRef,
