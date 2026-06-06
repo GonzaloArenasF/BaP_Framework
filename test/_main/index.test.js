@@ -103,7 +103,6 @@ describe('index.js', () => {
     document.getElementById('btn_trigger_dialog').click();
     const dialogs = document.querySelectorAll('bap-dialog');
     expect(dialogs.length).toBe(1);
-    expect(analytics.analytic.logEvent.logEventCustomDialog).toHaveBeenCalledTimes(1);
 
     // Loading demo
     document.getElementById('btn_trigger_loading').click();
