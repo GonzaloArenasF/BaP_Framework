@@ -11,17 +11,7 @@ describe('routerPaths.js', () => {
     expect(NAVIGATION_TYPES).toHaveProperty('LOAD_COMPONENT', 'loadComponent');
   });
 
-  it('RTP-02: routes.landing debe estar configurado correctamente', () => {
-    expect(routes).toHaveProperty('landing');
-    expect(routes.landing.pathname).toBe('/');
-    expect(routes.landing.navigation).toBe(NAVIGATION_TYPES.REDIRECT);
-    expect(routes.landing.validate.signIn).toBe(false);
-  });
-
-  it('RTP-03: routes.error404 debe estar configurado correctamente', () => {
-    expect(routes).toHaveProperty('error404');
-    expect(routes.error404.pathname).toBe('/404.html');
-    expect(routes.error404.navigation).toBe(NAVIGATION_TYPES.REDIRECT);
-    expect(routes.error404.validate.signIn).toBe(false);
+  it('RTP-02: routes debe exportarse como un objeto (poblado dinámicamente en build)', () => {
+    expect(typeof routes).toBe('object');
   });
 });

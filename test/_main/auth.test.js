@@ -14,6 +14,12 @@ import { onValue } from '../../test/mocks/firebase-database.mock.js';
 import { sanitizeUserKey, isUserAuthorized, userSignIn, userSignOut } from '../../src/_main/auth.js';
 import { CONSTANT } from '../../src/_main/constants.js';
 
+vi.mock('../../src/_main/storage.js', () => ({
+  dbRoutes: {
+    usersWhitelist: () => '/users_whitelist'
+  }
+}));
+
 // ═══════════════════════════════════════════════════════════════════════
 // Helpers: detectar si Firebase está "activo" en el entorno de test
 // En test, FIREBASE_AVAILABLE = "%%FIREBASE_AVAILABLE%%" (truthy string)

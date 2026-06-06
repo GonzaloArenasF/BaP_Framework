@@ -1,4 +1,4 @@
-# BaP Framework - v2.3.3
+# BaP Framework - v2.3.4
 
 Un framework minimalista y de alto rendimiento basado en **HTML, CSS y JavaScript Vanilla (puro)**. Diseñado bajo la filosofía de "cero frameworks externos y cero dependencias pesadas en el cliente", BaP permite prototipar ideas de manera extremadamente rápida y sencilla, proporcionando a su vez una arquitectura robusta, modular y altamente escalable para aplicaciones en producción.
 
@@ -66,7 +66,6 @@ La arquitectura del framework se organiza de manera clara y altamente modular:
 │   │   ├── forms.css                     # Estilos estándar para elementos de formularios
 │   │   ├── main.css                      # Estilos generales y tipografías
 │   │   └── titles.css                    # Jerarquía y estética de encabezados
-│   ├── wip-page/                         # Página plantilla de construcción (Work in Progress)
 │   └── robots.txt                        # Configuración de rastreo para motores de búsqueda (SEO)
 ├── test/                                 # Pruebas unitarias e integración (espejo de src/)
 │   └── mocks/                            # Simulaciones seguras de Firebase (Auth, DB, Analytics)

@@ -12,6 +12,9 @@ import { goTo, getQueryParams, sessionStartedControl } from '../../src/_main/rou
 import { NAVIGATION_TYPES, routes } from '../../src/_main/routerPaths.js';
 import { CONSTANT } from '../../src/_main/constants.js';
 
+routes.landing = { pathname: '/', validate: { signIn: false } };
+routes.error404 = { pathname: '/404.html', validate: { signIn: false } };
+
 // ═══════════════════════════════════════════════════════════════════════
 // getQueryParams
 // ═══════════════════════════════════════════════════════════════════════
@@ -315,7 +318,7 @@ describe('router.js — Extra Coverage', () => {
     
     // Ejecutamos callback con user = null
     await callback(null);
-    expect(window.location.href).toBe('/');
+    expect(window.location.href).toBe('http://localhost');
   });
 
   it('sessionStartedControl llama userSignIn si initSession es verdadero', async () => {

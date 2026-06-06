@@ -50,7 +50,7 @@ export const CONSTANT = {
       ERROR: "error",
     },
     AUTO_REMOVE_AFTER: {
-      INFO: parseInt("%%BAP_NOTIFICATION_TIMEOUT%%", 10),
+      INFO: parseInt("%%BAP_NOTIFICATION_TIMEOUT%%") || 4000,
     },
   },
   AUTH: {
@@ -58,7 +58,7 @@ export const CONSTANT = {
     SIGNED_OUT: "AUTH_SIGNED_OUT",
     SIGNED_UP: "AUTH_SIGNED_UP",
     SIGNED_DOWN: "AUTH_SIGNED_DOWN",
-    LOGIN_ATTEMPTS: parseInt("%%BAP_LOGIN_ATTEMPTS%%", 10),
+    LOGIN_ATTEMPTS: parseInt("%%BAP_LOGIN_ATTEMPTS%%") || 10,
   },
   FBC: {
     AP: "%%FIREBASE_AP%%",   // Inyectado desde .env en el build de Gulp

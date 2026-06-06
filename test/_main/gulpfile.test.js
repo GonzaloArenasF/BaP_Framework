@@ -24,6 +24,13 @@ vi.mock('../../gulp-imports.js', () => {
         ENV_PROD: "prod-env",
         ENV_CDN: "cdn-env",
         CURRENT_ENV: "dev-env",
+      },
+      bapConfig: {
+        app: {
+          name: "BaP Framework Test",
+          version: "v2.3.4",
+          socialMedia: { email: "test@test.com" }
+        }
       }
     }
   };
