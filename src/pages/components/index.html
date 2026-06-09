@@ -35,9 +35,10 @@
     <bap-header></bap-header>
   </header>
 
-  <main>
+  <main class="docs-main">
     <aside class="docs-sidebar">
       <nav>
+        <h4>{page.cross.sidebar.title}</h4>
         <a href="/">{page.cross.sidebar.back}</a>
         <a href="/pages/cdn/">{page.cross.sidebar.cdn}</a>
         <a href="/pages/core/">{page.cross.sidebar.core}</a>
@@ -45,6 +46,7 @@
         <a href="/pages/pages/">{page.cross.sidebar.pages}</a>
         <a href="/pages/style/">{page.cross.sidebar.style}</a>
         <a href="/pages/test/">{page.cross.sidebar.test}</a>
+        <a href="/pages/build/">{page.cross.sidebar.build}</a>
       </nav>
     </aside>
 
@@ -86,6 +88,11 @@
       </table>
       <pre><code>&lt;!-- Declaración HTML --&gt;
 &lt;bap-chip&gt;Vanilla JS&lt;/bap-chip&gt;</code></pre>
+      <div class="demo-container">
+        <bap-chip>Vanilla JS</bap-chip>
+        <bap-chip>CSS3</bap-chip>
+        <bap-chip>HTML5</bap-chip>
+      </div>
 
       <hr />
 
@@ -155,6 +162,9 @@
   link-text-base64="VmVyIEPDs2RpZ28="&gt;
   Contenido HTML del modal sanitizado.
 &lt;/bap-dialog&gt;</code></pre>
+      <div class="demo-container">
+        <button id="btn_trigger_dialog" class="btn-secondary">{page.components.body.btnOpen}</button>
+      </div>
 
       <hr />
 
@@ -163,6 +173,11 @@
       <p>{page.components.body.footerDesc}</p>
       <p>{page.components.body.footerNoAttrs}</p>
       <pre><code>&lt;bap-footer&gt;&lt;/bap-footer&gt;</code></pre>
+      <div class="demo-container">
+        <div class="demo-placeholder-box">
+          {page.components.body.footerHint}
+        </div>
+      </div>
 
       <hr />
 
@@ -200,6 +215,11 @@
         </tbody>
       </table>
       <pre><code>&lt;bap-header show-admin-actions is-admin-user&gt;&lt;/bap-header&gt;</code></pre>
+      <div class="demo-container">
+        <div class="demo-placeholder-box">
+          {page.components.body.headerHint}
+        </div>
+      </div>
 
       <hr />
 
@@ -231,6 +251,9 @@
         </tbody>
       </table>
       <pre><code>&lt;bap-loading-state sub-message="Procesando..."&gt;&lt;/bap-loading-state&gt;</code></pre>
+      <div class="demo-container">
+        <button id="btn_trigger_loading" class="btn-secondary">{page.components.body.btnBlock}</button>
+      </div>
 
       <hr />
 
@@ -256,6 +279,9 @@
         </tbody>
       </table>
       <pre><code>&lt;bap-logo color-mode="dark"&gt;&lt;/bap-logo&gt;</code></pre>
+      <div class="demo-container">
+        <bap-logo></bap-logo>
+      </div>
 
       <hr />
 
@@ -295,6 +321,10 @@
       <pre><code>&lt;bap-notification type="toast" severity="info" show&gt;
   Sincronización completada.
 &lt;/bap-notification&gt;</code></pre>
+      <div class="demo-container">
+        <button id="btn_toast_info" class="btn-secondary">{page.components.body.btnToast}</button>
+        <button id="btn_alert_error">{page.components.body.btnAlert}</button>
+      </div>
 
       <hr />
 
@@ -303,6 +333,9 @@
       <p>{page.components.body.spinnerDesc}</p>
       <p>{page.components.body.spinnerNoAttrs}</p>
       <pre><code>&lt;bap-spinner&gt;&lt;/bap-spinner&gt;</code></pre>
+      <div class="demo-container">
+        <bap-spinner></bap-spinner>
+      </div>
 
       <hr />
 
@@ -340,6 +373,11 @@
         </tbody>
       </table>
       <pre><code>&lt;bap-svg-image name="close" size="l" mobile-size="s"&gt;&lt;/bap-svg-image&gt;</code></pre>
+      <div class="demo-container">
+        <bap-svg-image name="chevronLeft" size="x3"></bap-svg-image>
+        <bap-svg-image name="menu" size="x3"></bap-svg-image>
+        <bap-svg-image name="close" size="x3"></bap-svg-image>
+      </div>
     </article>
   </main>
 

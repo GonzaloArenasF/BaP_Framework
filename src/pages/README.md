@@ -9,7 +9,7 @@ Este directorio alberga los archivos HTML, CSS y JS de las vistas de usuario que
 Para mantener el enrutamiento limpio y escalable, BaP Framework sigue una convención estricta:
 
 1. **Cada Página es un Directorio Nuevo**: 
-   Cada vista principal debe crearse dentro de su propia carpeta en `./src/pages/` (por ejemplo, `./src/pages/home/` o `./src/pages/login/`).
+   Cada vista principal debe crearse dentro de su propia carpeta en `./src/pages/` (por ejemplo, `./src/pages/cdn/`, `./src/pages/core/`, `./src/pages/components/`, `./src/pages/pages/`, `./src/pages/style/`, `./src/pages/test/` o `./src/pages/build/`).
 2. **Subpáginas Anidadas**: 
    Si deseas estructurar rutas anidadas o subpáginas (ej. `/admin/dashboard`), debes crearlas como **subdirectorios** dentro de la carpeta de la página padre (ej. `./src/pages/admin/dashboard/`).
 3. **Mapeo de Rutas (`routes.appRoutes`)**: 

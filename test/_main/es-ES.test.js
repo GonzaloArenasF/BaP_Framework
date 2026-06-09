@@ -47,14 +47,14 @@ describe('es-ES.js', () => {
     expect(storage).toHaveProperty('errorRemoving');
   });
 
-  it('LOC-06: page landing debe contener hero, core, playground, terminal', () => {
+  it('LOC-06: page landing debe contener hero, core, docs, sidebar', () => {
     const landing = esES.page.landing;
     expect(landing).toBeDefined();
     expect(landing).toHaveProperty('head');
     expect(landing.body).toHaveProperty('hero');
     expect(landing.body).toHaveProperty('core');
-    expect(landing.body).toHaveProperty('playground');
-    expect(landing.body).toHaveProperty('terminal');
+    expect(landing.body).toHaveProperty('docs');
+    expect(landing.body).toHaveProperty('sidebar');
   });
 
   it('LOC-07: page notFound debe contener message y backHome', () => {

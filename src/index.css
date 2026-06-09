@@ -26,10 +26,18 @@ main {
 
 .bap-hero p.tagline {
   font-size: 1.2rem;
-  color: var(--font-color-secondary || #64748b);
+  color: var(--font-color-secondary, #64748b);
   max-width: 800px;
   margin: 0 auto 2rem auto;
   line-height: 1.6;
+}
+
+/* Hero Section Buttons layout */
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 /* Grids & Cards */
@@ -47,24 +55,27 @@ main {
 }
 
 .bap-card {
-  background: var(--bg-card || rgba(255, 255, 255, 0.05));
+  background: var(--bg-card, rgba(255, 255, 255, 0.05));
   border: 1px solid rgba(98, 174, 196, 0.15);
   border-radius: 12px;
   padding: 2rem;
   transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .bap-card:hover {
   transform: translateY(-5px);
-  border-color: var(--accent-color || #62aec4);
+  border-color: var(--accent-color, #62aec4);
   box-shadow: 0 10px 30px rgba(98, 174, 196, 0.15);
 }
 
 .bap-card h3 {
   margin-top: 0;
   font-size: 1.5rem;
-  color: var(--accent-color || #62aec4);
+  color: var(--accent-color, #62aec4);
   border-bottom: 1px solid rgba(98, 174, 196, 0.1);
   padding-bottom: 0.75rem;
 }
@@ -73,257 +84,6 @@ main {
   font-size: 0.95rem;
   line-height: 1.6;
   margin-bottom: 1rem;
-}
-
-/* Interactive Playground Section */
-.bap-playground {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(98, 174, 196, 0.2);
-  border-radius: 16px;
-  padding: 3rem 2rem;
-  margin-bottom: 4rem;
-}
-
-.bap-playground h2 {
-  font-size: 2rem;
-  color: var(--font-color);
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.playground-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.demo-box {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.demo-box h4 {
-  margin-top: 0;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
-  color: var(--font-color);
-}
-
-.demo-preview {
-  margin: 1.5rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 60px;
-}
-
-.btn-wrapper {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-/* Terminal Simulator */
-.terminal-sim {
-  background: #0f172a;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 1rem;
-  font-family: monospace;
-  color: #38bdf8;
-  margin-bottom: 1.5rem;
-}
-
-.terminal-header {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 10px;
-}
-
-.dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-
-.dot.red {
-  background-color: #ef4444;
-}
-
-.dot.yellow {
-  background-color: #f59e0b;
-}
-
-.dot.green {
-  background-color: #10b981;
-}
-
-.terminal-body {
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 0.9rem;
-  color: #e2e8f0;
-}
-
-.terminal-prompt {
-  color: #38bdf8;
-  margin-right: 8px;
-}
-
-/* Split Layout for Landing Page */
-.landing-layout {
-  display: flex;
-  gap: 2.5rem;
-  align-items: flex-start;
-}
-
-.landing-content {
-  flex-grow: 1;
-  min-width: 0; /* Prevents flex items from breaking layout on small viewports */
-}
-
-.landing-sidebar {
-  width: 280px;
-  flex-shrink: 0;
-  position: sticky;
-  top: 80px;
-  height: fit-content;
-}
-
-.landing-sidebar nav {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  background: var(--bg-card || rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(98, 174, 196, 0.15);
-  border-radius: 12px;
-  padding: 1.5rem;
-}
-
-.landing-sidebar h4 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-family: 'Space Grotesk', sans-serif;
-  color: var(--accent-color || #62aec4);
-  font-size: 1.1rem;
-  border-bottom: 1px solid rgba(98, 174, 196, 0.1);
-  padding-bottom: 0.5rem;
-}
-
-.landing-sidebar nav a {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  border-radius: 8px;
-  color: var(--font-color-secondary || #64748b);
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.2s ease;
-}
-
-.landing-sidebar nav a:hover {
-  color: var(--accent-color || #62aec4);
-  background: rgba(98, 174, 196, 0.08);
-}
-
-.sidebar-box {
-  background: var(--bg-card || rgba(255, 255, 255, 0.03));
-  border: 1px solid rgba(98, 174, 196, 0.15);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.sidebar-box ul {
-  padding-left: 0;
-  margin: 0;
-  list-style: none;
-}
-
-.sidebar-box li {
-  margin-bottom: 0.5rem;
-  font-size: 0.95rem;
-  display: flex;
-  justify-content: space-between;
-}
-
-.sidebar-box li strong {
-  color: var(--accent-color || #62aec4);
-}
-
-/* Footer elements adjustment */
-#footerPage {
-  margin-top: 4rem;
-}
-
-/* Responsive viewports */
-@media only screen and (max-width: 992px) {
-  .landing-layout {
-    flex-direction: column;
-    gap: 2rem;
-  }
-
-  .landing-sidebar {
-    width: 100%;
-    position: static;
-  }
-
-  .bap-hero h2 {
-    font-size: 2rem;
-  }
-
-  .bap-playground {
-    padding: 2rem 1rem;
-  }
-}
-
-/* Landing content spacing and layout */
-.landing-content section {
-  margin-bottom: 4rem;
-}
-
-.landing-content section#terminal {
-  margin-bottom: 2rem;
-}
-
-.landing-content section > h2 {
-  text-align: center;
-  margin-bottom: 2.5rem;
-  font-size: 2rem;
-}
-
-.landing-content section#terminal h2 {
-  text-align: left;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-}
-
-.section-desc {
-  text-align: center;
-  color: var(--grey-1);
-  max-width: 800px;
-  margin: 0 auto 2.5rem auto;
-  font-size: 1.1rem;
-  line-height: 1.6;
-}
-
-/* Hero Section Buttons layout */
-.hero-buttons {
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-/* Bap Card Layout adjustments */
-.bap-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .bap-card ul {
@@ -345,58 +105,37 @@ main {
   width: 100%;
   display: flex;
   justify-content: center;
+  box-sizing: border-box; /* Ensure padding doesn't overflow */
 }
 
-/* Playground Demo boxes and links */
-.demo-box p {
-  font-size: 0.85rem;
-  color: var(--grey-1);
+/* Spacing and layout for content sections */
+.docs-content section {
+  margin-bottom: 4rem;
 }
 
-.demo-preview {
-  gap: 10px;
-}
-
-.demo-footer {
-  margin-top: 1rem;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.demo-footer a {
-  font-size: 0.85rem;
-  color: var(--accent-color);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.demo-placeholder-box {
-  font-size: 0.8rem;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 8px 12px;
-  border-radius: 6px;
-  width: 100%;
-  border: 1px dashed var(--accent-color);
-  text-align: center;
-}
-
-/* Terminal Simulator layout */
-.terminal-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-}
-
-.terminal-grid h4 {
-  margin: 0 0 0.5rem 0;
-}
-
-.terminal-grid p {
-  font-size: 0.9rem;
-  color: var(--grey-1);
-}
-
-.center-container {
+.docs-content section > h2 {
   text-align: center;
   margin-bottom: 2.5rem;
+  font-size: 2rem;
+}
+
+.section-desc {
+  text-align: center;
+  color: var(--grey-1);
+  max-width: 800px;
+  margin: 0 auto 2.5rem auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Footer elements adjustment */
+#footerPage {
+  margin-top: 4rem;
+}
+
+/* Responsive viewports */
+@media only screen and (max-width: 992px) {
+  .bap-hero h2 {
+    font-size: 2rem;
+  }
 }

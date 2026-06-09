@@ -28,13 +28,15 @@ export const esES = {
         },
       },
       sidebar: {
+        title: "Documentación",
         back: "← Volver al Inicio",
-        cdn: "Hosting CDN",
+        cdn: "Despliegue & CDN",
         core: "Core & Módulos",
-        components: "Componentes",
+        components: "Componentes Web",
         pages: "Páginas y Subpáginas",
-        style: "Diseño CSS",
+        style: "Diseño & CSS",
         test: "Suite de Pruebas",
+        build: "Ciclo de Desarrollo",
       },
     },
     notFound: {
@@ -140,7 +142,7 @@ export const esES = {
             btn: "Ver Módulos del Core",
           },
           components: {
-            title: "Custom Components",
+            title: "Componentes Web",
             description: "Especificaciones técnicas completas, configuraciones y ejemplos interactivos de los 9 Web Components core.",
             btn: "Ver Especificaciones de Componentes",
           },
@@ -159,6 +161,11 @@ export const esES = {
             description: "Arquitectura de tests unitarios y de integración sobre JSDOM con Vitest y simulaciones de red.",
             btn: "Ver Pruebas de Integración",
           },
+          build: {
+            title: "Ciclo de Desarrollo",
+            description: "Scripts de terminal para pruebas unitarias, modo watch, servidor local y despliegue.",
+            btn: "Ver Scripts de Terminal",
+          },
         },
         sidebar: {
           navTitle: "Índice de Documentación",
@@ -168,84 +175,6 @@ export const esES = {
           statusFirebase: "Firebase",
           statusActive: "Activo",
           statusInactive: "Inactivo",
-        },
-        // ── Playground ────────────────────────────────────────────────────
-        playground: {
-          sectionTitle: "🎮 Componentes Interactivos",
-          logo: {
-            title: "1. Componente ‹bap-logo›",
-            description: "Muestra la identidad visual corporativa. Carga adaptativamente la constante de logo o utiliza un SVG premium vectorial.",
-          },
-          svgImage: {
-            title: "2. Componente ‹bap-svg-image›",
-            description: "Gestor estandarizado de vectores SVG para iconos responsivos sin llamadas HTTP individuales.",
-          },
-          notification: {
-            title: "3. Componente ‹bap-notification›",
-            description: "Notificaciones Toast y Snackbar con estilos inyectados directamente al Shadow Root para evitar fugas visuales.",
-            btnToast: "Disparar Toast",
-            btnAlert: "Disparar Alerta",
-          },
-          spinner: {
-            title: "4. Componente ‹bap-spinner›",
-            description: "Indicador de carga animado, modular y estilizado con la paleta de colores del framework.",
-          },
-          dialog: {
-            title: "5. Componente ‹bap-dialog›",
-            description: "Modal premium flotante con glassmorphism, difuminado de fondo, sanitización de HTML y enlaces seguros decodificados en Base64.",
-            btnOpen: "Abrir Modal Diálogo",
-          },
-          loadingState: {
-            title: "6. Componente ‹bap-loading-state›",
-            description: "Bloqueador de pantalla completa para simular operaciones asíncronas largas y llamadas de red.",
-            btnBlock: "Bloquear Pantalla (3s)",
-          },
-          chip: {
-            title: "7. Componente ‹bap-chip›",
-            description: "Etiquetas visuales de metadatos o tags estilizadas con bordes circulares y color de énfasis.",
-          },
-          header: {
-            title: "8. Componente ‹bap-header›",
-            description: "Cabecera modular integrada y responsiva. Administra automáticamente el menú hamburguesa móvil y control de sesión.",
-            hint: "💡 Visualízalo fijo en la parte superior de esta página.",
-          },
-          footer: {
-            title: "9. Componente ‹bap-footer›",
-            description: "Pie de página unificado y responsivo. Se alinea de forma fluida adaptándose al viewport móvil y de escritorio.",
-            hint: "💡 Visualízalo al pie de esta página.",
-          },
-        },
-        // ── Terminal ──────────────────────────────────────────────────────
-        terminal: {
-          sectionTitle: "💻 Ciclo de Desarrollo en la Terminal",
-          test: {
-            title: "Pruebas Unitarias",
-            description: "Ejecuta la suite completa de pruebas usando Vitest.",
-          },
-          testWatch: {
-            title: "Pruebas (Watch Mode)",
-            description: "Mantiene Vitest corriendo y reejecuta las pruebas al modificar archivos.",
-          },
-          testCoverage: {
-            title: "Reporte de Cobertura",
-            description: "Genera el reporte de cobertura de código (coverage) con Vitest.",
-          },
-          server: {
-            title: "Servidor de Desarrollo",
-            description: "Levanta el servidor HTTP local con Hot-Reload y recarga en tiempo real sobre el navegador.",
-          },
-          optimize: {
-            title: "Optimizar (Desarrollo)",
-            description: "Compila, comprime y ofusca el código usando <code>.env.development</code> para pruebas locales.",
-          },
-          optimizeProd: {
-            title: "Optimizar (Producción)",
-            description: "Compila, comprime y ofusca el código usando <code>.env.production</code> preparando para el despliegue.",
-          },
-          deployProd: {
-            title: "Desplegar a Producción",
-            description: "Corre los tests, compila con el entorno de producción y sube los estáticos a Firebase Hosting.",
-          },
         },
       },
     },
@@ -337,6 +266,12 @@ export const esES = {
       body: {
         title: "Componentes Web Reutilizables (Custom Elements)",
         desc: "BaP Framework utiliza componentes web nativos basados en el estándar del W3C (Custom Elements). Esto permite encapsular estilos y lógica sin la sobrecarga de frameworks externos.",
+        btnToast: "Disparar Toast",
+        btnAlert: "Disparar Alerta",
+        btnOpen: "Abrir Diálogo de Prueba",
+        btnBlock: "Bloquear Pantalla de Carga",
+        headerHint: "Visualiza este componente en la parte superior de esta página de documentación.",
+        footerHint: "Visualiza este componente en la parte inferior de esta página de documentación.",
         regTitle: "Registro e Instanciación",
         regDesc: "El orquestador central se encuentra en <code>./src/_components/customComponentsRegistration.js</code>, el cual expone la función <code>setCustomComponents()</code> para darlos de alta en el DOM de forma dinámica y asíncrona.",
         colAttr: "Atributo",
@@ -455,6 +390,12 @@ export const esES = {
         primaryLi: "<code>.primary</code> / <code>.btn-secondary</code>: Variaciones de énfasis y color de fondo.",
         titlesTitle: "4. Encabezados (<code>./src/style/titles.css</code>)",
         titlesDesc: "Establece la escala y el peso tipográfico de los títulos para mantener la jerarquía de lectura.",
+        calloutTitle: "5. Cuadros de Alerta (Callout)",
+        calloutDesc: "Mensajes destacados para guiar al usuario. Soporta el estilo por defecto (<code>.bap-callout</code>) y variaciones de sistema (<code>.docs-callout</code>):",
+        tableTitle: "6. Tablas Estilizadas",
+        tableDesc: "Tablas de datos y especificaciones limpias con cabeceras contrastadas y líneas divisorias:",
+        breadcrumbsTitle: "7. Ruta de Navegación (Breadcrumbs)",
+        breadcrumbsDesc: "Componente de ubicación que genera barras diagonales de separación dinámicamente usando selectores CSS nativos:",
         
         rulesTitle: "Tres Reglas de Arquitectura CSS",
         rulesDesc: "Para asegurar un desarrollo escalable, unificado y un código HTML limpio, todo desarrollo en BaP debe apegarse estrictamente a estas tres directivas:",
@@ -500,6 +441,34 @@ export const esES = {
         integrationDesc: "Sinergias y configuración de testing:",
         vitestConfigLi: "<strong>Configuración de Vitest:</strong> Se configura globalmente desde el archivo maestro <code>./vitest.config.js</code> en el root del repositorio.",
         validatedCodeLi: "<strong>Código Validado:</strong> Los tests de esta suite apuntan de manera unificada a verificar la lógica contenida en <a href=\"/pages/core/\">/pages/core/</a> y componentes visuales en <a href=\"/pages/components/\">/pages/components/</a>."
+      }
+    },
+    build: {
+      head: {
+        title: "BaP Docs - Ciclo de Desarrollo",
+        meta: {
+          title: "BaP Docs - Ciclo de Desarrollo",
+          description: "Ciclo de desarrollo, pruebas unitarias y despliegue automatizado en BaP Framework.",
+          keywords: "Desarrollo, Build, Vitest, Gulp, Servidor, Despliegue, Terminal",
+        }
+      },
+      body: {
+        title: "Ciclo de Desarrollo en la Terminal",
+        desc: "BaP Framework expone una serie de scripts en NPM para simplificar el flujo de desarrollo, testing unitario y compilación de producción.",
+        testTitle: "Pruebas Unitarias (Vitest)",
+        testDesc: "Ejecuta los tests unitarios en un entorno DOM emulado mediante JSDOM para validar la integridad del core.",
+        testWatchTitle: "Modo Observador (Watch)",
+        testWatchDesc: "Mantiene Vitest en ejecución constante respondiendo a los cambios de código fuente en caliente.",
+        testCoverageTitle: "Reportes de Cobertura (Coverage)",
+        testCoverageDesc: "Genera estadísticas detalladas de cobertura de código por línea, funciones y archivos.",
+        serverTitle: "Servidor de Desarrollo Local",
+        serverDesc: "Levanta el servidor HTTP local con Hot-Reload y recarga en tiempo real sobre el navegador.",
+        optimizeTitle: "Optimizar (Desarrollo)",
+        optimizeDesc: "Compila, comprime y ofusca el código usando el entorno de desarrollo local para pruebas rápidas.",
+        optimizeProdTitle: "Optimizar (Producción)",
+        optimizeProdDesc: "Compila, comprime y ofusca el código usando el entorno de producción preparando para el despliegue.",
+        deployProdTitle: "Desplegar a Producción",
+        deployProdDesc: "Corre los tests, compila con el entorno de producción y sube los estáticos a Firebase Hosting.",
       }
     }
   },

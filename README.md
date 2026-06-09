@@ -1,4 +1,4 @@
-# BaP Framework - v2.3.5
+# BaP Framework - v2.3.6
 
 Un framework minimalista y de alto rendimiento basado en **HTML, CSS y JavaScript Vanilla (puro)**. Diseñado bajo la filosofía de "cero frameworks externos y cero dependencias pesadas en el cliente", BaP permite prototipar ideas de manera extremadamente rápida y sencilla, proporcionando a su vez una arquitectura robusta, modular y altamente escalable para aplicaciones en producción.
 
@@ -32,6 +32,7 @@ Te invitamos a explorar las distintas carpetas del repositorio para comprender a
 *   📂 [./src/](./src/README.md) - Código fuente de desarrollo de la aplicación (vistas, componentes y estilos).
     *   📂 [./src/assets/](./src/assets/README.md) - Recursos locales (favicons, logotipos e imágenes corporativas).
     *   📂 [./src/pages/](./src/pages/README.md) - Páginas independientes y reglas de ruteo/anidación.
+        *   📂 [./src/pages/build/](./src/pages/build/index.html) - Nueva subpágina dedicada al ciclo de desarrollo en la terminal.
     *   📂 [./src/style/](./src/style/README.md) - Sistema de diseño visual y hojas de estilos base (colores, fuentes y formularios).
     *   📂 [./src/_components/](./src/_components/README.md) - Registro centralizado y especificaciones técnicas detalladas de los Custom Components.
     *   📂 [./src/_main/](./src/_main/README.md) - Columna vertebral lógica del framework (Enrutador, Seguridad, Cifrado y Traducción).
@@ -89,7 +90,9 @@ Para mantener la consistencia multilingüe y un código fuente maquetado de form
 
 ## 💻 Patio de Pruebas e Interactividad Local
 
-La página de inicio principal (`./src/index.html`) sirve como un **Patio de Pruebas interactivo en tiempo real**. Los desarrolladores pueden levantar el servidor local e interactuar directamente con la visualización responsiva de Custom Elements y las alertas visuales en caliente.
+La página de especificaciones de componentes (`./src/pages/components/index.html`) sirve como un **Patio de Pruebas interactivo en tiempo real**. Los desarrolladores pueden levantar el servidor local e interactuar directamente con la visualización responsiva de Custom Elements y las alertas visuales en caliente debajo de la documentación de cada componente.
+
+Además, el ciclo de desarrollo en la terminal se encuentra simulado de manera interactiva en la página dedicada de [Ciclo de Desarrollo](/pages/build/).
 
 ---
 

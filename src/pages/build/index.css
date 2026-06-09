@@ -1,0 +1,64 @@
+@import url(../../style/main.css);
+
+/* Terminal Simulator */
+.terminal-sim {
+  background: #0f172a;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 1rem;
+  font-family: monospace;
+  color: #38bdf8;
+  margin-bottom: 1.5rem;
+}
+
+.terminal-header {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.red {
+  background-color: #ef4444;
+}
+
+.dot.yellow {
+  background-color: #f59e0b;
+}
+
+.dot.green {
+  background-color: #10b981;
+}
+
+.terminal-body {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+}
+
+.terminal-prompt {
+  color: #38bdf8;
+  margin-right: 8px;
+}
+
+/* Terminal Simulator layout */
+.terminal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.terminal-grid h4 {
+  margin: 0 0 0.5rem 0;
+}
+
+.terminal-grid p {
+  font-size: 0.9rem;
+  color: var(--font-color-secondary, #64748b);
+}

@@ -41,7 +41,7 @@
       <h2>{landing.body.hero.title}</h2>
       <p class="tagline">{landing.body.hero.tagline}</p>
       <div class="hero-buttons">
-        <a href="#playground" class="as-btn btn-2x"
+        <a href="/pages/components/" class="as-btn btn-2x"
           >{landing.body.hero.btnExplore}</a>
         <a href="https://github.com/GonzaloArenasF/BaP_Framework" target="_blank" class="as-btn btn-2x btn-secondary"
           >
@@ -56,31 +56,23 @@
     </section>
 
     <!-- Split Layout Container -->
-    <div class="landing-layout">
+    <div class="docs-main">
       <!-- Left Sidebar (Aside) -->
-      <aside class="landing-sidebar">
+      <aside class="docs-sidebar">
         <nav aria-label="Documentation index">
-          <h4>{landing.body.sidebar.navTitle}</h4>
-          <a href="/pages/cdn/">📁 {landing.body.docs.cdn.title}</a>
-          <a href="/pages/core/">📁 {landing.body.docs.core.title}</a>
-          <a href="/pages/components/">📁 {landing.body.docs.components.title}</a>
-          <a href="/pages/pages/">📁 {landing.body.docs.pages.title}</a>
-          <a href="/pages/style/">📁 {landing.body.docs.style.title}</a>
-          <a href="/pages/test/">📁 {landing.body.docs.test.title}</a>
+          <h4>{page.cross.sidebar.title}</h4>
+          <a href="/pages/cdn/">📁 {page.cross.sidebar.cdn}</a>
+          <a href="/pages/core/">📁 {page.cross.sidebar.core}</a>
+          <a href="/pages/components/">📁 {page.cross.sidebar.components}</a>
+          <a href="/pages/pages/">📁 {page.cross.sidebar.pages}</a>
+          <a href="/pages/style/">📁 {page.cross.sidebar.style}</a>
+          <a href="/pages/test/">📁 {page.cross.sidebar.test}</a>
+          <a href="/pages/build/">📁 {page.cross.sidebar.build}</a>
         </nav>
-
-        <div class="sidebar-box">
-          <h4>{landing.body.sidebar.statusTitle}</h4>
-          <ul>
-            <li><strong>{landing.body.sidebar.statusVersion}:</strong> <span>{APP_VERSION}</span></li>
-            <li><strong>{landing.body.sidebar.statusLicense}:</strong> <span>MIT</span></li>
-            <li><strong>{landing.body.sidebar.statusFirebase}:</strong> <span>{landing.body.sidebar.statusActive}</span></li>
-          </ul>
-        </div>
       </aside>
 
       <!-- Main Content (Right side) -->
-      <div class="landing-content">
+      <div class="docs-content">
 
         <!-- Pilares del Core -->
         <section>
@@ -263,281 +255,21 @@
             <a href="/pages/test/" class="as-btn">{landing.body.docs.test.btn}</a>
           </div>
         </div>
-      </div>
-    </section>
 
-    <!-- Patio de Pruebas (Interactive Playground) -->
-    <section id="playground" class="bap-playground">
-      <h2>{landing.body.playground.sectionTitle}</h2>
-
-      <div class="center-container">
-        <a href="/pages/components/" class="as-btn btn-2x">Ver Especificaciones Completas de Componentes</a>
-      </div>
-
-      <div class="playground-grid">
-        <!-- 1. bap-logo -->
-        <div class="demo-box">
+        <!-- Card 7: Ciclo de Desarrollo -->
+        <div class="bap-card">
           <div>
-            <h4>{landing.body.playground.logo.title}</h4>
-            <p>{landing.body.playground.logo.description}</p>
+            <h3>📁 {page.cross.sidebar.build}</h3>
+            <p>{landing.body.docs.build.description}</p>
           </div>
-          <div class="demo-preview">
-            <bap-logo></bap-logo>
-          </div>
-          <pre><code>&lt;bap-logo&gt;&lt;/bap-logo&gt;</code></pre>
-          <div class="demo-footer">
-            <a href="/pages/components/#bap-logo">Ver Especificaciones de bap-logo →</a>
-          </div>
-        </div>
-
-        <!-- 2. bap-svg-image -->
-        <div class="demo-box">
-          <div>
-            <h4>{landing.body.playground.svgImage.title}</h4>
-            <p>{landing.body.playground.svgImage.description}</p>
-          </div>
-          <div class="demo-preview">
-            <bap-svg-image name="chevronLeft" size="x3"></bap-svg-image>
-          </div>
-          <pre><code>&lt;bap-svg-image name="chevronLeft" size="x3"&gt;&lt;/bap-svg-image&gt;</code></pre>
-          <div class="demo-footer">
-            <a href="/pages/components/#bap-svg-image">Ver Especificaciones de bap-svg-image →</a>
-          </div>
-        </div>
-
-        <!-- 3. bap-notification -->
-        <div class="demo-box">
-          <div>
-            <h4>{landing.body.playground.notification.title}</h4>
-            <p>{landing.body.playground.notification.description}</p>
-          </div>
-          <div class="demo-preview">
-            <button id="btn_toast_info" class="btn-secondary">{landing.body.playground.notification.btnToast}</button>
-            <button id="btn_alert_error">{landing.body.playground.notification.btnAlert}</button>
-          </div>
-          <pre><code>import { bapNotify } from "./_main/util.js";
-bapNotify(type, severity, message);</code></pre>
-          <div class="demo-footer">
-            <a href="/pages/components/#bap-notification">Ver Especificaciones de bap-notification →</a>
-          </div>
-        </div>
-
-        <!-- 4. bap-spinner -->
-        <div class="demo-box">
-          <div>
-            <h4>{landing.body.playground.spinner.title}</h4>
-            <p>{landing.body.playground.spinner.description}</p>
-          </div>
-          <div class="demo-preview">
-            <bap-spinner></bap-spinner>
-          </div>
-          <pre><code>&lt;bap-spinner&gt;&lt;/bap-spinner&gt;</code></pre>
-          <div class="demo-footer">
-            <a href="/pages/components/#bap-spinner">Ver Especificaciones de bap-spinner →</a>
-          </div>
-        </div>
-
-        <!-- 5. bap-dialog -->
-        <div class="demo-box">
-          <div>
-            <h4>{landing.body.playground.dialog.title}</h4>
-            <p>{landing.body.playground.dialog.description}</p>
-          </div>
-          <div class="demo-preview">
-            <button id="btn_trigger_dialog" class="btn-secondary">{landing.body.playground.dialog.btnOpen}</button>
-          </div>
-          <pre><code>&lt;bap-dialog id="demo" title-main="..."&gt;
-  Cuerpo del Diálogo
-&lt;/bap-dialog&gt;</code></pre>
-          <div class="demo-footer">
-            <a href="/pages/components/#bap-dialog">Ver Especificaciones de bap-dialog →</a>
-          </div>
-        </div>
-
-        <!-- 6. bap-loading-state -->
-        <div class="demo-box">
-          <div>
-            <h4>{landing.body.playground.loadingState.title}</h4>
-            <p>{landing.body.playground.loadingState.description}</p>
-          </div>
-          <div class="demo-preview">
-            <button id="btn_trigger_loading" class="btn-secondary">{landing.body.playground.loadingState.btnBlock}</button>
-          </div>
-          <pre><code>&lt;bap-loading-state sub-message="..."&gt;
-  Procesando...
-&lt;/bap-loading-state&gt;</code></pre>
-          <div class="demo-footer">
-            <a href="/pages/components/#bap-loading-state">Ver Especificaciones de bap-loading-state →</a>
-          </div>
-        </div>
-
-        <!-- 7. bap-chip -->
-        <div class="demo-box">
-          <div>
-            <h4>{landing.body.playground.chip.title}</h4>
-            <p>{landing.body.playground.chip.description}</p>
-          </div>
-          <div class="demo-preview">
-            <bap-chip>Vanilla JS</bap-chip>
-            <bap-chip>CSS3</bap-chip>
-            <bap-chip>HTML5</bap-chip>
-          </div>
-          <pre><code>&lt;bap-chip&gt;Vanilla JS&lt;/bap-chip&gt;</code></pre>
-          <div class="demo-footer">
-            <a href="/pages/components/#bap-chip">Ver Especificaciones de bap-chip →</a>
-          </div>
-        </div>
-
-        <!-- 8. bap-header -->
-        <div class="demo-box">
-          <div>
-            <h4>{landing.body.playground.header.title}</h4>
-            <p>{landing.body.playground.header.description}</p>
-          </div>
-          <div class="demo-preview">
-            <div class="demo-placeholder-box">
-              {landing.body.playground.header.hint}
-            </div>
-          </div>
-          <pre><code>&lt;bap-header&gt;&lt;/bap-header&gt;</code></pre>
-          <div class="demo-footer">
-            <a href="/pages/components/#bap-header">Ver Especificaciones de bap-header →</a>
-          </div>
-        </div>
-
-        <!-- 9. bap-footer -->
-        <div class="demo-box">
-          <div>
-            <h4>{landing.body.playground.footer.title}</h4>
-            <p>{landing.body.playground.footer.description}</p>
-          </div>
-          <div class="demo-preview">
-            <div class="demo-placeholder-box">
-              {landing.body.playground.footer.hint}
-            </div>
-          </div>
-          <pre><code>&lt;bap-footer&gt;&lt;/bap-footer&gt;</code></pre>
-          <div class="demo-footer">
-            <a href="/pages/components/#bap-footer">Ver Especificaciones de bap-footer →</a>
+          <div class="bap-card-footer">
+            <a href="/pages/build/" class="as-btn">{landing.body.docs.build.btn}</a>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Instrucciones de Terminal -->
-    <section id="terminal">
-      <h2>{landing.body.terminal.sectionTitle}</h2>
-
-      <div class="terminal-grid">
-        
-        <div>
-          <div class="terminal-sim">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <div class="terminal-body">
-              <span class="terminal-prompt">$</span> npm run test
-            </div>
-          </div>
-          <h4>{landing.body.terminal.test.title}</h4>
-          <p>{landing.body.terminal.test.description}</p>
-        </div>
-
-        <div>
-          <div class="terminal-sim">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <div class="terminal-body">
-              <span class="terminal-prompt">$</span> npm run test:watch
-            </div>
-          </div>
-          <h4>{landing.body.terminal.testWatch.title}</h4>
-          <p>{landing.body.terminal.testWatch.description}</p>
-        </div>
-
-        <div>
-          <div class="terminal-sim">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <div class="terminal-body">
-              <span class="terminal-prompt">$</span> npm run test:coverage
-            </div>
-          </div>
-          <h4>{landing.body.terminal.testCoverage.title}</h4>
-          <p>{landing.body.terminal.testCoverage.description}</p>
-        </div>
-
-        <div>
-          <div class="terminal-sim">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <div class="terminal-body">
-              <span class="terminal-prompt">$</span> npm run server
-            </div>
-          </div>
-          <h4>{landing.body.terminal.server.title}</h4>
-          <p>{landing.body.terminal.server.description}</p>
-        </div>
-
-        <div>
-          <div class="terminal-sim">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <div class="terminal-body">
-              <span class="terminal-prompt">$</span> npm run optimize
-            </div>
-          </div>
-          <h4>{landing.body.terminal.optimize.title}</h4>
-          <p>{landing.body.terminal.optimize.description}</p>
-        </div>
-
-        <div>
-          <div class="terminal-sim">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <div class="terminal-body">
-              <span class="terminal-prompt">$</span> npm run optimize:prod
-            </div>
-          </div>
-          <h4>{landing.body.terminal.optimizeProd.title}</h4>
-          <p>{landing.body.terminal.optimizeProd.description}</p>
-        </div>
-
-        <div>
-          <div class="terminal-sim">
-            <div class="terminal-header">
-              <span class="dot red"></span>
-              <span class="dot yellow"></span>
-              <span class="dot green"></span>
-            </div>
-            <div class="terminal-body">
-              <span class="terminal-prompt">$</span> npm run deploy-prod
-            </div>
-          </div>
-          <h4>{landing.body.terminal.deployProd.title}</h4>
-          <p>{landing.body.terminal.deployProd.description}</p>
-        </div>
       </div>
-    </section>
     </div>
-  </div>
   </main>
 
   <footer id="footerPage">
