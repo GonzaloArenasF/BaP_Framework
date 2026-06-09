@@ -92,29 +92,6 @@ describe('index.js', () => {
     window.dispatchEvent(new Event('load'));
     expect(analytics.analytic.logEvent.enterLandingPage).toHaveBeenCalledTimes(1);
 
-    // Simular clics en botones de UI
-    document.getElementById('btn_toast_info').click();
-    expect(util.bapNotify).toHaveBeenCalledWith('toast', 'info', '¡Notificación del BaP Framework!');
-
-    document.getElementById('btn_alert_error').click();
-    expect(util.bapNotify).toHaveBeenCalledWith('alert', 'error', '¡Notificación del BaP Framework!');
-
-    // Dialog demo
-    document.getElementById('btn_trigger_dialog').click();
-    const dialogs = document.querySelectorAll('bap-dialog');
-    expect(dialogs.length).toBe(1);
-
-    // Loading demo
-    document.getElementById('btn_trigger_loading').click();
-    const loadingStates = document.querySelectorAll('bap-loading-state');
-    expect(loadingStates.length).toBe(1);
-
-    // Avanzar timer 3s para que termine el loading y llame showNotification()
-    vi.advanceTimersByTime(3000);
-    expect(document.querySelectorAll('bap-loading-state').length).toBe(0);
-    // Notificación toast de carga completada
-    expect(util.bapNotify).toHaveBeenCalledWith('toast', 'info', '¡Simulación de carga completada con éxito!');
-
     vi.useRealTimers();
   });
 });

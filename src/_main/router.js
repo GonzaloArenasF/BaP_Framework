@@ -178,6 +178,14 @@ export function getQueryParams() {
  * @param {Function} [redirectionCallbackOnNoSession] - Callback opcional en caso de fallar el acceso.
  */
 export function sessionStartedControl(route, initSession, redirectionCallbackOnNoSession) {
+  if (!route) {
+    console.warn("sessionStartedControl: La ruta proporcionada no está definida.");
+    return;
+  }
+  if (!route.validate) {
+    console.warn("sessionStartedControl: La ruta no contiene configuración de validación (validate).", route);
+    return;
+  }
   if (route.validate.signIn) {
     if (CONSTANT.FIREBASE_AVAILABLE) {
       userSession.onAuthStateChanged(async (user) => {

@@ -1,8 +1,8 @@
 {
   "app": {
     "name": "BaP Framework",
-    "version": "v2.3.4",
-    "currentBapVersion": "v2.3.4",
+    "version": "v2.3.7",
+    "currentBapVersion": "v2.3.7",
     "socialMedia": {
       "email": "gonzaloarenasf+bap-framework@gmail.com"
     }
@@ -35,6 +35,62 @@
           "signIn": false
         }
       },
+      "cdn": {
+        "pathname": "/pages/cdn/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "core": {
+        "pathname": "/pages/core/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "components": {
+        "pathname": "/pages/components/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "pages": {
+        "pathname": "/pages/pages/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "style": {
+        "pathname": "/pages/style/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "test": {
+        "pathname": "/pages/test/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "build": {
+        "pathname": "/pages/build/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
       "error404": {
         "pathname": "/404.html",
         "component": null,
@@ -55,6 +111,48 @@
         "type": "enter_page",
         "name": "enter_landing_page",
         "func": "landing_page",
+        "userType": "User"
+      },
+      "enterCdnPage": {
+        "type": "enter_page",
+        "name": "enter_cdn_page",
+        "func": "cdn_page",
+        "userType": "User"
+      },
+      "enterCorePage": {
+        "type": "enter_page",
+        "name": "enter_core_page",
+        "func": "core_page",
+        "userType": "User"
+      },
+      "enterComponentsPage": {
+        "type": "enter_page",
+        "name": "enter_components_page",
+        "func": "components_page",
+        "userType": "User"
+      },
+      "enterPagesPage": {
+        "type": "enter_page",
+        "name": "enter_pages_page",
+        "func": "pages_page",
+        "userType": "User"
+      },
+      "enterStylePage": {
+        "type": "enter_page",
+        "name": "enter_style_page",
+        "func": "style_page",
+        "userType": "User"
+      },
+      "enterTestPage": {
+        "type": "enter_page",
+        "name": "enter_test_page",
+        "func": "test_page",
+        "userType": "User"
+      },
+      "enterBuildPage": {
+        "type": "enter_page",
+        "name": "enter_build_page",
+        "func": "build_page",
         "userType": "User"
       },
       "pageNotFound": {

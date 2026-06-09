@@ -4,6 +4,9 @@ node_modules/
 # Build / distribución (descomentar si no se quiere versionar el bundle)
 public/
 
+# Test
+coverage/
+
 # Logs
 *.log
 npm-debug.log*

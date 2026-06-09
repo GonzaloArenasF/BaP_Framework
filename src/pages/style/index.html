@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="{lang}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="description" content="{page.style.head.meta.description}" />
+  <meta name="keywords" content="{page.style.head.meta.keywords}" />
+
+  <meta property="og:title" content="{page.style.head.meta.title}" />
+  <meta property="og:description" content="{page.style.head.meta.description}" />
+  <meta property="og:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
+  <meta property="og:url" content="{ENV_URL}/pages/style/" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{page.style.head.meta.title}" />
+  <meta name="twitter:description" content="{page.style.head.meta.description}" />
+  <meta name="twitter:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
+
+  <link rel="canonical" href="{ENV_URL}/pages/style/" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/site.webmanifest" />
+
+  <script type="module" src="index.js?v={APP_VERSION}"></script>
+
+  <title>{page.style.head.title}</title>
+</head>
+
+<body class="light-mode">
+  <header>
+    <bap-header></bap-header>
+  </header>
+
+  <main class="docs-main">
+    <aside class="docs-sidebar">
+      <nav>
+        <h4>{page.cross.sidebar.title}</h4>
+        <a href="/">{page.cross.sidebar.back}</a>
+        <a href="/pages/cdn/">{page.cross.sidebar.cdn}</a>
+        <a href="/pages/core/">{page.cross.sidebar.core}</a>
+        <a href="/pages/components/">{page.cross.sidebar.components}</a>
+        <a href="/pages/pages/">{page.cross.sidebar.pages}</a>
+        <a href="/pages/style/" class="active">{page.cross.sidebar.style}</a>
+        <a href="/pages/test/">{page.cross.sidebar.test}</a>
+        <a href="/pages/build/">{page.cross.sidebar.build}</a>
+      </nav>
+    </aside>
+
+    <article class="docs-content">
+      <h2>{page.style.body.title}</h2>
+      <p>{page.style.body.desc}</p>
+
+      <h3>{page.style.body.filesTitle}</h3>
+      
+      <h4>{page.style.body.colorsTitle}</h4>
+      <p>{page.style.body.colorsDesc}</p>
+      <ul>
+        <li>{page.style.body.lightModeLi}</li>
+        <li>{page.style.body.darkModeLi}</li>
+      </ul>
+      <p>{page.style.body.varsP}</p>
+      <pre><code>:root {
+  --accent-color: #62aec4; /* Turquesa/Cian Eléctrico */
+  --accent-color-hover: #4e9ab0;
+  --platinum-color: #eaece9; /* Gris Platino */
+}
+
+.light-mode {
+  --bg-color: #ffffff;
+  --font-color: #111825;
+}
+
+.dark-mode {
+  --bg-color: #111825;
+  --font-color: #eaece9;
+}</code></pre>
+
+      <div class="demo-container">
+        <div class="color-swatch-grid">
+          <div class="color-swatch">
+            <div class="color-box accent"></div>
+            <span>Accent</span>
+            <code>--accent-color</code>
+          </div>
+          <div class="color-swatch">
+            <div class="color-box accent-hover"></div>
+            <span>Accent Hover</span>
+            <code>--accent-color-hover</code>
+          </div>
+          <div class="color-swatch">
+            <div class="color-box platinum"></div>
+            <span>Platinum</span>
+            <code>--platinum-color</code>
+          </div>
+          <div class="color-swatch">
+            <div class="color-box dark-bg"></div>
+            <span>Dark Bg</span>
+            <code>--bg-color (dark)</code>
+          </div>
+          <div class="color-swatch">
+            <div class="color-box white-bg"></div>
+            <span>Light Bg</span>
+            <code>--bg-color (light)</code>
+          </div>
+        </div>
+      </div>
+
+      <h4>{page.style.body.typographyTitle}</h4>
+      <p>{page.style.body.typographyDesc}</p>
+      <ul>
+        <li>{page.style.body.spaceGroteskLi}</li>
+        <li>{page.style.body.plusJakartaLi}</li>
+      </ul>
+
+      <div class="demo-container">
+        <div class="style-column">
+          <div class="font-grotesk-sample">Space Grotesk (Titulares)</div>
+          <h1 class="demo-h1">H1 Title Sample</h1>
+          <h2 class="demo-h2">H2 Title Sample</h2>
+          <h3 class="demo-h3">H3 Title Sample</h3>
+          <div class="font-jakarta-sample">Plus Jakarta Sans (Cuerpo de texto y elementos generales). Excepcionalmente legible y balanceado para interfaces de usuario modernas.</div>
+        </div>
+      </div>
+
+      <h4>{page.style.body.formsTitle}</h4>
+      <p>{page.style.body.formsDesc}</p>
+      <ul>
+        <li>{page.style.body.asBtnLi}</li>
+        <li>{page.style.body.primaryLi}</li>
+      </ul>
+
+      <div class="demo-container">
+        <div class="style-buttons-row">
+          <button type="button">Primary Button</button>
+          <button type="button" class="btn-secondary">Secondary Button</button>
+          <button type="button" disabled>Disabled Button</button>
+          <button type="button" class="btn-2x">Large (btn-2x)</button>
+          <button type="button" class="btn-3x">Extra Large (btn-3x)</button>
+        </div>
+      </div>
+
+      <h4>{page.style.body.titlesTitle}</h4>
+      <p>{page.style.body.titlesDesc}</p>
+
+      <h4>{page.style.body.calloutTitle}</h4>
+      <p>{page.style.body.calloutDesc}</p>
+      <pre><code>&lt;!-- Caja de contenido destacado general (bap-callout) --&gt;
+&lt;div class="bap-callout"&gt;
+  &lt;strong&gt;💡 Nota Importante:&lt;/strong&gt;
+  Cuadro de llamada general de color cian para sugerencias.
+&lt;/div&gt;
+
+&lt;!-- Caja de advertencia para documentación (docs-callout warning) --&gt;
+&lt;div class="docs-callout warning"&gt;
+  &lt;strong&gt;⚠️ Advertencia Crítica:&lt;/strong&gt;
+  Indica problemas, APIs deprecadas o errores.
+&lt;/div&gt;</code></pre>
+      <div class="demo-container">
+        <div class="callout-demo-container">
+          <div class="bap-callout">
+            <strong>💡 Nota Importante (bap-callout):</strong>
+            Cuadro de llamada general de color cian para enfatizar notas, consejos o sugerencias de código.
+          </div>
+          <div class="docs-callout warning">
+            <strong>⚠️ Advertencia Crítica (docs-callout warning):</strong>
+            Cuadro de alerta con borde izquierdo rojo para indicar problemas, deprecated APIs o errores.
+          </div>
+        </div>
+      </div>
+
+      <h4>{page.style.body.tableTitle}</h4>
+      <p>{page.style.body.tableDesc}</p>
+      <pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Parámetro&lt;/th&gt;
+      &lt;th&gt;Tipo&lt;/th&gt;
+      &lt;th&gt;Descripción&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;&lt;code&gt;name&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;code&gt;String&lt;/code&gt;&lt;/td&gt;
+      &lt;td&gt;Nombre único del recurso estático.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+      <div class="demo-container">
+        <table class="demo-table">
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>Tipo</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>name</code></td>
+              <td><code>String</code></td>
+              <td>Nombre único del recurso estático.</td>
+            </tr>
+            <tr>
+              <td><code>size</code></td>
+              <td><code>String</code></td>
+              <td>Escala de visualización responsiva.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h4>{page.style.body.breadcrumbsTitle}</h4>
+      <p>{page.style.body.breadcrumbsDesc}</p>
+      <pre><code>&lt;nav class="breadcrumbs"&gt;
+  &lt;a href="/"&gt;Inicio&lt;/a&gt;
+  &lt;a href="/pages/style/"&gt;Documentación&lt;/a&gt;
+  &lt;a href="#" class="active"&gt;Diseño&lt;/a&gt;
+&lt;/nav&gt;</code></pre>
+      <div class="demo-container">
+        <nav class="breadcrumbs">
+          <a href="/">Inicio</a>
+          <a href="/pages/style/">Documentación</a>
+          <a href="#" class="active">Diseño</a>
+        </nav>
+      </div>
+
+      <h3>{page.style.body.rulesTitle}</h3>
+      <p>{page.style.body.rulesDesc}</p>
+      <div class="docs-callout">
+        <strong>{page.style.body.rule1Title}</strong>
+        <p>{page.style.body.rule1Desc}</p>
+      </div>
+      <div class="docs-callout">
+        <strong>{page.style.body.rule2Title}</strong>
+        <p>{page.style.body.rule2Desc}</p>
+      </div>
+      <div class="docs-callout warning">
+        <strong>{page.style.body.rule3Title}</strong>
+        <p>{page.style.body.rule3Desc}</p>
+      </div>
+
+      <h3>{page.style.body.integrationTitle}</h3>
+      <ul>
+        <li>{page.style.body.headerLi}</li>
+        <li>{page.style.body.gulpLi}</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <bap-footer></bap-footer>
+  </footer>
+</body>
+
+</html>
