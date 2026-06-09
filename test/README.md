@@ -9,6 +9,7 @@ Los recursos de este directorio se encargan de validar el correcto comportamient
 - `./test/mocks/`: Contiene emuladores del SDK de Firebase (`firebase-auth.mock.js`, `firebase-database.mock.js`, etc.) para simular respuestas de red de forma segura.
 - `./test/_components/`: Suite de pruebas unitarias dedicadas a los Custom Elements (ej. `bap-dialog.test.js`, `bap-logo.test.js`), validando su renderizado en JSDOM y actualización ante cambios de atributos.
 - `./test/_main/`: Pruebas de lógica funcional para el núcleo (ej. `router.test.js`, `storage.test.js`, `util.test.js`, `i18n.test.js`).
+- `./test/pages/`: Pruebas unitarias y de integración para los scripts de carga e inicialización de cada página y subpágina (ej. `components.test.js`, `style.test.js`, `build.test.js`).
 
 ---
 
