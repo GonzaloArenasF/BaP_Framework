@@ -31,6 +31,10 @@
   /* Verde esmeralda para estados de éxito */
   --transparent-dark-indigo: rgba(17, 24, 37, 0.9);
   /* Índigo oscuro translúcido para fondos de diálogos y capas */
+  --accent-color: #62aec4;
+  /* Color de acento de marca (turquesa) */
+  --accent-color-hover: #4a93a8;
+  /* Color de acento de marca en hover */
 }
 
 .light-mode {
@@ -100,6 +104,14 @@
   /* Borde gris platino claro para diálogos */
   --content-box-bg-color: rgba(255, 255, 255, 0.8);
   /* Fondo translúcido blanco para cajas contenedoras */
+  --divider-color: rgba(17, 24, 37, 0.08);
+  /* Color para líneas divisorias sutiles en modo claro */
+  --code-bg-color: rgba(17, 24, 37, 0.05);
+  /* Fondo de código en línea sutil y adaptado a modo claro */
+  --code-font-color: #0f172a;
+  /* Texto de código en línea de alto contraste en modo claro */
+  --code-border-color: rgba(17, 24, 37, 0.08);
+  /* Borde sutil para código en línea */
 }
 
 .dark-mode {
@@ -169,4 +181,12 @@
   /* Borde translúcido blanco para diálogos */
   --content-box-bg-color: rgba(17, 24, 37, 0.8);
   /* Fondo translúcido de cajas contenedoras */
+  --divider-color: rgba(255, 255, 255, 0.08);
+  /* Color para líneas divisorias sutiles en modo oscuro */
+  --code-bg-color: rgba(255, 255, 255, 0.08);
+  /* Fondo de código en línea sutil y adaptado a modo oscuro */
+  --code-font-color: var(--bold-orange);
+  /* Texto de código en línea de alto contraste turquesa en modo oscuro */
+  --code-border-color: rgba(255, 255, 255, 0.1);
+  /* Borde sutil para código en línea */
 }

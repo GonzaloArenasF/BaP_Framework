@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="{lang}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{page.components.head.meta.description}" />
+  <meta name="keywords" content="{page.components.head.meta.keywords}" />
+  <link rel="stylesheet" href="index.css" />
+  <script type="module" src="index.js"></script>
+  <title>{page.components.head.title}</title>
+</head>
+
+<body class="light-mode">
+  <header>
+    <bap-header></bap-header>
+  </header>
+
+  <main>
+    <aside class="docs-sidebar">
+      <nav>
+        <a href="/">{page.cross.sidebar.back}</a>
+        <a href="/pages/cdn/">{page.cross.sidebar.cdn}</a>
+        <a href="/pages/core/">{page.cross.sidebar.core}</a>
+        <a href="/pages/components/" class="active">{page.cross.sidebar.components}</a>
+        <a href="/pages/pages/">{page.cross.sidebar.pages}</a>
+        <a href="/pages/style/">{page.cross.sidebar.style}</a>
+        <a href="/pages/test/">{page.cross.sidebar.test}</a>
+      </nav>
+    </aside>
+
+    <article class="docs-content">
+      <h2>{page.components.body.title}</h2>
+      <p>{page.components.body.desc}</p>
+      
+      <h3>{page.components.body.regTitle}</h3>
+      <p>{page.components.body.regDesc}</p>
+
+      <hr />
+
+      <!-- bap-chip -->
+      <h3 id="bap-chip">1. <code>&lt;bap-chip&gt;</code></h3>
+      <p>{page.components.body.chipDesc}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>{page.components.body.colAttr}</th>
+            <th>{page.components.body.colType}</th>
+            <th>{page.components.body.colReq}</th>
+            <th>{page.components.body.colDesc}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>id</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.chipIdDesc}</td>
+          </tr>
+          <tr>
+            <td>{page.components.body.innerHtml}</td>
+            <td><code>String</code></td>
+            <td>{page.components.body.yes}</td>
+            <td>{page.components.body.chipAttrDesc}</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre><code>&lt;!-- Declaración HTML --&gt;
+&lt;bap-chip&gt;Vanilla JS&lt;/bap-chip&gt;</code></pre>
+
+      <hr />
+
+      <!-- bap-dialog -->
+      <h3 id="bap-dialog">2. <code>&lt;bap-dialog&gt;</code></h3>
+      <p>{page.components.body.dialogDesc}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>{page.components.body.colAttr}</th>
+            <th>{page.components.body.colType}</th>
+            <th>{page.components.body.colReq}</th>
+            <th>{page.components.body.colDesc}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>id</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.dialogIdDesc}</td>
+          </tr>
+          <tr>
+            <td><code>title-top</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.dialogTopDesc}</td>
+          </tr>
+          <tr>
+            <td><code>title-main</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.dialogMainDesc}</td>
+          </tr>
+          <tr>
+            <td><code>title-sub</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.dialogSubDesc}</td>
+          </tr>
+          <tr>
+            <td><code>image-detail</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.dialogImgDesc}</td>
+          </tr>
+          <tr>
+            <td><code>link-url-base64</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.dialogUrlDesc}</td>
+          </tr>
+          <tr>
+            <td><code>link-text-base64</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.dialogTextDesc}</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre><code>&lt;!-- URL: https://github.com -&gt; aHR0cHM6Ly9naXRodWIuY29t --&gt;
+&lt;!-- Texto: Ver Código -&gt; VmVyIEPDs2RpZ28= --&gt;
+&lt;bap-dialog 
+  id="demo-modal"
+  title-main="Modal Premium"
+  link-url-base64="aHR0cHM6Ly9naXRodWIuY29t"
+  link-text-base64="VmVyIEPDs2RpZ28="&gt;
+  Contenido HTML del modal sanitizado.
+&lt;/bap-dialog&gt;</code></pre>
+
+      <hr />
+
+      <!-- bap-footer -->
+      <h3 id="bap-footer">3. <code>&lt;bap-footer&gt;</code></h3>
+      <p>{page.components.body.footerDesc}</p>
+      <p>{page.components.body.footerNoAttrs}</p>
+      <pre><code>&lt;bap-footer&gt;&lt;/bap-footer&gt;</code></pre>
+
+      <hr />
+
+      <!-- bap-header -->
+      <h3 id="bap-header">4. <code>&lt;bap-header&gt;</code></h3>
+      <p>{page.components.body.headerDesc}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>{page.components.body.colAttr}</th>
+            <th>{page.components.body.colType}</th>
+            <th>{page.components.body.colReq}</th>
+            <th>{page.components.body.colDesc}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>hide-actions</code></td>
+            <td><code>Boolean</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.headerHideDesc}</td>
+          </tr>
+          <tr>
+            <td><code>show-admin-actions</code></td>
+            <td><code>Boolean</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.headerAdminDesc}</td>
+          </tr>
+          <tr>
+            <td><code>is-admin-user</code></td>
+            <td><code>Boolean</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.headerIsAdminDesc}</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre><code>&lt;bap-header show-admin-actions is-admin-user&gt;&lt;/bap-header&gt;</code></pre>
+
+      <hr />
+
+      <!-- bap-loading-state -->
+      <h3 id="bap-loading-state">5. <code>&lt;bap-loading-state&gt;</code></h3>
+      <p>{page.components.body.loadingDesc}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>{page.components.body.colAttr}</th>
+            <th>{page.components.body.colType}</th>
+            <th>{page.components.body.colReq}</th>
+            <th>{page.components.body.colDesc}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>sub-message</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.loadingSubDesc}</td>
+          </tr>
+          <tr>
+            <td>{page.components.body.innerHtml}</td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.loadingInnerDesc}</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre><code>&lt;bap-loading-state sub-message="Procesando..."&gt;&lt;/bap-loading-state&gt;</code></pre>
+
+      <hr />
+
+      <!-- bap-logo -->
+      <h3 id="bap-logo">6. <code>&lt;bap-logo&gt;</code></h3>
+      <p>{page.components.body.logoDesc}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>{page.components.body.colAttr}</th>
+            <th>{page.components.body.colType}</th>
+            <th>{page.components.body.colReq}</th>
+            <th>{page.components.body.colDesc}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>color-mode</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.logoColorDesc}</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre><code>&lt;bap-logo color-mode="dark"&gt;&lt;/bap-logo&gt;</code></pre>
+
+      <hr />
+
+      <!-- bap-notification -->
+      <h3 id="bap-notification">7. <code>&lt;bap-notification&gt;</code></h3>
+      <p>{page.components.body.notifDesc}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>{page.components.body.colAttr}</th>
+            <th>{page.components.body.colType}</th>
+            <th>{page.components.body.colReq}</th>
+            <th>{page.components.body.colDesc}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>type</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.notifTypeDesc}</td>
+          </tr>
+          <tr>
+            <td><code>severity</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.notifSeverityDesc}</td>
+          </tr>
+          <tr>
+            <td><code>show</code></td>
+            <td><code>Boolean</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.notifShowDesc}</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre><code>&lt;bap-notification type="toast" severity="info" show&gt;
+  Sincronización completada.
+&lt;/bap-notification&gt;</code></pre>
+
+      <hr />
+
+      <!-- bap-spinner -->
+      <h3 id="bap-spinner">8. <code>&lt;bap-spinner&gt;</code></h3>
+      <p>{page.components.body.spinnerDesc}</p>
+      <p>{page.components.body.spinnerNoAttrs}</p>
+      <pre><code>&lt;bap-spinner&gt;&lt;/bap-spinner&gt;</code></pre>
+
+      <hr />
+
+      <!-- bap-svg-image -->
+      <h3 id="bap-svg-image">9. <code>&lt;bap-svg-image&gt;</code></h3>
+      <p>{page.components.body.svgDesc}</p>
+      <table>
+        <thead>
+          <tr>
+            <th>{page.components.body.colAttr}</th>
+            <th>{page.components.body.colType}</th>
+            <th>{page.components.body.colReq}</th>
+            <th>{page.components.body.colDesc}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>name</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.yes}</td>
+            <td>{page.components.body.svgNameDesc}</td>
+          </tr>
+          <tr>
+            <td><code>size</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.svgSizeDesc}</td>
+          </tr>
+          <tr>
+            <td><code>mobile-size</code></td>
+            <td><code>String</code></td>
+            <td>{page.components.body.optional}</td>
+            <td>{page.components.body.svgMobileDesc}</td>
+          </tr>
+        </tbody>
+      </table>
+      <pre><code>&lt;bap-svg-image name="close" size="l" mobile-size="s"&gt;&lt;/bap-svg-image&gt;</code></pre>
+    </article>
+  </main>
+
+  <footer>
+    <bap-footer></bap-footer>
+  </footer>
+</body>
+
+</html>

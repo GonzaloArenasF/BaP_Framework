@@ -174,13 +174,104 @@ main {
   margin-right: 8px;
 }
 
+/* Split Layout for Landing Page */
+.landing-layout {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+.landing-content {
+  flex-grow: 1;
+  min-width: 0; /* Prevents flex items from breaking layout on small viewports */
+}
+
+.landing-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 80px;
+  height: fit-content;
+}
+
+.landing-sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--bg-card || rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(98, 174, 196, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.landing-sidebar h4 {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--accent-color || #62aec4);
+  font-size: 1.1rem;
+  border-bottom: 1px solid rgba(98, 174, 196, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.landing-sidebar nav a {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  color: var(--font-color-secondary || #64748b);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.landing-sidebar nav a:hover {
+  color: var(--accent-color || #62aec4);
+  background: rgba(98, 174, 196, 0.08);
+}
+
+.sidebar-box {
+  background: var(--bg-card || rgba(255, 255, 255, 0.03));
+  border: 1px solid rgba(98, 174, 196, 0.15);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.sidebar-box ul {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.sidebar-box li {
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sidebar-box li strong {
+  color: var(--accent-color || #62aec4);
+}
+
 /* Footer elements adjustment */
 #footerPage {
   margin-top: 4rem;
 }
 
 /* Responsive viewports */
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 992px) {
+  .landing-layout {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .landing-sidebar {
+    width: 100%;
+    position: static;
+  }
+
   .bap-hero h2 {
     font-size: 2rem;
   }
@@ -188,4 +279,124 @@ main {
   .bap-playground {
     padding: 2rem 1rem;
   }
+}
+
+/* Landing content spacing and layout */
+.landing-content section {
+  margin-bottom: 4rem;
+}
+
+.landing-content section#terminal {
+  margin-bottom: 2rem;
+}
+
+.landing-content section > h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 2rem;
+}
+
+.landing-content section#terminal h2 {
+  text-align: left;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-desc {
+  text-align: center;
+  color: var(--grey-1);
+  max-width: 800px;
+  margin: 0 auto 2.5rem auto;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Hero Section Buttons layout */
+.hero-buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Bap Card Layout adjustments */
+.bap-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.bap-card ul {
+  padding-left: 1.2rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Card footer actions */
+.bap-card-footer {
+  margin-top: 1.5rem;
+  border-top: 1px solid rgba(98, 174, 196, 0.15);
+  padding-top: 1rem;
+}
+
+.bap-card-footer .as-btn {
+  font-size: 0.85rem;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Playground Demo boxes and links */
+.demo-box p {
+  font-size: 0.85rem;
+  color: var(--grey-1);
+}
+
+.demo-preview {
+  gap: 10px;
+}
+
+.demo-footer {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.demo-footer a {
+  font-size: 0.85rem;
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.demo-placeholder-box {
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 8px 12px;
+  border-radius: 6px;
+  width: 100%;
+  border: 1px dashed var(--accent-color);
+  text-align: center;
+}
+
+/* Terminal Simulator layout */
+.terminal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.terminal-grid h4 {
+  margin: 0 0 0.5rem 0;
+}
+
+.terminal-grid p {
+  font-size: 0.9rem;
+  color: var(--grey-1);
+}
+
+.center-container {
+  text-align: center;
+  margin-bottom: 2.5rem;
 }

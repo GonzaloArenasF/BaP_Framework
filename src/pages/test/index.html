@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="{lang}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{page.test.head.meta.description}" />
+  <meta name="keywords" content="{page.test.head.meta.keywords}" />
+  <link rel="stylesheet" href="index.css" />
+  <script type="module" src="index.js"></script>
+  <title>{page.test.head.title}</title>
+</head>
+
+<body class="light-mode">
+  <header>
+    <bap-header></bap-header>
+  </header>
+
+  <main>
+    <aside class="docs-sidebar">
+      <nav>
+        <a href="/">{page.cross.sidebar.back}</a>
+        <a href="/pages/cdn/">{page.cross.sidebar.cdn}</a>
+        <a href="/pages/core/">{page.cross.sidebar.core}</a>
+        <a href="/pages/components/">{page.cross.sidebar.components}</a>
+        <a href="/pages/pages/">{page.cross.sidebar.pages}</a>
+        <a href="/pages/style/">{page.cross.sidebar.style}</a>
+        <a href="/pages/test/" class="active">{page.cross.sidebar.test}</a>
+      </nav>
+    </aside>
+
+    <article class="docs-content">
+      <h2>{page.test.body.title}</h2>
+      <p>{page.test.body.desc}</p>
+
+      <h3>{page.test.body.infraTitle}</h3>
+      <p>{page.test.body.infraDesc}</p>
+      <ul>
+        <li>{page.test.body.vitestLi}</li>
+        <li>{page.test.body.jsdomLi}</li>
+        <li>{page.test.body.setupLi}</li>
+      </ul>
+
+      <h3>{page.test.body.structureTitle}</h3>
+      <p>{page.test.body.structureDesc}</p>
+      <ul>
+        <li>{page.test.body.mocksLi}</li>
+        <li>{page.test.body.componentsLi}</li>
+        <li>{page.test.body.mainLi}</li>
+      </ul>
+
+      <h3>{page.test.body.cmdsTitle}</h3>
+      <pre><code># 1. Ejecutar las pruebas una única vez
+npm run test
+
+# 2. Ejecutar las pruebas en modo observador (Watch Mode)
+npm run test:watch
+
+# 3. Generar el reporte de cobertura de código (Coverage)
+npm run test:coverage</code></pre>
+
+      <div class="docs-callout">
+        <strong>{page.test.body.coverageTitle}</strong>
+        {page.test.body.coverageDesc}
+      </div>
+
+      <h3>{page.test.body.integrationTitle}</h3>
+      <ul>
+        <li>{page.test.body.vitestConfigLi}</li>
+        <li>{page.test.body.validatedCodeLi}</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <bap-footer></bap-footer>
+  </footer>
+</body>
+
+</html>

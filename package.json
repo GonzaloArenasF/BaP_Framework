@@ -1,13 +1,13 @@
 {
   "name": "bap-framework",
-  "version": "v2.3.4",
+  "version": "v2.3.5",
   "description": "BaP Framework",
   "main": "index.js",
   "scripts": {
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
-    "server": "http-server ./public -o",
+    "server": "http-server ./public -c-1 -o",
     "optimize": "ENV_FILE=.env.development gulp",
     "optimize:prod": "ENV_FILE=.env.production gulp",
     "deploy-prod": "npm run test && npm run optimize:prod && rm -rf .firebase && firebase deploy"

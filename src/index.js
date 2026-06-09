@@ -65,9 +65,9 @@ function triggerDemoDialog() {
   // Inyectar el cuerpo del modal
   dialogEl.innerHTML = `
     <p>Este diálogo flotante es un Custom Element del W3C cargado dinámicamente sobre la marcha.</p>
-    <div style="background: rgba(98, 174, 196, 0.1); border-left: 4px solid var(--accent-color); padding: 10px; border-radius: 4px; margin: 15px 0;">
+    <div class="bap-callout">
       <strong>Características Clave:</strong>
-      <ul style="margin: 5px 0 0 15px; padding: 0;">
+      <ul>
         <li>Fondo con desenfoque <em>backdrop-filter</em>.</li>
         <li>Bloqueo de scroll inteligente en el body principal.</li>
         <li>Decodificación asíncrona segura de enlaces Base64.</li>

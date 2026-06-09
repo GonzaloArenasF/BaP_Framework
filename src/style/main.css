@@ -130,11 +130,13 @@ ol li {
 
 /* Code Previews */
 code {
-  background-color: var(--grey-2);
-  color: var(--grey-1);
+  background-color: var(--code-bg-color);
+  color: var(--code-font-color);
+  border: 1px solid var(--code-border-color);
+  border-radius: 4px;
+  padding: 0.15rem 0.35rem;
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.85rem;
-  padding: 0;
 }
 
 pre {
@@ -148,6 +150,7 @@ pre {
 pre code {
   background-color: transparent;
   color: var(--white);
+  border: none;
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.85rem;
   padding: 0;
@@ -201,4 +204,25 @@ nav.breadcrumbs a:last-child::after {
     width: 100dvw;
     z-index: -1;
   }
+}
+
+/* Divisor horizontal estándar */
+hr, .bap-divider {
+  border: 0;
+  border-top: 1px solid var(--divider-color);
+  margin: 2.5rem 0;
+}
+
+/* Caja de contenido destacado (Callout) */
+.bap-callout {
+  background: rgba(98, 174, 196, 0.1);
+  border-left: 4px solid var(--accent-color, #62aec4);
+  padding: 10px 15px;
+  border-radius: 4px;
+  margin: 15px 0;
+}
+
+.bap-callout ul {
+  margin: 5px 0 0 15px;
+  padding: 0;
 }

@@ -234,6 +234,29 @@ describe('router.js — sessionStartedControl', () => {
 
     consoleSpy.mockRestore();
   });
+
+  it('RTR-24: no lanza error y registra advertencia si la ruta es undefined', () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    
+    expect(() => {
+      sessionStartedControl(undefined, false);
+    }).not.toThrow();
+    
+    expect(consoleSpy).toHaveBeenCalledWith("sessionStartedControl: La ruta proporcionada no está definida.");
+    consoleSpy.mockRestore();
+  });
+
+  it('RTR-25: no lanza error y registra advertencia si la ruta no tiene propiedad validate', () => {
+    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+    const route = { pathname: '/no-validate' };
+    
+    expect(() => {
+      sessionStartedControl(route, false);
+    }).not.toThrow();
+    
+    expect(consoleSpy).toHaveBeenCalledWith("sessionStartedControl: La ruta no contiene configuración de validación (validate).", route);
+    consoleSpy.mockRestore();
+  });
 });
 
 // ═══════════════════════════════════════════════════════════════════════

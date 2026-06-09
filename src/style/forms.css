@@ -3,8 +3,13 @@ a.as-btn {
   background-color: var(--button-initial-bg-color);
   border: 1px solid var(--button-initial-border-color);
   border-radius: 6px;
+  box-sizing: border-box;
   color: var(--button-initial-font-color);
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   font-size: 1rem;
   font-weight: 400;
   padding: 0.5rem 1rem;
@@ -56,4 +61,13 @@ button.btn-3x,
 a.as-btn.btn-3x {
   border-radius: 10px;
   padding: 1.125rem 3rem;
+}
+
+/* SVG icon inside button/as-btn */
+button svg,
+a.as-btn svg {
+  fill: currentColor;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
 }

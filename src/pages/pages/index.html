@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="{lang}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{page.pages.head.meta.description}" />
+  <meta name="keywords" content="{page.pages.head.meta.keywords}" />
+  <link rel="stylesheet" href="index.css" />
+  <script type="module" src="index.js"></script>
+  <title>{page.pages.head.title}</title>
+</head>
+
+<body class="light-mode">
+  <header>
+    <bap-header></bap-header>
+  </header>
+
+  <main>
+    <aside class="docs-sidebar">
+      <nav>
+        <a href="/">{page.cross.sidebar.back}</a>
+        <a href="/pages/cdn/">{page.cross.sidebar.cdn}</a>
+        <a href="/pages/core/">{page.cross.sidebar.core}</a>
+        <a href="/pages/components/">{page.cross.sidebar.components}</a>
+        <a href="/pages/pages/" class="active">{page.cross.sidebar.pages}</a>
+        <a href="/pages/style/">{page.cross.sidebar.style}</a>
+        <a href="/pages/test/">{page.cross.sidebar.test}</a>
+      </nav>
+    </aside>
+
+    <article class="docs-content">
+      <h2>{page.pages.body.title}</h2>
+      <p>{page.pages.body.desc}</p>
+
+      <h3>{page.pages.body.ruleTitle}</h3>
+      <p>{page.pages.body.ruleDesc}</p>
+      <ul>
+        <li>{page.pages.body.pageFolder}</li>
+        <li>{page.pages.body.subpageFolder}</li>
+      </ul>
+
+      <div class="docs-callout warning">
+        <strong>{page.pages.body.i18nRuleTitle}</strong>
+        <p>{page.pages.body.i18nRuleDesc}</p>
+      </div>
+
+      <h3>{page.pages.body.structureTitle}</h3>
+      <p>{page.pages.body.structureDesc}</p>
+      <pre><code>./src/pages/mi-nueva-pagina/
+├── index.html   # Estructura e inyección de Custom Components
+├── index.js     # Script de bootstrap local (registra y arranca el core)
+└── index.css    # Hoja de estilos local (importa los estilos base y añade los locales)</code></pre>
+
+      <h3>{page.pages.body.configTitle}</h3>
+      <p>{page.pages.body.configDesc}</p>
+      <ul>
+        <li>{page.pages.body.routesLi}
+        <pre><code>"miNuevaPagina": {
+  "pathname": "/pages/mi-nueva-pagina/",
+  "component": null,
+  "navigation": "REDIRECT",
+  "validate": { "signIn": false }
+}</code></pre></li>
+        <li>{page.pages.body.analyticsLi}
+        <pre><code>"enterMiNuevaPagina": {
+  "type": "enter_page",
+  "name": "enter_mi_nueva_pagina",
+  "func": "mi_nueva_pagina",
+  "userType": "User"
+}</code></pre></li>
+      </ul>
+
+      <h3>{page.pages.body.resourcesTitle}</h3>
+      <p>{page.pages.body.resourcesDesc}</p>
+
+      <h4>{page.pages.body.cssTitle}</h4>
+      <p>{page.pages.body.cssDesc}</p>
+      <pre><code>@import url(../../style/main.css);
+
+/* Define aquí tus estilos específicos para esta página */
+.mi-clase-local {
+  border: 1px solid var(--accent-color);
+}</code></pre>
+
+      <h4>{page.pages.body.jsTitle}</h4>
+      <p>{page.pages.body.jsDesc}</p>
+      <pre><code>import { setCustomComponents } from "../../_components/customComponentsRegistration.js";
+import { sessionStartedControl } from "../../_main/router.js";
+import { routes } from "../../_main/routerPaths.js";
+import { applyI18n } from "../../_main/i18n.js";
+import { analytic } from "../../_main/analytics.js";
+
+// 1. Control de accesos y sesión local vinculada a su ruta
+sessionStartedControl(routes.miNuevaPagina, false);
+
+// 2. Registro dinámico de Custom Components de la raíz en el DOM
+setCustomComponents();
+
+// 3. Activación de traducción asíncrona
+applyI18n(() => {
+  // Procesamiento opcional de textos localizados
+});
+
+// 4. Registro de telemetría de entrada en la página al cargarse
+window.addEventListener("load", () => {
+  analytic.logEvent.enterMiNuevaPagina();
+});</code></pre>
+
+      <h4>{page.pages.body.htmlTitle}</h4>
+      <p>{page.pages.body.htmlDesc}</p>
+      <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="{lang}"&gt;
+&lt;head&gt;
+  &lt;link rel="stylesheet" href="index.css" /&gt;
+  &lt;script type="module" src="index.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body class="light-mode"&gt;
+  &lt;bap-header&gt;&lt;/bap-header&gt;
+  &lt;main&gt;
+    &lt;h1&gt;{page.mi_pagina.body.titulo}&lt;/h1&gt;
+    &lt;bap-spinner&gt;&lt;/bap-spinner&gt;
+  &lt;/main&gt;
+  &lt;bap-footer&gt;&lt;/bap-footer&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+      <h3>{page.pages.body.buildTitle}</h3>
+      <p>{page.pages.body.buildDesc}</p>
+    </article>
+  </main>
+
+  <footer>
+    <bap-footer></bap-footer>
+  </footer>
+</body>
+
+</html>

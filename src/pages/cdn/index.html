@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="{lang}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{page.cdn.head.meta.description}" />
+  <meta name="keywords" content="{page.cdn.head.meta.keywords}" />
+  <link rel="stylesheet" href="index.css" />
+  <script type="module" src="index.js"></script>
+  <title>{page.cdn.head.title}</title>
+</head>
+
+<body class="light-mode">
+  <header>
+    <bap-header></bap-header>
+  </header>
+
+  <main>
+    <aside class="docs-sidebar">
+      <nav>
+        <a href="/">{page.cross.sidebar.back}</a>
+        <a href="/pages/cdn/" class="active">{page.cross.sidebar.cdn}</a>
+        <a href="/pages/core/">{page.cross.sidebar.core}</a>
+        <a href="/pages/components/">{page.cross.sidebar.components}</a>
+        <a href="/pages/pages/">{page.cross.sidebar.pages}</a>
+        <a href="/pages/style/">{page.cross.sidebar.style}</a>
+        <a href="/pages/test/">{page.cross.sidebar.test}</a>
+      </nav>
+    </aside>
+
+    <article class="docs-content">
+      <h2>{page.cdn.body.title}</h2>
+      <p>{page.cdn.body.desc}</p>
+
+      <h3>{page.cdn.body.contextTitle}</h3>
+      <p>{page.cdn.body.contextDesc}</p>
+      <ul>
+        <li>{page.cdn.body.packageJson}</li>
+        <li>{page.cdn.body.firebaseJson}</li>
+      </ul>
+
+      <div class="docs-callout">
+        <strong>{page.cdn.body.warnTitle}</strong>
+        {page.cdn.body.warnDesc}
+      </div>
+
+      <h3>{page.cdn.body.multisiteTitle}</h3>
+      <p>{page.cdn.body.multisiteDesc}</p>
+
+      <h4>{page.cdn.body.step1Title}</h4>
+      <ul>
+        <li>{page.cdn.body.step1_1}</li>
+        <li>{page.cdn.body.step1_2}</li>
+        <li>{page.cdn.body.step1_3}</li>
+        <li>{page.cdn.body.step1_4}</li>
+        <li>{page.cdn.body.step1_5}</li>
+      </ul>
+
+      <h4>{page.cdn.body.step2Title}</h4>
+      <p>{page.cdn.body.step2Desc}</p>
+      <pre><code>{page.cdn.body.step2Cmd}</code></pre>
+      <p>{page.cdn.body.step2CmdDesc}</p>
+
+      <h3>{page.cdn.body.refsTitle}</h3>
+      <ul>
+        <li>{page.cdn.body.ref1}</li>
+        <li>{page.cdn.body.ref2}</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <bap-footer></bap-footer>
+  </footer>
+</body>
+
+</html>

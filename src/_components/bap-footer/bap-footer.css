@@ -143,3 +143,14 @@
     padding-top: 1.5rem;
   }
 }
+
+.bap-footer-links a svg,
+.bap-footer-contact a svg {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.bap-footer-links a svg {
+  fill: currentColor;
+}

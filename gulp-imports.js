@@ -101,13 +101,22 @@ const replaceDynamic = (content, i18nSlice, prefix = "") => {
 
 const applyI18n = {
   common: (content) => {
-    return content
+    let replaced = content
       .replace("{lang}", "es")
       .replaceAll("{ENV_URL}", ENV_URL)
       .replaceAll("{CDN_URL}", CDN_URL)
       .replaceAll("{head-app-name}", bapConfig.app.name)
       .replaceAll("{APP_NAME}", bapConfig.app.name)
       .replaceAll("{APP_VERSION}", bapConfig.app.version);
+
+    // Dynamic replacement of all fully-qualified i18n keys
+    const tokens = flattenObject(i18n, "");
+    for (const [key, value] of Object.entries(tokens)) {
+      if (typeof value === "string") {
+        replaced = replaced.replaceAll(`{${key}}`, value);
+      }
+    }
+    return replaced;
   },
   componentBapFooter: (content) => replaceDynamic(content, i18n.component.bapFooter, ""),
   componentBapHeader: (content) => replaceDynamic(content, i18n.component.bapHeader, ""),

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="{lang}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{page.style.head.meta.description}" />
+  <meta name="keywords" content="{page.style.head.meta.keywords}" />
+  <link rel="stylesheet" href="index.css" />
+  <script type="module" src="index.js"></script>
+  <title>{page.style.head.title}</title>
+</head>
+
+<body class="light-mode">
+  <header>
+    <bap-header></bap-header>
+  </header>
+
+  <main>
+    <aside class="docs-sidebar">
+      <nav>
+        <a href="/">{page.cross.sidebar.back}</a>
+        <a href="/pages/cdn/">{page.cross.sidebar.cdn}</a>
+        <a href="/pages/core/">{page.cross.sidebar.core}</a>
+        <a href="/pages/components/">{page.cross.sidebar.components}</a>
+        <a href="/pages/pages/">{page.cross.sidebar.pages}</a>
+        <a href="/pages/style/" class="active">{page.cross.sidebar.style}</a>
+        <a href="/pages/test/">{page.cross.sidebar.test}</a>
+      </nav>
+    </aside>
+
+    <article class="docs-content">
+      <h2>{page.style.body.title}</h2>
+      <p>{page.style.body.desc}</p>
+
+      <h3>{page.style.body.filesTitle}</h3>
+      
+      <h4>{page.style.body.colorsTitle}</h4>
+      <p>{page.style.body.colorsDesc}</p>
+      <ul>
+        <li>{page.style.body.lightModeLi}</li>
+        <li>{page.style.body.darkModeLi}</li>
+      </ul>
+      <p>{page.style.body.varsP}</p>
+      <pre><code>:root {
+  --accent-color: #62aec4; /* Turquesa/Cian Eléctrico */
+  --accent-color-hover: #4e9ab0;
+  --platinum-color: #eaece9; /* Gris Platino */
+}
+
+.light-mode {
+  --bg-color: #ffffff;
+  --font-color: #111825;
+}
+
+.dark-mode {
+  --bg-color: #111825;
+  --font-color: #eaece9;
+}</code></pre>
+
+      <h4>{page.style.body.typographyTitle}</h4>
+      <p>{page.style.body.typographyDesc}</p>
+      <ul>
+        <li>{page.style.body.spaceGroteskLi}</li>
+        <li>{page.style.body.plusJakartaLi}</li>
+      </ul>
+
+      <h4>{page.style.body.formsTitle}</h4>
+      <p>{page.style.body.formsDesc}</p>
+      <ul>
+        <li>{page.style.body.asBtnLi}</li>
+        <li>{page.style.body.primaryLi}</li>
+      </ul>
+
+      <h4>{page.style.body.titlesTitle}</h4>
+      <p>{page.style.body.titlesDesc}</p>
+
+      <h3>{page.style.body.rulesTitle}</h3>
+      <p>{page.style.body.rulesDesc}</p>
+      <div class="docs-callout">
+        <strong>{page.style.body.rule1Title}</strong>
+        <p>{page.style.body.rule1Desc}</p>
+      </div>
+      <div class="docs-callout">
+        <strong>{page.style.body.rule2Title}</strong>
+        <p>{page.style.body.rule2Desc}</p>
+      </div>
+      <div class="docs-callout warning">
+        <strong>{page.style.body.rule3Title}</strong>
+        <p>{page.style.body.rule3Desc}</p>
+      </div>
+
+      <h3>{page.style.body.integrationTitle}</h3>
+      <ul>
+        <li>{page.style.body.headerLi}</li>
+        <li>{page.style.body.gulpLi}</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <bap-footer></bap-footer>
+  </footer>
+</body>
+
+</html>
