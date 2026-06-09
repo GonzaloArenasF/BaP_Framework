@@ -83,6 +83,7 @@ Para mantener la consistencia multilingüe y un código fuente maquetado de form
 *   **Prohibición de Textos Hardcoded**: Ninguna página o subpágina del proyecto debe contener cadenas de texto estático directamente codificadas en sus archivos HTML.
 *   **Centralización en Diccionario**: Todos los textos descriptivos, títulos y metadatos SEO deben declararse bajo el diccionario estructurado [./src/_main/i18n/es-ES.js](./src/_main/i18n/es-ES.js).
 *   **Tokens en HTML**: En el maquetado HTML se referenciarán estos textos utilizando tokens formados por llaves (ej: `{page.mi_pagina.body.desc}`). El motor de compilación Gulp en conjunto con el cargador asíncrono se encargarán de inyectar y resolver estas traducciones.
+*   **Metadatos y SEO Obligatorios**: Toda página creada debe incluir el bloque estructurado de metadatos en su etiqueta `<head>` para la optimización de motores de búsqueda (SEO) y tarjetas de redes sociales (Open Graph y Twitter Cards). Las descripciones, palabras clave y títulos de estos tags deben enlazarse a tokens de traducción de i18n.
 
 ---
 

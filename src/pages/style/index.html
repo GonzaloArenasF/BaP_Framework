@@ -4,10 +4,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <meta name="description" content="{page.style.head.meta.description}" />
   <meta name="keywords" content="{page.style.head.meta.keywords}" />
+
+  <meta property="og:title" content="{page.style.head.meta.title}" />
+  <meta property="og:description" content="{page.style.head.meta.description}" />
+  <meta property="og:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
+  <meta property="og:url" content="{ENV_URL}/pages/style/" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{page.style.head.meta.title}" />
+  <meta name="twitter:description" content="{page.style.head.meta.description}" />
+  <meta name="twitter:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
+
+  <link rel="canonical" href="{ENV_URL}/pages/style/" />
   <link rel="stylesheet" href="index.css" />
-  <script type="module" src="index.js"></script>
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/site.webmanifest" />
+
+  <script type="module" src="index.js?v={APP_VERSION}"></script>
+
   <title>{page.style.head.title}</title>
 </head>
 

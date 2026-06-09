@@ -4,10 +4,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <meta name="description" content="{page.pages.head.meta.description}" />
   <meta name="keywords" content="{page.pages.head.meta.keywords}" />
+
+  <meta property="og:title" content="{page.pages.head.meta.title}" />
+  <meta property="og:description" content="{page.pages.head.meta.description}" />
+  <meta property="og:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
+  <meta property="og:url" content="{ENV_URL}/pages/pages/" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{page.pages.head.meta.title}" />
+  <meta name="twitter:description" content="{page.pages.head.meta.description}" />
+  <meta name="twitter:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
+
+  <link rel="canonical" href="{ENV_URL}/pages/pages/" />
   <link rel="stylesheet" href="index.css" />
-  <script type="module" src="index.js"></script>
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/site.webmanifest" />
+
+  <script type="module" src="index.js?v={APP_VERSION}"></script>
+
   <title>{page.pages.head.title}</title>
 </head>
 
@@ -112,8 +131,35 @@ window.addEventListener("load", () => {
       <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="{lang}"&gt;
 &lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;
+
+  &lt;meta name="description" content="{page.mi_pagina.head.meta.description}" /&gt;
+  &lt;meta name="keywords" content="{page.mi_pagina.head.meta.keywords}" /&gt;
+
+  &lt;!-- Open Graph --&gt;
+  &lt;meta property="og:title" content="{page.mi_pagina.head.meta.title}" /&gt;
+  &lt;meta property="og:description" content="{page.mi_pagina.head.meta.description}" /&gt;
+  &lt;meta property="og:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" /&gt;
+  &lt;meta property="og:url" content="{ENV_URL}/pages/mi-pagina/" /&gt;
+
+  &lt;!-- Twitter Card --&gt;
+  &lt;meta name="twitter:card" content="summary_large_image" /&gt;
+  &lt;meta name="twitter:title" content="{page.mi_pagina.head.meta.title}" /&gt;
+  &lt;meta name="twitter:description" content="{page.mi_pagina.head.meta.description}" /&gt;
+  &lt;meta name="twitter:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" /&gt;
+
+  &lt;!-- Canonical & Resources --&gt;
+  &lt;link rel="canonical" href="{ENV_URL}/pages/mi-pagina/" /&gt;
   &lt;link rel="stylesheet" href="index.css" /&gt;
-  &lt;script type="module" src="index.js"&gt;&lt;/script&gt;
+  &lt;link rel="icon" href="/assets/favicon.ico" type="image/x-icon" /&gt;
+  &lt;link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" /&gt;
+  &lt;link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" /&gt;
+  &lt;link rel="manifest" href="/assets/site.webmanifest" /&gt;
+
+  &lt;script type="module" src="index.js?v={APP_VERSION}"&gt;&lt;/script&gt;
+
+  &lt;title&gt;{page.mi_pagina.head.title}&lt;/title&gt;
 &lt;/head&gt;
 &lt;body class="light-mode"&gt;
   &lt;bap-header&gt;&lt;/bap-header&gt;

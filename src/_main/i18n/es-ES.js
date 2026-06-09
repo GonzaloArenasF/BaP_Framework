@@ -253,6 +253,7 @@ export const esES = {
       head: {
         title: "BaP Docs - CDN & Multisite Hosting",
         meta: {
+          title: "BaP Docs - CDN & Multisite Hosting",
           description: "Configuración y despliegue de recursos estáticos en una red CDN multisitio con Firebase Hosting.",
           keywords: "Firebase, CDN, Multisite, Hosting, Cloud, Despliegue, Web",
         }
@@ -287,6 +288,7 @@ export const esES = {
       head: {
         title: "BaP Docs - Core Engine",
         meta: {
+          title: "BaP Docs - Core Engine",
           description: "Especificaciones del motor lógico de BaP: enrutamiento, criptografía, internacionalización y sesión.",
           keywords: "Core, Javascript, Router, Cryptography, i18n, Analytics, Security",
         }
@@ -327,6 +329,7 @@ export const esES = {
       head: {
         title: "BaP Docs - Custom Components",
         meta: {
+          title: "BaP Docs - Custom Components",
           description: "Especificaciones técnicas y catálogo de Custom Components reutilizables de BaP Framework.",
           keywords: "Web Components, Custom Elements, HTML5, Shadow DOM, CSS, UI",
         }
@@ -390,6 +393,7 @@ export const esES = {
       head: {
         title: "BaP Docs - Pages & Subpages",
         meta: {
+          title: "BaP Docs - Pages & Subpages",
           description: "Metodología de estructuración de directorios, registro de rutas e internacionalización en BaP Framework.",
           keywords: "Pages, Subpages, Routing, i18n, Gulp, Compilation, Telemetry",
         }
@@ -427,6 +431,7 @@ export const esES = {
       head: {
         title: "BaP Docs - Design System",
         meta: {
+          title: "BaP Docs - Design System",
           description: "Especificaciones del sistema de diseño, guía tipográfica y reglas de arquitectura CSS en BaP Framework.",
           keywords: "Design, CSS, Colors, Typography, Forms, Stylesheet, Architecture",
         }
@@ -470,6 +475,7 @@ export const esES = {
       head: {
         title: "BaP Docs - Testing Suite",
         meta: {
+          title: "BaP Docs - Testing Suite",
           description: "Configuración de Vitest, emulación de JSDOM y guías de pruebas unitarias y de integración.",
           keywords: "Vitest, Testing, Unit testing, JSDOM, Coverage, Mocking, Firebase",
         }

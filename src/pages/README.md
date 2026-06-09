@@ -18,6 +18,8 @@ Para mantener el enrutamiento limpio y escalable, BaP Framework sigue una conven
    Cada página debe contar con un evento de entrada tipo `enter_page` registrado bajo `analytics.customEvents` en [./bap.config.json](./bap.config.json), el cual debe importarse y dispararse en el archivo `index.js` al cargarse la ventana (`window.onload`).
 5. **Uso Obligatorio de i18n para Textos Estáticos**: 
    Todas las páginas y subpáginas que contengan textos estáticos deben configurarse utilizando el sistema de traducción e internacionalización (i18n). No se permiten textos crudos o hardcoded en el HTML. El contenido estático debe declararse en el archivo central [./src/_main/i18n/es-ES.js](./src/_main/i18n/es-ES.js) y vincularse con tokens `{page.nombre_pagina.cuerpo.item}`.
+6. **Inclusión Obligatoria de Metadatos y SEO**: 
+   Cada página debe incluir la sección completa de metadatos SEO en su cabecera `<head>` (descripción, palabras clave, canonical URL, favicons y las etiquetas para redes sociales Open Graph y Twitter Cards) utilizando tokens de i18n para sus textos.
 
 ---
 
