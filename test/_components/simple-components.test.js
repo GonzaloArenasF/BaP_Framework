@@ -44,7 +44,7 @@ describe('Componentes Simples', () => {
       else if (url.includes('bap-chip')) html = htmlMocks.chip;
       else if (url.includes('bap-spinner')) html = htmlMocks.spinner;
       else if (url.includes('bap-loading-state')) html = htmlMocks.loadingState;
-      return Promise.resolve({ text: () => Promise.resolve(html) });
+      return Promise.resolve({ ok: true, status: 200, text: () => Promise.resolve(html) });
     });
   });
 

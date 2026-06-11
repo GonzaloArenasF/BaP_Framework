@@ -29,6 +29,11 @@ export default defineConfig({
         path.resolve('./test/mocks/firebase-analytics.mock.js'),
       'https://www.gstatic.com/firebasejs/10.11.0/firebase-app-check.js':
         path.resolve('./test/mocks/firebase-app-check.mock.js'),
+      // DOMPurify: en el navegador se carga desde CDN (framework ligero).
+      // En Vitest/Node.js, https:// no está soportado por el ESM loader,
+      // por lo que se redirige al mock local que simula sanitize().
+      'https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.es.mjs':
+        path.resolve('./test/mocks/dompurify.mock.js'),
     },
   },
 });

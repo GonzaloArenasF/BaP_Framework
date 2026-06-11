@@ -51,6 +51,40 @@ if (typeof globalThis.sessionStorage === 'undefined' || typeof globalThis.sessio
   });
 }
 
+// ── fetch mock global ───────────────────────────────────────────────────────
+// NEW-06 añadió validación de response.ok en todos los fetch() del framework.
+// Este mock global asegura que los tests que no necesitan mockear fetch explícitamente
+// reciban una respuesta con ok:true por defecto, evitando fallos en el .then() chain.
+// Tests individuales pueden sobreescribir con vi.fn() según su necesidad.
+global.fetch = vi.fn(() =>
+  Promise.resolve({
+    ok: true,
+    status: 200,
+    text: () => Promise.resolve(''),
+    json: () => Promise.resolve({}),
+  })
+);
+
+// ── matchMedia mock global ──────────────────────────────────────────────────
+// NEW-09 usa window.matchMedia('(pointer: coarse)') como señal primaria de isMobile().
+// jsdom no implementa matchMedia, por lo que se provee un mock que simula dispositivo desktop.
+if (typeof globalThis.matchMedia === 'undefined') {
+  Object.defineProperty(globalThis, 'matchMedia', {
+    writable: true,
+    configurable: true,
+    value: vi.fn((query) => ({
+      matches: false, // Simula dispositivo desktop por defecto
+      media: query,
+      onchange: null,
+      addListener: vi.fn(),
+      removeListener: vi.fn(),
+      addEventListener: vi.fn(),
+      removeEventListener: vi.fn(),
+      dispatchEvent: vi.fn(),
+    })),
+  });
+}
+
 // ── Limpieza entre tests ─────────────────────────────────────────────────
 beforeEach(() => {
   // Limpiar el DOM

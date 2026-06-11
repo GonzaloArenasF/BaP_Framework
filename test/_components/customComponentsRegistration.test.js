@@ -96,6 +96,8 @@ describe('customComponentsRegistration.js — createCustomComponent', () => {
     const mockHtml = '<p>Template {id}</p>';
     global.fetch = vi.fn(() =>
       Promise.resolve({
+        ok: true,
+        status: 200,
         text: () => Promise.resolve(mockHtml)
       })
     );

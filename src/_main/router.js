@@ -15,15 +15,17 @@ const routerI18n = getI18nContent('page', 'cross');
 /**
  * Convierte un objeto de parámetros en un string de consulta (Query String).
  * 
+ * NEW-10: Se usa encodeURIComponent() en clave y valor para prevenir inyección de
+ * caracteres especiales (&, =, #, %) que romperían el formato del query string
+ * o podrían ser usados para falsificar parámetros adicionales.
+ *
  * @param {Object} params - Objeto clave-valor de parámetros.
  * @returns {string} String codificado tipo "clave1=valor1&clave2=valor2".
  */
 const paramsToQueryParams = (params) => {
-  let arrayQueryParams = [];
-  for (const name of Object.keys(params)) {
-    arrayQueryParams.push(`${name}=${params[name]}`);
-  }
-  return arrayQueryParams.join("&");
+  return Object.keys(params)
+    .map((name) => `${encodeURIComponent(name)}=${encodeURIComponent(params[name])}`)
+    .join("&");
 };
 
 /**
@@ -169,6 +171,12 @@ export function getQueryParams() {
   return params;
 }
 
+// NEW-08: Referencia al unsubscribe del listener activo de onAuthStateChanged.
+// Se mantiene a nivel de módulo para poder cancelar el listener anterior antes de registrar uno nuevo,
+// evitando la acumulación de listeners activos si sessionStartedControl se llama múltiples veces
+// (ej: navegación dinámica sin recarga de página).
+let _unsubscribeAuthListener = null;
+
 /**
  * Controla y vigila el acceso a páginas con inicio de sesión validado.
  * Si Firebase está inactivo, realiza un bypass permitiendo el flujo del usuario.
@@ -188,7 +196,14 @@ export function sessionStartedControl(route, initSession, redirectionCallbackOnN
   }
   if (route.validate.signIn) {
     if (CONSTANT.FIREBASE_AVAILABLE) {
-      userSession.onAuthStateChanged(async (user) => {
+      // NEW-08: Cancelar el listener anterior antes de registrar uno nuevo.
+      // onAuthStateChanged() devuelve una función unsubscribe. Sin llamarla,
+      // cada invocación de sessionStartedControl acumula un listener adicional
+      // que sigue ejecutándose incluso después de que la vista ha cambiado.
+      if (typeof _unsubscribeAuthListener === "function") {
+        _unsubscribeAuthListener();
+      }
+      _unsubscribeAuthListener = userSession.onAuthStateChanged(async (user) => {
         if (!user) {
           const redirect = !redirectionCallbackOnNoSession
             ? () => goTo(routes.landing)

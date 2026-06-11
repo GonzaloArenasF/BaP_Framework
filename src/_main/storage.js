@@ -340,12 +340,24 @@ export const getFromStorage = ({ storageType, item, callbackOnSuccess, callBackO
   switch (storageType) {
     case CONSTANT.STORAGE.SOURCE.LOCAL:
       value = localStorage.getItem(item);
-      secretKey ? (value = decryptData(value, secretKey)) : null;
+      if (secretKey) {
+        console.warn(
+          "⚠️ [getFromStorage] `secretKey` aplica decodificación Base64 (formato visual). " +
+          "NO es descifrado criptográfico seguro. Para cifrado AES-GCM usa `getFromStorageAsync` con secretKey."
+        );
+        value = decryptData(value, secretKey);
+      }
       return value ? JSON.parse(value) : null;
       break;
     case CONSTANT.STORAGE.SOURCE.SESSION:
       value = sessionStorage.getItem(item);
-      secretKey ? (value = decryptData(value, secretKey)) : null;
+      if (secretKey) {
+        console.warn(
+          "⚠️ [getFromStorage] `secretKey` aplica decodificación Base64 (formato visual). " +
+          "NO es descifrado criptográfico seguro. Para cifrado AES-GCM usa `getFromStorageAsync` con secretKey."
+        );
+        value = decryptData(value, secretKey);
+      }
       return value ? JSON.parse(value) : null;
       break;
     case CONSTANT.STORAGE.SOURCE.DB:
@@ -384,10 +396,22 @@ export const setToStorage = ({ storageType, item, value, callbackOnSuccess, call
   switch (storageType) {
     case CONSTANT.STORAGE.SOURCE.LOCAL:
       const localData = JSON.stringify(value);
+      if (secretKey) {
+        console.warn(
+          "⚠️ [setToStorage] `secretKey` aplica codificación Base64 (formato visual). " +
+          "NO es cifrado criptográfico seguro. Para cifrado AES-GCM usa `setToStorageAsync` con secretKey."
+        );
+      }
       localStorage.setItem(item, secretKey ? encryptData(localData, secretKey) : localData);
       break;
     case CONSTANT.STORAGE.SOURCE.SESSION:
       const sessionData = JSON.stringify(value);
+      if (secretKey) {
+        console.warn(
+          "⚠️ [setToStorage] `secretKey` aplica codificación Base64 (formato visual). " +
+          "NO es cifrado criptográfico seguro. Para cifrado AES-GCM usa `setToStorageAsync` con secretKey."
+        );
+      }
       sessionStorage.setItem(item, secretKey ? encryptData(sessionData, secretKey) : sessionData);
       break;
     case CONSTANT.STORAGE.SOURCE.DB:
@@ -427,10 +451,22 @@ export const updateStorage = ({ storageType, item, value, callbackOnSuccess, cal
   switch (storageType) {
     case CONSTANT.STORAGE.SOURCE.LOCAL:
       const localData = JSON.stringify(value);
+      if (secretKey) {
+        console.warn(
+          "⚠️ [updateStorage] `secretKey` aplica codificación Base64 (formato visual). " +
+          "NO es cifrado criptográfico seguro. Para cifrado AES-GCM usa `updateStorageAsync` con secretKey."
+        );
+      }
       localStorage.setItem(item, secretKey ? encryptData(localData, secretKey) : localData);
       break;
     case CONSTANT.STORAGE.SOURCE.SESSION:
       const sessionData = JSON.stringify(value);
+      if (secretKey) {
+        console.warn(
+          "⚠️ [updateStorage] `secretKey` aplica codificación Base64 (formato visual). " +
+          "NO es cifrado criptográfico seguro. Para cifrado AES-GCM usa `updateStorageAsync` con secretKey."
+        );
+      }
       sessionStorage.setItem(item, secretKey ? encryptData(sessionData, secretKey) : sessionData);
       break;
     case CONSTANT.STORAGE.SOURCE.DB:

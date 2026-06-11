@@ -10,6 +10,19 @@ import { createCustomComponent } from "../customComponentsRegistration.js";
 
 const bapHeaderI18N = getI18nContent("component", "bapHeader");
 
+/**
+ * NEW-03: Valida el modo de color contra una lista de valores permitidos (allowlist).
+ * Si el valor no pertenece a la lista, lo normaliza a "light" para evitar
+ * HTML Attribute Injection en la plantilla del componente.
+ *
+ * @param {string|null} value - Valor del atributo `color-mode`.
+ * @returns {"light"|"dark"} Modo válido garantizado.
+ */
+const ALLOWED_COLOR_MODES = ["light", "dark"];
+function sanitizeColorMode(value) {
+  return ALLOWED_COLOR_MODES.includes(value) ? value : "light";
+}
+
 function preRender(html, props) {
   return html
     .replaceAll("{color-mode}", props.colorMode)
@@ -57,7 +70,9 @@ function postRender(props) {
     }
 
     // Restaurar la preferencia guardada al iniciar (o "light" por defecto)
-    const savedMode = localStorage.getItem("bap-color-mode") || "light";
+    // NEW-03: sanitizeColorMode garantiza que solo "light" o "dark" puedan aplicarse,
+    // incluso si el valor en localStorage fue manipulado externamente.
+    const savedMode = sanitizeColorMode(localStorage.getItem("bap-color-mode")) || "light";
     applyColorMode(savedMode);
 
     // Escuchar clics en los botones Light / Dark
@@ -73,7 +88,9 @@ export class BapHeader extends HTMLElement {
       hideActions: typeof this.getAttribute("hide-actions") == "string",
       showAdminActions: typeof this.getAttribute("show-admin-actions") == "string",
       isAdminUser: typeof this.getAttribute("is-admin-user") == "string",
-      colorMode: this.hasAttribute("color-mode") ? this.getAttribute("color-mode") : "light",
+      // NEW-03: sanitizeColorMode valida el valor contra una allowlist ("light" | "dark").
+      // Previene HTML Attribute Injection si el atributo recibe un valor malicioso.
+      colorMode: sanitizeColorMode(this.getAttribute("color-mode")),
     };
 
     createCustomComponent(this, {

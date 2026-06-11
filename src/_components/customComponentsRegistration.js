@@ -54,13 +54,33 @@ export function createCustomComponent(element, { cssPath, htmlPath, htmlCode, pr
 
     // HTML
     if (htmlPath) {
-      fetch(htmlPath)
-        .then((response) => response.text())
+      // NEW-06: Fetch con AbortController (timeout 8s) y validación de response.ok.
+      // Sin esto, un servidor caído o respuesta HTTP 4xx/5xx se procesaría como HTML válido,
+      // inyectando la página de error del servidor en el componente.
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+      fetch(htmlPath, { signal: controller.signal })
+        .then((response) => {
+          clearTimeout(timeoutId);
+          if (!response.ok) {
+            throw new Error(`createCustomComponent(): Error HTTP ${response.status} al cargar ${htmlPath}`);
+          }
+          return response.text();
+        })
         .then((html) => {
           const template = document.createElement("template");
           template.innerHTML = preRender ? preRender(html, props) : html;
           element.parentNode ? element.parentNode.appendChild(template.content.cloneNode(true)) : null;
           element.remove();
+        })
+        .catch((err) => {
+          clearTimeout(timeoutId);
+          if (err.name === "AbortError") {
+            console.error(`createCustomComponent(): Timeout (8s) al cargar ${htmlPath}`);
+          } else {
+            console.error(err.message || err);
+          }
         })
         .finally(() => {
           postRender ? postRender(props) : null;
