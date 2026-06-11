@@ -23,6 +23,11 @@ El componente `<bap-notification>` maneja alertas dinámicas e informativas en p
 
 ---
 
+## Medidas de Seguridad y Sanitización
+
+1. **Prevención de XSS**: El contenido interno de la etiqueta (cuerpo del mensaje) es sanitizado estrictamente mediante `sanitizeHTML()` definido en [./src/_main/i18n.js](./src/_main/i18n.js) antes de inyectarse en el Shadow DOM. Esto asegura que la renderización dinámica de errores o notificaciones de API no pueda ejecutar scripts maliciosos.
+
+---
 ## Ejemplos de Uso
 
 ### Ejemplo 1: Alerta de Error Fija (HTML)

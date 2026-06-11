@@ -22,6 +22,11 @@ El componente `<bap-svg-image>` sirve como inyector de vectores SVG y administra
 
 ---
 
+## Medidas de Seguridad y Sanitización
+
+1. **Prevención de XSS**: El contenido XML extraído de `icons.js` es sanitizado mediante `sanitizeHTML()` definido en [./src/_main/i18n.js](./src/_main/i18n.js) antes de inyectarse en el Shadow DOM. Esto previene la inyección de vectores maliciosos (SVG XSS) con scripts incrustados.
+
+---
 ## Ejemplos de Uso
 
 ### Ejemplo 1: Declaración en HTML de Iconos con Diferentes Tamaños

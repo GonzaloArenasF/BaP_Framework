@@ -24,6 +24,12 @@ El componente orquesta la apariencia global de la aplicación a través de la fu
 
 ---
 
+## Medidas de Seguridad y Sanitización
+
+1. **Validación de Entradas (Allowlist)**: El atributo `color-mode` es validado de forma estricta contra una lista blanca (`["light", "dark"]`). Si recibe un valor manipulado, revierte automáticamente a `"light"`. Esto previene inyecciones de HTML (HTML Attribute Injection) que intenten alterar las clases del componente o inyectar scripts en la plantilla.
+
+---
+
 ## Ejemplos de Uso
 
 ### Ejemplo 1: Declaración en HTML para Usuario Administrador
