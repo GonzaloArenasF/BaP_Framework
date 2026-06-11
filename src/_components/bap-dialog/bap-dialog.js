@@ -16,16 +16,62 @@ import { sanitizeHTML } from "../../_main/i18n.js";
  * @param {Object} props - Propiedades leídas de la instancia.
  * @returns {string} Plantilla HTML completada.
  */
+/**
+ * NEW-04: Valida que la URL de una imagen use únicamente esquemas seguros.
+ * Previene HTML Attribute Injection en los atributos src de los <img> generados
+ * si el atributo image-* recibiera una URL con esquema `javascript:` o `data:`.
+ *
+ * Se aceptan: https://, http://, rutas relativas, y anclas (#).
+ * Se rechazan: javascript:, data:, vbscript:, y cualquier otro esquema desconocido.
+ *
+ * @param {string|null} url - URL a validar.
+ * @returns {boolean} true si la URL es segura para usar en src.
+ */
+function isSafeImageUrl(url) {
+  if (!url) return false;
+  const lower = url.trim().toLowerCase();
+  // Esquemas explícitamente seguros
+  if (lower.startsWith("https://") || lower.startsWith("http://")) return true;
+  // Rutas relativas (sin esquema) y anclas
+  if (!lower.includes(":") && !lower.startsWith("//")) return true;
+  // Cualquier otro esquema (javascript:, data:, vbscript:, blob:, etc.) → rechazado
+  return false;
+}
+
+/**
+ * Pre-renderiza la plantilla del diálogo inyectando los títulos, imágenes y contenido dinámico.
+ * 
+ * @param {string} html - Plantilla HTML del componente.
+ * @param {Object} props - Propiedades leídas de la instancia.
+ * @returns {string} Plantilla HTML completada.
+ */
 function preRender(html, props) {
   let result = html;
   
   // Reemplazar identificador único
   result = result.replaceAll("{dialog-id}", props.id);
   
-  // Formatear imágenes de encabezado y detalle
-  const leftImg = props.imageHeaderLeft ? `<img src="${props.imageHeaderLeft}" alt="Encabezado Izquierdo" />` : "";
-  const rightImg = props.imageHeaderRight ? `<img src="${props.imageHeaderRight}" alt="Encabezado Derecho" />` : "";
-  const detailImg = props.imageDetail ? `<img class="bap-dialog-detail-img" src="${props.imageDetail}" alt="Detalle" />` : "";
+  // NEW-04: Validar el esquema de las URLs de imagen antes de inyectarlas en src.
+  // Bloquea javascript:, data:, vbscript: y cualquier esquema no estándar.
+  const leftImg = isSafeImageUrl(props.imageHeaderLeft)
+    ? `<img src="${props.imageHeaderLeft}" alt="Encabezado Izquierdo" />`
+    : "";
+  const rightImg = isSafeImageUrl(props.imageHeaderRight)
+    ? `<img src="${props.imageHeaderRight}" alt="Encabezado Derecho" />`
+    : "";
+  const detailImg = isSafeImageUrl(props.imageDetail)
+    ? `<img class="bap-dialog-detail-img" src="${props.imageDetail}" alt="Detalle" />`
+    : "";
+
+  if (props.imageHeaderLeft && !isSafeImageUrl(props.imageHeaderLeft)) {
+    console.warn("bap-dialog: Bloqueada imagen de encabezado izquierdo con URL insegura:", props.imageHeaderLeft);
+  }
+  if (props.imageHeaderRight && !isSafeImageUrl(props.imageHeaderRight)) {
+    console.warn("bap-dialog: Bloqueada imagen de encabezado derecho con URL insegura:", props.imageHeaderRight);
+  }
+  if (props.imageDetail && !isSafeImageUrl(props.imageDetail)) {
+    console.warn("bap-dialog: Bloqueada imagen de detalle con URL insegura:", props.imageDetail);
+  }
   
   // Formatear títulos sanitizados
   const titleTopText = props.titleTop ? sanitizeHTML(props.titleTop) : "";
@@ -89,6 +135,7 @@ function preRender(html, props) {
   
   return result;
 }
+
 
 /**
  * Conecta los eventos de interactividad (cierre, scroll) tras inyectar el componente en el DOM.

@@ -220,9 +220,11 @@ describe('util.js — isCSSIncluded', () => {
 
 describe('util.js — isMobile', () => {
   let originalUserAgent;
+  let originalMatchMedia;
 
   beforeEach(() => {
     originalUserAgent = navigator.userAgent;
+    originalMatchMedia = globalThis.matchMedia;
   });
 
   afterEach(() => {
@@ -230,12 +232,26 @@ describe('util.js — isMobile', () => {
       value: originalUserAgent,
       configurable: true
     });
+    // Restaurar matchMedia al mock global de desktop (matches:false)
+    Object.defineProperty(globalThis, 'matchMedia', {
+      writable: true,
+      configurable: true,
+      value: originalMatchMedia,
+    });
   });
 
   it('UTIL-22: retorna true para un User-Agent móvil', () => {
+    // NEW-09: isMobile() ahora usa matchMedia('(pointer: coarse)') como señal primaria.
+    // El userAgent sigue configurado para contexto pero matchMedia es quien determina el resultado.
     Object.defineProperty(navigator, 'userAgent', {
       value: 'Mozilla/5.0 (iPhone; CPU iPhone OS 10_3 like Mac OS X) Mobile/14E5239e',
       configurable: true
+    });
+    // Simular pantalla táctil (pointer: coarse) → mobile = true
+    Object.defineProperty(globalThis, 'matchMedia', {
+      writable: true,
+      configurable: true,
+      value: vi.fn(() => ({ matches: true })),
     });
     expect(isMobile()).toBe(true);
   });

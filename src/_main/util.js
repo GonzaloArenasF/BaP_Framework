@@ -110,10 +110,27 @@ export const isCSSIncluded = (href) => {
 };
 
 /**
- * Detect if user device is mobile
+ * Detecta si el dispositivo del usuario es móvil.
  *
- * @returns boolean
+ * NEW-09: Se usa `matchMedia("(pointer: coarse)")` como señal primaria porque refleja
+ * una capacidad física real del hardware (pantalla táctil sin puntero fino) y no puede
+ * ser falsificada desde JavaScript en el mismo contexto de ejecución.
+ *
+ * El `userAgent` se mantiene como fallback para entornos sin API de media queries
+ * (SSR, Node.js, contextos headless). En el navegador, `userAgent` es falsificable
+ * por el usuario final o herramientas de desarrollo, por lo que NO debe usarse para
+ * decisiones de seguridad — solo para adaptaciones visuales y de UX.
+ *
+ * ⚠️  LIMITACIÓN: Ninguna señal client-side es 100% infalible. No usar `isMobile()`
+ *     para validaciones de seguridad o control de acceso; solo para adaptar la UI.
+ *
+ * @returns {boolean} true si el dispositivo se considera móvil.
  */
 export function isMobile() {
+  // Señal primaria: pointer media query (no falsificable via userAgent)
+  if (typeof window !== "undefined" && typeof window.matchMedia === "function") {
+    return window.matchMedia("(pointer: coarse)").matches;
+  }
+  // Fallback para entornos sin matchMedia (SSR, Node, headless)
   return /Mobi|Android/i.test(navigator.userAgent);
 }

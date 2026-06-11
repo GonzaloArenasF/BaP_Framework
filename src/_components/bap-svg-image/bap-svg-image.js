@@ -1,11 +1,20 @@
 import { isMobile } from "../../_main/util.js";
 import { icons, iconSizes } from "./icons.js";
+// sanitizeHTML usa DOMPurify (allowlist) para neutralizar cualquier contenido SVG malicioso
+// antes de inyectarlo en el innerHTML. Aunque icons.js es estático y controlado por el desarrollador,
+// esta capa de defensa protege ante extensiones futuras del mapa de iconos desde fuentes externas.
+import { sanitizeHTML } from "../../_main/i18n.js";
 
 /**
  * CUSTOM COMPONENT
  * Name: bap-svg-image
  *
  * SVG images
+ *
+ * ⚠️  SEGURIDAD: El mapa de iconos `icons.js` debe contener ÚNICAMENTE contenido SVG estático
+ *     controlado por el desarrollador del framework (paths, grupos, clipPaths, etc.).
+ *     NO debe cargarse contenido SVG desde fuentes externas, Firebase RTDB, o input de usuario
+ *     sin sanitización previa, ya que SVG puede contener event handlers y scripts ejecutables.
  */
 
 const images = {
@@ -44,7 +53,11 @@ export class BapSvgImage extends HTMLElement {
         throw new Error(`La imagen solicitada no existe: [${type}] ${name}`);
       }
 
-      // Inyección limpia en el innerHTML en lugar de outerHTML
+      // NEW-02: Sanitizar el contenido SVG con DOMPurify antes de inyectarlo.
+      // Defensa en profundidad: protege ante extensiones futuras del mapa de iconos
+      // que pudieran incluir contenido SVG de fuentes no controladas.
+      const safeSvgContent = sanitizeHTML(images[type][name]);
+
       this.innerHTML = `
         <figure style="width:${sizes[type][size].px}px; height:${sizes[type][size].px}px; display: flex; justify-content: center; align-items: center;">
           <svg 
@@ -55,7 +68,7 @@ export class BapSvgImage extends HTMLElement {
             xmlns="http://www.w3.org/2000/svg" 
             style="transform: scale(${sizes[type][size].scale});"
           >
-            ${images[type][name]}
+            ${safeSvgContent}
           </svg>
         </figure>
       `;

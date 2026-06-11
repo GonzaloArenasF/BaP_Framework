@@ -6,6 +6,9 @@
  * con diferentes severidades (info, warning, error).
  */
 import { ENV_URL, CONSTANT } from "../../_main/constants.js";
+// sanitizeHTML usa DOMPurify (allowlist) para neutralizar cualquier contenido HTML malicioso
+// que pudiera estar presente en el innerHTML del host antes de inyectarlo en el template.
+import { sanitizeHTML } from "../../_main/i18n.js";
 
 const componentPaths = {
   css: ENV_URL + "/_components/bap-notification/bap-notification.css",
@@ -60,17 +63,39 @@ function createBapNotification(element) {
   shadow.appendChild(link);
 
   // Archivo HTML
-  fetch(componentPaths.html)
-    .then((response) => response.text())
+  // NEW-06: Fetch con AbortController (timeout 8s) y validación de response.ok.
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+  fetch(componentPaths.html, { signal: controller.signal })
+    .then((response) => {
+      clearTimeout(timeoutId);
+      if (!response.ok) {
+        throw new Error(`bap-notification: Error HTTP ${response.status} al cargar la plantilla`);
+      }
+      return response.text();
+    })
     .then((html) => {
       const template = document.createElement("template");
+      // NEW-01: Sanitizar el innerHTML del host con DOMPurify antes de inyectarlo en la plantilla.
+      // Aunque bapNotify() asigna el mensaje con textContent (seguro), el componente puede ser
+      // instanciado directamente con contenido HTML arbitrario en su interior.
+      const safeMessage = sanitizeHTML(element.innerHTML);
       template.innerHTML = setConfiguration(
         element.attributes.type ? element.attributes.type.value : null,
         element.attributes.severity ? element.attributes.severity.value : null,
-        element.innerHTML,
+        safeMessage,
         html
       );
       shadow.appendChild(template.content.cloneNode(true));
+    })
+    .catch((err) => {
+      clearTimeout(timeoutId);
+      if (err.name === "AbortError") {
+        console.error("bap-notification: Timeout (8s) al cargar la plantilla HTML");
+      } else {
+        console.error(err.message || err);
+      }
     })
     .finally(() => {
       const notificationElement = shadow.getElementById("BapNotification");
@@ -88,6 +113,7 @@ function createBapNotification(element) {
         }
       }
     });
+
 }
 
 export class BapNotification extends HTMLElement {

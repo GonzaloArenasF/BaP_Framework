@@ -26,6 +26,8 @@ describe('bap-notification.js — Web Component', () => {
     // Mockear fetch para la plantilla HTML
     global.fetch = vi.fn(() =>
       Promise.resolve({
+        ok: true,
+        status: 200,
         text: () => Promise.resolve(mockHtml)
       })
     );
