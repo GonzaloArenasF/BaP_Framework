@@ -251,7 +251,26 @@ export const esES = {
         i18nTitle: "Internacionalización y Diccionarios",
         i18nDescText: "La carpeta <code>./src/_main/i18n/</code> contiene los archivos de traducción. Las subpáginas o componentes pueden obtener las claves asíncronas llamando a <code>getI18nContent()</code>. La estructura del diccionario base se puede consultar en <code>./src/_main/i18n/es-ES.js</code>.",
         bypassTitle: "🔒 Regla de Bypass Local (Bypass de Seguridad):",
-        bypassDesc: "Si <code>CONSTANT.FIREBASE_AVAILABLE</code> es <code>false</code> en tu archivo de entorno local <code>.env</code>, el enrutador omitirá todas las validaciones de listas blancas e inicio de sesión para agilizar el desarrollo de vistas locales."
+        bypassDesc: "Si <code>CONSTANT.FIREBASE_AVAILABLE</code> es <code>false</code> en tu archivo de entorno local <code>.env</code>, el enrutador omitirá todas las validaciones de listas blancas e inicio de sesión para agilizar el desarrollo de vistas locales.",
+        rtdbSecurityTitle: "Seguridad: Reglas recomendadas para Realtime Database",
+        rtdbSecurityDesc: "La validación de whitelist y los <em>guards</em> de ruta se ejecutan en el cliente, por lo que son una capa de UX y <strong>no</strong> constituyen la frontera de seguridad real. La autorización efectiva depende de las <strong>Reglas de Seguridad de Firebase</strong> que configures en tu propio proyecto. BaP nunca despliega ni sobrescribe las reglas de tu proyecto.",
+        rtdbRulesNoteTitle: "⚠️ Plantilla recomendativa (no se despliega automáticamente):",
+        rtdbRulesNote: "Es una base <em>deny-by-default</em> de referencia. Adáptala a tu modelo de datos y publícala tú mismo en la consola de Firebase. La seguridad de tus datos depende de estas reglas, no de la validación client-side.",
+        rtdbRulesExample: `<pre><code>{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "allowed_users": {
+      "$userKey": {
+        ".read": "auth != null",
+        ".write": false
+      }
+    }
+  }
+}</code></pre>`,
+        bypassProdNote: "Para que este bypass <strong>no llegue accidentalmente a producción</strong>, existen dos controles: la <strong>validación de compilación</strong> (que aborta el build si hay credenciales pero <code>FIREBASE_AVAILABLE</code> no es <code>\"true\"</code>) y la <strong>autodetección de hostname</strong> (que habilita Firebase automáticamente en un host público con credenciales). El bypass solo persiste en desarrollo local o en modo sitio estático sin Firebase.",
+        mvpScopeTitle: "🎯 Alcance: prototipos y MVP",
+        mvpScopeNote: "BaP Framework está diseñado para prototipos y MVP, <strong>no como una solución de seguridad definitiva</strong>. El bypass afecta la navegación de vistas, no el acceso a datos (protegido por las Reglas de Seguridad). Quien lo lleve a producción asume el riesgo y es responsable de endurecer su propia infraestructura (Firebase Auth, App Check y Reglas de Seguridad)."
       }
     },
     components: {

@@ -4,6 +4,9 @@ node_modules/
 # Build / distribución (descomentar si no se quiere versionar el bundle)
 public/
 
+# Caché de despliegue de Firebase Hosting (SEC-12: no versionar artefactos de deploy)
+.firebase/
+
 # Test
 coverage/
 

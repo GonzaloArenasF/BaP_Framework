@@ -2,6 +2,9 @@
 
 Este directorio alberga los módulos lógicos principales de BaP Framework, actuando como el motor que orquesta el enrutamiento, la autenticación, la internacionalización, la persistencia criptográfica y la telemetría.
 
+> [!IMPORTANT]
+> **Antes de implementar `auth.js`/`router.js`:** la validación de whitelist y los *guards* de ruta se ejecutan en el **cliente** — son una capa de UX, **no** seguridad. La autorización real de los datos depende de las **Reglas de Seguridad de Firebase** que configures. Ver [Seguridad: Reglas recomendadas](#seguridad-reglas-recomendadas-para-realtime-database) (abajo) y [`SECURITY.md`](../../SECURITY.md).
+
 ## Contexto de los Archivos
 
 Los archivos en `./src/_main/` componen la lógica de control del framework:
@@ -22,6 +25,44 @@ Los archivos en `./src/_main/` componen la lógica de control del framework:
 ## Sinergia con Subdirectorios
 
 - [./src/_main/i18n/](./src/_main/i18n/README.md): Almacena los diccionarios y traducciones específicas de idiomas de forma asíncrona, las cuales son consumidas por `i18n.js`.
+
+## Seguridad: Reglas recomendadas para Realtime Database
+
+> ⚠️ **Importante (responsabilidad del desarrollador que implementa BaP).** La validación de whitelist (`/allowed_users/`) y los *guards* de ruta de `auth.js`/`router.js` se ejecutan en el **cliente**: son una capa de UX/conveniencia y **no** constituyen la frontera de seguridad real. Un usuario puede eludir cualquier comprobación de JavaScript. La autorización efectiva de los datos depende **exclusivamente** de las **Reglas de Seguridad de Firebase** que configures en tu propio proyecto.
+
+BaP **no despliega ni sobrescribe** las reglas de tu proyecto (no se versiona ningún `database.rules.json` en el framework, precisamente para no pisar tu configuración). A continuación se ofrece una **plantilla recomendativa** *deny-by-default* como punto de partida; **adáptala a tu modelo de datos** y publícala tú mismo desde la consola de Firebase o tu propio `firebase.json`:
+
+```json
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "allowed_users": {
+      "$userKey": {
+        ".read": "auth != null",
+        ".write": false
+      }
+    }
+  }
+}
+```
+
+- `.read`/`.write` globales en `false`: nada es legible ni escribible salvo lo que se habilite explícitamente.
+- `allowed_users/$userKey`: legible solo por usuarios autenticados; escritura denegada desde el cliente (la whitelist se administra desde la consola/Admin SDK).
+- Endurece según tu caso: por ejemplo, limitar la lectura a la propia entrada del usuario, o validar el `uid`/`email` del token.
+
+> El inicio de sesión usa OAuth con Google (`signInWithPopup`); el *rate limiting* de autenticación lo gestiona Google/Firebase Auth a nivel de proyecto (por eso el framework ya no expone un contador `loginAttempts` propio, que sería eludible y solo daría una falsa expectativa de seguridad).
+
+### La "Regla de Oro" (bypass de seguridad)
+
+Cuando `CONSTANT.FIREBASE_AVAILABLE` es `false`, `auth.js` y `router.js` **omiten** las validaciones de sesión y whitelist (`isUserAuthorized()` devuelve `true`, los *guards* dejan pasar). Es un comportamiento **intencional** para agilizar el desarrollo local y habilitar un modo "sitio 100% estático sin Firebase".
+
+Para que este bypass **no llegue accidentalmente a producción**, existen dos controles:
+
+1. **Compilación (VUL-04, [./gulpfile.js](./gulpfile.js))**: `optimize:prod` aborta el build si se compila para producción con credenciales presentes pero `FIREBASE_AVAILABLE` ≠ `"true"`.
+2. **Runtime ([./src/_main/constants.js](./src/_main/constants.js))**: en un hostname no local con credenciales en el bundle, Firebase se habilita automáticamente, ignorando el `.env`. La detección de "host local" es una **heurística** (`localhost`, rangos privados `192.168.`, `10.`, `172.`); por diseño, cualquier caso ambiguo se resuelve hacia *habilitar* Firebase (lado seguro).
+
+> **Recordatorio de alcance:** BaP es para prototipos/MVP. El bypass afecta la navegación de **vistas**, no el acceso a **datos** (protegido por las Security Rules). Quien lo despliegue en producción asume el riesgo y debe configurar Firebase + reglas; el framework no sustituye una arquitectura de seguridad propia.
 
 ## Referencias Cruzadas e Integración
 
