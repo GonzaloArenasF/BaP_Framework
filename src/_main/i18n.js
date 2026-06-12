@@ -7,9 +7,12 @@
 import { CONSTANT, ENV_URL, CDN_URL, IS_PROD } from "./constants.js";
 import { esES } from "./i18n/es-ES.js";
 // DOMPurify: librería de sanitización HTML con allowlist exhaustiva (cubre SVG, data: URIs, encoding evasions).
-// Versión fijada explícitamente para evitar cambios disruptivos no controlados.
-// CDN: https://cdn.jsdelivr.net está incluido en la directiva script-src del CSP (firebase.json).
-import DOMPurify from "https://cdn.jsdelivr.net/npm/dompurify@3.1.7/dist/purify.es.mjs";
+// SEC-05: Se empaqueta localmente (vendored) desde node_modules/dompurify@3.1.7 en lugar de cargarlo
+// desde un CDN externo. Esto elimina el punto único de fallo de seguridad (un CDN comprometido o un MITM
+// podría servir una versión que no sanitiza, anulando toda la defensa XSS) y la dependencia de disponibilidad
+// de un tercero. Al servirse desde el mismo origen ('self'), ya no requiere SRI ni ampliar el CSP a jsDelivr.
+// La versión queda fijada por el archivo vendored y el lockfile de npm.
+import DOMPurify from "./vendor/purify.es.mjs";
 
 const lang = {
   es: esES,

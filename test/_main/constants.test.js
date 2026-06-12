@@ -62,7 +62,8 @@ describe('constants.js', () => {
     const { CONSTANT } = await import('../../src/_main/constants.js');
     expect(CONSTANT.AUTH.SIGNED_IN).toBe('AUTH_SIGNED_IN');
     expect(CONSTANT.AUTH.SIGNED_OUT).toBe('AUTH_SIGNED_OUT');
-    expect(CONSTANT.AUTH.LOGIN_ATTEMPTS).toBe(10);
+    // SEC-09 (NEW-05): LOGIN_ATTEMPTS eliminado (el rate limiting depende de Google/Firebase Auth).
+    expect(CONSTANT.AUTH.LOGIN_ATTEMPTS).toBeUndefined();
   });
 
   it('CONST-07: I18N.DEFAULT y SUPPORTED', async () => {

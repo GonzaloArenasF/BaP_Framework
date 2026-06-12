@@ -1,4 +1,4 @@
-# BaP Framework - v2.3.9
+# BaP Framework - v2.4.0
 
 Un framework minimalista y de alto rendimiento basado en **HTML, CSS y JavaScript Vanilla (puro)**. Diseñado bajo la filosofía de "cero frameworks externos y cero dependencias pesadas en el cliente", BaP permite prototipar ideas de manera extremadamente rápida y sencilla, proporcionando a su vez una arquitectura robusta, modular y altamente escalable para aplicaciones en producción.
 
@@ -19,7 +19,7 @@ BaP Framework está optimizado para integrarse de forma nativa con los servicios
 > 
 > ⚠️ Los archivos `./.env.*` (incluyendo `./.env.development` y `./.env.production`) están en `.gitignore` y **nunca deben subirse al repositorio**. El archivo `./.env.example` sirve como plantilla de referencia.
 > 
-> 🔒 **Autodetección de Seguridad**: En entornos públicos y de producción, el framework realiza una autodetección automática del entorno evaluando `window.location.hostname`. Si detecta un hostname no local y existen credenciales en el bundle, habilitará Firebase automáticamente para prevenir omisiones accidentales del bypass local.
+> 🔒 **Autodetección de Seguridad**: en un hostname no local con credenciales en el bundle, el framework habilita Firebase automáticamente para prevenir omisiones accidentales del bypass local. El modelo de seguridad completo está en [`SECURITY.md`](./SECURITY.md).
 
 ---
 
@@ -147,6 +147,19 @@ El script de optimización automatiza las siguientes tareas:
 > En macOS, el servicio nativo de **AirPlay Receiver** suele ocupar el puerto por defecto `8080`. Cuando levantas el servidor local (`npm run server`), el ejecutable redirigirá automáticamente el tráfico hacia el siguiente puerto libre disponible (como `8081` o `8082`).
 >
 > **Resolución Dinámica**: BaP Framework resuelve `ENV_URL` dinámicamente evaluando `window.location.origin` si se ejecuta dentro del navegador. Esto evita la colisión clásica de puertos (donde el navegador intenta descargar componentes en `8080` de manera estricta y falla con `net::ERR_CONNECTION_REFUSED`), permitiendo un desarrollo completamente libre de bloqueos.
+
+---
+
+## 🎯 Alcance y Modelo de Seguridad
+
+> [!IMPORTANT]
+> **BaP Framework está diseñado para prototipos y MVPs**, no como una solución de seguridad definitiva. Quien lo lleve a producción asume el riesgo y es responsable de endurecer su propia infraestructura (Firebase Auth, App Check y Reglas de Seguridad).
+
+Puntos esenciales — el modelo completo está en **[`SECURITY.md`](./SECURITY.md)**:
+
+- **Los *guards* de ruta son UX, no seguridad.** La autorización real de los datos depende de las **Reglas de Seguridad de Firebase** que tú configures ([plantilla recomendada](./src/_main/README.md)).
+- **La "Regla de Oro":** si `FIREBASE_AVAILABLE` es `false`, las validaciones se omiten (modo desarrollo / sitio estático). Dos controles evitan que llegue a producción: la validación de build (VUL-04) y la autodetección de hostname.
+- **Las credenciales web son públicas por diseño**; la protección real es App Check + reCAPTCHA por dominio + Reglas de Seguridad.
 
 ---
 

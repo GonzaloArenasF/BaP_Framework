@@ -58,20 +58,38 @@ export class BapSvgImage extends HTMLElement {
       // que pudieran incluir contenido SVG de fuentes no controladas.
       const safeSvgContent = sanitizeHTML(images[type][name]);
 
+      const dimensions = sizes[type][size];
+
+      // SEC-08: No se emiten atributos `style="..."` en el markup (que serían estilos inline
+      // sujetos a la CSP). Las dimensiones dinámicas se aplican vía CSSOM (element.style.*),
+      // que no constituye un estilo inline para la CSP y por tanto no requiere 'unsafe-inline'.
       this.innerHTML = `
-        <figure style="width:${sizes[type][size].px}px; height:${sizes[type][size].px}px; display: flex; justify-content: center; align-items: center;">
-          <svg 
-            width="${sizes[type][size].px}" 
-            height="${sizes[type][size].px}" 
-            viewBox="${sizes[type][size].viewBox}" 
-            fill="none" 
-            xmlns="http://www.w3.org/2000/svg" 
-            style="transform: scale(${sizes[type][size].scale});"
+        <figure>
+          <svg
+            width="${dimensions.px}"
+            height="${dimensions.px}"
+            viewBox="${dimensions.viewBox}"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
             ${safeSvgContent}
           </svg>
         </figure>
       `;
+
+      // Aplicar estilos dinámicos vía CSSOM (no inline, compatible con CSP estricta de estilos).
+      const figure = this.querySelector("figure");
+      if (figure) {
+        figure.style.width = `${dimensions.px}px`;
+        figure.style.height = `${dimensions.px}px`;
+        figure.style.display = "flex";
+        figure.style.justifyContent = "center";
+        figure.style.alignItems = "center";
+      }
+      const svg = this.querySelector("svg");
+      if (svg) {
+        svg.style.transform = `scale(${dimensions.scale})`;
+      }
     } catch (error) {
       console.error("Error al importar la imagen SVG:", error);
     }

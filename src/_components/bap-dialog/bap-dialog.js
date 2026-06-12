@@ -8,6 +8,33 @@
 import { ENV_URL } from "../../_main/constants.js";
 import { createCustomComponent } from "../customComponentsRegistration.js";
 import { sanitizeHTML } from "../../_main/i18n.js";
+import { generateUUID } from "../../_main/util.js";
+
+/**
+ * SEC-15: Decodifica una cadena Base64 a texto UTF-8 usando TextDecoder en lugar de las
+ * funciones obsoletas escape()/unescape(). Mantiene el mismo resultado para UTF-8 válido.
+ *
+ * @param {string} b64 - Cadena en Base64.
+ * @returns {string} Texto decodificado en UTF-8.
+ */
+function base64ToUtf8(b64) {
+  const binary = atob(b64);
+  const bytes = Uint8Array.from(binary, (ch) => ch.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+/**
+ * SEC-02: Detecta caracteres que permitirían escapar del contexto de un atributo HTML
+ * entrecomillado (comillas, ángulos, backtick, espacios/saltos de línea). Las URLs legítimas
+ * codifican estos caracteres, por lo que rechazarlos no afecta el uso normal pero impide
+ * la inyección de atributos (p.ej. `https://x" onerror="...`).
+ *
+ * @param {string} url - URL a inspeccionar.
+ * @returns {boolean} true si contiene caracteres peligrosos para un atributo.
+ */
+function hasUnsafeUrlChars(url) {
+  return /["'`<>\s]/.test(url);
+}
 
 /**
  * Pre-renderiza la plantilla del diálogo inyectando los títulos, imágenes y contenido dinámico.
@@ -29,7 +56,11 @@ import { sanitizeHTML } from "../../_main/i18n.js";
  */
 function isSafeImageUrl(url) {
   if (!url) return false;
-  const lower = url.trim().toLowerCase();
+  const trimmed = url.trim();
+  // SEC-02: Rechazar caracteres que permitan romper el atributo src e inyectar atributos
+  // (event handlers como onerror) aunque el esquema sea válido.
+  if (hasUnsafeUrlChars(trimmed)) return false;
+  const lower = trimmed.toLowerCase();
   // Esquemas explícitamente seguros
   if (lower.startsWith("https://") || lower.startsWith("http://")) return true;
   // Rutas relativas (sin esquema) y anclas
@@ -100,25 +131,29 @@ function preRender(html, props) {
     try {
       let decodedUrl = "";
       let decodedText = "";
-      
+
+      // SEC-15: Decodificación Base64 → UTF-8 con TextDecoder (sin escape/unescape obsoletos).
       try {
-        decodedUrl = decodeURIComponent(escape(atob(props.linkUrlBase64))).trim();
+        decodedUrl = base64ToUtf8(props.linkUrlBase64).trim();
       } catch (e) {
         decodedUrl = atob(props.linkUrlBase64).trim();
       }
 
       try {
-        decodedText = decodeURIComponent(escape(atob(props.linkTextBase64)));
+        decodedText = base64ToUtf8(props.linkTextBase64);
       } catch (e) {
         decodedText = atob(props.linkTextBase64);
       }
-      
-      // Validar esquema de URL para prevenir inyección de javascript: o esquemas no válidos
+
+      // Validar esquema de URL para prevenir inyección de javascript: o esquemas no válidos.
+      // SEC-02: además se rechazan caracteres que romperían el atributo href (comillas, ángulos,
+      // espacios) para impedir inyección de atributos aunque el esquema sea válido.
       const lowerUrl = decodedUrl.toLowerCase();
-      const isSafeProtocol = lowerUrl.startsWith("https://") || 
-                             lowerUrl.startsWith("http://") || 
-                             lowerUrl.startsWith("mailto:") || 
-                             (!lowerUrl.includes(":") && !lowerUrl.startsWith("//")); // Enlaces relativos o anclas
+      const isSafeProtocol = !hasUnsafeUrlChars(decodedUrl) &&
+                             (lowerUrl.startsWith("https://") ||
+                              lowerUrl.startsWith("http://") ||
+                              lowerUrl.startsWith("mailto:") ||
+                              (!lowerUrl.includes(":") && !lowerUrl.startsWith("//"))); // Enlaces relativos o anclas
 
       if (isSafeProtocol) {
         const cleanText = sanitizeHTML(decodedText);
@@ -181,7 +216,7 @@ export class BapDialog extends HTMLElement {
    */
   connectedCallback() {
     const props = {
-      id: this.getAttribute("id") || `bapDialog-${Math.floor(Math.random() * 1000000)}`,
+      id: this.getAttribute("id") || `bapDialog-${generateUUID()}`,
       boxId: this.getAttribute("box-id") || null,
       imageHeaderLeft: this.getAttribute("image-header-left") || null,
       imageHeaderRight: this.getAttribute("image-header-right") || null,

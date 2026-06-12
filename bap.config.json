@@ -1,8 +1,8 @@
 {
   "app": {
     "name": "BaP Framework",
-    "version": "v2.3.9",
-    "currentBapVersion": "v2.3.9",
+    "version": "v2.4.0",
+    "currentBapVersion": "v2.4.0",
     "socialMedia": {
       "email": "gonzaloarenasf+bap-framework@gmail.com"
     }
@@ -162,9 +162,6 @@
         "userType": "User"
       }
     }
-  },
-  "security": {
-    "loginAttempts": 10
   },
   "ui": {
     "notificationTimeout": 4000

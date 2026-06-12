@@ -68,8 +68,9 @@ describe('customComponentsRegistration.js — createCustomComponent', () => {
     expect(preRender).toHaveBeenCalled();
     const propsArg = preRender.mock.calls[0][1];
     
-    // CCR-09: Verifica que props.id se generó si no existía
-    expect(propsArg.id).toMatch(/^bapCustomId\d+$/);
+    // CCR-09: Verifica que props.id se generó si no existía.
+    // SEC-14: el ID ahora usa un UUID criptográfico (crypto.randomUUID) en lugar de Math.random.
+    expect(propsArg.id).toMatch(/^bapCustomId-[0-9a-f-]+$/i);
 
     // CCR-08: Verifica postRender
     expect(postRender).toHaveBeenCalledWith(element, propsArg);

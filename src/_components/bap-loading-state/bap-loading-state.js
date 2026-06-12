@@ -5,6 +5,7 @@
  * Loading component to use previous to load content page
  */
 import { ENV_URL } from "../../_main/constants.js";
+import { sanitizeHTML } from "../../_main/i18n.js";
 
 export class BapLoadingState extends HTMLElement {
   connectedCallback() {
@@ -37,8 +38,10 @@ export class BapLoadingState extends HTMLElement {
       })
       .then((html) => {
         const template = document.createElement("template");
-        let htmlWithProps = html.replaceAll("{message}", props.message);
-        htmlWithProps = htmlWithProps.replaceAll("{sub-message}", props.subMessage ? `<h3>${props.subMessage}</h3>` : "");
+        // SEC-04: message (innerHTML del host) y sub-message (atributo) son datos no confiables
+        // que se inyectan en template.innerHTML. Se sanitizan con DOMPurify (allowlist) para evitar XSS.
+        let htmlWithProps = html.replaceAll("{message}", sanitizeHTML(props.message));
+        htmlWithProps = htmlWithProps.replaceAll("{sub-message}", props.subMessage ? `<h3>${sanitizeHTML(props.subMessage)}</h3>` : "");
         template.innerHTML = htmlWithProps;
         shadow.appendChild(template.content.cloneNode(true));
       })

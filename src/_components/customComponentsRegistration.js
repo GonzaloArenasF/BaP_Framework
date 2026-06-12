@@ -7,7 +7,7 @@ import { BapSvgImage } from "./bap-svg-image/bap-svg-image.js";
 import { BapChip } from "./bap-chip/bap-chip.js";
 import { BapLogo } from "./bap-logo/bap-logo.js";
 import { BapDialog } from "./bap-dialog/bap-dialog.js";
-import { isCSSIncluded } from "../_main/util.js";
+import { isCSSIncluded, generateUUID } from "../_main/util.js";
 
 /**
  * Constructor para componentes personalizados
@@ -24,7 +24,9 @@ import { isCSSIncluded } from "../_main/util.js";
  */
 export function createCustomComponent(element, { cssPath, htmlPath, htmlCode, preRender, postRender, props }) {
   try {
-    const elementID = `bapCustomId${Math.floor(Math.random() * (9999999999999 - 0 + 1)) + 0}`;
+    // SEC-14: ID de DOM generado con UUID criptográfico (crypto.randomUUID) en lugar de
+    // Math.random(), evitando colisiones que vincularían eventos al elemento equivocado.
+    const elementID = `bapCustomId-${generateUUID()}`;
 
     if (!cssPath) {
       throw new Error("cssPath is not provided");

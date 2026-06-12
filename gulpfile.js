@@ -42,7 +42,6 @@ function replaceEnvTokens() {
     "%%BAP_APP_NAME%%": bapConfig.app?.name || "",
     "%%BAP_APP_VERSION%%": bapConfig.app?.version || "",
     "%%BAP_EMAIL%%": bapConfig.app?.socialMedia?.email || "",
-    "%%BAP_LOGIN_ATTEMPTS%%": bapConfig.security?.loginAttempts?.toString() || "10",
     "%%BAP_NOTIFICATION_TIMEOUT%%": bapConfig.ui?.notificationTimeout?.toString() || "4000",
     "%%BAP_CUSTOM_EVENTS%%": JSON.stringify(bapConfig.analytics?.customEvents || {}),
     "%%BAP_APP_ROUTES%%": JSON.stringify(bapConfig.routes?.appRoutes || {}),
@@ -88,8 +87,11 @@ function copyStaticFiles() {
   const outDir = bapConfig.build?.outDir || "public";
 
   console.log(">>> Copiying ASSETS and static root files...");
+  // SEC-05: Se incluye `**/*.mjs` para copiar DOMPurify vendored (src/_main/vendor/purify.es.mjs)
+  // al bundle. Los .mjs NO pasan por la ofuscación de JS (que sólo procesa *.js), preservando
+  // la integridad de la librería de sanitización servida desde el mismo origen.
   return gulp
-    .src([`${srcDir}/assets/**`, `${srcDir}/*.txt`, `${srcDir}/*.xml`], { allowEmpty: true })
+    .src([`${srcDir}/assets/**`, `${srcDir}/*.txt`, `${srcDir}/*.xml`, `${srcDir}/**/*.mjs`], { allowEmpty: true })
     .pipe(gulpCopy(outDir, { prefix: 1 }))
     .on("error", handleError)
     .on("end", () => console.log(">>> ASSETS and static root files copy complete..."));

@@ -7,7 +7,7 @@ import { CONSTANT } from "./constants.js";
 import { ref, onValue, set, update, remove } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 import { bapNotify } from "./util.js";
 import { bapDB } from "./firebaseInit.js";
-import { getI18nContent } from "./i18n.js";
+import { getI18nContent, sanitizeHTML } from "./i18n.js";
 
 const storageI18n = getI18nContent("page", "cross");
 
@@ -41,8 +41,9 @@ const encryptData = (data, secretKey) => {
     "No lo utilices para datos sensibles. Considera migrar a `secureEncryptData`."
   );
   try {
-    // Conversión segura de Unicode a Base64 sin romper UTF-8
-    const unicodeObfuscated = btoa(unescape(encodeURIComponent(data)));
+    // SEC-15: Conversión Unicode → Base64 con TextEncoder (sin escape/unescape obsoletos).
+    // Reutiliza uint8ToBase64 (definido más abajo; se invoca en runtime, no en carga del módulo).
+    const unicodeObfuscated = uint8ToBase64(new TextEncoder().encode(data));
     return unicodeObfuscated + "/@/" + secretKey;
   } catch (e) {
     console.error("Error al ofuscar datos síncronamente:", e);
@@ -62,8 +63,9 @@ const decryptData = (encryptedData) => {
     "No lo utilices para datos sensibles. Considera migrar a `secureDecryptData`."
   );
   try {
+    // SEC-15: Decodificación Base64 → Unicode con TextDecoder (sin escape/unescape obsoletos).
     const rawBase64 = encryptedData.split("/@/")[0];
-    return decodeURIComponent(escape(atob(rawBase64)));
+    return new TextDecoder().decode(base64ToUint8(rawBase64));
   } catch (e) {
     console.error("Error al desofuscar datos síncronamente:", e);
     return atob(encryptedData.split("/@/")[0]);
@@ -199,9 +201,14 @@ export async function secureDecryptData(encryptedData, password) {
  * @param {string} params.storageType CONSTANT.STORAGE.SOURCE.*
  * @param {string} params.item Identificador de clave de almacenamiento
  * @param {string} [params.secretKey] Clave criptográfica para descifrar (e.g. currentUser.uid)
+ * @param {boolean} [params.sanitize=false] SEC-11: Si es true y el valor leído de RTDB es un string,
+ *        se sanitiza con DOMPurify (allowlist) antes de devolverlo. Pensado para datos de RTDB que
+ *        luego se renderizarán como HTML, neutralizando un posible XSS almacenado. Por defecto false
+ *        para no alterar el comportamiento existente (la sanitización real debe hacerse en el punto
+ *        de renderizado; este flag es una capa adicional opt-in).
  * @returns {Promise<any>} Datos descifrados y parseados, o null
  */
-export const getFromStorageAsync = async ({ storageType, item, secretKey }) => {
+export const getFromStorageAsync = async ({ storageType, item, secretKey, sanitize = false }) => {
   let value;
   switch (storageType) {
     case CONSTANT.STORAGE.SOURCE.LOCAL:
@@ -223,7 +230,11 @@ export const getFromStorageAsync = async ({ storageType, item, secretKey }) => {
         const dbConnection = ref(bapDB, item);
         onValue(
           dbConnection,
-          (snapshot) => resolve(snapshot.val()),
+          // SEC-11: sanitiza únicamente valores string cuando sanitize=true (opt-in).
+          (snapshot) => {
+            const val = snapshot.val();
+            resolve(sanitize && typeof val === "string" ? sanitizeHTML(val) : val);
+          },
           (error) => {
             bapNotify(
               CONSTANT.NOTIFICATION.TYPE.ALERT,

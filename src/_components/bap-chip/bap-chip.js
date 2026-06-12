@@ -6,9 +6,13 @@
  */
 import { ENV_URL } from "../../_main/constants.js";
 import { createCustomComponent } from "../customComponentsRegistration.js";
+import { sanitizeHTML } from "../../_main/i18n.js";
 
+// SEC-03: El label proviene del innerHTML del host (no confiable) y se inyecta en la plantilla
+// vía template.innerHTML. Se sanitiza con DOMPurify (allowlist) para neutralizar cualquier XSS,
+// igual que en bap-notification y bap-dialog.
 function preRender(html, props) {
-  return html.replace("{label}", props.label);
+  return html.replace("{label}", sanitizeHTML(props.label));
 }
 
 function postRender(element) {}

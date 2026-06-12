@@ -58,7 +58,9 @@ export const CONSTANT = {
     SIGNED_OUT: "AUTH_SIGNED_OUT",
     SIGNED_UP: "AUTH_SIGNED_UP",
     SIGNED_DOWN: "AUTH_SIGNED_DOWN",
-    LOGIN_ATTEMPTS: parseInt("%%BAP_LOGIN_ATTEMPTS%%") || 10,
+    // SEC-09 (NEW-05): se eliminó LOGIN_ATTEMPTS. El inicio de sesión usa OAuth con Google
+    // (signInWithPopup); el rate limiting lo gestiona Google/Firebase Auth a nivel de proyecto.
+    // Un contador client-side era eludible y creaba una falsa expectativa de seguridad.
   },
   FBC: {
     AP: "%%FIREBASE_AP%%",   // Inyectado desde .env en el build de Gulp
