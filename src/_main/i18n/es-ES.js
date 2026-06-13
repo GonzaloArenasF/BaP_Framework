@@ -489,6 +489,39 @@ export const esES = {
         deployProdTitle: "Desplegar a Producción",
         deployProdDesc: "Corre los tests, compila con el entorno de producción y sube los estáticos a Firebase Hosting.",
       }
+    },
+    migrator: {
+      head: {
+        title: "BaP Dashboard - Migración",
+        meta: {
+          title: "BaP Dashboard - Migración",
+          description: "Herramienta interna para monitorear el progreso de migración de proyectos legacy.",
+          keywords: "Migrator, Dashboard, Update, Legacy",
+        }
+      },
+      body: {
+        title: "Migración de Proyectos Legacy",
+        desc: "Herramienta de solo lectura y uso exclusivo en localhost para monitorear el proceso de actualización automatizado impulsado por Agentes IA. No apto para despliegue. IMPORTANTE: El orquestador generará automáticamente una rama aislada (ej: refactor/bap-migration) antes de iniciar para proteger el código principal.",
+        targetLabel: "Proyecto Destino:",
+        selectPlaceholder: "Selecciona un proyecto...",
+        consoleTitle: "Log de Actividad en Tiempo Real",
+        btnConfirm: "Aprobar y Continuar",
+        status: {
+          idle: "Esperando inicio...",
+          in_progress: "Trabajando...",
+          waiting_approval: "Esperando tu aprobación",
+          rejected: "Revisión rechazada",
+          error: "Error",
+          done: "¡Migración completada!"
+        },
+        steps: {
+          step1: "Auditoría Inicial",
+          step2: "Extracción de Configuración",
+          step3: "Reemplazo del Core",
+          step4: "Refactorización (AI)",
+          step5: "Estabilización y Pruebas"
+        }
+      }
     }
   },
 };

@@ -91,6 +91,14 @@
           "signIn": false
         }
       },
+      "migrator": {
+        "pathname": "/pages/migrator/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
       "error404": {
         "pathname": "/404.html",
         "component": null,
@@ -153,6 +161,12 @@
         "type": "enter_page",
         "name": "enter_build_page",
         "func": "build_page",
+        "userType": "User"
+      },
+      "enterMigratorPage": {
+        "type": "enter_page",
+        "name": "enter_migrator_page",
+        "func": "migrator_page",
         "userType": "User"
       },
       "pageNotFound": {
