@@ -42,6 +42,19 @@
         <a href="/">{page.cross.sidebar.back}</a>
         <a href="/pages/cdn/">{page.cross.sidebar.cdn}</a>
         <a href="/pages/core/" class="active">{page.cross.sidebar.core}</a>
+        <div style="margin-left: 0.75rem; border-left: 1px solid rgba(98, 174, 196, 0.2); padding-left: 0.5rem;">
+          <a href="/pages/core/constants/">constants.js</a>
+          <a href="/pages/core/firebaseInit/">firebaseInit.js</a>
+          <a href="/pages/core/auth/">auth.js</a>
+          <a href="/pages/core/routerPaths/">routerPaths.js</a>
+          <a href="/pages/core/router/">router.js</a>
+          <a href="/pages/core/storage/">storage.js</a>
+          <a href="/pages/core/i18n/">i18n.js</a>
+          <a href="/pages/core/analytics/">analytics.js</a>
+          <a href="/pages/core/util/">util.js</a>
+          <a href="/pages/core/googleDrive/">googleDrive.js</a>
+          <a href="/pages/core/markdown/">markdown.js</a>
+        </div>
         <a href="/pages/components/">{page.cross.sidebar.components}</a>
         <a href="/pages/pages/">{page.cross.sidebar.pages}</a>
         <a href="/pages/style/">{page.cross.sidebar.style}</a>
@@ -52,77 +65,231 @@
 
     <article class="docs-content">
       <h2>{page.core.body.title}</h2>
-      <p>{page.core.body.desc}</p>
+      <p>{page.core.body.subtitle}</p>
 
-      <h3>{page.core.body.modulesTitle}</h3>
-      <p>{page.core.body.modulesDesc}</p>
+      <div class="docs-callout warning">
+        {page.core.body.coreModificationWarning}
+      </div>
+
+      <div class="prereq-list">
+        <strong>{page.core.body.prereqTitle}</strong>
+        <p style="margin: 0.5rem 0 0 0;">{page.core.body.prereqDesc}</p>
+        <ul>
+          <li>{page.core.body.prereq1}</li>
+          <li>{page.core.body.prereq2}</li>
+          <li>{page.core.body.prereq3}</li>
+        </ul>
+      </div>
+
+      <!-- Paso 1 -->
+      <div class="step-section">
+        <div class="step-badge">1</div>
+        <h3 class="step-header">{page.core.body.step1Title}</h3>
+        <p>{page.core.body.step1Desc}</p>
+        <div class="code-box">
+          <div class="code-box-header">JavaScript — src/index.js (Inicialización de constantes y Firebase)</div>
+          <pre><code>import { CONSTANT, ENV_URL } from "./_main/constants.js";
+import { bapApp, bapAuth, bapDB } from "./_main/firebaseInit.js";
+
+console.log(`BaP Framework ${CONSTANT.APP_VERSION} corriendo en ${ENV_URL}`);</code></pre>
+        </div>
+      </div>
+
+      <!-- Paso 2 -->
+      <div class="step-section">
+        <div class="step-badge">2</div>
+        <h3 class="step-header">{page.core.body.step2Title}</h3>
+        <p>{page.core.body.step2Desc}</p>
+        <div class="code-box">
+          <div class="code-box-header">JavaScript — Control de sesión y Whitelist (auth.js)</div>
+          <pre><code>import { logIn, logOut, isUserAuthorized, ensureGoogleAccessToken } from "./_main/auth.js";
+
+// Iniciar sesión con Google Identity
+logIn(
+  async (user) => {
+    const isAuthorized = await isUserAuthorized(user.uid);
+    if (isAuthorized) {
+      console.log("Usuario autorizado por Whitelist:", user.email);
+    }
+  },
+  (error) => console.error("Error al iniciar sesión:", error)
+);</code></pre>
+        </div>
+
+        <div class="docs-callout warning">
+          <strong>{page.core.body.bypassTitle}</strong>
+          {page.core.body.bypassDesc}
+        </div>
+      </div>
+
+      <!-- Paso 3 -->
+      <div class="step-section">
+        <div class="step-badge">3</div>
+        <h3 class="step-header">{page.core.body.step3Title}</h3>
+        <p>{page.core.body.step3Desc}</p>
+        <div class="code-box">
+          <div class="code-box-header">JavaScript — Navegación SPA (router.js & routerPaths.js)</div>
+          <pre><code>import { initRouter, navigateTo } from "./_main/router.js";
+
+// Inicializar el enrutador al cargar el DOM
+document.addEventListener("DOMContentLoaded", () => {
+  initRouter();
+});
+
+// Navegación programática segura
+navigateTo("/pages/core/");</code></pre>
+        </div>
+      </div>
+
+      <!-- Paso 4 -->
+      <div class="step-section">
+        <div class="step-badge">4</div>
+        <h3 class="step-header">{page.core.body.step4Title}</h3>
+        <p>{page.core.body.step4Desc}</p>
+        <div class="code-box">
+          <div class="code-box-header">JavaScript — Persistencia cifrada AES-GCM (storage.js)</div>
+          <pre><code>import { setToStorageAsync, getFromStorageAsync, CONSTANT } from "./_main/storage.js";
+
+// Guardar y cifrar datos confidenciales en localStorage
+await setToStorageAsync({
+  storageType: CONSTANT.STORAGE.SOURCE.LOCAL,
+  item: "user_secret_data",
+  value: { role: "admin", token: "secret_123" },
+  secretKey: user.uid // Aislamiento criptográfico por usuario
+});
+
+// Descifrar datos
+const data = await getFromStorageAsync({
+  storageType: CONSTANT.STORAGE.SOURCE.LOCAL,
+  item: "user_secret_data",
+  secretKey: user.uid
+});</code></pre>
+        </div>
+      </div>
+
+      <!-- Paso 5 -->
+      <div class="step-section">
+        <div class="step-badge">5</div>
+        <h3 class="step-header">{page.core.body.step5Title}</h3>
+        <p>{page.core.body.step5Desc}</p>
+        <div class="code-box">
+          <div class="code-box-header">JavaScript — Traducción y Filtro Anti-XSS (i18n.js)</div>
+          <pre><code>import { applyI18n, sanitizeHTML } from "./_main/i18n.js";
+
+// Aplicar internacionalización en tiempo de ejecución
+applyI18n(() => {
+  console.log("i18n aplicado correctamente al DOM.");
+});
+
+// Sanitizar código HTML dinámico proveniente de fuentes externas
+const safeHTML = sanitizeHTML("&lt;img src=x onerror=alert(1)&gt;&lt;strong&gt;Texto seguro&lt;/strong&gt;");</code></pre>
+        </div>
+      </div>
+
+      <!-- Paso 6 -->
+      <div class="step-section">
+        <div class="step-badge">6</div>
+        <h3 class="step-header">{page.core.body.step6Title}</h3>
+        <p>{page.core.body.step6Desc}</p>
+        <div class="code-box">
+          <div class="code-box-header">JavaScript — Servicios adicionales y utilidades</div>
+          <pre><code>import { generateUUID, bapNotify } from "./_main/util.js";
+import { parseMarkdown } from "./_main/markdown.js";
+import { uploadFile } from "./_main/googleDrive.js";
+
+// 1. UUID criptográficamente fuerte
+const uniqueId = generateUUID();
+
+// 2. Disparar notificación Toast
+bapNotify("ALERT", "SUCCESS", "Operación exitosa", "El archivo fue procesado.");
+
+// 3. Renderizar Markdown a HTML
+const htmlOutput = parseMarkdown("# Reporte de Estado\n- Todo funcionando.");</code></pre>
+        </div>
+      </div>
+
+      <!-- Referencia de API -->
+      <h3>{page.core.body.apiRefTitle}</h3>
+      <p>{page.core.body.apiRefDesc}</p>
       
       <table>
         <thead>
           <tr>
             <th>{page.core.body.colModule}</th>
-            <th>{page.core.body.colDesc}</th>
+            <th>{page.core.body.colPurpose}</th>
+            <th>{page.core.body.colFunctions}</th>
             <th>{page.core.body.colSynergy}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong><code>constants.js</code></strong></td>
+            <td><strong><a href="/pages/core/constants/"><code>constants.js</code></a></strong></td>
             <td>{page.core.body.constantsDesc}</td>
+            <td><code>{page.core.body.constantsFunctions}</code></td>
             <td>{page.core.body.constantsSynergy}</td>
           </tr>
           <tr>
-            <td><strong><code>firebaseInit.js</code></strong></td>
+            <td><strong><a href="/pages/core/firebaseInit/"><code>firebaseInit.js</code></a></strong></td>
             <td>{page.core.body.firebaseInitDesc}</td>
+            <td><code>{page.core.body.firebaseInitFunctions}</code></td>
             <td>{page.core.body.firebaseInitSynergy}</td>
           </tr>
           <tr>
-            <td><strong><code>auth.js</code></strong></td>
+            <td><strong><a href="/pages/core/auth/"><code>auth.js</code></a></strong></td>
             <td>{page.core.body.authDesc}</td>
+            <td><code>{page.core.body.authFunctions}</code></td>
             <td>{page.core.body.authSynergy}</td>
           </tr>
           <tr>
-            <td><strong><code>routerPaths.js</code></strong></td>
+            <td><strong><a href="/pages/core/routerPaths/"><code>routerPaths.js</code></a></strong></td>
             <td>{page.core.body.routerPathsDesc}</td>
+            <td><code>{page.core.body.routerPathsFunctions}</code></td>
             <td>{page.core.body.routerPathsSynergy}</td>
           </tr>
           <tr>
-            <td><strong><code>router.js</code></strong></td>
+            <td><strong><a href="/pages/core/router/"><code>router.js</code></a></strong></td>
             <td>{page.core.body.routerDesc}</td>
+            <td><code>{page.core.body.routerFunctions}</code></td>
             <td>{page.core.body.routerSynergy}</td>
           </tr>
           <tr>
-            <td><strong><code>storage.js</code></strong></td>
+            <td><strong><a href="/pages/core/storage/"><code>storage.js</code></a></strong></td>
             <td>{page.core.body.storageDesc}</td>
+            <td><code>{page.core.body.storageFunctions}</code></td>
             <td>{page.core.body.storageSynergy}</td>
           </tr>
           <tr>
-            <td><strong><code>i18n.js</code></strong></td>
+            <td><strong><a href="/pages/core/i18n/"><code>i18n.js</code></a></strong></td>
             <td>{page.core.body.i18nDesc}</td>
+            <td><code>{page.core.body.i18nFunctions}</code></td>
             <td>{page.core.body.i18nSynergy}</td>
           </tr>
           <tr>
-            <td><strong><code>analytics.js</code></strong></td>
+            <td><strong><a href="/pages/core/analytics/"><code>analytics.js</code></a></strong></td>
             <td>{page.core.body.analyticsDesc}</td>
+            <td><code>{page.core.body.analyticsFunctions}</code></td>
             <td>{page.core.body.analyticsSynergy}</td>
           </tr>
           <tr>
-            <td><strong><code>util.js</code></strong></td>
+            <td><strong><a href="/pages/core/util/"><code>util.js</code></a></strong></td>
             <td>{page.core.body.utilDesc}</td>
+            <td><code>{page.core.body.utilFunctions}</code></td>
             <td>{page.core.body.utilSynergy}</td>
+          </tr>
+          <tr>
+            <td><strong><a href="/pages/core/googleDrive/"><code>googleDrive.js</code></a></strong></td>
+            <td>{page.core.body.googleDriveDesc}</td>
+            <td><code>{page.core.body.googleDriveFunctions}</code></td>
+            <td>{page.core.body.googleDriveSynergy}</td>
+          </tr>
+          <tr>
+            <td><strong><a href="/pages/core/markdown/"><code>markdown.js</code></a></strong></td>
+            <td>{page.core.body.markdownDesc}</td>
+            <td><code>{page.core.body.markdownFunctions}</code></td>
+            <td>{page.core.body.markdownSynergy}</td>
           </tr>
         </tbody>
       </table>
-
-      <h3>{page.core.body.i18nTitle}</h3>
-      <p>{page.core.body.i18nDescText}</p>
-
-      <div class="docs-callout warning">
-        <strong>{page.core.body.bypassTitle}</strong>
-        {page.core.body.bypassDesc}
-      </div>
-
-      <p>{page.core.body.bypassProdNote}</p>
 
       <h3>{page.core.body.rtdbSecurityTitle}</h3>
       <p>{page.core.body.rtdbSecurityDesc}</p>

@@ -32,6 +32,7 @@ export const CONSTANT = {
   STORAGE: {
     KEYS: {
       DIALOG_DATA: "dd",
+      DRIVE_FILE: "saved_drive_file",
     },
     SOURCE: {
       LOCAL: "localStorage", // Persistencia en el Navegador (Local)

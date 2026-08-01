@@ -19,4 +19,14 @@ describe('analytics.js', () => {
   it('ANL-01: analytic.logEvent debe ser un objeto poblado dinámicamente', () => {
     expect(typeof analytic.logEvent).toBe('object');
   });
+
+  it('ANL-02: invocar funciones registradas en analytic.logEvent llama a logAnalyticEvent', () => {
+    // Si existen métodos dinámicos (ej: enterLandingPage), probar la invocación
+    const keys = Object.keys(analytic.logEvent);
+    keys.forEach(key => {
+      expect(typeof analytic.logEvent[key]).toBe('function');
+      analytic.logEvent[key]();
+      expect(firebaseInit.logAnalyticEvent).toHaveBeenCalled();
+    });
+  });
 });

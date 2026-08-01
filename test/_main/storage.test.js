@@ -519,6 +519,109 @@ describe('storage.js — removeFromStorage', () => {
 
     await vi.waitFor(() => expect(failCb).toHaveBeenCalled());
   });
+
+  it('STO-42: setToStorage / updateStorage maneja secretKey (legacy Base64) y sessionStorage', () => {
+    setToStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.SESSION,
+      item: 'test-session-secret',
+      value: { data: 'session' },
+      secretKey: 'key123',
+    });
+    expect(sessionStorage.getItem('test-session-secret')).toBeTruthy();
+
+    updateStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.SESSION,
+      item: 'test-session-update',
+      value: { data: 'updated' },
+      secretKey: 'key123',
+    });
+    expect(sessionStorage.getItem('test-session-update')).toBeTruthy();
+
+    updateStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.LOCAL,
+      item: 'test-local-update',
+      value: { data: 'updated-local' },
+      secretKey: 'key123',
+    });
+    expect(localStorage.getItem('test-local-update')).toBeTruthy();
+  });
+
+  it('STO-43: setToStorage / updateStorage / removeFromStorage en RTDB ejecutan callbackOnSuccess y error por defecto', async () => {
+    const successCb = vi.fn();
+    set.mockResolvedValue();
+    setToStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.DB,
+      item: '/success/set',
+      value: 'val',
+      callbackOnSuccess: successCb,
+    });
+
+    update.mockResolvedValue();
+    updateStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.DB,
+      item: '/success/update',
+      value: 'val',
+      callbackOnSuccess: successCb,
+    });
+
+    remove.mockResolvedValue();
+    removeFromStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.DB,
+      item: '/success/remove',
+      callbackOnSuccess: successCb,
+    });
+
+    // Errores sin callBackOnFail
+    set.mockRejectedValue(new Error('No cb set fail'));
+    setToStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.DB,
+      item: '/fail/set',
+      value: 'val',
+    });
+
+    update.mockRejectedValue(new Error('No cb update fail'));
+    updateStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.DB,
+      item: '/fail/update',
+      value: 'val',
+    });
+
+    remove.mockRejectedValue(new Error('No cb remove fail'));
+    removeFromStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.DB,
+      item: '/fail/remove',
+    });
+  });
+
+  it('STO-44: getFromStorage soporta secretKey en LOCAL y SESSION y maneja error en DB sin callBackOnFail', () => {
+    setToStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.SESSION,
+      item: 'sync-session-key',
+      value: { foo: 'bar' },
+      secretKey: 'key123',
+    });
+
+    const resSession = getFromStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.SESSION,
+      item: 'sync-session-key',
+      secretKey: 'key123',
+    });
+    expect(resSession).toEqual({ foo: 'bar' });
+
+    setToStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.LOCAL,
+      item: 'sync-local-key',
+      value: { baz: 'qux' },
+      secretKey: 'key123',
+    });
+
+    const resLocal = getFromStorage({
+      storageType: CONSTANT.STORAGE.SOURCE.LOCAL,
+      item: 'sync-local-key',
+      secretKey: 'key123',
+    });
+    expect(resLocal).toEqual({ baz: 'qux' });
+  });
 });
 
 // ═══════════════════════════════════════════════════════════════════════

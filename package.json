@@ -1,7 +1,7 @@
 {
   "name": "bap-framework",
-  "version": "v2.4.0",
-  "description": "BaP Framework - v2.4.0",
+  "version": "v2.5.2",
+  "description": "BaP Framework - v2.5.2",
   "main": "index.js",
   "scripts": {
     "test": "vitest run",

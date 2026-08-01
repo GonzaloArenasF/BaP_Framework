@@ -49,6 +49,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Step names
   const stepNames = [
     "",
+    "Análisis Funcional",
     "Auditoría Inicial",
     "Extracción de Configuración",
     "Reemplazo del Core",
@@ -58,13 +59,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // Mock data generator
   const getMockDataForStep = (step) => {
-    const roles = ["Investigador", "Auditor CSS", "Refactorizador JS", "Estabilizador", "Deployer"];
+    const roles = ["Analista de Negocio", "Investigador", "Auditor CSS", "Refactorizador JS", "Refactorizador CSS", "Estabilizador QA"];
     const tasks = [
+      "Escaneando funcionalidades principales y flujos de negocio...",
       "Analizando dependencias y configuraciones legacy...",
       "Extrayendo configuraciones y variables de entorno...",
       "Reemplazando librerías core por componentes nativos BaP...",
       "Refactorizando lógica y web components...",
-      "Ejecutando pruebas de estabilización finales..."
+      "Validando funcionalidades iniciales y ejecutando pruebas..."
     ];
     
     // Generar lista de archivos mockeados
@@ -79,7 +81,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const fileList = files.slice(0, step).map(f => `* ${f}`).join("\n");
     const stepTitle = stepNames[step];
     
-    const branchNote = step === 1 ? `\n\n> **🛠️ Entorno de Trabajo Aislado:** Se ha creado automáticamente la rama local \`refactor/bap-migration\` e hizo *checkout* hacia ella para proteger el código original del proyecto.` : "";
+    const branchNote = step === 1 ? `\n\n> **🛠️ Entorno de Trabajo Aislado:** Se ha eliminado la rama antigua (si existía) y se ha creado una nueva rama local limpia \`refactor/bap-migration\` a partir de \`main\`. Todo el trabajo se ejecutará allí.` : "";
 
     const report = `### Informe de Análisis: ${stepTitle}
 
@@ -193,6 +195,8 @@ Durante la ejecución, se aplicó la siguiente regla de transformación estánda
   };
 
   const createAndShowDialog = (titleMain, titleSub, markdownText, isFullscreen, onApprove, onReject, showDownloadBtn = false) => {
+    reportRead = true;
+    loadCurrentState();
     const dialogId = 'dialog-' + Math.random().toString(36).substr(2, 9);
     const container = document.createElement('div');
     
@@ -421,11 +425,19 @@ Durante la ejecución, se aplicó la siguiente regla de transformación estánda
 
   const advanceToWaiting = () => {
     state.status = "waiting_approval";
+    loadCurrentState();
     const stepTitle = stepNames[state.current_set_point];
     state.log_tail = `Etapa "${stepTitle}" finalizada. Esperando aprobación...`;
     const mockData = getMockDataForStep(state.current_set_point);
     state.step_report = mockData.report;
     loadCurrentState();
+
+    const consoleOutput = document.getElementById("console-output");
+    const line = document.createElement("div");
+    line.className = "log-line default";
+    line.style.color = "var(--accent-color, #62aec4)";
+    line.textContent = `💾 Reporte guardado localmente: /docs/reporte-etapa-${state.current_set_point}.md`;
+    consoleOutput.appendChild(line);
 
     // Auto-open dialog
     createAndShowDialog(stepTitle, "Esperando tu revisión", state.step_report, false, approveAndContinue, rejectAndRestart);
@@ -434,7 +446,8 @@ Durante la ejecución, se aplicó la siguiente regla de transformación estánda
   const startWorkingOnStep = (step) => {
     state.current_set_point = step;
     state.status = "in_progress";
-    state.progress_percentage = (step - 1) * 20 + 10;
+    loadCurrentState();
+    state.progress_percentage = Math.floor((step - 1) * 16.6) + 8;
     const stepTitle = stepNames[step];
     state.log_tail = `Ejecutando etapa "${stepTitle}"...`;
     const mockData = getMockDataForStep(step);
@@ -443,7 +456,8 @@ Durante la ejecución, se aplicó la siguiente regla de transformación estánda
 
     // Trabajar durante 5 segundos
     setTimeout(() => {
-      state.progress_percentage = step * 20;
+      state.current_set_point = step;
+      state.progress_percentage = Math.floor(step * 16.6);
       advanceToWaiting();
     }, 5000);
   };
@@ -467,7 +481,7 @@ Durante la ejecución, se aplicó la siguiente regla de transformación estánda
     consoleOutput.appendChild(line);
     
     setTimeout(() => {
-      if (state.current_set_point >= 5) {
+      if (state.current_set_point >= 6) {
         state.status = "done";
         state.progress_percentage = 100;
         state.active_agents = [];
@@ -477,9 +491,9 @@ Durante la ejecución, se aplicó la siguiente regla de transformación estánda
 El proyecto **${state.target_project}** ha finalizado su ciclo de refactorización automatizada.
 
 ## 📈 Resumen Ejecutivo
-La migración se completó a través de 5 etapas orquestadas por sub-agentes especializados de la capa Antigravity.
+La migración se completó a través de 6 etapas orquestadas por sub-agentes especializados de la capa Antigravity.
 
-* **Total de archivos escaneados:** 225
+* **Total de archivos escaneados:** 270
 * **Componentes refactorizados:** 42
 * **Dependencias deprecadas eliminadas:** 14
 
@@ -491,10 +505,12 @@ Se requiere validación humana para dar el cierre definitivo:
 - [ ] Ejecutar \`npm run test\` en el directorio local del proyecto.
 - [ ] Validar inyección de nuevas variables de entorno en el archivo \`.env.production\`.
 - [ ] Realizar una inspección visual de UI/UX en dispositivos móviles.
+- [ ] Contrastar las funcionalidades activas contra el Informe Funcional de la Etapa 1.
 - [ ] Aprobar y enviar *Pull Request* al repositorio de Staging.
 
 *Reporte auto-generado por el orquestador de IA.*`;
         loadCurrentState();
+        createAndShowDialog("Migración Finalizada", "Informe Consolidado", state.final_report, true, null, null, true);
       } else {
         startWorkingOnStep(state.current_set_point + 1);
       }
@@ -523,11 +539,17 @@ Se requiere validación humana para dar el cierre definitivo:
   btnRestartStep.addEventListener("click", () => {
     const stepTitle = stepNames[state.current_set_point];
     const line = document.createElement("div");
-    line.className = "log-line error";
+    line.className = "log-line warning";
     line.textContent = `Reiniciando etapa "${stepTitle}"...`;
     consoleOutput.appendChild(line);
-    
-    // Al reiniciar, borramos el reporte previo y volvemos a in_progress
+
+    const deleteLine = document.createElement("div");
+    deleteLine.className = "log-line error";
+    deleteLine.textContent = `🗑️ Reporte local /docs/reporte-etapa-${state.current_set_point}.md eliminado.`;
+    consoleOutput.appendChild(deleteLine);
+
+    const activeBackdrop = document.querySelector('.bap-dialog-backdrop');
+    if (activeBackdrop) activeBackdrop.remove();
     state.step_report = "";
     reportRead = false;
     startWorkingOnStep(state.current_set_point);
@@ -536,10 +558,16 @@ Se requiere validación humana para dar el cierre definitivo:
   btnRestartAll.addEventListener("click", () => {
     const line = document.createElement("div");
     line.className = "log-line error";
-    line.textContent = `Reiniciando TODO el proceso...`;
+    line.textContent = `Reiniciando proceso de migración por completo...`;
     consoleOutput.appendChild(line);
-    
-    // Reiniciar por completo
+
+    const deleteLine = document.createElement("div");
+    deleteLine.className = "log-line error";
+    deleteLine.textContent = `🗑️ Limpieza profunda: Todos los reportes /docs/reporte-etapa-*.md eliminados.`;
+    consoleOutput.appendChild(deleteLine);
+
+    const activeBackdrop = document.querySelector('.bap-dialog-backdrop');
+    if (activeBackdrop) activeBackdrop.remove();
     state.current_set_point = 0;
     state.step_report = "";
     reportRead = false;

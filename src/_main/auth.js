@@ -72,6 +72,49 @@ export async function isUserAuthorized(user) {
   });
 }
 
+let googleAccessToken = sessionStorage.getItem("bap_google_access_token") || null;
+
+export function getGoogleAccessToken() {
+  return googleAccessToken;
+}
+
+export function setGoogleAccessToken(token) {
+  googleAccessToken = token;
+  if (token) {
+    sessionStorage.setItem("bap_google_access_token", token);
+  } else {
+    sessionStorage.removeItem("bap_google_access_token");
+  }
+}
+
+/**
+ * Obtiene el token de acceso de Google de forma inmediata. Si no existe en la sesión
+ * activa (por ejemplo, tras una recarga de página), solicita la firma emergente
+ * de Google de forma transparente.
+ * 
+ * @returns {Promise<string|null>} Token de acceso OAuth o null si falla/cancela.
+ */
+export async function ensureGoogleAccessToken() {
+  let token = getGoogleAccessToken();
+  if (token) return token;
+
+  if (!CONSTANT.FIREBASE_AVAILABLE) return null;
+
+  try {
+    const provider = new GoogleAuthProvider();
+    provider.addScope("https://www.googleapis.com/auth/drive.file");
+    const result = await signInWithPopup(bapAuth, provider);
+    const credential = GoogleAuthProvider.credentialFromResult(result);
+    if (credential && credential.accessToken) {
+      setGoogleAccessToken(credential.accessToken);
+      return credential.accessToken;
+    }
+  } catch (err) {
+    console.error("Error al renovar token de acceso de Google Drive:", err);
+  }
+  return null;
+}
+
 /**
  * Inicia la sesión del usuario mediante un proveedor de autenticación (Google).
  * Si Firebase está inactivo, realiza un bypass simulando un inicio de sesión exitoso.
@@ -87,8 +130,16 @@ export function userSignIn({ callbackOnSuccess, callbackOnFail }) {
     return;
   }
 
-  signInWithPopup(bapAuth, new GoogleAuthProvider())
+  const provider = new GoogleAuthProvider();
+  provider.addScope("https://www.googleapis.com/auth/drive.file");
+
+  return signInWithPopup(bapAuth, provider)
     .then(async (result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      if (credential && credential.accessToken) {
+        setGoogleAccessToken(credential.accessToken);
+      }
+
       // Doble factor lógico: Verificar lista blanca
       const authorized = await isUserAuthorized(result.user);
       if (authorized) {
@@ -108,7 +159,7 @@ export function userSignIn({ callbackOnSuccess, callbackOnFail }) {
       bapNotify(
         CONSTANT.NOTIFICATION.TYPE.TOAST,
         CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-        authI18n.notification.loginFail
+        authI18n?.notification?.loginFail || "Error al iniciar sesión."
       );
       console.error("Error al intentar iniciar sesión:", error);
       if (callbackOnFail) callbackOnFail();
