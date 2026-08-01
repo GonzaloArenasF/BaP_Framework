@@ -15,6 +15,7 @@ Contiene los informes de seguridad y las correcciones de vulnerabilidades:
 Contiene las especificaciones técnicas de migración y planes de prueba:
 - [./docs/upgrades/upgrade-v2.md](./docs/upgrades/upgrade-v2.md): Spec Book que detalla los breaking changes, rediseño de módulos y el plan para actualizar proyectos heredados a la versión 2.x.
 - [./docs/upgrades/unit-test-plan.md](./docs/upgrades/unit-test-plan.md): Describe la estrategia, cobertura y directrices de pruebas de la suite de testing.
+- [./docs/upgrades/ai-migration-plan.md](./docs/upgrades/ai-migration-plan.md): Plan de migración guiada por IA únicamente para la actualización de sistemas que cuentan con versiones anteriores a la v2.4.0.
 
 ---
 

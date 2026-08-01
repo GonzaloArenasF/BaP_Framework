@@ -21,7 +21,7 @@ Este directorio depende directamente de la configuración centralizada en la ra�
 
 El código de entrada orquesta de forma unificada el flujo de los siguientes subdirectorios:
 - [./src/_components/](./src/_components/README.md): Elementos visuales personalizados (Custom Elements) reutilizables.
-- [./src/_main/](./src/_main/README.md): Columna vertebral y lógica funcional del framework.
+- [./src/_main/](./src/_main/README.md): Columna vertebral y lógica funcional del framework (Enrutador, Seguridad, Cifrado, Traducción, Google Drive API y Markdown).
 - [./src/assets/](./src/assets/README.md): Identidad visual corporativa de la marca.
 - [./src/pages/](./src/pages/README.md): Páginas independientes de vistas de usuario.
 - [./src/style/](./src/style/README.md): Hojas de estilo globales, fuentes y paletas de colores.

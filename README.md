@@ -1,4 +1,4 @@
-# BaP Framework - v2.4.0
+# BaP Framework - v2.5.2
 
 Un framework minimalista y de alto rendimiento basado en **HTML, CSS y JavaScript Vanilla (puro)**. Diseñado bajo la filosofía de "cero frameworks externos y cero dependencias pesadas en el cliente", BaP permite prototipar ideas de manera extremadamente rápida y sencilla, proporcionando a su vez una arquitectura robusta, modular y altamente escalable para aplicaciones en producción.
 
@@ -11,8 +11,9 @@ BaP Framework está optimizado para integrarse de forma nativa con los servicios
 *   **Hosting**: Firebase Hosting (despliegue veloz y seguro).
 *   **Database**: Firebase Realtime Database (sincronización y persistencia en tiempo real).
 *   **Analytics**: Firebase Analytics (telemetría y análisis de eventos de usuario).
-*   **Auth**: Firebase Auth (autenticación segura).
+*   **Auth**: Firebase Auth (autenticación segura con Google Identity).
 *   **Recaptcha**: Firebase AppCheck / Google Cloud reCAPTCHA (protección contra bots).
+*   **Google Drive API v3**: Servicio opcional para gestión de archivos y sincronización en la nube (configurable en `bap.config.json` -> `features.googleDrive`).
 
 > [!IMPORTANT]
 > Para activar la integración, crea un proyecto en Firebase. Luego, copia el archivo `./.env.example` como `./.env.development` y `./.env.production` en la raíz del proyecto, completa las credenciales con los valores de tu proyecto Firebase y establece la variable `FIREBASE_AVAILABLE` en `true` o `false` según el entorno.
@@ -35,7 +36,7 @@ Te invitamos a explorar las distintas carpetas del repositorio para comprender a
         *   📂 [./src/pages/build/](./src/pages/build/index.html) - Nueva subpágina dedicada al ciclo de desarrollo en la terminal.
     *   📂 [./src/style/](./src/style/README.md) - Sistema de diseño visual y hojas de estilos base (colores, fuentes y formularios).
     *   📂 [./src/_components/](./src/_components/README.md) - Registro centralizado y especificaciones técnicas detalladas de los Custom Components.
-    *   📂 [./src/_main/](./src/_main/README.md) - Columna vertebral lógica del framework (Enrutador, Seguridad, Cifrado y Traducción).
+    *   📂 [./src/_main/](./src/_main/README.md) - Columna vertebral lógica del framework (Enrutador, Seguridad, Cifrado, Traducción, Google Drive API v3 y Markdown).
         *   📂 [./src/_main/i18n/](./src/_main/i18n/README.md) - Diccionarios de internacionalización asíncronos.
 *   📂 [./test/](./test/README.md) - Suite de pruebas unitarias y de integración sobre JSDOM con mocks de Firebase.
 

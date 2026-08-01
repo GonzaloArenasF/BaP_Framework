@@ -11,7 +11,7 @@ import { signInWithPopup, signOut } from '../../test/mocks/firebase-auth.mock.js
 import { onValue } from '../../test/mocks/firebase-database.mock.js';
 
 // Módulo bajo test
-import { sanitizeUserKey, isUserAuthorized, userSignIn, userSignOut } from '../../src/_main/auth.js';
+import { sanitizeUserKey, isUserAuthorized, userSignIn, userSignOut, getGoogleAccessToken, setGoogleAccessToken, ensureGoogleAccessToken } from '../../src/_main/auth.js';
 import { CONSTANT } from '../../src/_main/constants.js';
 
 vi.mock('../../src/_main/storage.js', () => ({
@@ -260,3 +260,28 @@ describe('auth.js — userSignOut', () => {
     }
   });
 });
+
+// ═══════════════════════════════════════════════════════════════════════
+// Google OAuth Token Helpers
+// ═══════════════════════════════════════════════════════════════════════
+
+describe('auth.js — Google OAuth Token Helpers', () => {
+  beforeEach(() => {
+    setGoogleAccessToken(null);
+  });
+
+  it('AUTH-21: setGoogleAccessToken y getGoogleAccessToken gestionan token en memoria y sessionStorage', () => {
+    setGoogleAccessToken('test-access-token');
+    expect(getGoogleAccessToken()).toBe('test-access-token');
+
+    setGoogleAccessToken(null);
+    expect(getGoogleAccessToken()).toBeNull();
+  });
+
+  it('AUTH-22: ensureGoogleAccessToken retorna token existente si ya está disponible', async () => {
+    setGoogleAccessToken('existing-token');
+    const token = await ensureGoogleAccessToken();
+    expect(token).toBe('existing-token');
+  });
+});
+

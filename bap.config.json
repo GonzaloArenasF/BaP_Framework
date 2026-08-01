@@ -1,8 +1,8 @@
 {
   "app": {
     "name": "BaP Framework",
-    "version": "v2.4.0",
-    "currentBapVersion": "v2.4.0",
+    "version": "v2.5.2",
+    "currentBapVersion": "v2.5.2",
     "socialMedia": {
       "email": "gonzaloarenasf+bap-framework@gmail.com"
     }
@@ -13,7 +13,18 @@
     "i18nItemsToProcess": {
       "pages": {
         "index": "index.html",
-        "notFound": "404.html"
+        "notFound": "404.html",
+        "coreConstants": "pages/core/constants/index.html",
+        "coreFirebaseInit": "pages/core/firebaseInit/index.html",
+        "coreAuth": "pages/core/auth/index.html",
+        "coreRouterPaths": "pages/core/routerPaths/index.html",
+        "coreRouter": "pages/core/router/index.html",
+        "coreStorage": "pages/core/storage/index.html",
+        "coreI18n": "pages/core/i18n/index.html",
+        "coreAnalytics": "pages/core/analytics/index.html",
+        "coreUtil": "pages/core/util/index.html",
+        "coreGoogleDrive": "pages/core/googleDrive/index.html",
+        "coreMarkdown": "pages/core/markdown/index.html"
       },
       "components": {
         "bapFooter": "bap-footer/bap-footer.html",
@@ -23,7 +34,14 @@
   },
   "features": {
     "useFirebase": true,
-    "useRecaptcha": true
+    "useRecaptcha": true,
+    "googleDrive": {
+      "enabled": false,
+      "defaultFolderName": "BaP Framework Documents",
+      "scopes": [
+        "https://www.googleapis.com/auth/drive.file"
+      ]
+    }
   },
   "routes": {
     "appRoutes": {
@@ -45,6 +63,94 @@
       },
       "core": {
         "pathname": "/pages/core/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "coreConstants": {
+        "pathname": "/pages/core/constants/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "coreFirebaseInit": {
+        "pathname": "/pages/core/firebaseInit/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "coreAuth": {
+        "pathname": "/pages/core/auth/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "coreRouterPaths": {
+        "pathname": "/pages/core/routerPaths/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "coreRouter": {
+        "pathname": "/pages/core/router/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "coreStorage": {
+        "pathname": "/pages/core/storage/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "coreI18n": {
+        "pathname": "/pages/core/i18n/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "coreAnalytics": {
+        "pathname": "/pages/core/analytics/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "coreUtil": {
+        "pathname": "/pages/core/util/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "coreGoogleDrive": {
+        "pathname": "/pages/core/googleDrive/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "coreMarkdown": {
+        "pathname": "/pages/core/markdown/",
         "component": null,
         "navigation": "REDIRECT",
         "validate": {
@@ -179,5 +285,12 @@
   },
   "ui": {
     "notificationTimeout": 4000
+  },
+  "ai": {
+    "models": [],
+    "temperature": 0.1,
+    "majorChangeThreshold": 0.3,
+    "instructions": {},
+    "prompts": {}
   }
 }

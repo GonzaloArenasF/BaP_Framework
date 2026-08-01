@@ -6,7 +6,8 @@
  */
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-import { getI18nContent, flattenObject, sanitizeHTML, replaceTokensInDOM } from '../../src/_main/i18n.js';
+import { getI18nContent, flattenObject, sanitizeHTML, replaceTokensInDOM, applyI18n } from '../../src/_main/i18n.js';
+import { CONSTANT } from '../../src/_main/constants.js';
 
 // ═══════════════════════════════════════════════════════════════════════
 // getI18nContent
@@ -205,5 +206,15 @@ describe('i18n.js — replaceTokensInDOM', () => {
     const tokenMap = { version: 'v2.3.0' };
     replaceTokensInDOM(document.body, tokenMap);
     expect(document.body.textContent).toContain('Versión: v2.3.0');
+  });
+});
+
+describe('i18n.js — applyI18n', () => {
+  it('I18N-23: ejecuta applyI18n y llama al callback en dev mode', () => {
+    document.body.innerHTML = '<div>{APP_NAME}</div>';
+    const callback = vi.fn();
+    applyI18n(callback);
+    expect(callback).toHaveBeenCalled();
+    expect(document.querySelector('html').getAttribute('lang')).toBe(CONSTANT.I18N.DEFAULT);
   });
 });

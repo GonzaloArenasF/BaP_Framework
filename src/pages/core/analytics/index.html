@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="{lang}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Especificación técnica detallada de analytics.js en BaP Framework." />
+  <link rel="stylesheet" href="../index.css" />
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <script type="module" src="index.js?v={APP_VERSION}"></script>
+  <title>BaP Docs - analytics.js</title>
+</head>
+
+<body class="light-mode">
+  <header>
+    <bap-header></bap-header>
+  </header>
+
+  <main class="docs-main">
+    <aside class="docs-sidebar">
+      <nav>
+        <h4>{page.cross.sidebar.title}</h4>
+        <a href="/">{page.cross.sidebar.back}</a>
+        <a href="/pages/core/">← Volver a Core Engine</a>
+        <a href="/pages/core/constants/">constants.js</a>
+        <a href="/pages/core/firebaseInit/">firebaseInit.js</a>
+        <a href="/pages/core/auth/">auth.js</a>
+        <a href="/pages/core/routerPaths/">routerPaths.js</a>
+        <a href="/pages/core/router/">router.js</a>
+        <a href="/pages/core/storage/">storage.js</a>
+        <a href="/pages/core/i18n/">i18n.js</a>
+        <a href="/pages/core/analytics/" class="active">analytics.js</a>
+        <a href="/pages/core/util/">util.js</a>
+        <a href="/pages/core/googleDrive/">googleDrive.js</a>
+        <a href="/pages/core/markdown/">markdown.js</a>
+      </nav>
+    </aside>
+
+    <article class="docs-content">
+      <div class="docs-callout warning">
+        {page.core.body.coreModificationWarning}
+      </div>
+
+      <h2>Módulo <code>analytics.js</code></h2>
+      <p>Módulo de telemetría unificada que expone una API declarativa basada en la taxonomía definida en `bap.config.json`.</p>
+
+      <h3>Atributos Exportados (<code>export const</code>)</h3>
+
+      <div class="core-module-card">
+        <h4>1. <code>analytic</code></h4>
+        <p><strong>Tipo:</strong> <code>Object</code></p>
+        <p><strong>Propósito:</strong> Objeto dinámico exportado que expone funciones tipadas en `analytic.logEvent.*` para cada evento configurado en la taxonomía de la aplicación.</p>
+        <p><strong>Ejemplo de uso:</strong></p>
+        <div class="code-box">
+          <pre><code>import { analytic } from "../../_main/analytics.js";
+
+// Registrar entrada a la vista del Core
+analytic.logEvent.enterCorePage?.();
+
+// Registrar evento personalizado con parámetros
+analytic.logEvent.searchSubmitted?.({ query: "cifrado AES-GCM" });</code></pre>
+        </div>
+      </div>
+
+      <h3>Buenas Prácticas</h3>
+      <ul>
+        <li><strong>Nomenclatura taxonómica:</strong> Declarar todos los eventos en `bap.config.json` antes de utilizarlos en componentes.</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <bap-footer></bap-footer>
+  </footer>
+</body>
+
+</html>

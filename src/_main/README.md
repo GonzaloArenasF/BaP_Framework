@@ -1,36 +1,175 @@
-# Núcleo del Framework (Core Engine)
+# Guía de Integración del Core Engine
 
-Este directorio alberga los módulos lógicos principales de BaP Framework, actuando como el motor que orquesta el enrutamiento, la autenticación, la internacionalización, la persistencia criptográfica y la telemetría.
+Esta guía paso a paso describe cómo inicializar, configurar y utilizar los módulos del núcleo (`src/_main/`) de BaP Framework en tu aplicación web.
+
+> [!WARNING]
+> **Advertencia sobre Modificaciones del Core Engine:**
+> Si bien BaP Framework permite modificar cualquier archivo en `src/_main/`, ten en cuenta que al actualizar a una nueva versión del framework en el futuro, **cualquier cambio manual en los archivos del núcleo se sobrescribirá y perderá**. Se sugiere contactar al referente/mantenedor del framework para proponer mejoras antes de alterar el motor localmente.
+
+---
+
+## 📋 Pre requisitos de Entorno
+
+Antes de comenzar a utilizar los módulos del núcleo, asegúrate de contar con la siguiente configuración inicial:
+
+1. **Configuración Maestra**: Archivo [`bap.config.json`](../../bap.config.json) en la raíz del proyecto.
+2. **Variables de Entorno**: Archivos `.env` configurados para la compilación automatizada con Gulp.
+3. **Servicios de Firebase**: Proyecto de Firebase habilitado en la consola de Google (si se utiliza almacenamiento o autenticación).
+
+---
+
+## 1. Inicializar la Aplicación y Servicios Globales (`constants.js` & `firebaseInit.js`)
+
+Los módulos `constants.js` y `firebaseInit.js` constituyen el punto de entrada lógico. Resuelven dinámicamente las URLs base según el origen del navegador y proveen un gateway único e inmutable para los SDKs de Google Firebase (evitando múltiples instanciaciones).
+
+```javascript
+// src/index.js (Punto de entrada de la aplicación)
+import { CONSTANT, ENV_URL } from "./_main/constants.js";
+import { bapApp, bapAuth, bapDB, bapAnalytics } from "./_main/firebaseInit.js";
+
+console.log(`BaP Framework ${CONSTANT.APP_VERSION} inicializado en ${ENV_URL}`);
+```
+
+- `constants.js`: Exporta `CONSTANT`, `ENV_URL`, `CDN_URL` e `IS_PROD`.
+- `firebaseInit.js`: Exporta `bapApp`, `bapAuth`, `bapDB`, `bapAnalytics` y `logAnalyticEvent()`.
+
+---
+
+## 2. Configurar Autenticación con Google Identity y Whitelist (`auth.js`)
+
+El módulo `auth.js` administra el flujo de inicio/cierre de sesión mediante una ventana emergente de Google Identity (OAuth 2.0 popup), administra Access Tokens y verifica los permisos del usuario contra la lista blanca (`/allowed_users/`) en Firebase Realtime Database.
+
+```javascript
+import { logIn, logOut, isUserAuthorized, ensureGoogleAccessToken } from "./_main/auth.js";
+
+// Iniciar sesión con Google Identity
+logIn(
+  async (user) => {
+    // Verificar autorización lógica por Whitelist
+    const isAuthorized = await isUserAuthorized(user.uid);
+    if (isAuthorized) {
+      console.log("Usuario autorizado:", user.email);
+    }
+  },
+  (error) => console.error("Error al iniciar sesión:", error)
+);
+
+// Garantizar un Access Token de Google válido (para consumir Google Drive API)
+const token = await ensureGoogleAccessToken();
+```
 
 > [!IMPORTANT]
-> **Antes de implementar `auth.js`/`router.js`:** la validación de whitelist y los *guards* de ruta se ejecutan en el **cliente** — son una capa de UX, **no** seguridad. La autorización real de los datos depende de las **Reglas de Seguridad de Firebase** que configures. Ver [Seguridad: Reglas recomendadas](#seguridad-reglas-recomendadas-para-realtime-database) (abajo) y [`SECURITY.md`](../../SECURITY.md).
+> **Seguridad**: La comprobación de whitelist en cliente es una capa de experiencia de usuario (UX). Es obligatorio proteger la rama `/allowed_users/` en las **Security Rules** de Realtime Database en el servidor.
 
-## Contexto de los Archivos
+---
 
-Los archivos en `./src/_main/` componen la lógica de control del framework:
-- [./src/_main/constants.js](./src/_main/constants.js): Única fuente de verdad para la configuración global. Resuelve `ENV_URL` dinámicamente según `window.location.origin` (previniendo colisiones de puertos por AirPlay en macOS) y almacena marcadores de versión y configuraciones.
-- [./src/_main/firebaseInit.js](./src/_main/firebaseInit.js): Gateway de inicialización centralizado para Firebase App, Auth, Database y Analytics.
-- [./src/_main/auth.js](./src/_main/auth.js): Gestiona el inicio/cierre de sesión (proveedor Google Identity) y realiza una validación cruzada asíncrona de listas blancas (`/allowed_users/`) en Firebase Realtime Database.
-- [./src/_main/routerPaths.js](./src/_main/routerPaths.js): Catálogo estricto de rutas de la aplicación, asociando URLs con vistas y reglas de acceso (si requiere sesión o no).
-- [./src/_main/router.js](./src/_main/router.js): El motor de enrutamiento SPA. Evita ataques XSS al crear componentes usando `document.createElement()` en lugar de interpolar strings HTML en `innerHTML`, y valida de forma estricta los query parameters de la URL.
-- [./src/_main/storage.js](./src/_main/storage.js): Capa de persistencia. Expone funciones asíncronas seguras que implementan cifrado **AES-GCM de 256 bits** y derivación **PBKDF2** (con 100,000 iteraciones y salt) a través de la **Web Crypto API** del navegador, aislando los datos locales con el `uid` del usuario. Mantiene funciones síncronas básicas con advertencias en consola.
-- [./src/_main/i18n.js](./src/_main/i18n.js): Motor de internacionalización. Recorre el DOM de forma eficiente y segura usando un `TreeWalker` nativo para traducir nodos de texto sin romper listeners. Contiene `sanitizeHTML()` como filtro XSS avanzado basado en DOMPurify.
-- [./src/_main/analytics.js](./src/_main/analytics.js): Centraliza el registro taxonómico de eventos de telemetría (páginas, clics, diálogos, errores 404) hacia Google Analytics.
-- [./src/_main/util.js](./src/_main/util.js): Caja de herramientas comunes (generación de UUIDs criptográficamente fuertes mediante `crypto.randomUUID()`, validación responsiva y cargadores dinámicos).
+## 3. Configurar Enrutamiento SPA y Rutas Protegidas (`routerPaths.js` & `router.js`)
 
-## Sinergia con el Directorio Padre
+Los módulos `routerPaths.js` y `router.js` gestionan la navegación de la Single Page Application (SPA) sin recargar la página. Inyectan vistas usando `document.createElement()` para mitigar ataques XSS reflejados y evalúan permisos antes de cargar rutas privadas (`requireAuth: true`).
 
-- Este motor lógico alimenta directamente a todo el directorio [./src/](./src/README.md) y es importado en el arranque [./src/index.js](./src/index.js) para inicializar los servicios en cascada al cargar el DOM.
+```javascript
+import { initRouter, navigateTo } from "./_main/router.js";
 
-## Sinergia con Subdirectorios
+// Inicializar el enrutador al cargar el DOM
+document.addEventListener("DOMContentLoaded", () => {
+  initRouter();
+});
 
-- [./src/_main/i18n/](./src/_main/i18n/README.md): Almacena los diccionarios y traducciones específicas de idiomas de forma asíncrona, las cuales son consumidas por `i18n.js`.
+// Navegación programática segura
+navigateTo("/pages/core/");
+```
 
-## Seguridad: Reglas recomendadas para Realtime Database
+- Utilizar el atributo `data-link` en elementos `<a>` en lugar de recargas `window.location.href`.
 
-> ⚠️ **Importante (responsabilidad del desarrollador que implementa BaP).** La validación de whitelist (`/allowed_users/`) y los *guards* de ruta de `auth.js`/`router.js` se ejecutan en el **cliente**: son una capa de UX/conveniencia y **no** constituyen la frontera de seguridad real. Un usuario puede eludir cualquier comprobación de JavaScript. La autorización efectiva de los datos depende **exclusivamente** de las **Reglas de Seguridad de Firebase** que configures en tu propio proyecto.
+---
 
-BaP **no despliega ni sobrescribe** las reglas de tu proyecto (no se versiona ningún `database.rules.json` en el framework, precisamente para no pisar tu configuración). A continuación se ofrece una **plantilla recomendativa** *deny-by-default* como punto de partida; **adáptala a tu modelo de datos** y publícala tú mismo desde la consola de Firebase o tu propio `firebase.json`:
+## 4. Persistencia Cifrada (AES-GCM 256-bit) y Base de Datos (`storage.js`)
+
+El módulo `storage.js` ofrece persistencia ultrasegura. Cifra información confidencial en `localStorage` o `sessionStorage` mediante **AES-GCM de 256 bits** y derivación **PBKDF2** (100,000 iteraciones y salt) aislados por el `uid` del usuario.
+
+```javascript
+import { setToStorageAsync, getFromStorageAsync, CONSTANT } from "./_main/storage.js";
+
+// Cifrar y guardar datos confidenciales en localStorage
+await setToStorageAsync({
+  storageType: CONSTANT.STORAGE.SOURCE.LOCAL,
+  item: "user_preferences",
+  value: { theme: "dark", role: "admin" },
+  secretKey: user.uid // Aislamiento criptográfico por usuario
+});
+
+// Obtener y descifrar datos
+const preferences = await getFromStorageAsync({
+  storageType: CONSTANT.STORAGE.SOURCE.LOCAL,
+  item: "user_preferences",
+  secretKey: user.uid
+});
+```
+
+---
+
+## 5. Internacionalización (i18n) y Sanitización Anti-XSS (`i18n.js`)
+
+El módulo `i18n.js` traduce la interfaz en tiempo de ejecución recorriendo los nodos del DOM con un `TreeWalker` nativo sin romper event listeners. Incluye la función `sanitizeHTML()` impulsada por **DOMPurify** para neutralizar ataques XSS.
+
+```javascript
+import { applyI18n, sanitizeHTML } from "./_main/i18n.js";
+
+// Traducir dinámicamente la UI
+applyI18n(() => {
+  console.log("Traducción completada.");
+});
+
+// Sanitizar código HTML no confiable
+const cleanHTML = sanitizeHTML("<img src=x onerror=alert(1)><strong>Contenido seguro</strong>");
+```
+
+---
+
+## 6. Telemetría, Google Drive, Markdown y Utilidades (`analytics.js`, `util.js`, `googleDrive.js`, `markdown.js`)
+
+Módulos transversales que complementan la funcionalidad del framework:
+
+```javascript
+import { generateUUID, bapNotify } from "./_main/util.js";
+import { parseMarkdown } from "./_main/markdown.js";
+import { uploadFile } from "./_main/googleDrive.js";
+import { analytic } from "./_main/analytics.js";
+
+// 1. Identificadores no predecibles (Web Crypto API)
+const id = generateUUID();
+
+// 2. Disparar notificaciones Toast
+bapNotify("ALERT", "SUCCESS", "Éxito", "Operación completada.");
+
+// 3. Renderizar Markdown a HTML sanitizado
+const html = parseMarkdown("# Título\n- Elemento de lista");
+
+// 4. Telemetría unificada
+analytic.logEvent.enterLandingPage?.();
+```
+
+---
+
+## 📖 Referencia Rápida de la API del Core
+
+| Módulo | Propósito | Funciones Exportadas | Integraciones Clave |
+| :--- | :--- | :--- | :--- |
+| **`constants.js`** | Configuración global y URLs dinámicas | `CONSTANT`, `ENV_URL`, `CDN_URL`, `IS_PROD` | Gulp, Web Components, Vistas. |
+| **`firebaseInit.js`** | Gateway único de servicios Firebase | `bapApp`, `bapAuth`, `bapDB`, `bapAnalytics`, `logAnalyticEvent` | `auth.js`, `storage.js`, `analytics.js`. |
+| **`auth.js`** | Autenticación Google Identity y Whitelist | `logIn`, `logOut`, `isUserAuthorized`, `ensureGoogleAccessToken` | `router.js`, `googleDrive.js`. |
+| **`routerPaths.js`** | Catálogo estricto de rutas web | `routerPaths`, `getRouteInfo` | `router.js`, `bap-header`. |
+| **`router.js`** | Enrutador SPA sin recarga anti-XSS | `initRouter`, `navigateTo`, `getCurrentRoute`, `getQueryParams` | `auth.js`, `analytics.js`, elementos `<a>`. |
+| **`storage.js`** | Cifrado AES-GCM 256-bit y Firebase RTDB | `secureEncryptData`, `secureDecryptData`, `getFromStorageAsync`, `setToStorageAsync` | `auth.js`, Firebase RTDB, Vistas. |
+| **`i18n.js`** | Internacionalización y sanitización DOMPurify | `applyI18n`, `getI18nContent`, `sanitizeHTML`, `replaceTokensInDOM` | Web Components, `markdown.js`. |
+| **`analytics.js`** | Taxonomía unificada de telemetría | `analytic.logEvent.*` | `router.js`, Componentes UI. |
+| **`util.js`** | UUIDs criptográficos y notificaciones Toast | `generateUUID`, `bapNotify`, `isMobile`, `loadScript` | `customComponentsRegistration.js`, `storage.js`. |
+| **`googleDrive.js`** | Cliente REST v3 de Google Drive | `searchFolder`, `createFolder`, `uploadFile`, `getFile` | `auth.js` (tokens OAuth 2.0). |
+| **`markdown.js`** | Parser local de Markdown a HTML | `parseMarkdown`, `renderMarkdownToContainer` | `bap-dialog`, Simulador de migración. |
+
+---
+
+## 🛡️ Seguridad: Reglas recomendadas para Realtime Database
 
 ```json
 {
@@ -46,26 +185,3 @@ BaP **no despliega ni sobrescribe** las reglas de tu proyecto (no se versiona ni
   }
 }
 ```
-
-- `.read`/`.write` globales en `false`: nada es legible ni escribible salvo lo que se habilite explícitamente.
-- `allowed_users/$userKey`: legible solo por usuarios autenticados; escritura denegada desde el cliente (la whitelist se administra desde la consola/Admin SDK).
-- Endurece según tu caso: por ejemplo, limitar la lectura a la propia entrada del usuario, o validar el `uid`/`email` del token.
-
-> El inicio de sesión usa OAuth con Google (`signInWithPopup`); el *rate limiting* de autenticación lo gestiona Google/Firebase Auth a nivel de proyecto (por eso el framework ya no expone un contador `loginAttempts` propio, que sería eludible y solo daría una falsa expectativa de seguridad).
-
-### La "Regla de Oro" (bypass de seguridad)
-
-Cuando `CONSTANT.FIREBASE_AVAILABLE` es `false`, `auth.js` y `router.js` **omiten** las validaciones de sesión y whitelist (`isUserAuthorized()` devuelve `true`, los *guards* dejan pasar). Es un comportamiento **intencional** para agilizar el desarrollo local y habilitar un modo "sitio 100% estático sin Firebase".
-
-Para que este bypass **no llegue accidentalmente a producción**, existen dos controles:
-
-1. **Compilación (VUL-04, [./gulpfile.js](./gulpfile.js))**: `optimize:prod` aborta el build si se compila para producción con credenciales presentes pero `FIREBASE_AVAILABLE` ≠ `"true"`.
-2. **Runtime ([./src/_main/constants.js](./src/_main/constants.js))**: en un hostname no local con credenciales en el bundle, Firebase se habilita automáticamente, ignorando el `.env`. La detección de "host local" es una **heurística** (`localhost`, rangos privados `192.168.`, `10.`, `172.`); por diseño, cualquier caso ambiguo se resuelve hacia *habilitar* Firebase (lado seguro).
-
-> **Recordatorio de alcance:** BaP es para prototipos/MVP. El bypass afecta la navegación de **vistas**, no el acceso a **datos** (protegido por las Security Rules). Quien lo despliegue en producción asume el riesgo y debe configurar Firebase + reglas; el framework no sustituye una arquitectura de seguridad propia.
-
-## Referencias Cruzadas e Integración
-
-- **Inyección en Build Time**: Las credenciales sensibles de Firebase en `constants.js` se manejan como marcadores de reemplazo (`%%NOMBRE_VAR%%`). El script de automatización [./gulpfile.js](./gulpfile.js) se encarga de leerlas de los archivos `./.env.*` de la raíz e inyectarlas al compilar.
-- **Configuración Maestra**: El motor lee el archivo de configuración central [./bap.config.json](./bap.config.json) para cargar dinámicamente las rutas personalizadas y registrar Custom Elements.
-- **Pruebas unitarias**: Toda la lógica central y las funciones asíncronas de criptografía se validan minuciosamente en el directorio espejo [./test/](./test/README.md).
