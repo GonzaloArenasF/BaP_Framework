@@ -58,7 +58,7 @@ main {
   background: var(--bg-card, rgba(255, 255, 255, 0.05));
   border: 1px solid rgba(98, 174, 196, 0.15);
   border-radius: 12px;
-  padding: 2rem;
+  padding: 1.5rem;
   transition: all 0.3s ease;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -105,7 +105,8 @@ main {
   width: 100%;
   display: flex;
   justify-content: center;
-  box-sizing: border-box; /* Ensure padding doesn't overflow */
+  box-sizing: border-box;
+  /* Ensure padding doesn't overflow */
 }
 
 /* Spacing and layout for content sections */
@@ -113,7 +114,7 @@ main {
   margin-bottom: 4rem;
 }
 
-.docs-content section > h2 {
+.docs-content section>h2 {
   text-align: center;
   margin-bottom: 2.5rem;
   font-size: 2rem;

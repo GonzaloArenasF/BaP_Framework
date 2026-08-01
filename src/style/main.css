@@ -207,7 +207,8 @@ nav.breadcrumbs a:last-child::after {
 }
 
 /* Divisor horizontal estándar */
-hr, .bap-divider {
+hr,
+.bap-divider {
   border: 0;
   border-top: 1px solid var(--divider-color);
   margin: 2.5rem 0;
@@ -285,15 +286,6 @@ hr, .bap-divider {
 }
 
 /* Content styling */
-.docs-content {
-  flex-grow: 1;
-  background: var(--bg-card, rgba(255, 255, 255, 0.02));
-  border: 1px solid rgba(98, 174, 196, 0.1);
-  border-radius: 16px;
-  padding: 2.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
-}
-
 .docs-content h2 {
   font-size: 2.2rem;
   margin-top: 0;
@@ -352,7 +344,8 @@ table {
   margin-bottom: 1.5rem;
 }
 
-th, td {
+th,
+td {
   padding: 0.75rem 1rem;
   text-align: left;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -400,10 +393,12 @@ th {
     gap: 1.5rem;
     padding: 1.5rem 1rem;
   }
+
   .docs-sidebar {
     width: 100%;
     position: static;
   }
+
   .docs-content {
     padding: 1.5rem;
   }

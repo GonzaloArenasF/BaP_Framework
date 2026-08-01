@@ -1,1 +1,126 @@
 @import url(../../style/main.css);
+
+.step-section {
+  position: relative;
+  margin-top: 2rem;
+  margin-bottom: 2.5rem;
+  padding-left: 3.5rem;
+  border-left: 2px dashed rgba(98, 174, 196, 0.25);
+}
+
+.step-badge {
+  position: absolute;
+  left: -1.25rem;
+  top: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--color-primary, #62aec4);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(98, 174, 196, 0.4);
+}
+
+.step-header {
+  font-size: 1.4rem;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: var(--color-text, #ffffff);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.code-box {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(98, 174, 196, 0.25);
+  border-radius: 8px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.code-box-header {
+  background: rgba(30, 41, 59, 0.8);
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-family: monospace;
+  color: #94a3b8;
+  border-bottom: 1px solid rgba(98, 174, 196, 0.15);
+}
+
+.code-box pre {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+  line-height: 1.5;
+}
+
+.prereq-list {
+  background: rgba(98, 174, 196, 0.05);
+  border-left: 4px solid var(--color-primary, #62aec4);
+  padding: 1rem 1.5rem;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 2rem;
+}
+
+.prereq-list ul {
+  margin: 0.5rem 0 0 1.25rem;
+  padding: 0;
+}
+
+.prereq-list li {
+  margin-bottom: 0.4rem;
+}
+
+.core-module-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0 2.5rem 0;
+}
+
+.module-link-card {
+  background: var(--bg-card, rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(98, 174, 196, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.module-link-card:hover {
+  border-color: var(--color-primary, #62aec4);
+  background: rgba(98, 174, 196, 0.08);
+  transform: translateY(-2px);
+}
+
+.module-link-card h4 {
+  margin: 0 0 0.4rem 0;
+  font-size: 1.05rem;
+  color: var(--color-primary, #62aec4);
+  font-family: monospace;
+}
+
+.module-link-card p {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+  line-height: 1.4;
+}
+
+.module-link-card .card-arrow {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-primary, #62aec4);
+}

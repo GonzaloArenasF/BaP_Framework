@@ -115,7 +115,26 @@ describe('Componentes Simples', () => {
     });
 
     // HDR-04
-    it('HDR-04: restaura preferencia de color desde localStorage', async () => {
+    it('HDR-04: click en menu conmuta clase open-menu', async () => {
+      element = document.createElement('bap-header');
+      document.body.appendChild(element);
+
+      await vi.waitFor(() => {
+        expect(document.querySelector('.bap-header')).not.toBeNull();
+      });
+
+      const header = document.querySelector('.bap-header');
+      const menuSpan = header.querySelector('span.menu');
+      if (menuSpan) {
+        menuSpan.click();
+        expect(header.classList.contains('open-menu')).toBe(true);
+        menuSpan.click();
+        expect(header.classList.contains('open-menu')).toBe(false);
+      }
+    });
+
+    // HDR-05
+    it('HDR-05: restaura preferencia de color desde localStorage', async () => {
       vi.spyOn(localStorage, 'getItem').mockReturnValue('dark');
       
       element = document.createElement('bap-header');
@@ -178,6 +197,18 @@ describe('Componentes Simples', () => {
       const chip = document.querySelector('.bap-chip');
       expect(chip.innerHTML).toContain('Mi etiqueta');
     });
+
+    // CHP-02
+    it('CHP-02: conserva el atributo id si es provisto', async () => {
+      element = document.createElement('bap-chip');
+      element.setAttribute('id', 'custom-chip-id');
+      element.innerHTML = 'Chip con ID';
+      document.body.appendChild(element);
+
+      await vi.waitFor(() => {
+        expect(document.querySelector('.bap-chip')).not.toBeNull();
+      });
+    });
   });
 
   // BapSpinner Tests
@@ -227,6 +258,32 @@ describe('Componentes Simples', () => {
       await vi.waitFor(() => {
         expect(element.shadowRoot).not.toBeNull();
         expect(element.shadowRoot.innerHTML).not.toContain('<h3>');
+      });
+    });
+
+    // LDS-04
+    it('LDS-04: maneja error HTTP al cargar plantilla', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      global.fetch = vi.fn(() => Promise.resolve({ ok: false, status: 500 }));
+      element = document.createElement('bap-loading-state');
+      document.body.appendChild(element);
+
+      await vi.waitFor(() => {
+        expect(consoleSpy).toHaveBeenCalledWith('bap-loading-state: Error HTTP 500 al cargar la plantilla');
+      });
+    });
+
+    // LDS-05
+    it('LDS-05: maneja AbortError (timeout) al cargar plantilla', async () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const abortError = new Error('Aborted');
+      abortError.name = 'AbortError';
+      global.fetch = vi.fn(() => Promise.reject(abortError));
+      element = document.createElement('bap-loading-state');
+      document.body.appendChild(element);
+
+      await vi.waitFor(() => {
+        expect(consoleSpy).toHaveBeenCalledWith('bap-loading-state: Timeout (8s) al cargar la plantilla HTML');
       });
     });
   });

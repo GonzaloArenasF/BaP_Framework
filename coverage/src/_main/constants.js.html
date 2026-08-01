@@ -32,7 +32,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>14/14</span>
             </div>
         
             
@@ -156,7 +156,9 @@
 <a name='L91'></a><a href='#L91'>91</a>
 <a name='L92'></a><a href='#L92'>92</a>
 <a name='L93'></a><a href='#L93'>93</a>
-<a name='L94'></a><a href='#L94'>94</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L94'></a><a href='#L94'>94</a>
+<a name='L95'></a><a href='#L95'>95</a>
+<a name='L96'></a><a href='#L96'>96</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -167,17 +169,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">31x</span>
+<span class="cline-any cline-yes">36x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -185,8 +186,8 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">32x</span>
-<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -246,9 +247,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">32x</span>
-<span class="cline-any cline-yes">32x</span>
-<span class="cline-any cline-yes">32x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">37x</span>
+<span class="cline-any cline-yes">37x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
  * CONSTANTES GLOBALES DEL SISTEMA
  *
@@ -261,9 +265,8 @@
  *     Ver: gulp-imports.js → loadEnv() y gulpfile.js → replaceEnvTokens()
  */
 export const CONSTANT = {
-  APP_NAME: "BaP Framework",
-  APP_VERSION: "v2.3.1",
-  BAP_FRAMEWORK_VERSION: "v2.3.1",
+  APP_NAME: "%%BAP_APP_NAME%%",
+  APP_VERSION: "%%BAP_APP_VERSION%%",
   FIREBASE_AVAILABLE: (() =&gt; {
     // VUL-04: Autodetectar entorno de red local para mayor seguridad.
     // Evitar errores de referencia en Node.js (Gulp build time).
@@ -284,6 +287,7 @@ export const CONSTANT = {
   STORAGE: {
     KEYS: {
       DIALOG_DATA: "dd",
+      DRIVE_FILE: "saved_drive_file",
     },
     SOURCE: {
       LOCAL: "localStorage", // Persistencia en el Navegador (Local)
@@ -302,7 +306,7 @@ export const CONSTANT = {
       ERROR: "error",
     },
     AUTO_REMOVE_AFTER: {
-      INFO: 4000,
+      INFO: parseInt("%%BAP_NOTIFICATION_TIMEOUT%%") || 4000,
     },
   },
   AUTH: {
@@ -310,7 +314,9 @@ export const CONSTANT = {
     SIGNED_OUT: "AUTH_SIGNED_OUT",
     SIGNED_UP: "AUTH_SIGNED_UP",
     SIGNED_DOWN: "AUTH_SIGNED_DOWN",
-    LOGIN_ATTEMPTS: 10,
+    // SEC-09 (NEW-05): se eliminó LOGIN_ATTEMPTS. El inicio de sesión usa OAuth con Google
+    // (signInWithPopup); el rate limiting lo gestiona Google/Firebase Auth a nivel de proyecto.
+    // Un contador client-side era eludible y creaba una falsa expectativa de seguridad.
   },
   FBC: {
     AP: "%%FIREBASE_AP%%",   // Inyectado desde .env en el build de Gulp
@@ -333,7 +339,7 @@ export const CONSTANT = {
   SOCIAL_MEDIA: {
     EMAIL: {
       TITLE: "Correo electrónico",
-      URL: "gonzaloarenasf+bap-framework@gmail.com",
+      URL: "%%BAP_EMAIL%%",
     }
   },
 };
@@ -349,7 +355,7 @@ export const CDN_URL = "%%ENV_CDN%%";
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-06-04T03:16:03.379Z
+                at 2026-08-01T00:10:42.713Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

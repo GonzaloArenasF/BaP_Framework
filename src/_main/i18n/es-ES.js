@@ -27,6 +27,23 @@ export const esES = {
           errorRemoving: "No se pudo eliminar la información. Inténtalo de nuevo.",
         },
       },
+      googleDrive: {
+        syncPending: "Cambios pendientes",
+        saved: "Guardado en Drive ✓",
+        modalTitle: "Archivos en Google Drive",
+        noFilesFound: "No se encontraron archivos en Google Drive.",
+        loadingFiles: "Cargando archivos de Google Drive...",
+        openSuccess: "Archivo cargado desde Google Drive.",
+        saveSuccess: "Archivo guardado en Google Drive.",
+        errorLoading: "Error al cargar archivo desde Google Drive.",
+        errorSaving: "Error al guardar en Google Drive.",
+      },
+      dialog: {
+        confirmTitle: "¿Confirmar acción?",
+        confirmBody: "Se perderán los cambios no guardados. ¿Deseas continuar?",
+        btnConfirm: "Aceptar",
+        btnCancel: "Cancelar",
+      },
       sidebar: {
         title: "Documentación",
         back: "← Volver al Inicio",
@@ -80,11 +97,13 @@ export const esES = {
             firebaseInit: "Gateway de inicialización de los servicios Firebase.",
             routerPaths: "Diccionario estricto de rutas y guardias de seguridad.",
             router: "Motor de ruteo dinámico programático e inmune a XSS.",
-            auth: "Control de sesión con doble factor lógico por Whitelist.",
+            auth: "Control de sesión con doble factor lógico por Whitelist y tokens OAuth.",
             storage: "Persistencia cifrada (AES-GCM de 256 bits y PBKDF2) y base de datos.",
             i18n: "Traducción segura con TreeWalker y sanitización avanzada contra XSS mediante DOMPurify.",
             analytics: "Telemetría centralizada y taxonomía unificada de eventos.",
             util: "Herramientas estructurales y UUIDs criptográficamente fuertes.",
+            googleDrive: "Integración desacoplada con Google Drive API v3 (gestión de carpetas y archivos).",
+            markdown: "Parser local de Markdown para renderizar reportes y documentos.",
           },
           config: {
             title: "⚙️ Configuración Centralizada",
@@ -223,31 +242,90 @@ export const esES = {
         }
       },
       body: {
-        title: "Núcleo del Framework (Core Engine)",
-        desc: "Este directorio alberga los módulos lógicos principales de BaP Framework, actuando como el motor que orquesta el enrutamiento, la autenticación, la internacionalización, la persistencia criptográfica y la telemetría.",
-        modulesTitle: "Módulos del Core (Directorio <code>./src/_main/</code>)",
-        modulesDesc: "Cada archivo actúa como un módulo JS especializado para la orquestación e inyección del framework:",
+        title: "Guía de Integración del Core (Engine Core Setup)",
+        subtitle: "Aprende a integrar, configurar y utilizar los módulos del núcleo de BaP Framework en tu aplicación web.",
+        coreModificationWarning: "⚠️ <strong>Advertencia sobre Modificaciones del Core:</strong> Si bien BaP Framework permite modificar cualquier archivo en <code>src/_main/</code>, ten en cuenta que al actualizar a una nueva versión de BaP en el futuro, <strong>cualquier cambio manual en los archivos del núcleo se sobrescribirá y perderá</strong>. Se sugiere contactar al referente o mantenedor del framework para sugerir mejoras o cambios antes de alterar el motor localmente.",
+        prereqTitle: "📋 Pre requisitos de Entorno",
+        prereqDesc: "Antes de comenzar a utilizar los módulos del núcleo, asegúrate de contar con la siguiente configuración inicial:",
+        prereq1: "Archivo <code>bap.config.json</code> configurado en la raíz del proyecto con la versión y rutas de la aplicación.",
+        prereq2: "Variables de entorno definidas en el archivo <code>.env</code> para la compilación automatizada mediante Gulp.",
+        prereq3: "Servicios de Firebase habilitados en la consola de Google (para proyectos con backend activo).",
+
+        step1Title: "1. Inicializar la Aplicación y Servicios Globales",
+        step1Desc: "Los módulos <code>constants.js</code> y <code>firebaseInit.js</code> actúan como el punto de entrada lógico. Resuelven dinámicamente las URLs base y proveen un gateway único e inmutable para los SDKs de Google Firebase.",
+        step1CodeTitle: "Ejemplo de arranque en <code>src/index.js</code>:",
+
+        step2Title: "2. Configurar Autenticación con Google Identity y Whitelist",
+        step2Desc: "El módulo <code>auth.js</code> administra el flujo de inicio/cierre de sesión mediante una ventana emergente de Google Identity, obtiene los tokens de acceso OAuth 2.0 y valida los permisos de usuario contra la rama <code>/allowed_users/</code> de Realtime Database.",
+        step2CodeTitle: "Manejo de sesión y verificación de tokens OAuth:",
+
+        step3Title: "3. Configurar Enrutamiento SPA y Rutas Protegidas",
+        step3Desc: "Los módulos <code>routerPaths.js</code> y <code>router.js</code> gestionan la navegación de la Single Page Application (SPA) sin recargar la página, mitigando ataques de inyección XSS al crear componentes programáticamente.",
+        step3CodeTitle: "Declaración de rutas y navegación controlada:",
+
+        step4Title: "4. Persistencia Cifrada (AES-GCM 256-bit) y Base de Datos",
+        step4Desc: "El módulo <code>storage.js</code> provee una capa de persistencia ultrasegura. Cifra datos confidenciales en <code>localStorage</code> o <code>sessionStorage</code> usando **AES-GCM de 256 bits** y **PBKDF2** (100,000 iteraciones y salt) aislados por el <code>uid</code> del usuario, sincronizándolos opcionalmente con Realtime Database.",
+        step4CodeTitle: "Almacenamiento y descifrado asíncrono de datos:",
+
+        step5Title: "5. Internacionalización (i18n) y Sanitización Anti-XSS",
+        step5Desc: "El módulo <code>i18n.js</code> recorre el DOM de forma segura usando un <code>TreeWalker</code> nativo para sustituir marcadores de traducción sin destruir escuchadores de eventos. Incluye <code>sanitizeHTML()</code> impulsado por DOMPurify.",
+        step5CodeTitle: "Traducción en tiempo de ejecución y filtro anti-XSS:",
+
+        step6Title: "6. Telemetría, Drive, Markdown y Utilidades Transversales",
+        step6Desc: "Los módulos auxiliares <code>analytics.js</code>, <code>util.js</code>, <code>googleDrive.js</code> y <code>markdown.js</code> complementan la experiencia de desarrollo con métricas de uso, identificadores criptográficos (<code>crypto.randomUUID</code>), sincronización en la nube y renderizado de documentos.",
+        step6CodeTitle: "Uso de herramientas transversales del núcleo:",
+
+        apiRefTitle: "📖 Referencia Completa de Módulos de la API Core",
+        apiRefDesc: "Índice rápido de consulta técnica para los 11 módulos del núcleo:",
         colModule: "Módulo",
-        colDesc: "Descripción Técnica",
-        colSynergy: "Sinergias Clave",
-        constantsDesc: "Resuelve <code>ENV_URL</code> dinámicamente según el hostname (evita colisión de puertos en macOS). Almacena versiones y configuraciones.",
-        constantsSynergy: "Alimenta a todos los módulos con variables inicializadas y credenciales de entorno inyectadas por Gulp.",
-        firebaseInitDesc: "Gateway único de inicialización para Firebase App, Auth, Database y Analytics. Evita la múltiple instanciación.",
-        firebaseInitSynergy: "Provee los recursos base requeridos por los adaptadores de seguridad y analíticas.",
-        authDesc: "Gestiona el inicio/cierre de sesión (Google Provider) y realiza validación asíncrona contra la whitelist en Realtime Database.",
-        authSynergy: "Proporciona el estado del usuario al enrutador para autorizar rutas privadas.",
-        routerPathsDesc: "Diccionario de declaración de rutas válidas de la aplicación, asociando URLs con componentes de página.",
-        routerPathsSynergy: "Estructura el mapa que procesará el motor del enrutador.",
-        routerDesc: "Enrutador SPA que navega sin recarga de página. Crea componentes programáticamente (<code>document.createElement</code>) mitigando XSS reflejado de URLs.",
-        routerSynergy: "Orquesta la UI evaluando la seguridad en combinación con <code>auth.js</code>.",
-        storageDesc: "Capa de persistencia. Expone métodos asíncronos que cifran datos locales usando <strong>AES-GCM de 256 bits</strong> y derivación <strong>PBKDF2</strong> (100,000 iteraciones y salt) enlazados al <code>uid</code> del usuario.",
-        storageSynergy: "Garantiza la persistencia segura de tokens y datos sensibles del cliente.",
-        i18nDesc: "Motor de internacionalización. Recorre el DOM de forma segura con un <code>TreeWalker</code> nativo traduciendo solo nodos de texto. Incluye <code>sanitizeHTML()</code> con protección DOMPurify.",
-        i18nSynergy: "Traduce la UI en tiempo de ejecución leyendo diccionarios asíncronos.",
-        analyticsDesc: "Módulo unificado de telemetría. Centraliza el log de navegación, aperturas de modales, clics y errores 404.",
-        analyticsSynergy: "Envía datos de uso a Firebase Analytics.",
-        utilDesc: "Caja de herramientas (generación de UUIDs criptográficos fuertes con la Web Crypto API, validaciones, etc.).",
-        utilSynergy: "Provee utilidades comunes a componentes y páginas.",
+        colPurpose: "Propósito",
+        colFunctions: "Funciones Exportadas",
+        colSynergy: "Integraciones / Sinergias",
+
+        constantsDesc: "Fuente única de verdad. Resuelve ENV_URL dinámicamente según el origin para prevenir colisión de puertos.",
+        constantsFunctions: "CONSTANT, ENV_URL, CDN_URL, IS_PROD",
+        constantsSynergy: "Gulp (inyección %%BAP_*%%), Web Components y vistas.",
+
+        firebaseInitDesc: "Gateway único para la inicialización perezosa de servicios de Firebase.",
+        firebaseInitFunctions: "bapApp, bapAuth, bapDB, bapAnalytics, logAnalyticEvent()",
+        firebaseInitSynergy: "auth.js, storage.js, analytics.js.",
+
+        authDesc: "Autenticación Google Identity, tokens OAuth 2.0 y validación de Whitelist.",
+        authFunctions: "logIn(), logOut(), isUserAuthorized(), ensureGoogleAccessToken()",
+        authSynergy: "router.js (route guards), googleDrive.js (OAuth Bearer token).",
+
+        routerPathsDesc: "Catálogo declarativo y estricto de todas las rutas válidas y sus permisos.",
+        routerPathsFunctions: "routerPaths, getRouteInfo()",
+        routerPathsSynergy: "router.js, bap-header (construcción de menús).",
+
+        routerDesc: "Motor de enrutamiento SPA que navega sin recarga de página y mitiga XSS.",
+        routerFunctions: "initRouter(), navigateTo(), getCurrentRoute(), getQueryParams()",
+        routerSynergy: "auth.js, analytics.js, elementos <a> con data-link.",
+
+        storageDesc: "Persistencia local y remota cifrada con AES-GCM (256-bit) y derivación PBKDF2.",
+        storageFunctions: "secureEncryptData(), secureDecryptData(), getFromStorageAsync(), setToStorageAsync()",
+        storageSynergy: "auth.js, Firebase Realtime Database, componentes de vista.",
+
+        i18nDesc: "Motor de internacionalización (TreeWalker) y sanitizador HTML (DOMPurify).",
+        i18nFunctions: "applyI18n(), getI18nContent(), sanitizeHTML(), replaceTokensInDOM()",
+        i18nSynergy: "Web Components (bap-header, bap-dialog, etc.), markdown.js.",
+
+        analyticsDesc: "Centralización y taxonomía unificada de eventos de telemetría.",
+        analyticsFunctions: "analytic.logEvent.*",
+        analyticsSynergy: "router.js (pageviews), componentes UI.",
+
+        utilDesc: "Caja de herramientas: UUIDs criptográficos (crypto.randomUUID) y notificaciones Toast.",
+        utilFunctions: "generateUUID(), bapNotify(), isMobile(), isCSSIncluded(), loadScript()",
+        utilSynergy: "customComponentsRegistration.js, storage.js, auth.js.",
+
+        googleDriveDesc: "Servicio desacoplado para la API REST v3 de Google Drive.",
+        googleDriveFunctions: "searchFolder(), createFolder(), uploadFile(), getFile(), listFilesInFolder()",
+        googleDriveSynergy: "auth.js (ensureGoogleAccessToken), herramientas de reporte.",
+
+        markdownDesc: "Parser local y ligero de Markdown a HTML sanitizado.",
+        markdownFunctions: "parseMarkdown(), renderMarkdownToContainer()",
+        markdownSynergy: "bap-dialog, simulador de migración, documentos de vistas.",
+
         i18nTitle: "Internacionalización y Diccionarios",
         i18nDescText: "La carpeta <code>./src/_main/i18n/</code> contiene los archivos de traducción. Las subpáginas o componentes pueden obtener las claves asíncronas llamando a <code>getI18nContent()</code>. La estructura del diccionario base se puede consultar en <code>./src/_main/i18n/es-ES.js</code>.",
         bypassTitle: "🔒 Regla de Bypass Local (Bypass de Seguridad):",
@@ -300,11 +378,11 @@ export const esES = {
         innerHtml: "<em>(inner HTML)</em>",
         yes: "<strong>Sí</strong>",
         optional: "Opcional",
-        
+
         chipDesc: "Etiqueta visual pequeña para representar categorías o palabras clave.",
         chipAttrDesc: "Contenido de la etiqueta.",
         chipIdDesc: "Identificador del elemento.",
-        
+
         dialogDesc: "Modal premium con Glassmorphism, sanitización de datos y enlaces Base64 seguros.",
         dialogIdDesc: "ID único del modal (autogenerado si se omite).",
         dialogTopDesc: "Sobre-título de cabecera.",
@@ -313,30 +391,30 @@ export const esES = {
         dialogImgDesc: "URL de la imagen del cuerpo.",
         dialogUrlDesc: "URL de acción principal codificada en Base64.",
         dialogTextDesc: "Texto del botón codificado en Base64.",
-        
+
         footerDesc: "Pie de página adaptativo que incluye los metadatos y traducción asíncrona.",
         footerNoAttrs: "<em>No recibe atributos HTML. Carga su lógica y traducciones directamente desde constantes.</em>",
-        
+
         headerDesc: "Barra de navegación responsiva que controla el inicio de sesión y la conmutación de temas (Modo Claro / Modo Oscuro).",
         headerHideDesc: "Oculta las acciones y botones.",
         headerAdminDesc: "Habilita opciones de administración.",
         headerIsAdminDesc: "Marca visual de rol administrador.",
-        
+
         loadingDesc: "Capa opaca de bloqueo de pantalla completa con spinner animado.",
         loadingSubDesc: "Texto explicativo secundario.",
         loadingInnerDesc: "Mensaje principal del overlay.",
-        
+
         logoDesc: "Renderiza el logotipo principal de la marca o un fallback vectorial SVG adaptable.",
         logoColorDesc: "Tono cromático del SVG (<code>\"light\"</code> o <code>\"dark\"</code>).",
-        
+
         notifDesc: "Alertas visuales tipo Toast o Banner aisladas en su Shadow DOM.",
         notifTypeDesc: "Tipo de caja: <code>\"toast\"</code> o <code>\"alert\"</code>.",
         notifSeverityDesc: "Gravedad: <code>\"info\"</code>, <code>\"warning\"</code>, <code>\"error\"</code>.",
         notifShowDesc: "Aplica animación para mostrar la alerta en pantalla.",
-        
+
         spinnerDesc: "Loader circular animado puramente en CSS.",
         spinnerNoAttrs: "<em>No recibe atributos HTML.</em>",
-        
+
         svgDesc: "Renderiza vectores desde una iconoteca estática.",
         svgNameDesc: "Identificador único del icono en <code>icons.js</code>.",
         svgSizeDesc: "Tamaños: <code>\"xs\"</code>, <code>\"s\"</code>, <code>\"m\"</code>, <code>\"l\"</code>, <code>\"xl\"</code>.",
@@ -359,10 +437,10 @@ export const esES = {
         ruleDesc: "Para crear una nueva ruta navegable en la aplicación, sigue esta regla:",
         pageFolder: "<strong>Cada Página es un Directorio:</strong> Crea un nuevo directorio bajo <code>./src/pages/</code>. El nombre de la carpeta definirá la URL de acceso (por ejemplo, <code>./src/pages/perfil/</code> será accesible desde <code>{dominio}/pages/perfil/</code>).",
         subpageFolder: "<strong>Subpáginas Anidadas:</strong> Si deseas estructurar páginas internas (ej. <code>/pages/perfil/ajustes</code>), crea subdirectorios bajo el directorio de la página padre (ej. <code>./src/pages/perfil/ajustes/</code>).",
-        
+
         i18nRuleTitle: "⚠️ Regla Mandatoria sobre Textos Estáticos e i18n:",
         i18nRuleDesc: "Todas las páginas o subpáginas que contengan textos estáticos <strong>deben quedar configuradas obligatoriamente mediante el motor de internacionalización (i18n)</strong>. No se permiten textos crudos codificados directamente en los archivos HTML. Todo el contenido descriptivo y metadatos deben definirse en el diccionario central <a href=\"file:///Users/gonzaloarenasf/Documents/Github/BaP_Framework/src/_main/i18n/es-ES.js\">es-ES.js</a> y enlazarse en el HTML usando tokens formativos (ej. <code>{page.pages.body.title}</code>).",
-        
+
         structureTitle: "Estructura Espejo Obligatoria por Página",
         structureDesc: "Siguiendo la metodología de la Landing Page principal, cada carpeta de página debe contener tres archivos mínimos:",
         configTitle: "Registro de Rutas y Telemetría (<code>bap.config.json</code>)",
@@ -415,7 +493,7 @@ export const esES = {
         tableDesc: "Tablas de datos y especificaciones limpias con cabeceras contrastadas y líneas divisorias:",
         breadcrumbsTitle: "7. Ruta de Navegación (Breadcrumbs)",
         breadcrumbsDesc: "Componente de ubicación que genera barras diagonales de separación dinámicamente usando selectores CSS nativos:",
-        
+
         rulesTitle: "Tres Reglas de Arquitectura CSS",
         rulesDesc: "Para asegurar un desarrollo escalable, unificado y un código HTML limpio, todo desarrollo en BaP debe apegarse estrictamente a estas tres directivas:",
         rule1Title: "1. Estilos Reutilizables en ./src/style",
@@ -424,7 +502,7 @@ export const esES = {
         rule2Desc: "Solo si un estilo es 100% particular y exclusivo de un módulo o página específica, se declarará en su hoja de estilos correspondiente (ej. <code>index.css</code> local de la carpeta de la página, o el <code>.css</code> del Web Component).",
         rule3Title: "3. Prohibición Absoluta de Estilos Inline",
         rule3Desc: "Nunca deben utilizarse atributos <code>style=\"...\"</code> inline directamente sobre etiquetas HTML. Todo el formato visual debe delegarse a clases o selectores de CSS externos.",
-        
+
         integrationTitle: "Referencias Cruzadas e Integración",
         integrationDesc: "Referencias y acoplamientos del sistema de diseño:",
         headerLi: "<strong>Carga en el Componente de Cabecera:</strong> El componente <code>&lt;bap-header&gt;</code> expuesto en <a href=\"/pages/components/#bap-header\">/pages/components/</a> escucha los clics del selector de temas y alterna la clase en el <code>body</code> para propagar los colores del viewport definidos en <code>colors.css</code>.",
@@ -488,6 +566,40 @@ export const esES = {
         optimizeProdDesc: "Compila, comprime y ofusca el código usando el entorno de producción preparando para el despliegue.",
         deployProdTitle: "Desplegar a Producción",
         deployProdDesc: "Corre los tests, compila con el entorno de producción y sube los estáticos a Firebase Hosting.",
+      }
+    },
+    migrator: {
+      head: {
+        title: "BaP Dashboard - Migración",
+        meta: {
+          title: "BaP Dashboard - Migración",
+          description: "Herramienta interna para monitorear el progreso de migración de proyectos legacy.",
+          keywords: "Migrator, Dashboard, Update, Legacy",
+        }
+      },
+      body: {
+        title: "Migración de Proyectos Legacy",
+        desc: "Herramienta de solo lectura y uso exclusivo en localhost para monitorear el proceso de actualización automatizado impulsado por Agentes IA. No apto para despliegue. IMPORTANTE: El orquestador generará automáticamente una rama aislada (ej: refactor/bap-migration) antes de iniciar para proteger el código principal.",
+        targetLabel: "Proyecto Destino:",
+        selectPlaceholder: "Selecciona un proyecto...",
+        consoleTitle: "Log de Actividad en Tiempo Real",
+        btnConfirm: "Aprobar y Continuar",
+        status: {
+          idle: "Esperando inicio...",
+          in_progress: "Trabajando...",
+          waiting_approval: "Esperando tu aprobación",
+          rejected: "Revisión rechazada",
+          error: "Error",
+          done: "¡Migración completada!"
+        },
+        steps: {
+          step1: "Análisis Funcional",
+          step2: "Auditoría Inicial",
+          step3: "Extracción de Configuración",
+          step4: "Reemplazo del Core",
+          step5: "Refactorización (AI)",
+          step6: "Estabilización y Pruebas"
+        }
       }
     }
   },

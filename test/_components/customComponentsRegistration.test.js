@@ -120,6 +120,38 @@ describe('customComponentsRegistration.js — createCustomComponent', () => {
       expect(postRender).toHaveBeenCalled();
     });
   });
+
+  // CCR-12
+  it('CCR-12: maneja error HTTP al cargar htmlPath', async () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    global.fetch = vi.fn(() => Promise.resolve({ ok: false, status: 404 }));
+
+    createCustomComponent(element, {
+      cssPath: '/test.css',
+      htmlPath: '/404.html'
+    });
+
+    await vi.waitFor(() => {
+      expect(consoleSpy).toHaveBeenCalledWith('createCustomComponent(): Error HTTP 404 al cargar /404.html');
+    });
+  });
+
+  // CCR-13
+  it('CCR-13: maneja AbortError (timeout) al cargar htmlPath', async () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const abortError = new Error('Aborted');
+    abortError.name = 'AbortError';
+    global.fetch = vi.fn(() => Promise.reject(abortError));
+
+    createCustomComponent(element, {
+      cssPath: '/test.css',
+      htmlPath: '/timeout.html'
+    });
+
+    await vi.waitFor(() => {
+      expect(consoleSpy).toHaveBeenCalledWith('createCustomComponent(): Timeout (8s) al cargar /timeout.html');
+    });
+  });
 });
 
 describe('customComponentsRegistration.js — setCustomComponents', () => {

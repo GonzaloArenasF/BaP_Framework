@@ -11,5 +11,10 @@ export const getAuth = vi.fn(() => ({
 
 export const signInWithPopup = vi.fn();
 export const signOut = vi.fn();
-export const GoogleAuthProvider = vi.fn();
+export const GoogleAuthProvider = vi.fn().mockImplementation(function () {
+  this.addScope = vi.fn();
+});
+GoogleAuthProvider.credentialFromResult = vi.fn(() => ({
+  accessToken: 'mock-drive-token',
+}));
 export const onAuthStateChanged = vi.fn();

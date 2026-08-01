@@ -239,7 +239,7 @@ export const getFromStorageAsync = async ({ storageType, item, secretKey, saniti
             bapNotify(
               CONSTANT.NOTIFICATION.TYPE.ALERT,
               CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-              storageI18n.storage.errorGetting,
+              storageI18n?.storage?.errorGetting || "Error al obtener datos",
               error
             );
             reject(error);
@@ -284,7 +284,7 @@ export const setToStorageAsync = async ({ storageType, item, value, secretKey })
           bapNotify(
             CONSTANT.NOTIFICATION.TYPE.ALERT,
             CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-            storageI18n.storage.errorSaving,
+            storageI18n?.storage?.errorSaving || "Error al guardar datos",
             error
           );
           throw error;
@@ -327,7 +327,7 @@ export const updateStorageAsync = async ({ storageType, item, value, secretKey }
           bapNotify(
             CONSTANT.NOTIFICATION.TYPE.ALERT,
             CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-            storageI18n.storage.errorUpdating,
+            storageI18n?.storage?.errorUpdating || "Error al actualizar datos",
             error
           );
           throw error;
@@ -382,7 +382,7 @@ export const getFromStorage = ({ storageType, item, callbackOnSuccess, callBackO
             : bapNotify(
               CONSTANT.NOTIFICATION.TYPE.ALERT,
               CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-              storageI18n.storage.errorGetting,
+              storageI18n?.storage?.errorGetting || "Error al obtener datos",
               error
             );
         }
@@ -438,7 +438,7 @@ export const setToStorage = ({ storageType, item, value, callbackOnSuccess, call
             : bapNotify(
               CONSTANT.NOTIFICATION.TYPE.ALERT,
               CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-              storageI18n.storage.errorSaving,
+              storageI18n?.storage?.errorSaving || "Error al guardar datos",
               error
             );
         });
@@ -495,7 +495,7 @@ export const updateStorage = ({ storageType, item, value, callbackOnSuccess, cal
             : bapNotify(
               CONSTANT.NOTIFICATION.TYPE.ALERT,
               CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-              storageI18n.storage.errorUpdating,
+              storageI18n?.storage?.errorUpdating || "Error al actualizar datos",
               error
             );
         });
@@ -536,7 +536,7 @@ export const removeFromStorage = ({ storageType, item, callbackOnSuccess, callBa
             : bapNotify(
               CONSTANT.NOTIFICATION.TYPE.ALERT,
               CONSTANT.NOTIFICATION.SEVERITY.ERROR,
-              storageI18n.storage.errorRemoving,
+              storageI18n?.storage?.errorRemoving || "Error al eliminar datos",
               error
             );
         });

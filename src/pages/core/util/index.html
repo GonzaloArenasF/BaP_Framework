@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="{lang}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Especificación técnica detallada de util.js en BaP Framework." />
+  <link rel="stylesheet" href="../index.css" />
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <script type="module" src="index.js?v={APP_VERSION}"></script>
+  <title>BaP Docs - util.js</title>
+</head>
+
+<body class="light-mode">
+  <header>
+    <bap-header></bap-header>
+  </header>
+
+  <main class="docs-main">
+    <aside class="docs-sidebar">
+      <nav>
+        <h4>{page.cross.sidebar.title}</h4>
+        <a href="/">{page.cross.sidebar.back}</a>
+        <a href="/pages/core/">← Volver a Core Engine</a>
+        <a href="/pages/core/constants/">constants.js</a>
+        <a href="/pages/core/firebaseInit/">firebaseInit.js</a>
+        <a href="/pages/core/auth/">auth.js</a>
+        <a href="/pages/core/routerPaths/">routerPaths.js</a>
+        <a href="/pages/core/router/">router.js</a>
+        <a href="/pages/core/storage/">storage.js</a>
+        <a href="/pages/core/i18n/">i18n.js</a>
+        <a href="/pages/core/analytics/">analytics.js</a>
+        <a href="/pages/core/util/" class="active">util.js</a>
+        <a href="/pages/core/googleDrive/">googleDrive.js</a>
+        <a href="/pages/core/markdown/">markdown.js</a>
+      </nav>
+    </aside>
+
+    <article class="docs-content">
+      <div class="docs-callout warning">
+        {page.core.body.coreModificationWarning}
+      </div>
+
+      <h2>Módulo <code>util.js</code></h2>
+      <p>Caja de herramientas de utilidades generales: generación de UUIDs criptográficos, formato de fechas, notificaciones Toast, conversión de tipos y utilidades DOM.</p>
+
+      <h3>Funciones Exportadas (<code>export function</code> / <code>export const</code>)</h3>
+
+      <div class="core-module-card">
+        <h4>1. <code>generateUUID()</code></h4>
+        <p><strong>Firma:</strong> <code>generateUUID(): string</code></p>
+        <p><strong>Propósito:</strong> Genera un UUID v4 no predecible mediante la Web Crypto API (`crypto.randomUUID`), garantizando unicidad en identificadores DOM.</p>
+        <p><strong>Ejemplo de uso:</strong></p>
+        <div class="code-box">
+          <pre><code>import { generateUUID } from "../../_main/util.js";
+
+const uniqueId = generateUUID();
+console.log("UUID autogenerado:", uniqueId);</code></pre>
+        </div>
+      </div>
+
+      <div class="core-module-card">
+        <h4>2. <code>bapNotify(type, severity, msg, errorObj)</code></h4>
+        <p><strong>Firma:</strong> <code>bapNotify(type: string, severity: string, msg: string, errorObj?: any): void</code></p>
+        <p><strong>Propósito:</strong> Emite un evento global para desplegar alertas o notificaciones tipo Toast mediante el componente `<bap-notification>`.</p>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>Tipo</th>
+              <th>Requerido</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>type</code></td>
+              <td><code>String</code></td>
+              <td><strong>Sí</strong></td>
+              <td>Tipo de componente de notificación (<code>"ALERT"</code> o <code>"TOAST"</code>).</td>
+            </tr>
+            <tr>
+              <td><code>severity</code></td>
+              <td><code>String</code></td>
+              <td><strong>Sí</strong></td>
+              <td>Nivel de severidad (<code>"SUCCESS"</code>, <code>"INFO"</code>, <code>"WARNING"</code>, <code>"ERROR"</code>).</td>
+            </tr>
+            <tr>
+              <td><code>msg</code></td>
+              <td><code>String</code></td>
+              <td><strong>Sí</strong></td>
+              <td>Mensaje principal de la notificación.</td>
+            </tr>
+            <tr>
+              <td><code>errorObj</code></td>
+              <td><code>Any</code></td>
+              <td>Opcional</td>
+              <td>Objeto de error o detalle técnico de excepción.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Ejemplo de uso:</strong></p>
+        <div class="code-box">
+          <pre><code>import { bapNotify } from "../../_main/util.js";
+
+bapNotify("ALERT", "SUCCESS", "Guardado", "Información actualizada correctamente.");</code></pre>
+        </div>
+      </div>
+
+      <div class="core-module-card">
+        <h4>3. <code>timestampToHumanDate(timestamp, lang, format)</code></h4>
+        <p><strong>Firma:</strong> <code>timestampToHumanDate(timestamp: number|string, lang?: string, format?: string): string</code></p>
+        <p><strong>Propósito:</strong> Convierte marcas de tiempo UNIX o cadenas ISO en fechas legibles para el usuario formateadas según la localización configurada.</p>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>Tipo</th>
+              <th>Requerido</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>timestamp</code></td>
+              <td><code>Number | String</code></td>
+              <td><strong>Sí</strong></td>
+              <td>Timestamp en milisegundos o cadena ISO de fecha.</td>
+            </tr>
+            <tr>
+              <td><code>lang</code></td>
+              <td><code>String</code></td>
+              <td>Opcional</td>
+              <td>Código de idioma (<code>"es"</code>, <code>"en"</code>). Por defecto <code>"es"</code>.</td>
+            </tr>
+            <tr>
+              <td><code>format</code></td>
+              <td><code>String</code></td>
+              <td>Opcional</td>
+              <td>Formato visual deseado (ej. <code>"DD/MM/YYYY"</code>).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Ejemplo de uso:</strong></p>
+        <div class="code-box">
+          <pre><code>import { timestampToHumanDate } from "../../_main/util.js";
+
+const fecha = timestampToHumanDate(Date.now(), "es", "DD/MM/YYYY");
+console.log("Fecha legible:", fecha);</code></pre>
+        </div>
+      </div>
+
+      <div class="core-module-card">
+        <h4>4. <code>setStringIntoBoolean(string)</code></h4>
+        <p><strong>Firma:</strong> <code>setStringIntoBoolean(string: string|boolean): boolean</code></p>
+        <p><strong>Propósito:</strong> Convierte cadenas de texto como `"true"` o `"false"` a sus equivalentes booleanos estrictos (`true`/`false`).</p>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>Tipo</th>
+              <th>Requerido</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>string</code></td>
+              <td><code>String | Boolean</code></td>
+              <td><strong>Sí</strong></td>
+              <td>Cadena de texto o booleano a convertir.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Ejemplo de uso:</strong></p>
+        <div class="code-box">
+          <pre><code>import { setStringIntoBoolean } from "../../_main/util.js";
+
+const boolValue = setStringIntoBoolean("true");
+// Resultado: true (boolean)</code></pre>
+        </div>
+      </div>
+
+      <div class="core-module-card">
+        <h4>5. <code>isCSSIncluded(href)</code></h4>
+        <p><strong>Firma:</strong> <code>isCSSIncluded(href: string): boolean</code></p>
+        <p><strong>Propósito:</strong> Verifica si un archivo de hoja de estilos CSS ya se encuentra cargado e inyectado en la cabecera `<head>` del DOM.</p>
+        
+        <table>
+          <thead>
+            <tr>
+              <th>Parámetro</th>
+              <th>Tipo</th>
+              <th>Requerido</th>
+              <th>Descripción</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>href</code></td>
+              <td><code>String</code></td>
+              <td><strong>Sí</strong></td>
+              <td>Nombre o ruta del archivo CSS a verificar en el DOM.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Ejemplo de uso:</strong></p>
+        <div class="code-box">
+          <pre><code>import { isCSSIncluded } from "../../_main/util.js";
+
+const isLoaded = isCSSIncluded("/style/main.css");
+console.log("CSS ya incluido:", isLoaded);</code></pre>
+        </div>
+      </div>
+
+      <div class="core-module-card">
+        <h4>6. <code>isMobile()</code></h4>
+        <p><strong>Firma:</strong> <code>isMobile(): boolean</code></p>
+        <p><strong>Propósito:</strong> Detecta si el agente de usuario o resolución corresponde a un dispositivo móvil o tablet.</p>
+        <p><strong>Ejemplo de uso:</strong></p>
+        <div class="code-box">
+          <pre><code>import { isMobile } from "../../_main/util.js";
+
+if (isMobile()) {
+  console.log("Optimizando vista para pantalla móvil.");
+}</code></pre>
+        </div>
+      </div>
+
+      <h3>Buenas Prácticas</h3>
+      <ul>
+        <li><strong>Unicidad criptográfica:</strong> Usar <code>generateUUID()</code> para IDs únicos en el cliente en lugar de <code>Math.random()</code>.</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <bap-footer></bap-footer>
+  </footer>
+</body>
+
+</html>

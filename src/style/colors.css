@@ -112,6 +112,8 @@
   /* Texto de código en línea de alto contraste en modo claro */
   --code-border-color: rgba(17, 24, 37, 0.08);
   /* Borde sutil para código en línea */
+  --bg-card: #ffffff;
+  /* Fondo sólido para tarjetas en modo claro */
 }
 
 .dark-mode {
@@ -189,4 +191,6 @@
   /* Texto de código en línea de alto contraste turquesa en modo oscuro */
   --code-border-color: rgba(255, 255, 255, 0.1);
   /* Borde sutil para código en línea */
+  --bg-card: rgba(255, 255, 255, 0.05);
+  /* Fondo transparente para tarjetas en modo oscuro */
 }
