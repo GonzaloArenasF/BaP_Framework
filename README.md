@@ -28,7 +28,7 @@ BaP Framework está optimizado para integrarse de forma nativa con los servicios
 
 Te invitamos a explorar las distintas carpetas del repositorio para comprender a detalle su funcionamiento y capacidades técnicas. Cada directorio contiene su propio archivo de documentación técnica orientada a desarrolladores e IA:
 
-*   📂 [./.agents/](./docs/skills/README.md) - Reglas globales y habilidades de IA de Antigravity (`.agents/skills/`).
+*   📂 [./.agents/](./docs/skills/README.md) - Reglas globales y habilidades de IA (`.agents/skills/`).
 *   📂 [./cdn/](./cdn/README.md) - Canal de distribución paralela de recursos estáticos pesados en Firebase Hosting (Multisite).
 *   📂 [./docs/](./docs/README.md) - Guías técnicas generales, plan de pruebas, catálogo de habilidades de IA (`./docs/skills/`) y auditorías de seguridad del sistema.
 *   📂 [./src/](./src/README.md) - Código fuente de desarrollo de la aplicación (vistas, componentes y estilos).

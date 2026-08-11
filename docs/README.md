@@ -18,7 +18,7 @@ Contiene las especificaciones técnicas de migración y planes de prueba:
 - [./docs/upgrades/ai-migration-plan.md](./docs/upgrades/ai-migration-plan.md): Plan de migración guiada por IA únicamente para la actualización de sistemas que cuentan con versiones anteriores a la v2.4.0.
 
 ### 📁 `./docs/skills/`
-Contiene las especificaciones de habilidades de IA (Skills de Antigravity):
+Contiene las especificaciones de habilidades de IA (Skills):
 - [./docs/skills/README.md](./docs/skills/README.md): Especificación del catálogo de skills y reglas ejecutables en `.agents/skills/`.
 
 

@@ -1,4 +1,4 @@
-# Skills de Antigravity para BaP Framework
+# Skills de IA para BaP Framework
 
 Este directorio especifica la arquitectura y el catálogo de **Skills** que potencian el desarrollo guiado por Inteligencia Artificial dentro de **BaP Framework**.
 
