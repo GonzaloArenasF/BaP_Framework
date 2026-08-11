@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{page.template.head.title}</title>
+  <meta name="description" content="{page.template.head.desc}">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{page.template.head.title}">
+  <meta property="og:description" content="{page.template.head.desc}">
+  
+  <link rel="stylesheet" href="/style/main.css">
+  <link rel="stylesheet" href="./index.css">
+</head>
+<body class="bap-body">
+  <bap-header></bap-header>
+
+  <main class="bap-main-container">
+    <section class="bap-section">
+      <h1 class="bap-title">{page.template.body.title}</h1>
+      <p class="bap-description">{page.template.body.desc}</p>
+    </section>
+  </main>
+
+  <bap-footer></bap-footer>
+
+  <script type="module" src="./index.js"></script>
+</body>
+</html>

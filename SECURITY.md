@@ -83,6 +83,22 @@ BaP **no versiona ni despliega** un `database.rules.json` (para no sobrescribir 
 
 ---
 
+## 🤖 Auditoría de Seguridad Asistida con IA (`bap-security-auditor`)
+
+BaP Framework incluye la habilidad de IA **`bap-security-auditor`** en `.agents/skills/bap-security-auditor/` para auditar el cumplimiento del modelo de seguridad antes de publicar.
+
+### Controles Automatizados por la Skill:
+- **Verificación de Credenciales**: Confirma que `.env`, `.env.development` y `.env.production` estén excluidos de VCS (`.gitignore`).
+- **Verificación VUL-04**: Valida que en builds de producción `FIREBASE_AVAILABLE` sea `"true"`.
+- **Revisión de Reglas de Firebase**: Evalúa la presencia de Reglas de Seguridad (*deny-by-default*) en Realtime Database y AppCheck / reCAPTCHA.
+- **Ejecución de Pruebas**: Corre la suite de tests de seguridad con `npm run test`.
+
+### Ejemplos de Uso / Prompts:
+> *"Audita la seguridad del proyecto según las reglas de SECURITY.md"*  
+> *"Verifica si mi configuración de Firebase cumple con los controles VUL-04"*
+
+---
+
 ## 📣 Reportar una Vulnerabilidad
 
 Si descubres un problema de seguridad, repórtalo de forma responsable a **gonzaloarenasf+bap-framework@gmail.com** antes de divulgarlo públicamente.
@@ -92,5 +108,6 @@ Si descubres un problema de seguridad, repórtalo de forma responsable a **gonza
 ## 📚 Referencias
 
 - Auditorías de seguridad: [`./docs/security-audits/`](./docs/security-audits/)
+- Catálogo de Skills: [`./docs/skills/README.md`](./docs/skills/README.md)
 - Núcleo, autenticación y reglas: [`./src/_main/README.md`](./src/_main/README.md)
 - Licencia y *disclaimer*: [`./LICENSE`](./LICENSE)
