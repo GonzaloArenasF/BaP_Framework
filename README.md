@@ -1,4 +1,4 @@
-# BaP Framework - v2.5.2
+# BaP Framework - v2.6.0
 
 Un framework minimalista y de alto rendimiento basado en **HTML, CSS y JavaScript Vanilla (puro)**. Diseñado bajo la filosofía de "cero frameworks externos y cero dependencias pesadas en el cliente", BaP permite prototipar ideas de manera extremadamente rápida y sencilla, proporcionando a su vez una arquitectura robusta, modular y altamente escalable para aplicaciones en producción.
 
@@ -28,8 +28,9 @@ BaP Framework está optimizado para integrarse de forma nativa con los servicios
 
 Te invitamos a explorar las distintas carpetas del repositorio para comprender a detalle su funcionamiento y capacidades técnicas. Cada directorio contiene su propio archivo de documentación técnica orientada a desarrolladores e IA:
 
+*   📂 [./.agents/](./docs/skills/README.md) - Reglas globales y habilidades de IA de Antigravity (`.agents/skills/`).
 *   📂 [./cdn/](./cdn/README.md) - Canal de distribución paralela de recursos estáticos pesados en Firebase Hosting (Multisite).
-*   📂 [./docs/](./docs/README.md) - Guías técnicas generales, plan de pruebas y auditorías de seguridad del sistema.
+*   📂 [./docs/](./docs/README.md) - Guías técnicas generales, plan de pruebas, catálogo de habilidades de IA (`./docs/skills/`) y auditorías de seguridad del sistema.
 *   📂 [./src/](./src/README.md) - Código fuente de desarrollo de la aplicación (vistas, componentes y estilos).
     *   📂 [./src/assets/](./src/assets/README.md) - Recursos locales (favicons, logotipos e imágenes corporativas).
     *   📂 [./src/pages/](./src/pages/README.md) - Páginas independientes y reglas de ruteo/anidación.

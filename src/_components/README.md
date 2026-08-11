@@ -26,8 +26,21 @@ Este directorio agrupa los 9 componentes de interfaz especializados, cada uno co
 - [./src/_components/bap-spinner/](./src/_components/bap-spinner/README.md): Loader circular animado.
 - [./src/_components/bap-svg-image/](./src/_components/bap-svg-image/README.md): Biblioteca e inyector de vectores SVG.
 
+## 🤖 Desarrollo de Componentes Asistido con IA (Skills)
+
+El desarrollo y la integración de Web Components en BaP Framework están potenciados por dos habilidades de IA ejecutables ubicadas en `.agents/skills/`:
+
+### `bap-component-creator` (Creación de Custom Components)
+- **Propósito**: Crea un nuevo Web Component aislado respetando la regla estricta de prefijos (el prefijo `bap-` está **reservado exclusivamente para el core**; para componentes de aplicación sugiere o consulta prefijos personalizados como `app-` o `sys-`).
+- **Publicación Automática**: Registra el nuevo componente en `src/_components/customComponentsRegistration.js` y en `bap.config.json`, genera sus pruebas unitarias iniciales en `test/components/` y actualiza la documentación interactiva en `src/pages/components/index.html`.
+- **Ejemplo de Uso / Prompts**:
+  > *"Crea un nuevo componente de tarjeta de usuario `<app-user-card>`"*  
+  > *"Genera un Custom Element para un botón con contador e incluye sus tests unitarios"*
+
+---
+
 ## Referencias Cruzadas e Integración
 
-- **Configuración Centralizada**: Todos los Custom Elements de desarrollo se definen en el archivo [./bap.config.json](./bap.config.json) para que la automatización los compile y asocie correctamente.
+- **Configuración Centralizada**: Todos los Custom Elements de desarrollo se definen en el archivo [./bap.config.json](./bap.config.json) y se definen dinámicamente en [customComponentsRegistration.js](./customComponentsRegistration.js).
 - **Suite de Pruebas**: La correcta instanciación en el árbol del DOM y ciclo de vida de los componentes se validan en el directorio de pruebas [./test/](./test/README.md).
 - **Core lógico**: Los componentes consumen utilidades comunes (ej. sanitización de inputs y de traducciones) proporcionadas por el módulo [./src/_main/i18n.js](./src/_main/i18n.js) y constantes en [./src/_main/constants.js](./src/_main/constants.js).

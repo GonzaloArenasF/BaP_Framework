@@ -348,7 +348,10 @@ export const esES = {
 }</code></pre>`,
         bypassProdNote: "Para que este bypass <strong>no llegue accidentalmente a producción</strong>, existen dos controles: la <strong>validación de compilación</strong> (que aborta el build si hay credenciales pero <code>FIREBASE_AVAILABLE</code> no es <code>\"true\"</code>) y la <strong>autodetección de hostname</strong> (que habilita Firebase automáticamente en un host público con credenciales). El bypass solo persiste en desarrollo local o en modo sitio estático sin Firebase.",
         mvpScopeTitle: "🎯 Alcance: prototipos y MVP",
-        mvpScopeNote: "BaP Framework está diseñado para prototipos y MVP, <strong>no como una solución de seguridad definitiva</strong>. El bypass afecta la navegación de vistas, no el acceso a datos (protegido por las Reglas de Seguridad). Quien lo lleve a producción asume el riesgo y es responsable de endurecer su propia infraestructura (Firebase Auth, App Check y Reglas de Seguridad)."
+        mvpScopeNote: "BaP Framework está diseñado para prototipos y MVP, <strong>no como una solución de seguridad definitiva</strong>. El bypass afecta la navegación de vistas, no el acceso a datos (protegido por las Reglas de Seguridad). Quien lo lleve a producción asume el riesgo y es responsable de endurecer su propia infraestructura (Firebase Auth, App Check y Reglas de Seguridad).",
+        securitySkillTitle: "🤖 Auditoría de Seguridad Asistida con IA (bap-security-auditor)",
+        securitySkillDesc: "La habilidad ejecutable <code>.agents/skills/bap-security-auditor/</code> evalúa automáticamente el proyecto contra el modelo de seguridad de <code>SECURITY.md</code>, verificando la exclusión de credenciales `.env`, la regla de build VUL-04, la protección de AppCheck/reCAPTCHA y ejecutando la suite de tests.",
+        securitySkillExamples: "Prompts de Ejemplo: \"Audita la seguridad del sitio web antes de publicar\" o \"Revisa si mi proyecto cumple las normas de SECURITY.md\""
       }
     },
     components: {
@@ -371,6 +374,11 @@ export const esES = {
         footerHint: "Visualiza este componente en la parte inferior de esta página de documentación.",
         regTitle: "Registro e Instanciación",
         regDesc: "El orquestador central se encuentra en <code>./src/_components/customComponentsRegistration.js</code>, el cual expone la función <code>setCustomComponents()</code> para darlos de alta en el DOM de forma dinámica y asíncrona.",
+        skillsTitle: "🤖 Creación e Integración Asistida con IA (Skills)",
+        skillsDesc: "El desarrollo y la integración de Custom Elements cuentan con habilidades de IA ejecutables ubicadas en <code>.agents/skills/</code>:",
+        skillCreatorTitle: "Creación de Componentes personalizados (bap-component-creator)",
+        skillCreatorDesc: "Crea Web Components aislados. Reserva estrictamente el prefijo <code>bap-</code> para el core y sugiere/consulta prefijos de aplicación (ej. <code>&lt;app-user-card&gt;</code>). Registra en <code>customComponentsRegistration.js</code> y <code>bap.config.json</code>, crea los tests unitarios en <code>test/components/</code> y actualiza esta página de pruebas.",
+        skillCreatorExample: "Prompt de Ejemplo: \"Crea un componente de tarjeta de usuario &lt;app-user-card&gt; con sus pruebas unitarias\"",
         colAttr: "Atributo",
         colType: "Tipo",
         colReq: "Requerido",
@@ -456,7 +464,13 @@ export const esES = {
         htmlTitle: "3. En el archivo HTML (<code>index.html</code>)",
         htmlDesc: "Vincula tu CSS y JS locales, e incorpora las etiquetas de Custom Components nativos directamente en tu maquetación e internacionaliza usando tokens:",
         buildTitle: "Compilación Automática",
-        buildDesc: "Al compilar la aplicación con <code>npm run optimize</code> o <code>npm run optimize:prod</code>, Gulp lee la carpeta <code>./src/pages/</code>, minifica y optimiza los HTML, concatena el CSS y obfuscación/minificación del JS depositando el bundle final en <code>./public/pages/{subpage}/</code>."
+        buildDesc: "Al compilar la aplicación con <code>npm run optimize</code> o <code>npm run optimize:prod</code>, Gulp lee la carpeta <code>./src/pages/</code>, minifica y optimiza los HTML, concatena el CSS y obfuscación/minificación del JS depositando el bundle final en <code>./public/pages/{subpage}/</code>.",
+        skillsTitle: "🤖 Desarrollo Asistido con Skills de IA (Antigravity)",
+        skillsDesc: "BaP Framework incluye un ecosistema de Habilidades e Instrucciones ejecutables para asistentes de IA como Antigravity ubicadas en el directorio <code>.agents/skills/</code>. Estas habilidades automatizan las tareas clave cumpliendo estrictamente con la arquitectura del framework:",
+        skillsLi1: "<strong><code>bap-orchestrator</code>:</strong> Orquestador principal que evalúa requerimientos, protege la integridad del código core de BaP y deriva hacia la skill correspondiente.",
+        skillsLi2: "<strong><code>bap-page-creator</code>:</strong> Genera estructuras de páginas HTML/JS/CSS, consulta inclusión de header/footer, registra rutas en <code>bap.config.json</code>, crea tokens i18n, metadatos SEO y genera sus pruebas unitarias en <code>test/pages/</code>.",
+        skillsLi3: "<strong><code>bap-component-creator</code>:</strong> Crea Web Components aislados (reservando el prefijo <code>bap-</code> solo para el core), registra en <code>customComponentsRegistration.js</code> y <code>bap.config.json</code>, genera tests unitarios en <code>test/components/</code> y actualiza el patio de pruebas.",
+        skillsLi4: "<strong><code>bap-build-and-deploy</code>:</strong> Ejecuta la suite de tests, compila con Gulp y solicita confirmación humana explícita antes de desplegar a producción."
       }
     },
     style: {
@@ -566,6 +580,9 @@ export const esES = {
         optimizeProdDesc: "Compila, comprime y ofusca el código usando el entorno de producción preparando para el despliegue.",
         deployProdTitle: "Desplegar a Producción",
         deployProdDesc: "Corre los tests, compila con el entorno de producción y sube los estáticos a Firebase Hosting.",
+        skillTitle: "🤖 Compilación y Despliegue Asistidos con IA (bap-build-and-deploy)",
+        skillDesc: "La habilidad ejecutable <code>.agents/skills/bap-build-and-deploy/</code> automatiza el ciclo de testing en Vitest, compilación/ofuscación en Gulp y <strong>solicita siempre la confirmación humana explícita antes de ejecutar el despliegue a producción</strong>.",
+        skillExamples: "Prompts de Ejemplo: \"Prepara el build y despliega la aplicación a producción\" o \"Ejecuta los tests unitarios y optimiza para producción\"",
       }
     },
     migrator: {

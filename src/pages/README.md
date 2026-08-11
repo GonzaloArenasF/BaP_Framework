@@ -23,6 +23,23 @@ Para mantener el enrutamiento limpio y escalable, BaP Framework sigue una conven
 
 ---
 
+## 🤖 Creación de Páginas Asistida con IA (`bap-page-creator`)
+
+La creación de páginas en BaP Framework cuenta con la habilidad de IA **`bap-page-creator`** ubicada en `.agents/skills/bap-page-creator/`.
+
+### Características de la Skill:
+1. **Consulta Interactiva**: Pregunta si se deben incluir los componentes core `bap-header` y `bap-footer` o si el desarrollador prefiere componentes personalizados.
+2. **Estructura Automática**: Crea la carpeta `src/pages/<nombre>/` con sus archivos `index.html` e `index.js`.
+3. **Configuración Centralizada**: Registra la ruta en `bap.config.json` (`routes.appRoutes`) y el evento de analíticas `enter_page` (`analytics.customEvents`).
+4. **i18n & SEO**: Crea los tokens de traducción y metadatos SEO en `src/_main/i18n/es-ES.js`.
+5. **Pruebas Unitarias Obligatorias**: Genera el archivo de tests inicial en `test/pages/<nombre>.test.js` y valida la ejecución con `npm run test`.
+
+### Ejemplos de Uso / Prompts:
+> *"Crea una nueva página llamada `contacto` que incluya bap-header y bap-footer"*  
+> *"Añade una sección de perfil de usuario con sus metadatos SEO y pruebas unitarias"*
+
+---
+
 ## Recursos Disponibles en las Páginas y Cómo Incorporarlos
 
 Al crear o modificar una página, tienes acceso al ecosistema completo del framework. Los recursos se incorporan mediante los siguientes métodos:

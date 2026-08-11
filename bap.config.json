@@ -1,8 +1,8 @@
 {
   "app": {
     "name": "BaP Framework",
-    "version": "v2.5.2",
-    "currentBapVersion": "v2.5.2",
+    "version": "v2.6.0",
+    "currentBapVersion": "v2.6.0",
     "socialMedia": {
       "email": "gonzaloarenasf+bap-framework@gmail.com"
     }
