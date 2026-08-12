@@ -669,7 +669,51 @@
 <a name='L604'></a><a href='#L604'>604</a>
 <a name='L605'></a><a href='#L605'>605</a>
 <a name='L606'></a><a href='#L606'>606</a>
-<a name='L607'></a><a href='#L607'>607</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">18x</span>
+<a name='L607'></a><a href='#L607'>607</a>
+<a name='L608'></a><a href='#L608'>608</a>
+<a name='L609'></a><a href='#L609'>609</a>
+<a name='L610'></a><a href='#L610'>610</a>
+<a name='L611'></a><a href='#L611'>611</a>
+<a name='L612'></a><a href='#L612'>612</a>
+<a name='L613'></a><a href='#L613'>613</a>
+<a name='L614'></a><a href='#L614'>614</a>
+<a name='L615'></a><a href='#L615'>615</a>
+<a name='L616'></a><a href='#L616'>616</a>
+<a name='L617'></a><a href='#L617'>617</a>
+<a name='L618'></a><a href='#L618'>618</a>
+<a name='L619'></a><a href='#L619'>619</a>
+<a name='L620'></a><a href='#L620'>620</a>
+<a name='L621'></a><a href='#L621'>621</a>
+<a name='L622'></a><a href='#L622'>622</a>
+<a name='L623'></a><a href='#L623'>623</a>
+<a name='L624'></a><a href='#L624'>624</a>
+<a name='L625'></a><a href='#L625'>625</a>
+<a name='L626'></a><a href='#L626'>626</a>
+<a name='L627'></a><a href='#L627'>627</a>
+<a name='L628'></a><a href='#L628'>628</a>
+<a name='L629'></a><a href='#L629'>629</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -1381,6 +1425,7 @@
             util: "Herramientas estructurales y UUIDs criptográficamente fuertes.",
             googleDrive: "Integración desacoplada con Google Drive API v3 (gestión de carpetas y archivos).",
             markdown: "Parser local de Markdown para renderizar reportes y documentos.",
+            ai: "Motor genérico de IA (Google Gemini API) con reintentos exponenciales y conmutación de modelos (failover list).",
           },
           config: {
             title: "⚙️ Configuración Centralizada",
@@ -1603,6 +1648,10 @@
         markdownFunctions: "parseMarkdown(), renderMarkdownToContainer()",
         markdownSynergy: "bap-dialog, simulador de migración, documentos de vistas.",
 &nbsp;
+        aiDesc: "Motor genérico de cliente para la API de Google Gemini (Soporte exclusivo actual).",
+        aiFunctions: "generateContent(), generateContentWithRetryAndFallback()",
+        aiSynergy: "bap.config.json (configuración de IA), constants.js (CONSTANT.AI).",
+&nbsp;
         i18nTitle: "Internacionalización y Diccionarios",
         i18nDescText: "La carpeta &lt;code&gt;./src/_main/i18n/&lt;/code&gt; contiene los archivos de traducción. Las subpáginas o componentes pueden obtener las claves asíncronas llamando a &lt;code&gt;getI18nContent()&lt;/code&gt;. La estructura del diccionario base se puede consultar en &lt;code&gt;./src/_main/i18n/es-ES.js&lt;/code&gt;.",
         bypassTitle: "🔒 Regla de Bypass Local (Bypass de Seguridad):",
@@ -1625,7 +1674,10 @@
 }&lt;/code&gt;&lt;/pre&gt;`,
         bypassProdNote: "Para que este bypass &lt;strong&gt;no llegue accidentalmente a producción&lt;/strong&gt;, existen dos controles: la &lt;strong&gt;validación de compilación&lt;/strong&gt; (que aborta el build si hay credenciales pero &lt;code&gt;FIREBASE_AVAILABLE&lt;/code&gt; no es &lt;code&gt;\"true\"&lt;/code&gt;) y la &lt;strong&gt;autodetección de hostname&lt;/strong&gt; (que habilita Firebase automáticamente en un host público con credenciales). El bypass solo persiste en desarrollo local o en modo sitio estático sin Firebase.",
         mvpScopeTitle: "🎯 Alcance: prototipos y MVP",
-        mvpScopeNote: "BaP Framework está diseñado para prototipos y MVP, &lt;strong&gt;no como una solución de seguridad definitiva&lt;/strong&gt;. El bypass afecta la navegación de vistas, no el acceso a datos (protegido por las Reglas de Seguridad). Quien lo lleve a producción asume el riesgo y es responsable de endurecer su propia infraestructura (Firebase Auth, App Check y Reglas de Seguridad)."
+        mvpScopeNote: "BaP Framework está diseñado para prototipos y MVP, &lt;strong&gt;no como una solución de seguridad definitiva&lt;/strong&gt;. El bypass afecta la navegación de vistas, no el acceso a datos (protegido por las Reglas de Seguridad). Quien lo lleve a producción asume el riesgo y es responsable de endurecer su propia infraestructura (Firebase Auth, App Check y Reglas de Seguridad).",
+        securitySkillTitle: "🤖 Auditoría de Seguridad Asistida con IA (bap-security-auditor)",
+        securitySkillDesc: "La habilidad ejecutable &lt;code&gt;.agents/skills/bap-security-auditor/&lt;/code&gt; evalúa automáticamente el proyecto contra el modelo de seguridad de &lt;code&gt;SECURITY.md&lt;/code&gt;, verificando la exclusión de credenciales `.env`, la regla de build VUL-04, la protección de AppCheck/reCAPTCHA y ejecutando la suite de tests.",
+        securitySkillExamples: "Prompts de Ejemplo: \"Audita la seguridad del sitio web antes de publicar\" o \"Revisa si mi proyecto cumple las normas de SECURITY.md\""
       }
     },
     components: {
@@ -1648,6 +1700,11 @@
         footerHint: "Visualiza este componente en la parte inferior de esta página de documentación.",
         regTitle: "Registro e Instanciación",
         regDesc: "El orquestador central se encuentra en &lt;code&gt;./src/_components/customComponentsRegistration.js&lt;/code&gt;, el cual expone la función &lt;code&gt;setCustomComponents()&lt;/code&gt; para darlos de alta en el DOM de forma dinámica y asíncrona.",
+        skillsTitle: "🤖 Creación e Integración Asistida con IA (Skills)",
+        skillsDesc: "El desarrollo y la integración de Custom Elements cuentan con habilidades de IA ejecutables ubicadas en &lt;code&gt;.agents/skills/&lt;/code&gt;:",
+        skillCreatorTitle: "Creación de Componentes personalizados (bap-component-creator)",
+        skillCreatorDesc: "Crea Web Components aislados. Reserva estrictamente el prefijo &lt;code&gt;bap-&lt;/code&gt; para el core y sugiere/consulta prefijos de aplicación (ej. &lt;code&gt;&amp;lt;app-user-card&amp;gt;&lt;/code&gt;). Registra en &lt;code&gt;customComponentsRegistration.js&lt;/code&gt; y &lt;code&gt;bap.config.json&lt;/code&gt;, crea los tests unitarios en &lt;code&gt;test/components/&lt;/code&gt; y actualiza esta página de pruebas.",
+        skillCreatorExample: "Prompt de Ejemplo: \"Crea un componente de tarjeta de usuario &amp;lt;app-user-card&amp;gt; con sus pruebas unitarias\"",
         colAttr: "Atributo",
         colType: "Tipo",
         colReq: "Requerido",
@@ -1733,7 +1790,13 @@
         htmlTitle: "3. En el archivo HTML (&lt;code&gt;index.html&lt;/code&gt;)",
         htmlDesc: "Vincula tu CSS y JS locales, e incorpora las etiquetas de Custom Components nativos directamente en tu maquetación e internacionaliza usando tokens:",
         buildTitle: "Compilación Automática",
-        buildDesc: "Al compilar la aplicación con &lt;code&gt;npm run optimize&lt;/code&gt; o &lt;code&gt;npm run optimize:prod&lt;/code&gt;, Gulp lee la carpeta &lt;code&gt;./src/pages/&lt;/code&gt;, minifica y optimiza los HTML, concatena el CSS y obfuscación/minificación del JS depositando el bundle final en &lt;code&gt;./public/pages/{subpage}/&lt;/code&gt;."
+        buildDesc: "Al compilar la aplicación con &lt;code&gt;npm run optimize&lt;/code&gt; o &lt;code&gt;npm run optimize:prod&lt;/code&gt;, Gulp lee la carpeta &lt;code&gt;./src/pages/&lt;/code&gt;, minifica y optimiza los HTML, concatena el CSS y obfuscación/minificación del JS depositando el bundle final en &lt;code&gt;./public/pages/{subpage}/&lt;/code&gt;.",
+        skillsTitle: "🤖 Desarrollo Asistido con Skills de IA",
+        skillsDesc: "BaP Framework incluye un ecosistema de Habilidades e Instrucciones ejecutables para asistentes de IA ubicadas en el directorio &lt;code&gt;.agents/skills/&lt;/code&gt;. Estas habilidades automatizan las tareas clave cumpliendo estrictamente con la arquitectura del framework:",
+        skillsLi1: "&lt;strong&gt;&lt;code&gt;bap-orchestrator&lt;/code&gt;:&lt;/strong&gt; Orquestador principal que evalúa requerimientos, protege la integridad del código core de BaP y deriva hacia la skill correspondiente.",
+        skillsLi2: "&lt;strong&gt;&lt;code&gt;bap-page-creator&lt;/code&gt;:&lt;/strong&gt; Genera estructuras de páginas HTML/JS/CSS, consulta inclusión de header/footer, registra rutas en &lt;code&gt;bap.config.json&lt;/code&gt;, crea tokens i18n, metadatos SEO y genera sus pruebas unitarias en &lt;code&gt;test/pages/&lt;/code&gt;.",
+        skillsLi3: "&lt;strong&gt;&lt;code&gt;bap-component-creator&lt;/code&gt;:&lt;/strong&gt; Crea Web Components aislados (reservando el prefijo &lt;code&gt;bap-&lt;/code&gt; solo para el core), registra en &lt;code&gt;customComponentsRegistration.js&lt;/code&gt; y &lt;code&gt;bap.config.json&lt;/code&gt;, genera tests unitarios en &lt;code&gt;test/components/&lt;/code&gt; y actualiza el patio de pruebas.",
+        skillsLi4: "&lt;strong&gt;&lt;code&gt;bap-build-and-deploy&lt;/code&gt;:&lt;/strong&gt; Ejecuta la suite de tests, compila con Gulp y solicita confirmación humana explícita antes de desplegar a producción."
       }
     },
     style: {
@@ -1843,6 +1906,9 @@
         optimizeProdDesc: "Compila, comprime y ofusca el código usando el entorno de producción preparando para el despliegue.",
         deployProdTitle: "Desplegar a Producción",
         deployProdDesc: "Corre los tests, compila con el entorno de producción y sube los estáticos a Firebase Hosting.",
+        skillTitle: "🤖 Compilación y Despliegue Asistidos con IA (bap-build-and-deploy)",
+        skillDesc: "La habilidad ejecutable &lt;code&gt;.agents/skills/bap-build-and-deploy/&lt;/code&gt; automatiza el ciclo de testing en Vitest, compilación/ofuscación en Gulp y &lt;strong&gt;solicita siempre la confirmación humana explícita antes de ejecutar el despliegue a producción&lt;/strong&gt;.",
+        skillExamples: "Prompts de Ejemplo: \"Prepara el build y despliega la aplicación a producción\" o \"Ejecuta los tests unitarios y optimiza para producción\"",
       }
     },
     migrator: {
@@ -1888,7 +1954,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-08-01T00:10:42.713Z
+                at 2026-08-12T23:56:45.760Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

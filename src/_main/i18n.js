@@ -183,8 +183,8 @@ export function applyI18n(callback) {
 
   // 3. Reemplazar de forma segura en head y body
   replaceTokensInDOM(document.head, tokenMap);
-  replaceTokensInDOM(document.body, tokenMap);
-
-  callback();
+  if (typeof callback === "function") {
+    callback();
+  }
 }
 

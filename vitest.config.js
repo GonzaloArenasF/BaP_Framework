@@ -40,6 +40,10 @@ export default defineConfig({
         find: 'https://www.gstatic.com/firebasejs/10.11.0/firebase-app-check.js',
         replacement: path.resolve('./test/mocks/firebase-app-check.mock.js'),
       },
+      {
+        find: 'https://esm.run/@google/generative-ai',
+        replacement: path.resolve('./test/mocks/google-generative-ai.mock.js'),
+      },
       // DOMPurify: SEC-05 lo empaqueta localmente como `./vendor/purify.es.mjs`.
       // El módulo real ESM funciona en navegador; en Vitest/Node.js se redirige al
       // mock local que simula sanitize() de forma determinista. El RegExp captura el

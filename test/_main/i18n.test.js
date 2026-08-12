@@ -217,4 +217,11 @@ describe('i18n.js — applyI18n', () => {
     expect(callback).toHaveBeenCalled();
     expect(document.querySelector('html').getAttribute('lang')).toBe(CONSTANT.I18N.DEFAULT);
   });
+
+  it('I18N-24: ejecuta applyI18n sin callback sin lanzar excepciones', () => {
+    document.body.innerHTML = '<div>{APP_NAME}</div>';
+    expect(() => {
+      applyI18n();
+    }).not.toThrow();
+  });
 });

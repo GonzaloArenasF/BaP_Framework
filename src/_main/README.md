@@ -151,6 +151,27 @@ analytic.logEvent.enterLandingPage?.();
 
 ---
 
+## 7. Integración de Inteligencia Artificial (`ai.js`)
+
+El módulo `ai.js` provee un motor cliente para consultar modelos de IA generativa.
+
+> [!NOTE]
+> **Compatibilidad de soporte:** Por el momento, el módulo de IA del núcleo de BaP Framework cuenta con soporte exclusivo para la API de **Google Gemini**.
+
+```javascript
+import { generateContent } from "./_main/ai.js";
+
+// Consulta simple a Gemini con resiliencia y failover de modelos automáticos
+const responseText = await generateContent("Explica los principios de arquitectura limpia", {
+  onStatusUpdate: (statusMessage, type) => console.log(`[AI Status]: ${statusMessage}`)
+});
+```
+
+- Incluye reintentos exponenciales (*backoff*) ante alta demanda (`503`) y conmutación automática (*failover list*) entre modelos al agotar cuotas (`429`).
+- Configurable desde `bap.config.json` -> `"ai"`.
+
+---
+
 ## 📖 Referencia Rápida de la API del Core
 
 | Módulo | Propósito | Funciones Exportadas | Integraciones Clave |
@@ -166,6 +187,7 @@ analytic.logEvent.enterLandingPage?.();
 | **`util.js`** | UUIDs criptográficos y notificaciones Toast | `generateUUID`, `bapNotify`, `isMobile`, `loadScript` | `customComponentsRegistration.js`, `storage.js`. |
 | **`googleDrive.js`** | Cliente REST v3 de Google Drive | `searchFolder`, `createFolder`, `uploadFile`, `getFile` | `auth.js` (tokens OAuth 2.0). |
 | **`markdown.js`** | Parser local de Markdown a HTML | `parseMarkdown`, `renderMarkdownToContainer` | `bap-dialog`, Simulador de migración. |
+| **`ai.js`** | Cliente de IA para Google Gemini (Soporte exclusivo) | `generateContent`, `generateContentWithRetryAndFallback` | `bap.config.json`, `constants.js`. |
 
 ---
 
