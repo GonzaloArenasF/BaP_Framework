@@ -9,6 +9,14 @@
  *     leyendo los valores desde el archivo .env local (ignorado por Git).
  *     Ver: gulp-imports.js → loadEnv() y gulpfile.js → replaceEnvTokens()
  */
+const rawAiConfig = (() => {
+  try {
+    return JSON.parse(decodeURIComponent("%%BAP_AI_CONFIG%%"));
+  } catch (e) {
+    return {};
+  }
+})();
+
 export const CONSTANT = {
   APP_NAME: "%%BAP_APP_NAME%%",
   APP_VERSION: "%%BAP_APP_VERSION%%",
@@ -86,6 +94,29 @@ export const CONSTANT = {
       TITLE: "Correo electrónico",
       URL: "%%BAP_EMAIL%%",
     }
+  },
+  AI: {
+    API_KEY: "%%AI_API_KEY%%",
+    MODELS: rawAiConfig.models?.length
+      ? rawAiConfig.models
+      : (rawAiConfig.modelsBpmn?.length ? rawAiConfig.modelsBpmn : ["gemini-3.6-flash", "gemini-2.5-flash", "gemini-2.0-flash"]),
+    MODELS_BPMN: rawAiConfig.modelsBpmn?.length ? rawAiConfig.modelsBpmn : ["gemini-3.6-flash", "gemini-2.5-flash", "gemini-2.0-flash"],
+    MODELS_STORIES: rawAiConfig.modelsStories?.length ? rawAiConfig.modelsStories : ["gemini-3.6-flash", "gemini-2.5-flash", "gemini-2.0-flash"],
+    TEMPERATURE: rawAiConfig.temperature ?? 0.1,
+    MAJOR_CHANGE_THRESHOLD: rawAiConfig.majorChangeThreshold ?? 0.3,
+    SYSTEM_INSTRUCTION: rawAiConfig.instructions?.default || rawAiConfig.systemInstruction || "",
+    SYSTEM_INSTRUCTION_BPMN: rawAiConfig.instructions?.bpmn || "",
+    SYSTEM_INSTRUCTION_STORIES_METADATA: rawAiConfig.instructions?.storiesMetadata || "",
+    PROMPT_STORIES_METADATA: rawAiConfig.prompts?.storiesMetadata || "",
+    SYSTEM_INSTRUCTION_STORIES_DETAILS: rawAiConfig.instructions?.storiesDetails || "",
+    PROMPT_STORIES_DETAILS: rawAiConfig.prompts?.storiesDetails || "",
+    SYSTEM_INSTRUCTION_STORIES_BATCH: rawAiConfig.instructions?.storiesBatch || "",
+    PROMPT_STORIES_BATCH: rawAiConfig.prompts?.storiesBatch || "",
+    SYSTEM_INSTRUCTION_STORIES_REFINE: rawAiConfig.instructions?.storiesRefine || "",
+    PROMPT_STORIES_REFINE: rawAiConfig.prompts?.storiesRefine || "",
+    INSTRUCTIONS: rawAiConfig.instructions || {},
+    PROMPTS: rawAiConfig.prompts || {},
+    CONFIG: rawAiConfig,
   },
 };
 

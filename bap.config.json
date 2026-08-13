@@ -24,7 +24,8 @@
         "coreAnalytics": "pages/core/analytics/index.html",
         "coreUtil": "pages/core/util/index.html",
         "coreGoogleDrive": "pages/core/googleDrive/index.html",
-        "coreMarkdown": "pages/core/markdown/index.html"
+        "coreMarkdown": "pages/core/markdown/index.html",
+        "coreAi": "pages/core/ai/index.html"
       },
       "components": {
         "bapFooter": "bap-footer/bap-footer.html",
@@ -151,6 +152,14 @@
       },
       "coreMarkdown": {
         "pathname": "/pages/core/markdown/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "coreAi": {
+        "pathname": "/pages/core/ai/",
         "component": null,
         "navigation": "REDIRECT",
         "validate": {
@@ -287,10 +296,16 @@
     "notificationTimeout": 4000
   },
   "ai": {
-    "models": [],
+    "models": [
+      "gemini-3.6-flash",
+      "gemini-2.5-flash",
+      "gemini-2.0-flash"
+    ],
     "temperature": 0.1,
     "majorChangeThreshold": 0.3,
-    "instructions": {},
+    "instructions": {
+      "default": "You are a helpful AI assistant integrated into a web application built with BaP Framework."
+    },
     "prompts": {}
   }
 }

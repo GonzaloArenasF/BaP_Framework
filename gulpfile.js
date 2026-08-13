@@ -46,6 +46,8 @@ function replaceEnvTokens() {
     "%%BAP_CUSTOM_EVENTS%%": JSON.stringify(bapConfig.analytics?.customEvents || {}),
     "%%BAP_APP_ROUTES%%": JSON.stringify(bapConfig.routes?.appRoutes || {}),
     "%%BAP_DB_ROUTES%%": JSON.stringify(bapConfig.routes?.realtimeDatabaseRoutes || {}),
+    "%%AI_API_KEY%%": firebaseEnv.AI_API_KEY || "",
+    "%%BAP_AI_CONFIG%%": encodeURIComponent(JSON.stringify(bapConfig.ai || {})),
   };
 
   return through.obj(function (file, enc, cb) {

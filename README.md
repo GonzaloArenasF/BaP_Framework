@@ -14,6 +14,7 @@ BaP Framework está optimizado para integrarse de forma nativa con los servicios
 *   **Auth**: Firebase Auth (autenticación segura con Google Identity).
 *   **Recaptcha**: Firebase AppCheck / Google Cloud reCAPTCHA (protección contra bots).
 *   **Google Drive API v3**: Servicio opcional para gestión de archivos y sincronización en la nube (configurable en `bap.config.json` -> `features.googleDrive`).
+*   **Google Gemini API (`ai.js`)**: Integración nativa para inteligencia artificial generativa con reintentos exponenciales y failover entre modelos (soporte exclusivo de Google Gemini por el momento).
 
 > [!IMPORTANT]
 > Para activar la integración, crea un proyecto en Firebase. Luego, copia el archivo `./.env.example` como `./.env.development` y `./.env.production` en la raíz del proyecto, completa las credenciales con los valores de tu proyecto Firebase y establece la variable `FIREBASE_AVAILABLE` en `true` o `false` según el entorno.

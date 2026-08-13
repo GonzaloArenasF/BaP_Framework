@@ -7,7 +7,7 @@ Este archivo contiene las directivas y restricciones globales no negociables par
 ## 🛡️ 1. Filosofía de Arquitectura y Stack Tecnológico
 * **Cero Frameworks Externos en el Cliente**: Se trabaja exclusivamente con **HTML5, CSS Vanilla y JavaScript Vanilla (puro)**.
 * **Sin Dependencias Pesadas**: No importar ni sugerir bibliotecas client-side pesadas (React, Vue, Angular, jQuery, Tailwind, Bootstrap, etc.).
-* **Servicios Integrados**: La integración nativa permitida y soportada es el ecosistema **Google Firebase** (Hosting, Auth, Realtime Database, Analytics, AppCheck/reCAPTCHA) y Google Drive API v3.
+* **Servicios Integrados**: La integración nativa permitida y soportada incluye el ecosistema **Google Firebase** (Hosting, Auth, Realtime Database, Analytics, AppCheck/reCAPTCHA), Google Drive API v3 y **Google Gemini API (`src/_main/ai.js`)** (con soporte exclusivo de Google Gemini por el momento).
 * **Límite de Capacidades**: El agente debe proponer soluciones strictly basadas en las capacidades nativas de BaP. Si una necesidad del usuario sobrepasa el alcance de BaP sin violar su arquitectura, se debe **informar explícitamente al desarrollador**.
 
 ---

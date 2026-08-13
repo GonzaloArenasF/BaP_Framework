@@ -104,6 +104,7 @@ export const esES = {
             util: "Herramientas estructurales y UUIDs criptográficamente fuertes.",
             googleDrive: "Integración desacoplada con Google Drive API v3 (gestión de carpetas y archivos).",
             markdown: "Parser local de Markdown para renderizar reportes y documentos.",
+            ai: "Motor genérico de IA (Google Gemini API) con reintentos exponenciales y conmutación de modelos (failover list).",
           },
           config: {
             title: "⚙️ Configuración Centralizada",
@@ -325,6 +326,10 @@ export const esES = {
         markdownDesc: "Parser local y ligero de Markdown a HTML sanitizado.",
         markdownFunctions: "parseMarkdown(), renderMarkdownToContainer()",
         markdownSynergy: "bap-dialog, simulador de migración, documentos de vistas.",
+
+        aiDesc: "Motor genérico de cliente para la API de Google Gemini (Soporte exclusivo actual).",
+        aiFunctions: "generateContent(), generateContentWithRetryAndFallback()",
+        aiSynergy: "bap.config.json (configuración de IA), constants.js (CONSTANT.AI).",
 
         i18nTitle: "Internacionalización y Diccionarios",
         i18nDescText: "La carpeta <code>./src/_main/i18n/</code> contiene los archivos de traducción. Las subpáginas o componentes pueden obtener las claves asíncronas llamando a <code>getI18nContent()</code>. La estructura del diccionario base se puede consultar en <code>./src/_main/i18n/es-ES.js</code>.",

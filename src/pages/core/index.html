@@ -54,6 +54,7 @@
           <a href="/pages/core/util/">util.js</a>
           <a href="/pages/core/googleDrive/">googleDrive.js</a>
           <a href="/pages/core/markdown/">markdown.js</a>
+          <a href="/pages/core/ai/">ai.js (Google Gemini)</a>
         </div>
         <a href="/pages/components/">{page.cross.sidebar.components}</a>
         <a href="/pages/pages/">{page.cross.sidebar.pages}</a>
@@ -287,6 +288,12 @@ const htmlOutput = parseMarkdown("# Reporte de Estado\n- Todo funcionando.");</c
             <td>{page.core.body.markdownDesc}</td>
             <td><code>{page.core.body.markdownFunctions}</code></td>
             <td>{page.core.body.markdownSynergy}</td>
+          </tr>
+          <tr>
+            <td><strong><a href="/pages/core/ai/"><code>ai.js</code></a></strong></td>
+            <td>{page.core.body.aiDesc}</td>
+            <td><code>{page.core.body.aiFunctions}</code></td>
+            <td>{page.core.body.aiSynergy}</td>
           </tr>
         </tbody>
       </table>
