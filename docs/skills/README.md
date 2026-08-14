@@ -34,6 +34,8 @@ Siguiendo la arquitectura de información de BaP Framework, la documentación de
 | **`bap-component-integration`** | Integración de componentes core `bap-*` | [`src/_components/README.md`](../../src/_components/README.md) | [`/pages/components/`](../../src/pages/components/index.html) |
 | **`bap-build-and-deploy`** | Pruebas, build con Gulp y despliegue a Firebase | [`README.md` (root)](../../README.md) | [`/pages/build/`](../../src/pages/build/index.html) |
 | **`bap-security-auditor`** | Auditoría contra el modelo de seguridad | [`SECURITY.md`](../../SECURITY.md) | [`/pages/core/`](../../src/pages/core/index.html) |
+| **`bap-ai-integration`** | Integración de módulos Gemini AI | [`src/_main/README.md`](../../src/_main/README.md) | [`/pages/core/ai/`](../../src/pages/core/ai/index.html) |
+| **`bap-migration-orchestrator`** | Orquestación de migración de 8 etapas | [`docs/upgrades/ai-migration-plan.md`](../../docs/upgrades/ai-migration-plan.md) | [`/pages/migration/`](../../src/pages/migration/index.html) |
 
 ---
 

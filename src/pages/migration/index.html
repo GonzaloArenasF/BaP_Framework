@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="{lang}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="description" content="{page.migration.head.meta.description}" />
+  <meta name="keywords" content="{page.migration.head.meta.keywords}" />
+
+  <meta property="og:title" content="{page.migration.head.meta.title}" />
+  <meta property="og:description" content="{page.migration.head.meta.description}" />
+  <meta property="og:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
+  <meta property="og:url" content="{ENV_URL}/pages/migration/" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{page.migration.head.meta.title}" />
+  <meta name="twitter:description" content="{page.migration.head.meta.description}" />
+  <meta name="twitter:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
+
+  <link rel="canonical" href="{ENV_URL}/pages/migration/" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/site.webmanifest" />
+
+  <script type="module" src="index.js?v={APP_VERSION}"></script>
+
+  <title>{page.migration.head.title}</title>
+</head>
+
+<body class="light-mode">
+  <header>
+    <bap-header></bap-header>
+  </header>
+
+  <main class="docs-main">
+    <aside class="docs-sidebar">
+      <nav aria-label="Navegación de migración">
+        <h4>{page.cross.sidebar.title}</h4>
+        <a href="/">{page.cross.sidebar.back}</a>
+        <a href="/pages/cdn/">{page.cross.sidebar.cdn}</a>
+        <a href="/pages/core/">{page.cross.sidebar.core}</a>
+        <a href="/pages/components/">{page.cross.sidebar.components}</a>
+        <a href="/pages/pages/">{page.cross.sidebar.pages}</a>
+        <a href="/pages/style/">{page.cross.sidebar.style}</a>
+        <a href="/pages/test/">{page.cross.sidebar.test}</a>
+        <a href="/pages/build/">{page.cross.sidebar.build}</a>
+        <a href="/pages/migration/" class="active">{page.cross.sidebar.migration}</a>
+      </nav>
+    </aside>
+
+    <article class="docs-content">
+      <h2>{page.migration.body.title}</h2>
+      <p class="lead-desc">{page.migration.body.desc}</p>
+
+      <!-- Requisito Previo Fundamental -->
+      <section class="prereq-card">
+        <div class="prereq-header">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+            <line x1="12" y1="9" x2="12" y2="13"/>
+            <line x1="12" y1="17" x2="12.01" y2="17"/>
+          </svg>
+          <h3>{page.migration.body.prerequisitesTitle}</h3>
+        </div>
+        <p>{page.migration.body.prerequisitesNotice}</p>
+        <div class="prereq-boxes">
+          <div class="prereq-box">
+            <strong>1. Repositorio Origen (BaP_Framework)</strong>
+            <span>Acceso al framework v2.6.0 como plantilla base limpia.</span>
+          </div>
+          <div class="prereq-box">
+            <strong>2. Repositorio Destino (Proyecto Legacy)</strong>
+            <span>Acceso de escritura para crear la rama de migración e inyectar el código.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fusión No Destructiva de .agents/ -->
+      <section class="agents-fusion-section">
+        <h3>🤖 Fusión No Destructiva de Directivas & Skills (.agents/)</h3>
+        <p>A partir de la versión v2.6.0, el proceso de migración garantiza la integridad de las reglas y habilidades personalizadas del proyecto destino:</p>
+        <ul class="fusion-list">
+          <li><strong>Habilidades Executables (.agents/skills/):</strong> Se copian las habilidades oficiales <code>bap-*</code> (como <code>bap-migration-orchestrator</code>) sin sobrescribir ni eliminar las skills creadas previamente por el desarrollador.</li>
+          <li><strong>Reglas de Desarrollo (.agents/AGENTS.md):</strong> Si el proyecto destino ya cuenta con sus propias reglas, se conservan intactas y se integran las normas de BaP bajo la sección <code>## Directivas del Framework BaP (v2.6.0)</code>.</li>
+        </ul>
+      </section>
+
+      <!-- Protocolo de 8 Etapas -->
+      <section>
+        <h3>{page.migration.body.stagesTitle}</h3>
+
+        <div class="migration-grid">
+          <div class="stage-card">
+            <span class="stage-badge">Etapa 1</span>
+            <h4>{page.migration.body.stage1Title}</h4>
+            <p>{page.migration.body.stage1Desc}</p>
+          </div>
+
+          <div class="stage-card">
+            <span class="stage-badge">Etapa 2</span>
+            <h4>{page.migration.body.stage2Title}</h4>
+            <p>{page.migration.body.stage2Desc}</p>
+          </div>
+
+          <div class="stage-card">
+            <span class="stage-badge">Etapa 3</span>
+            <h4>{page.migration.body.stage3Title}</h4>
+            <p>{page.migration.body.stage3Desc}</p>
+          </div>
+
+          <div class="stage-card">
+            <span class="stage-badge">Etapa 4</span>
+            <h4>{page.migration.body.stage4Title}</h4>
+            <p>{page.migration.body.stage4Desc}</p>
+          </div>
+
+          <div class="stage-card">
+            <span class="stage-badge">Etapa 5</span>
+            <h4>{page.migration.body.stage5Title}</h4>
+            <p>{page.migration.body.stage5Desc}</p>
+          </div>
+
+          <div class="stage-card">
+            <span class="stage-badge">Etapa 6</span>
+            <h4>{page.migration.body.stage6Title}</h4>
+            <p>{page.migration.body.stage6Desc}</p>
+          </div>
+
+          <div class="stage-card">
+            <span class="stage-badge">Etapa 7</span>
+            <h4>{page.migration.body.stage7Title}</h4>
+            <p>{page.migration.body.stage7Desc}</p>
+          </div>
+
+          <div class="stage-card">
+            <span class="stage-badge">Etapa 8</span>
+            <h4>{page.migration.body.stage8Title}</h4>
+            <p>{page.migration.body.stage8Desc}</p>
+          </div>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <footer id="footerPage">
+    <bap-footer></bap-footer>
+  </footer>
+</body>
+
+</html>

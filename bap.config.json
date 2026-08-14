@@ -1,8 +1,8 @@
 {
   "app": {
     "name": "BaP Framework",
-    "version": "v2.6.0",
-    "currentBapVersion": "v2.6.0",
+    "version": "v2.6.1",
+    "currentBapVersion": "v2.6.1",
     "socialMedia": {
       "email": "gonzaloarenasf+bap-framework@gmail.com"
     }
@@ -25,7 +25,9 @@
         "coreUtil": "pages/core/util/index.html",
         "coreGoogleDrive": "pages/core/googleDrive/index.html",
         "coreMarkdown": "pages/core/markdown/index.html",
-        "coreAi": "pages/core/ai/index.html"
+        "coreAi": "pages/core/ai/index.html",
+        "config": "pages/config/index.html",
+        "migration": "pages/migration/index.html"
       },
       "components": {
         "bapFooter": "bap-footer/bap-footer.html",
@@ -64,6 +66,14 @@
       },
       "core": {
         "pathname": "/pages/core/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
+      "config": {
+        "pathname": "/pages/config/",
         "component": null,
         "navigation": "REDIRECT",
         "validate": {
@@ -214,6 +224,14 @@
           "signIn": false
         }
       },
+      "migration": {
+        "pathname": "/pages/migration/",
+        "component": null,
+        "navigation": "REDIRECT",
+        "validate": {
+          "signIn": false
+        }
+      },
       "error404": {
         "pathname": "/404.html",
         "component": null,
@@ -246,6 +264,12 @@
         "type": "enter_page",
         "name": "enter_core_page",
         "func": "core_page",
+        "userType": "User"
+      },
+      "enterConfigPage": {
+        "type": "enter_page",
+        "name": "enter_config_page",
+        "func": "config_page",
         "userType": "User"
       },
       "enterComponentsPage": {
@@ -282,6 +306,12 @@
         "type": "enter_page",
         "name": "enter_migrator_page",
         "func": "migrator_page",
+        "userType": "User"
+      },
+      "enterMigrationPage": {
+        "type": "enter_page",
+        "name": "enter_migration_page",
+        "func": "migration_page",
         "userType": "User"
       },
       "pageNotFound": {
