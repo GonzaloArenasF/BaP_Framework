@@ -63,11 +63,13 @@
           <h4>{page.cross.sidebar.title}</h4>
           <a href="/pages/cdn/">📁 {page.cross.sidebar.cdn}</a>
           <a href="/pages/core/">📁 {page.cross.sidebar.core}</a>
+          <a href="/pages/config/">📁 {page.cross.sidebar.config}</a>
           <a href="/pages/components/">📁 {page.cross.sidebar.components}</a>
           <a href="/pages/pages/">📁 {page.cross.sidebar.pages}</a>
           <a href="/pages/style/">📁 {page.cross.sidebar.style}</a>
           <a href="/pages/test/">📁 {page.cross.sidebar.test}</a>
           <a href="/pages/build/">📁 {page.cross.sidebar.build}</a>
+          <a href="/pages/migration/">📁 {page.cross.sidebar.migration}</a>
         </nav>
       </aside>
 
@@ -75,11 +77,10 @@
       <div class="docs-content">
 
         <!-- Pilares del Core -->
-        <section>
-      <h2>{landing.body.core.sectionTitle}</h2>
-      <div class="bap-grid">
-        <div class="bap-card">
-          <div>
+        <section class="core-pillars">
+          <h2>{landing.body.core.sectionTitle}</h2>
+
+          <article class="core-article">
             <h3>{landing.body.core.modules.title}</h3>
             <p>{landing.body.core.modules.description}</p>
             <ul>
@@ -95,14 +96,12 @@
               <li><strong>googleDrive.js:</strong> {landing.body.core.modules.googleDrive}</li>
               <li><strong>markdown.js:</strong> {landing.body.core.modules.markdown}</li>
             </ul>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/core/" class="as-btn">Ver Módulos del Core</a>
-          </div>
-        </div>
+            <div class="core-article-footer">
+              <a href="/pages/core/" class="as-btn">Ver Módulos del Core</a>
+            </div>
+          </article>
 
-        <div class="bap-card">
-          <div>
+          <article class="core-article">
             <h3>{landing.body.core.config.title}</h3>
             <p>{landing.body.core.config.description}</p>
             <ul>
@@ -111,14 +110,12 @@
               <li><strong>Telemetría:</strong> {landing.body.core.config.telemetry}</li>
               <li><strong>Componentes:</strong> {landing.body.core.config.components}</li>
             </ul>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/pages/" class="as-btn">Ver Estructura de Páginas</a>
-          </div>
-        </div>
+            <div class="core-article-footer">
+              <a href="/pages/config/" class="as-btn">Ver Configuración Centralizada (bap.config.json)</a>
+            </div>
+          </article>
 
-        <div class="bap-card">
-          <div>
+          <article class="core-article">
             <h3>{landing.body.core.firebase.title}</h3>
             <p>{landing.body.core.firebase.description}</p>
             <ul>
@@ -128,14 +125,12 @@
               <li><strong>Analytics:</strong> {landing.body.core.firebase.analytics}</li>
               <li><strong>App Check:</strong> {landing.body.core.firebase.appCheck}</li>
             </ul>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/cdn/" class="as-btn">Ver Despliegue & CDN</a>
-          </div>
-        </div>
+            <div class="core-article-footer">
+              <a href="/pages/cdn/" class="as-btn">Ver Despliegue & CDN</a>
+            </div>
+          </article>
 
-        <div class="bap-card">
-          <div>
+          <article class="core-article">
             <h3>{landing.body.core.gulp.title}</h3>
             <p>{landing.body.core.gulp.description}</p>
             <ul>
@@ -144,14 +139,12 @@
               <li><strong>Inyección:</strong> {landing.body.core.gulp.injection}</li>
               <li><strong>Distribución:</strong> {landing.body.core.gulp.distribution}</li>
             </ul>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/pages/#compilacion" class="as-btn">Ver Compilación Gulp</a>
-          </div>
-        </div>
+            <div class="core-article-footer">
+              <a href="/pages/pages/#compilacion" class="as-btn">Ver Compilación Gulp</a>
+            </div>
+          </article>
 
-        <div class="bap-card">
-          <div>
+          <article class="core-article">
             <h3>{landing.body.core.security.title}</h3>
             <p>{landing.body.core.security.description}</p>
             <ul>
@@ -160,14 +153,12 @@
               <li><strong>UUIDs Fuertes:</strong> {landing.body.core.security.uuids}</li>
               <li><strong>Cabeceras de Red:</strong> {landing.body.core.security.headers}</li>
             </ul>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/core/" class="as-btn">Ver Criptografía & Seguridad</a>
-          </div>
-        </div>
+            <div class="core-article-footer">
+              <a href="/pages/core/" class="as-btn">Ver Criptografía & Seguridad</a>
+            </div>
+          </article>
 
-        <div class="bap-card">
-          <div>
+          <article class="core-article">
             <h3>{landing.body.core.testing.title}</h3>
             <p>{landing.body.core.testing.description}</p>
             <ul>
@@ -176,100 +167,11 @@
               <li><strong>Mocks:</strong> {landing.body.core.testing.mocks}</li>
               <li><strong>Cobertura:</strong> {landing.body.core.testing.coverage}</li>
             </ul>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/test/" class="as-btn">Ver Pruebas de Integración</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Documentación Interactiva -->
-    <section>
-      <h2>{landing.body.docs.sectionTitle}</h2>
-      <p class="section-desc">
-        {landing.body.docs.sectionDescription}
-      </p>
-      
-      <div class="bap-grid">
-        <!-- Card 1: Hosting CDN -->
-        <div class="bap-card">
-          <div>
-            <h3>📁 {landing.body.docs.cdn.title}</h3>
-            <p>{landing.body.docs.cdn.description}</p>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/cdn/" class="as-btn">{landing.body.docs.cdn.btn}</a>
-          </div>
-        </div>
-
-        <!-- Card 2: Core & Módulos -->
-        <div class="bap-card">
-          <div>
-            <h3>📁 {landing.body.docs.core.title}</h3>
-            <p>{landing.body.docs.core.description}</p>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/core/" class="as-btn">{landing.body.docs.core.btn}</a>
-          </div>
-        </div>
-
-        <!-- Card 3: Custom Components -->
-        <div class="bap-card">
-          <div>
-            <h3>📁 {landing.body.docs.components.title}</h3>
-            <p>{landing.body.docs.components.description}</p>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/components/" class="as-btn">{landing.body.docs.components.btn}</a>
-          </div>
-        </div>
-
-        <!-- Card 4: Páginas y Subpáginas -->
-        <div class="bap-card">
-          <div>
-            <h3>📁 {landing.body.docs.pages.title}</h3>
-            <p>{landing.body.docs.pages.description}</p>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/pages/" class="as-btn">{landing.body.docs.pages.btn}</a>
-          </div>
-        </div>
-
-        <!-- Card 5: Diseño & CSS -->
-        <div class="bap-card">
-          <div>
-            <h3>📁 {landing.body.docs.style.title}</h3>
-            <p>{landing.body.docs.style.description}</p>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/style/" class="as-btn">{landing.body.docs.style.btn}</a>
-          </div>
-        </div>
-
-        <!-- Card 6: Suite de Pruebas -->
-        <div class="bap-card">
-          <div>
-            <h3>📁 {landing.body.docs.test.title}</h3>
-            <p>{landing.body.docs.test.description}</p>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/test/" class="as-btn">{landing.body.docs.test.btn}</a>
-          </div>
-        </div>
-
-        <!-- Card 7: Ciclo de Desarrollo -->
-        <div class="bap-card">
-          <div>
-            <h3>📁 {page.cross.sidebar.build}</h3>
-            <p>{landing.body.docs.build.description}</p>
-          </div>
-          <div class="bap-card-footer">
-            <a href="/pages/build/" class="as-btn">{landing.body.docs.build.btn}</a>
-          </div>
-        </div>
-      </div>
-    </section>
+            <div class="core-article-footer">
+              <a href="/pages/test/" class="as-btn">Ver Pruebas de Integración</a>
+            </div>
+          </article>
+        </section>
       </div>
     </div>
   </main>

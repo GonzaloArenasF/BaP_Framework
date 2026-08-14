@@ -1,0 +1,29 @@
+@import url(../../style/main.css);
+
+.code-box {
+  background: rgba(15, 23, 42, 0.9);
+  border: 1px solid rgba(98, 174, 196, 0.25);
+  border-radius: 8px;
+  margin: 1rem 0 2rem 0;
+  overflow: hidden;
+}
+
+.code-box-header {
+  background: rgba(30, 41, 59, 0.8);
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-family: monospace;
+  color: #94a3b8;
+  border-bottom: 1px solid rgba(98, 174, 196, 0.15);
+}
+
+.code-box pre {
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  color: #e2e8f0;
+  line-height: 1.5;
+}
+

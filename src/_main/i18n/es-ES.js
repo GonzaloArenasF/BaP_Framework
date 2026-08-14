@@ -49,11 +49,13 @@ export const esES = {
         back: "← Volver al Inicio",
         cdn: "Despliegue & CDN",
         core: "Core & Módulos",
+        config: "Configuración (bap.config.json)",
         components: "Componentes Web",
         pages: "Páginas y Subpáginas",
         style: "Diseño & CSS",
         test: "Suite de Pruebas",
         build: "Ciclo de Desarrollo",
+        migration: "Migración proyectos legacy",
       },
     },
     notFound: {
@@ -186,6 +188,11 @@ export const esES = {
             description: "Scripts de terminal para pruebas unitarias, modo watch, servidor local y despliegue.",
             btn: "Ver Scripts de Terminal",
           },
+          migration: {
+            title: "Proceso de Migración de proyectos legacy",
+            description: "Guía oficial y protocolo estandarizado de 8 etapas para actualizar proyectos legacy a BaP v2.6.0.",
+            btn: "Ver Protocolo de Migración",
+          },
         },
         sidebar: {
           navTitle: "Índice de Documentación",
@@ -197,6 +204,44 @@ export const esES = {
           statusInactive: "Inactivo",
         },
       },
+    },
+    config: {
+      head: {
+        title: "BaP Docs - Configuración Centralizada (bap.config.json)",
+        meta: {
+          title: "BaP Docs - Configuración Centralizada (bap.config.json)",
+          description: "Documentación completa de la fuente de verdad unificada bap.config.json de BaP Framework con ejemplos por sección y estructura JSON completa.",
+          keywords: "bap.config.json, Configuración, Arquitectura, Rutas, Telemetría, Feature Flags, Gulp",
+        }
+      },
+      body: {
+        title: "⚙️ Configuración Centralizada (bap.config.json)",
+        desc: "El archivo <code>bap.config.json</code> es la <strong>única fuente de verdad (Single Source of Truth)</strong> de una aplicación construida sobre BaP Framework. Contiene toda la arquitectura declarativa de la aplicación y es inyectado en memoria por Gulp durante el proceso de compilación.",
+        calloutTitle: "💡 Principio de Arquitectura sin Código Hardcodeado:",
+        calloutDesc: "Ningún componente o módulo de BaP debe contener URLs, rutas o eventos declarados directamente en código cliente. Toda variación estructural se especifica en <code>bap.config.json</code> para garantizar mantenibilidad y fácil migración.",
+        appTitle: "1. Objeto `app` — Identidad y Metadatos",
+        appDesc: "Declara el nombre público del sistema, versión activa del desarrollo, versión compatible del motor BaP Framework y canales de contacto o redes sociales.",
+        appCode: "{\n  \"app\": {\n    \"name\": \"Mi Aplicación BaP\",\n    \"version\": \"v1.0.0\",\n    \"currentBapVersion\": \"v2.6.0\",\n    \"socialMedia\": {\n      \"email\": \"soporte@ejemplo.com\"\n    }\n  }\n}",
+        buildTitle: "2. Objeto `build` — Pipeline de Compilación y Procesamiento i18n",
+        buildDesc: "Define el directorio de código fuente (<code>src</code>), directorio de distribución compilado (<code>public</code>) y la lista de archivos HTML (páginas y componentes) que requieren reemplazo automatizado de tokens de i18n y variables de entorno.",
+        buildCode: "{\n  \"build\": {\n    \"srcDir\": \"src\",\n    \"outDir\": \"public\",\n    \"i18nItemsToProcess\": {\n      \"pages\": {\n        \"index\": \"index.html\",\n        \"notFound\": \"404.html\"\n      },\n      \"components\": {\n        \"bapFooter\": \"bap-footer/bap-footer.html\",\n        \"bapHeader\": \"bap-header/bap-header.html\"\n      }\n    }\n  }\n}",
+        featuresTitle: "3. Objeto `features` — Feature Flags Integradas",
+        featuresDesc: "Permite encender o apagar integraciones nativas del framework (Firebase, reCAPTCHA, Google Drive API) sin modificar el código fuente.",
+        featuresCode: "{\n  \"features\": {\n    \"useFirebase\": true,\n    \"useRecaptcha\": true,\n    \"googleDrive\": {\n      \"enabled\": false,\n      \"defaultFolderName\": \"Documentos App\",\n      \"scopes\": [\n        \"https://www.googleapis.com/auth/drive.file\"\n      ]\n    }\n  }\n}",
+        routesTitle: "4. Objeto `routes` — Matriz Declarativa de Ruteo",
+        routesDesc: "Registra cada ruta pública en <code>appRoutes</code> especificando su <code>pathname</code>, estrategia de navegación (<code>REDIRECT</code> o <code>loadComponent</code>) y reglas de validación de autenticación (<code>signIn: false/true</code>).",
+        routesCode: "{\n  \"routes\": {\n    \"appRoutes\": {\n      \"landing\": {\n        \"pathname\": \"/\",\n        \"component\": null,\n        \"navigation\": \"REDIRECT\",\n        \"validate\": { \"signIn\": false }\n      },\n      \"dashboard\": {\n        \"pathname\": \"/pages/dashboard/\",\n        \"component\": null,\n        \"navigation\": \"REDIRECT\",\n        \"validate\": { \"signIn\": true }\n      }\n    },\n    \"realtimeDatabaseRoutes\": {\n      \"usersWhitelist\": \"/allowed_users\"\n    }\n  }\n}",
+        analyticsTitle: "5. Objeto `analytics` — Generación de Telemetría",
+        analyticsDesc: "Define la taxonomía unificada de eventos en <code>customEvents</code>. Durante la compilación, Gulp transforma estos objetos en métodos ejecutables fuertemente invocados a través de <code>analytic.logEvent.<nombre_evento>()</code>.",
+        analyticsCode: "{\n  \"analytics\": {\n    \"trackPageViews\": true,\n    \"customEvents\": {\n      \"enterLandingPage\": {\n        \"type\": \"enter_page\",\n        \"name\": \"enter_landing_page\",\n        \"func\": \"landing_page\",\n        \"userType\": \"User\"\n      }\n    }\n  }\n}",
+        fullJsonTitle: "6. Estructura Completa Oficial de `bap.config.json`",
+        fullJsonDesc: "A continuación se presenta un ejemplo completo y funcional del archivo <code>bap.config.json</code> listo para producción:",
+        fullJsonCode: "{\n  \"app\": {\n    \"name\": \"BaP Framework\",\n    \"version\": \"v2.6.0\",\n    \"currentBapVersion\": \"v2.6.0\",\n    \"socialMedia\": {\n      \"email\": \"gonzaloarenasf+bap-framework@gmail.com\"\n    }\n  },\n  \"build\": {\n    \"srcDir\": \"src\",\n    \"outDir\": \"public\",\n    \"i18nItemsToProcess\": {\n      \"pages\": {\n        \"index\": \"index.html\",\n        \"notFound\": \"404.html\",\n        \"config\": \"pages/config/index.html\"\n      },\n      \"components\": {\n        \"bapFooter\": \"bap-footer/bap-footer.html\",\n        \"bapHeader\": \"bap-header/bap-header.html\"\n      }\n    }\n  },\n  \"features\": {\n    \"useFirebase\": true,\n    \"useRecaptcha\": true,\n    \"googleDrive\": {\n      \"enabled\": false,\n      \"defaultFolderName\": \"BaP Framework Documents\",\n      \"scopes\": [\n        \"https://www.googleapis.com/auth/drive.file\"\n      ]\n    }\n  },\n  \"routes\": {\n    \"appRoutes\": {\n      \"landing\": {\n        \"pathname\": \"/\",\n        \"component\": null,\n        \"navigation\": \"REDIRECT\",\n        \"validate\": { \"signIn\": false }\n      },\n      \"config\": {\n        \"pathname\": \"/pages/config/\",\n        \"component\": null,\n        \"navigation\": \"REDIRECT\",\n        \"validate\": { \"signIn\": false }\n      }\n    },\n    \"realtimeDatabaseRoutes\": {\n      \"usersWhitelist\": \"/allowed_users\"\n    }\n  },\n  \"analytics\": {\n    \"trackPageViews\": true,\n    \"customEvents\": {\n      \"enterLandingPage\": {\n        \"type\": \"enter_page\",\n        \"name\": \"enter_landing_page\",\n        \"func\": \"landing_page\",\n        \"userType\": \"User\"\n      },\n      \"enterConfigPage\": {\n        \"type\": \"enter_page\",\n        \"name\": \"enter_config_page\",\n        \"func\": \"config_page\",\n        \"userType\": \"User\"\n      }\n    }\n  }\n}",
+        summaryTitle: "Resumen de Beneficios de la Configuración Centralizada",
+        summary1: "<strong>Inyección segura:</strong> Variables de entorno y rutas se validan en tiempo de compilación.",
+        summary2: "<strong>Desacoplamiento total:</strong> Los componentes y páginas se autodescubren sin alterar el núcleo `src/_main/`.",
+        summary3: "<strong>Cero duplicación:</strong> Las rutas y eventos se declaran una sola vez y se propagan automáticamente al cliente."
+      }
     },
     cdn: {
       head: {
@@ -589,6 +634,39 @@ export const esES = {
         skillDesc: "La habilidad ejecutable <code>.agents/skills/bap-build-and-deploy/</code> automatiza el ciclo de testing en Vitest, compilación/ofuscación en Gulp y <strong>solicita siempre la confirmación humana explícita antes de ejecutar el despliegue a producción</strong>.",
         skillExamples: "Prompts de Ejemplo: \"Prepara el build y despliega la aplicación a producción\" o \"Ejecuta los tests unitarios y optimiza para producción\"",
       }
+    },
+    migration: {
+      head: {
+        title: "Proceso de migración de proyectos legacy",
+        meta: {
+          title: "Proceso de migración de proyectos legacy",
+          description: "Guía oficial y protocolo de migración asistida por IA para actualizar proyectos legacy a BaP Framework v2.6.0.",
+          keywords: "Migración, BaP Framework, Protocolo, Agentes IA, Skills, Legacy Upgrade, v2.6.0",
+        },
+      },
+      body: {
+        title: "Proceso de migración de proyectos legacy asistida por IA (v2.6.0)",
+        desc: "Protocolo estandarizado de 8 etapas secuenciales para actualizar proyectos legacy hacia BaP Framework v2.6.0 utilizando agentes de IA y la habilidad ejecutable bap-migration-orchestrator.",
+        prerequisitesTitle: "Requisito Previo Fundamental de Espacios de Trabajo",
+        prerequisitesNotice: "Para que el agente de IA pueda ejecutar la migración automatizada, es IMPRESCINDIBLE que el entorno del asistente cuente con acceso de lectura/escritura (workspace) a ambos repositorios simultáneamente: el proyecto origen (BaP_Framework) y el proyecto destino (proyecto legacy).",
+        stagesTitle: "Protocolo Oficial de 8 Etapas",
+        stage1Title: "Etapa 1: Aislamiento y Respaldo Legacy",
+        stage1Desc: "Creación de rama aislada refactor/bap-migration-ia y respaldo completo en /legacy-temp dejando la raíz limpia.",
+        stage2Title: "Etapa 2: Copia e Instalación Limpia de BaP + Fusión .agents/",
+        stage2Desc: "Instalación de la base limpia de BaP v2.6.0 con Fusión No Destructiva del directorio .agents/ (skills bap-* y anexado de AGENTS.md).",
+        stage3Title: "Etapa 3: Depuración del Boilerplate",
+        stage3Desc: "Remoción de páginas demo (src/pages/*, /pages/core/*, /pages/migrator/*), estilos base y dependencias obsoletas en package.json.",
+        stage4Title: "Etapa 4: Inventario y Declaración de Configuración",
+        stage4Desc: "Parametrización de bap.config.json, variables .env, firebase.json, rutas dbRoutes y eventos de analítica.",
+        stage5Title: "Etapa 5: Reconstrucción e Inyección de Recursos",
+        stage5Desc: "Restauración de estilos, assets, componentes identitarios y refactorización de código legacy (props.id, replaceTokensInDOM, AES-GCM, Constants). Los servicios core (storage, googleDrive, markdown, ai) quedan disponibles para adopción libre.",
+        stage6Title: "Etapa 6: Prueba de Compilación y Calidad",
+        stage6Desc: "Ejecución de npm install y npm run optimize (Gulp build) asegurando resolución del 100% de tokens i18n.",
+        stage7Title: "Etapa 7: Generación de Pruebas Unitarias",
+        stage7Desc: "Diseño de suite de pruebas con Vitest + JSDOM y mocking genérico de dependencias de red/CDN.",
+        stage8Title: "Etapa 8: Estabilización y Limpieza Final",
+        stage8Desc: "Remoción permanente de legacy-temp/, actualización del README.md original y entrega local.",
+      },
     },
     migrator: {
       head: {

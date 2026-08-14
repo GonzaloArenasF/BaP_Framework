@@ -109,13 +109,53 @@ main {
   /* Ensure padding doesn't overflow */
 }
 
+/* Core Vertical Articles */
+.core-article {
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.core-article h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: var(--accent-color, #62aec4);
+  border-bottom: 1px solid rgba(98, 174, 196, 0.1);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.core-article p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.core-article ul {
+  padding-left: 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.core-article ul li {
+  margin-bottom: 0.4rem;
+}
+
+.core-article-footer {
+  margin-top: 1rem;
+}
+
+.core-article-footer .as-btn {
+  font-size: 0.9rem;
+  padding: 0.55rem 1.2rem;
+}
+
 /* Spacing and layout for content sections */
 .docs-content section {
   margin-bottom: 4rem;
 }
 
 .docs-content section>h2 {
-  text-align: center;
   margin-bottom: 2.5rem;
   font-size: 2rem;
 }

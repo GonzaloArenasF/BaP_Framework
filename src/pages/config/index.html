@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="{lang}">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="description" content="{page.config.head.meta.description}" />
+  <meta name="keywords" content="{page.config.head.meta.keywords}" />
+
+  <meta property="og:title" content="{page.config.head.meta.title}" />
+  <meta property="og:description" content="{page.config.head.meta.description}" />
+  <meta property="og:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
+  <meta property="og:url" content="{ENV_URL}/pages/config/" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{page.config.head.meta.title}" />
+  <meta name="twitter:description" content="{page.config.head.meta.description}" />
+  <meta name="twitter:image" content="{CDN_URL}/commons/gonzaloarenasf-rrss-profile" />
+
+  <link rel="canonical" href="{ENV_URL}/pages/config/" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="icon" href="/assets/favicon.ico" type="image/x-icon" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+  <link rel="manifest" href="/assets/site.webmanifest" />
+
+  <script type="module" src="index.js?v={APP_VERSION}"></script>
+
+  <title>{page.config.head.title}</title>
+</head>
+
+<body class="light-mode">
+  <header>
+    <bap-header></bap-header>
+  </header>
+
+  <main class="docs-main">
+    <aside class="docs-sidebar">
+      <nav>
+        <h4>{page.cross.sidebar.title}</h4>
+        <a href="/">{page.cross.sidebar.back}</a>
+        <a href="/pages/cdn/">{page.cross.sidebar.cdn}</a>
+        <a href="/pages/core/">{page.cross.sidebar.core}</a>
+        <a href="/pages/config/" class="active">{page.cross.sidebar.config}</a>
+        <a href="/pages/components/">{page.cross.sidebar.components}</a>
+        <a href="/pages/pages/">{page.cross.sidebar.pages}</a>
+        <a href="/pages/style/">{page.cross.sidebar.style}</a>
+        <a href="/pages/test/">{page.cross.sidebar.test}</a>
+        <a href="/pages/build/">{page.cross.sidebar.build}</a>
+        <a href="/pages/migration/">{page.cross.sidebar.migration}</a>
+      </nav>
+    </aside>
+
+    <article class="docs-content">
+      <h2>{page.config.body.title}</h2>
+      <p>{page.config.body.desc}</p>
+
+      <div class="docs-callout">
+        <strong>{page.config.body.calloutTitle}</strong>
+        {page.config.body.calloutDesc}
+      </div>
+
+      <h3>{page.config.body.appTitle}</h3>
+      <p>{page.config.body.appDesc}</p>
+      <div class="code-box">
+        <div class="code-box-header">JSON — bap.config.json ("app")</div>
+        <pre><code>{page.config.body.appCode}</code></pre>
+      </div>
+
+      <h3>{page.config.body.buildTitle}</h3>
+      <p>{page.config.body.buildDesc}</p>
+      <div class="code-box">
+        <div class="code-box-header">JSON — bap.config.json ("build")</div>
+        <pre><code>{page.config.body.buildCode}</code></pre>
+      </div>
+
+      <h3>{page.config.body.featuresTitle}</h3>
+      <p>{page.config.body.featuresDesc}</p>
+      <div class="code-box">
+        <div class="code-box-header">JSON — bap.config.json ("features")</div>
+        <pre><code>{page.config.body.featuresCode}</code></pre>
+      </div>
+
+      <h3>{page.config.body.routesTitle}</h3>
+      <p>{page.config.body.routesDesc}</p>
+      <div class="code-box">
+        <div class="code-box-header">JSON — bap.config.json ("routes")</div>
+        <pre><code>{page.config.body.routesCode}</code></pre>
+      </div>
+
+      <h3>{page.config.body.analyticsTitle}</h3>
+      <p>{page.config.body.analyticsDesc}</p>
+      <div class="code-box">
+        <div class="code-box-header">JSON — bap.config.json ("analytics")</div>
+        <pre><code>{page.config.body.analyticsCode}</code></pre>
+      </div>
+
+      <h3>{page.config.body.fullJsonTitle}</h3>
+      <p>{page.config.body.fullJsonDesc}</p>
+      <div class="code-box">
+        <div class="code-box-header">JSON Completo — bap.config.json (Producción)</div>
+        <pre><code>{page.config.body.fullJsonCode}</code></pre>
+      </div>
+
+      <h3>{page.config.body.summaryTitle}</h3>
+      <ul>
+        <li>{page.config.body.summary1}</li>
+        <li>{page.config.body.summary2}</li>
+        <li>{page.config.body.summary3}</li>
+      </ul>
+    </article>
+  </main>
+
+  <footer>
+    <bap-footer></bap-footer>
+  </footer>
+</body>
+
+</html>
